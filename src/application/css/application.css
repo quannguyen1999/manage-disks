@@ -1,0 +1,125 @@
+/* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+.linear-grad
+{
+	-fx-background-color:#222326;
+}
+.btnLogin{
+	-fx-background-color: transparent ;
+	-fx-background-radius: 100px;
+	-fx-border-color: #cccccc;
+	-fx-border-radius:100%;
+}
+.btnPlay{
+	-fx-background-color: black;
+	-fx-border-color: black;
+}
+.btnLogin:hover{
+	-fx-background-color: #C3350B;
+}
+.btnExit
+{
+	-fx-background-color: transparent ;
+	-fx-background-radius: 100px;
+	-fx-border-color: #cccccc;
+	-fx-border-radius:100%;
+}
+.btnExit:hover
+{
+	-fx-background-color:#525153;
+}
+.btnSignIn{
+	-fx-background-color: transparent ;
+	-fx-background-radius: 100px;
+	-fx-border-color: #341234;
+	-fx-border-radius:100%;
+}
+.borderShadown
+{
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, -10, 0, 0);
+}
+.borderColor
+{
+	-fx-border-color: black;
+	-fx-border-radius:0%;
+}
+.imgShadow
+{
+	-fx-padding: 10;
+	-fx-background-color: firebrick;
+	
+}
+.scroll-pane > .viewport {
+   -fx-background-color: transparent;
+}
+
+
+.scroll-bar:horizontal .thumb {
+-fx-background-color:
+    black,
+    linear-gradient(to bottom, derive(black,30%), derive(black,30%)),
+    linear-gradient(to bottom, derive(black,30%), derive(black,30%));
+-fx-background-insets: 0, 0, 0;
+-fx-background-radius: 0.5em; /* makes sure this remains circular */
+}
+.scroll-bar:vertical .thumb {
+-fx-background-color:
+    black,
+    linear-gradient(to right, derive(black,30%), derive(black,30%)),
+    linear-gradient(to right, derive(black,30%), derive(black,30%));
+-fx-background-insets: 0, 0, 2;
+-fx-background-radius: 0.5em; /* makes sure this remains circular */
+}
+.accordion .titled-pane > *.content{
+    -fx-background-color: #212022 ;
+}
+.accordion .titled-pane .title {
+    -fx-background-color: #212022 ;
+}
+.btnMacExit
+{
+	-fx-background-color: #FF5F57 ;
+	-fx-background-radius: 100px;
+	-fx-border-color: #FF5F57;
+	-fx-border-radius:100%;
+}
+.btnMacExit:hover
+{
+	-fx-background-color: #950F10 ;
+	-fx-border-color: #950F10;
+	-fx-background-radius: 100px;
+	-fx-border-radius:100%;
+}
+.btnMacMin
+{
+	-fx-background-color: #FFC224 ;
+	-fx-background-radius: 100px;
+	-fx-border-color: #FFC224;
+	-fx-border-radius:100%;
+}
+.btnMacMax
+{
+	-fx-background-color: #1ACC2C ;
+	-fx-background-radius: 100px;
+	-fx-border-color: #1ACC2C;
+	-fx-border-radius:100%;
+}
+.imgGame{
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 50, 0, 0, 0);
+}
+.btnPlayOnSteam
+{
+	-fx-background-color: white ;
+	-fx-background-radius: 100px;
+	-fx-border-color: white;
+	-fx-border-radius:100%;
+}
+.text-area *.text {
+    -fx-text-alignment: center;
+}
+.sidebar-btn:hover{
+    -fx-background-color:  #FF2F1F;
+    -fx-background-radius: 0px;
+    -fx-text-fill: white;
+    -fx-border-color: yellow;
+    -fx-border-width: 0px 0px 0px 7px;
+}
