@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="125.0" prefWidth="330.0" style="-fx-background-color: #212022; -fx-effect: dropshadow(three-pass-box, gray, 20,0, 2, 5); -fx-border-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.AreYouSure">
+   <left>
+      <HBox prefHeight="93.0" prefWidth="24.0" style="-fx-background-color: #FFC224;" BorderPane.alignment="CENTER" />
+   </left>
+   <center>
+      <ImageView fitHeight="54.0" fitWidth="57.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+         <image>
+            <Image url="@../image/AreYouSure.png" />
+         </image>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+      </ImageView>
+   </center>
+   <right>
+      <VBox prefHeight="123.0" prefWidth="217.0" style="-fx-effect: dropshadow(three-pass-box, gray, 10,0, 0, 0);" BorderPane.alignment="CENTER">
+         <children>
+            <HBox prefHeight="35.0" prefWidth="223.0">
+               <children>
+                  <Label prefHeight="21.0" prefWidth="127.0" text="Are you sure ?" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets right="80.0" top="5.0" />
+                     </HBox.margin>
+                  </Label>
+                  <JFXButton onAction="#btnExit" prefHeight="21.0" prefWidth="22.0" styleClass="btnMacExit" stylesheets="@application.css" text="X" textFill="WHITE">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets top="5.0" />
+                     </HBox.margin>
+                  </JFXButton>
+               </children>
+            </HBox>
+            <JFXButton prefHeight="27.0" prefWidth="78.0" styleClass="btnLogin" stylesheets="@application.css" text="Yes" textFill="WHITE">
+               <VBox.margin>
+                  <Insets bottom="20.0" right="20.0" />
+               </VBox.margin>
+            </JFXButton>
+            <JFXButton prefHeight="27.0" prefWidth="78.0" styleClass="btnLogin" stylesheets="@application.css" text="No" textFill="WHITE" />
+         </children>
+      </VBox>
+   </right>
+</BorderPane>
