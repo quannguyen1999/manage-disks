@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="bd" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="928.0" prefWidth="1531.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.FormEmployee">
+   <top>
+      <VBox prefHeight="55.0" prefWidth="1531.0" style="-fx-background-color: #0E0C0E;" BorderPane.alignment="CENTER">
+         <children>
+            <BorderPane prefHeight="11.0" prefWidth="1531.0" style="-fx-background-color: black;">
+               <right>
+                  <HBox prefHeight="25.0" prefWidth="62.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
+                     <children>
+                        <Pane prefHeight="28.0" prefWidth="31.0">
+                           <children>
+                              <ImageView fitHeight="28.0" fitWidth="32.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../image/MiniumWindows.png" />
+                                 </image>
+                              </ImageView>
+                              <JFXButton layoutX="-2.0" layoutY="1.0" onAction="#btnHideWindow" prefHeight="25.0" prefWidth="32.0" />
+                           </children>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </Pane>
+                        <Pane prefHeight="28.0" prefWidth="31.0">
+                           <children>
+                              <ImageView fitHeight="28.0" fitWidth="32.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../image/CLoseWindows.png" />
+                                 </image>
+                              </ImageView>
+                              <JFXButton layoutX="-2.0" layoutY="1.0" onAction="#btnExit" prefHeight="25.0" prefWidth="32.0" />
+                           </children>
+                        </Pane>
+                     </children>
+                     <BorderPane.margin>
+                        <Insets top="5.0" />
+                     </BorderPane.margin>
+                  </HBox>
+               </right>
+               <center>
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="1423.0" style="-fx-background-color: black;" text="Manage discs" textFill="WHITE" BorderPane.alignment="CENTER">
+                     <font>
+                        <Font name="Arial Unicode MS" size="25.0" />
+                     </font>
+                  </Label>
+               </center>
+            </BorderPane>
+            <BorderPane prefHeight="32.0" prefWidth="1531.0" style="-fx-background-color: black;">
+               <left>
+                  <HBox prefHeight="25.0" prefWidth="1362.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
+                     <children>
+                        <JFXButton fx:id="btnChangePass" onAction="#btnClickChangePassword" />
+                        <JFXButton fx:id="btnForward" />
+                        <Accordion prefHeight="25.0" prefWidth="128.0" style="-fx-background-color: black;" />
+                     </children>
+                  </HBox>
+               </left>
+               <right>
+                  <HBox prefHeight="25.0" prefWidth="170.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <HBox prefHeight="25.0" prefWidth="183.0">
+                           <children>
+                              <JFXButton fx:id="btnHelp" onAction="#clickBtnHelp" prefHeight="25.0" prefWidth="57.0" />
+                              <JFXButton fx:id="btnUser" />
+                              <JFXButton fx:id="btnLogOut" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </HBox>
+               </right>
+            </BorderPane>
+         </children>
+      </VBox>
+   </top>
+   <center>
+      <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <Pane fx:id="pnlCustomer" prefHeight="762.0" prefWidth="1531.0" style="-fx-background-color: #212022;">
+               <children>
+                  <BorderPane layoutY="-2.0" prefHeight="764.0" prefWidth="1534.0">
+                     <top>
+                        <FlowPane prefHeight="772.0" prefWidth="1534.0">
+                           <children>
+                              <BorderPane prefHeight="765.0" prefWidth="1534.0">
+                                 <top>
+                                    <HBox prefHeight="78.0" prefWidth="1534.0" BorderPane.alignment="CENTER">
+                                       <children>
+                                          <Label prefHeight="30.0" prefWidth="104.0" text="List discs" textFill="#8a8888">
+                                             <font>
+                                                <Font name="System Bold" size="20.0" />
+                                             </font>
+                                          </Label>
+                                          <Accordion prefHeight="76.0" prefWidth="105.0" />
+                                          <Label prefHeight="17.0" prefWidth="873.0" />
+                                          <ComboBox fx:id="cbc" prefHeight="25.0" prefWidth="226.0">
+                                             <HBox.margin>
+                                                <Insets right="25.0" />
+                                             </HBox.margin>
+                                          </ComboBox>
+                                          <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="167.0" styleClass="btnLogin" stylesheets="@..\css\application.css" text="Reset" textFill="WHITE" />
+                                       </children>
+                                       <padding>
+                                          <Insets left="20.0" top="20.0" />
+                                       </padding>
+                                    </HBox>
+                                 </top>
+                                 <left>
+                                    <ScrollPane prefHeight="689.0" prefWidth="1352.0" style="-fx-border-color: #212022; -fx-background: #212022;" stylesheets="@..\css\application.css" BorderPane.alignment="CENTER">
+                                       <BorderPane.margin>
+                                          <Insets />
+                                       </BorderPane.margin>
+                                       <content>
+                                          <FlowPane fx:id="flowPane" prefHeight="685.0" prefWidth="1336.0" style="-fx-background: white;" />
+                                       </content>
+                                    </ScrollPane>
+                                 </left>
+                                 <right>
+                                    <VBox prefHeight="689.0" prefWidth="178.0" BorderPane.alignment="CENTER">
+                                       <children>
+                                          <Accordion fx:id="acc" prefHeight="674.0" prefWidth="169.0" style="-fx-background-color: #212022; -fx-border-color: #212022; -fx-box-border: #212022;">
+                                            <panes>
+                                              <TitledPane fx:id="til1" expanded="false" prefHeight="188.0" prefWidth="184.0" style="-fx-background-color: #212022; -fx-border-color: #212022;" styleClass="accordion" stylesheets="@..\css\application.css" text="Category game" textFill="WHITE" wrapText="true">
+                                                   <content>
+                                                      <ScrollPane>
+                                                         <content>
+                                                            <VBox fx:id="vboxCategoryGame" prefHeight="549.0" prefWidth="178.0" style="-fx-border-color: #212022; -fx-background-color: #212022;" />
+                                                         </content>
+                                                      </ScrollPane>
+                                                   </content>
+                                              </TitledPane>
+                                            </panes>
+                                             <VBox.margin>
+                                                <Insets left="-6.0" top="2.0" />
+                                             </VBox.margin>
+                                          </Accordion>
+                                       </children>
+                                    </VBox>
+                                 </right>
+                              </BorderPane>
+                           </children>
+                        </FlowPane>
+                     </top>
+                  </BorderPane>
+               </children>
+            </Pane>
+            <Pane fx:id="pnlDiscs" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #212022;">
+               <children>
+                  <BorderPane layoutX="104.0" layoutY="677.0" prefHeight="200.0" prefWidth="143.0" />
+                  <StackPane layoutX="967.0" layoutY="5.0" prefHeight="272.0" prefWidth="492.0">
+                     <children>
+                        <Pane fx:id="pnlBackVideoGame" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #212022;" />
+                        <Pane fx:id="pnlBackPictureGame" style="-fx-background-color: #212022;" />
+                     </children>
+                  </StackPane>
+                  <BorderPane layoutY="2.0" prefHeight="752.0" prefWidth="1531.0">
+                     <right>
+                        <VBox prefHeight="752.0" prefWidth="293.0" BorderPane.alignment="CENTER">
+                           <children>
+                              <JFXButton fx:id="btnAccount" prefHeight="85.0" prefWidth="300.0" styleClass="btnLogin" stylesheets="@../css/application.css" text="Manage accounts" textFill="WHITE">
+                                 <font>
+                                    <Font name="Calibri Light" size="20.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </VBox.margin>
+                              </JFXButton>
+                              <JFXButton fx:id="btnAccount1" prefHeight="85.0" prefWidth="300.0" styleClass="btnLogin" stylesheets="@../css/application.css" text="Manage accounts" textFill="WHITE">
+                                 <font>
+                                    <Font name="Calibri Light" size="20.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </VBox.margin>
+                              </JFXButton>
+                              <JFXButton fx:id="btnAccount2" prefHeight="85.0" prefWidth="300.0" styleClass="btnLogin" stylesheets="@../css/application.css" text="Manage accounts" textFill="WHITE">
+                                 <font>
+                                    <Font name="Calibri Light" size="20.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </VBox.margin>
+                              </JFXButton>
+                           </children>
+                        </VBox>
+                     </right>
+                     <center>
+                        <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                           <children>
+                              <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;">
+                                 <children>
+                                    <BorderPane fx:id="bdGame" prefHeight="752.0" prefWidth="1240.0">
+                                       <bottom>
+                                          <HBox fx:id="hboxGame" alignment="CENTER" prefHeight="69.0" prefWidth="1240.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
+                                             <children>
+                                                <Label text="Find customer : " textFill="WHITE">
+                                                   <font>
+                                                      <Font size="20.0" />
+                                                   </font>
+                                                </Label>
+                                                <TextField fx:id="txtSearchGame" prefHeight="33.0" prefWidth="232.0" promptText="find name game">
+                                                   <HBox.margin>
+                                                      <Insets left="20.0" right="20.0" />
+                                                   </HBox.margin>
+                                                </TextField>
+                                                <JFXButton prefHeight="35.0" prefWidth="192.0" styleClass="btnLogin" stylesheets="@../css/application.css" text="add new customer" textFill="WHITE">
+                                                   <font>
+                                                      <Font size="15.0" />
+                                                   </font>
+                                                   <HBox.margin>
+                                                      <Insets right="10.0" />
+                                                   </HBox.margin>
+                                                </JFXButton>
+                                                <JFXButton prefHeight="35.0" prefWidth="217.0" styleClass="btnLogin" stylesheets="@../css/application.css" text="delete customer" textFill="WHITE">
+                                                   <font>
+                                                      <Font size="15.0" />
+                                                   </font>
+                                                   <HBox.margin>
+                                                      <Insets right="15.0" />
+                                                   </HBox.margin>
+                                                </JFXButton>
+                                                <JFXButton prefHeight="35.0" prefWidth="225.0" styleClass="btnLogin" stylesheets="@../css/application.css" text="Reresh" textFill="WHITE">
+                                                   <font>
+                                                      <Font size="15.0" />
+                                                   </font>
+                                                </JFXButton>
+                                             </children>
+                                          </HBox>
+                                       </bottom>
+                                       <top>
+                                          <Label fx:id="lblCustomer" alignment="CENTER" prefHeight="86.0" prefWidth="1241.0" style="-fx-background-color: #FF8619;" text="Manage customers" BorderPane.alignment="CENTER">
+                                             <font>
+                                                <Font name="Calibri" size="26.0" />
+                                             </font>
+                                             <BorderPane.margin>
+                                                <Insets bottom="10.0" top="10.0" />
+                                             </BorderPane.margin>
+                                             <padding>
+                                                <Insets right="40.0" />
+                                             </padding>
+                                          </Label>
+                                       </top>
+                                    </BorderPane>
+                                 </children>
+                              </Pane>
+                           </children>
+                        </StackPane>
+                     </center>
+                  </BorderPane>
+               </children>
+            </Pane>
+         </children>
+      </StackPane>
+   </center>
+   <bottom>
+      <StackPane prefHeight="101.0" prefWidth="1531.0" BorderPane.alignment="CENTER">
+         <children>
+            <Pane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <HBox layoutX="-5.0" layoutY="-10.0" prefHeight="111.0" prefWidth="1539.0" style="-fx-background-color: black;">
+                     <children>
+                        <Pane prefHeight="111.0" prefWidth="270.0">
+                           <children>
+                              <ImageView fitHeight="27.0" fitWidth="72.0" layoutX="35.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/icons8_circled_menu_100px.png" />
+                                 </image>
+                              </ImageView>
+                              <JFXButton layoutX="35.0" layoutY="24.0" onAction="#btnClickCustomer" prefHeight="10.0" prefWidth="200.0" styleClass="btnLogin" stylesheets="@..\css\application.css" text="list customers" textFill="WHITE">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                                 </padding>
+                              </JFXButton>
+                           </children>
+                        </Pane>
+                        <Pane prefHeight="111.0" prefWidth="270.0">
+                           <children>
+                              <ImageView fitHeight="27.0" fitWidth="72.0" layoutX="35.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/icons8_circled_menu_100px.png" />
+                                 </image>
+                              </ImageView>
+                              <JFXButton layoutX="35.0" layoutY="24.0" onAction="#btnCLickDiscs" prefHeight="10.0" prefWidth="200.0" styleClass="btnLogin" stylesheets="@..\css\application.css" text="list discs" textFill="WHITE">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                                 </padding>
+                              </JFXButton>
+                           </children>
+                        </Pane>
+                     </children>
+                  </HBox>
+               </children>
+            </Pane>
+         </children>
+      </StackPane>
+   </bottom>
+</BorderPane>
