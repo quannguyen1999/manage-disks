@@ -30,7 +30,7 @@ import javafx.stage.StageStyle;
 public class FormAdmin extends DialogBox implements Initializable{
 
 	@FXML JFXButton btnAccount;
-	
+
 	@FXML JFXButton btnCategory;
 
 	@FXML JFXButton btnLogOut;
@@ -38,28 +38,36 @@ public class FormAdmin extends DialogBox implements Initializable{
 	@FXML JFXButton btnUser;
 
 	@FXML JFXButton btnHelp;
-	
+
 	@FXML JFXButton btnChangePass;
 
 	@FXML JFXButton btnProduct;
+	
+	@FXML JFXButton btnStatistical;
+	
+	@FXML JFXButton btnCustomer;
 
 	@FXML Pane pnlCategory;
 
 	@FXML Pane pnlProduct;
 
 	@FXML Pane pnlAccounts;
+	
+	@FXML Pane pnlCustomer;
+	
+	@FXML Pane pnlStatisical;
 
 	@FXML Pane pblAddCategoryGame;
 
 	@FXML Label lblAccount;
-	
+
 	@FXML Label lblProduct;
-	
+
 	@FXML Label lblCateGory;
-
-	private double xOffset=0;
-
-	private double YOffset=0;
+	
+	@FXML Label lblCustomer;
+	
+	@FXML Label lblStatisical;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -71,15 +79,30 @@ public class FormAdmin extends DialogBox implements Initializable{
 
 		//init color
 		btnProduct.setStyle("-fx-background-color:#FF8619");
-
 	}
 
+
+
 	public void btnClickChangePassword(ActionEvent e) throws IOException {
-		
+
 		changePassword(btnAccount);
+
+	}
+	
+	public void btnCLickManageStatistical(ActionEvent e) {
+		
+		refreshBtnColor();
+
+		btnStatistical.setStyle("-fx-background-color:#FF2926");
+
+		new BounceInDown(lblStatisical).play();
+
+		pnlStatisical.toFront();
 		
 	}
 	
+	
+
 	public void btnClickManageAccount(ActionEvent e) {
 
 		refreshBtnColor();
@@ -102,7 +125,7 @@ public class FormAdmin extends DialogBox implements Initializable{
 		pnlProduct.toFront();
 
 	}
-	
+
 	public void btnCLickManageCategories(ActionEvent e) {
 
 		refreshBtnColor();
@@ -114,16 +137,32 @@ public class FormAdmin extends DialogBox implements Initializable{
 		pnlCategory.toFront();
 
 	}
+	
+	public void btnClickCustomer(ActionEvent e) {
+
+		refreshBtnColor();
+
+		btnCustomer.setStyle("-fx-background-color:#FF2926");
+
+		new BounceInDown(lblCustomer).play();
+
+		pnlCustomer.toFront();
+
+	}
 
 	//refresh color btn manage to black
 	public void refreshBtnColor() {
 
+		btnStatistical.setStyle("-fx-background-color:black");
+		
+		btnCustomer.setStyle("-fx-background-color:black");
+		
 		btnAccount.setStyle("-fx-background-color:black");
 
 		btnProduct.setStyle("-fx-background-color:black");
 
 		btnCategory.setStyle("-fx-background-color:black");
-		
+
 	}
 
 	public void btnExit(ActionEvent e) throws IOException {
@@ -131,14 +170,12 @@ public class FormAdmin extends DialogBox implements Initializable{
 		System.exit(0);
 
 	}
-	
+
 	public void clickBtnHelp(ActionEvent e) throws IOException {
 
 		Help(btnAccount);
 
 	}
-	
-	
 
 	public void btnHideWindow(ActionEvent e) {
 
@@ -150,6 +187,8 @@ public class FormAdmin extends DialogBox implements Initializable{
 
 	@FXML
 	private void btnLogOut(ActionEvent e) throws MalformedURLException, IOException {
-		
+
+		logOut(btnLogOut, e);
+
 	}
 }

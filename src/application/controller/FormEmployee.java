@@ -72,6 +72,8 @@ public class FormEmployee extends DialogBox implements Initializable{
 	@FXML
 	private void btnLogOut(ActionEvent e) throws MalformedURLException, IOException {
 
+		logOut(btnLogOut,e);
+		
 	}
 
 	public void btnCLickDiscs(ActionEvent e) {

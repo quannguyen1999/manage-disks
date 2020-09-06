@@ -6,7 +6,10 @@ import java.util.ResourceBundle;
 import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
@@ -30,58 +33,63 @@ public class Login extends DialogBox implements Initializable {
 
 	public void login(ActionEvent e) throws IOException {
 
-		boolean resultTxtAcc=true;
-
-		boolean resultPass=true;
-
 		if(txtAcc.getText().trim().isEmpty()==true) {
 
 			System.out.println("Please enter username");
-			
-			resultTxtAcc=false;
-			
+
 			Error("Please enter username",btnLogin);
-			
+
 			return;
 		}
 
-		if(resultTxtAcc==true) {
-
-
-
-		}
 
 		if(txtPass.getText().trim().isEmpty()==true) {
 
 			System.out.println("Please enter pass");
-			
-			resultPass=false;
-		
+
 			Error("Please enter username",btnLogin);
-			
+
 			return;
 		}
 
-		if(resultPass==true) {
+		if(txtAcc.getText().toString().equals("admin") && txtPass.getText().toString().equals("123")) {
 
+			loadInterfaceAdmin(btnLogin,e);
 
-		}
-
-
-		if(resultTxtAcc==true && resultPass==true) {
-
-			if(txtPass.getText().toString().equals("123")) {
-
-				Success("success",btnLogin);
-
-			}else {
-				
-				Error("Password not correct",btnLogin);
-				
-			}
-
+		}else if(txtAcc.getText().toString().equals("employ") && txtPass.getText().toString().equals("123")){
+			
+			loadInterfaceEmploy(btnLogin,e);
+			
+		}else {
+			
+			Error("username don't exists", btnLogin);
+			
 		}
 
 	}
 	
+	public void loadInterfaceAdmin(JFXButton btn,ActionEvent e) throws IOException{
+
+		((Node)(e.getSource())).getScene().getWindow().hide(); 
+		
+		FXMLLoader loader= new FXMLLoader(getClass().getResource("../fxml/FormAdmin.fxml"));
+
+		Parent root=loader.load();
+
+		loadFXML(root,btn);
+
+	}
+	
+	public void loadInterfaceEmploy(JFXButton btn,ActionEvent e) throws IOException{
+
+		((Node)(e.getSource())).getScene().getWindow().hide(); 
+		
+		FXMLLoader loader= new FXMLLoader(getClass().getResource("../fxml/FormEmployee.fxml"));
+
+		Parent root=loader.load();
+
+		loadFXML(root,btn);
+
+	}
+
 }

@@ -22,7 +22,7 @@ public class Main extends Application {
 	public void start(Stage primaryStage) {
 		try {
 			//load file fxml
-			Parent root=(Parent) FXMLLoader.load(getClass().getResource("fxml/FormEmployee.fxml"));
+			Parent root=(Parent) FXMLLoader.load(getClass().getResource("fxml/Login.fxml"));
 			
 			//set move mouse
 			root.setOnMousePressed((MouseEvent event)->{
