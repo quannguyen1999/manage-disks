@@ -29,6 +29,7 @@ import javafx.stage.StageStyle;
 
 public class FormAdmin extends DialogBox implements Initializable{
 
+	//JFXButton
 	@FXML JFXButton btnAccount;
 
 	@FXML JFXButton btnCategory;
@@ -47,6 +48,7 @@ public class FormAdmin extends DialogBox implements Initializable{
 	
 	@FXML JFXButton btnCustomer;
 
+	//Pane
 	@FXML Pane pnlCategory;
 
 	@FXML Pane pnlProduct;
@@ -59,6 +61,7 @@ public class FormAdmin extends DialogBox implements Initializable{
 
 	@FXML Pane pblAddCategoryGame;
 
+	//Label
 	@FXML Label lblAccount;
 
 	@FXML Label lblProduct;
@@ -81,73 +84,54 @@ public class FormAdmin extends DialogBox implements Initializable{
 		btnProduct.setStyle("-fx-background-color:#FF8619");
 	}
 
-
-
 	public void btnClickChangePassword(ActionEvent e) throws IOException {
 
 		changePassword(btnAccount);
 
 	}
 	
+	//Click function manage
 	public void btnCLickManageStatistical(ActionEvent e) {
 		
-		refreshBtnColor();
-
-		btnStatistical.setStyle("-fx-background-color:#FF2926");
-
-		new BounceInDown(lblStatisical).play();
-
-		pnlStatisical.toFront();
+		changeCssManage(btnStatistical, lblStatisical, pnlStatisical);
 		
 	}
-	
-	
 
 	public void btnClickManageAccount(ActionEvent e) {
 
-		refreshBtnColor();
-
-		btnAccount.setStyle("-fx-background-color:#FF2926");
-
-		new BounceInDown(lblAccount).play();
-
-		pnlAccounts.toFront();
+		changeCssManage(btnAccount, lblAccount, pnlAccounts);
+		
 	}
 
 	public void btnClickManageProducts(ActionEvent e) {
 
-		refreshBtnColor();
-
-		btnProduct.setStyle("-fx-background-color:#FF2926");
-
-		new BounceInDown(lblProduct).play();
-
-		pnlProduct.toFront();
+		changeCssManage(btnProduct, lblProduct, pnlProduct);
 
 	}
 
 	public void btnCLickManageCategories(ActionEvent e) {
 
-		refreshBtnColor();
-
-		btnCategory.setStyle("-fx-background-color:#FF2926");
-
-		new BounceInDown(lblCateGory).play();
-
-		pnlCategory.toFront();
-
+		changeCssManage(btnCategory, lblCateGory, pnlCategory);
+		
 	}
 	
 	public void btnClickCustomer(ActionEvent e) {
 
+		changeCssManage(btnCustomer, lblCustomer, pnlCustomer);
+
+	}
+	
+	//change css manage
+	public void changeCssManage(JFXButton btn,Label lbl,Pane pnl) {
+		
 		refreshBtnColor();
 
-		btnCustomer.setStyle("-fx-background-color:#FF2926");
+		btn.setStyle("-fx-background-color:#FF2926");
 
-		new BounceInDown(lblCustomer).play();
+		new BounceInDown(lbl).play();
 
-		pnlCustomer.toFront();
-
+		pnl.toFront();
+		
 	}
 
 	//refresh color btn manage to black
@@ -166,9 +150,9 @@ public class FormAdmin extends DialogBox implements Initializable{
 	}
 
 	public void btnExit(ActionEvent e) throws IOException {
-
-		System.exit(0);
-
+		
+		areYouSure(btnLogOut);
+		
 	}
 
 	public void clickBtnHelp(ActionEvent e) throws IOException {

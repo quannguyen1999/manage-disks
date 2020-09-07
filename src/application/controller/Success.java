@@ -14,11 +14,12 @@ public class Success implements Initializable{
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
 		
 	}
 	
 	public void btnExit(ActionEvent e) {
+		
 		((Node)(e.getSource())).getScene().getWindow().hide(); 
+		
 	}
 }

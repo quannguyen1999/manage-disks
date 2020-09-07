@@ -24,7 +24,24 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 public class DialogBox  implements Initializable{
-
+	
+	static File currentDirFile = new File("");
+	static String helper = currentDirFile.getAbsolutePath();
+	
+	static final String loadError="../fxml/Error.fxml";
+	
+	static final String loadSuccess="../fxml/Success.fxml";
+	
+	static final String loadHelp="../fxml/Help.fxml";
+	
+	static final String loadChangePassword="../fxml/FormChangePassword.fxml";
+	
+	static final String loadAreYouSure="../fxml/AreYouSure.fxml";
+	
+	static final String loadLogin="file:////"+helper+"/src/application/fxml/Login.fxml";
+	
+	static final String loadTitlePng="file:////"+helper+"/src/application/image/title.png";
+	
 	private double xOffset=0;
 
 	private double YOffset=0;
@@ -36,7 +53,7 @@ public class DialogBox  implements Initializable{
 
 	//text to set for label, btn to declined user click windows first
 	public void Error(String text,JFXButton btnLogin) throws IOException {
-		FXMLLoader loader= new FXMLLoader(getClass().getResource("../fxml/Error.fxml"));
+		FXMLLoader loader= new FXMLLoader(getClass().getResource(loadError));
 
 		Parent root=loader.load();
 
@@ -49,7 +66,7 @@ public class DialogBox  implements Initializable{
 
 	//text to set for label
 	public void Success(String text,JFXButton btnLogin) throws IOException {
-		FXMLLoader loader= new FXMLLoader(getClass().getResource("../fxml/Success.fxml"));
+		FXMLLoader loader= new FXMLLoader(getClass().getResource(loadSuccess));
 
 		Parent root=loader.load();
 
@@ -62,7 +79,7 @@ public class DialogBox  implements Initializable{
 
 	public void Help(JFXButton btnLogin) throws IOException {
 
-		FXMLLoader loader= new FXMLLoader(getClass().getResource("../fxml/Help.fxml"));
+		FXMLLoader loader= new FXMLLoader(getClass().getResource(loadHelp));
 
 		Parent root=loader.load();
 
@@ -72,13 +89,48 @@ public class DialogBox  implements Initializable{
 
 	public void changePassword(JFXButton btn) throws IOException{
 
-		FXMLLoader loader= new FXMLLoader(getClass().getResource("../fxml/FormChangePassword.fxml"));
+		FXMLLoader loader= new FXMLLoader(getClass().getResource(loadChangePassword));
 
 		Parent root=loader.load();
 
 		loadFXML(root,btn);
 
 	}
+	
+
+	public void areYouSure(JFXButton btn) throws IOException{
+		FXMLLoader loader= new FXMLLoader(getClass().getResource(loadAreYouSure));
+		
+		Parent root=loader.load();
+		
+		AreYouSure ctlMain=loader.getController();
+		
+		new animatefx.animation.FadeIn(root).play();
+		
+		Stage stage=new Stage();
+		
+		stage.initOwner(btn.getScene().getWindow());
+		
+		stage.setScene(new Scene(root));
+		
+		stage.initStyle(StageStyle.UNDECORATED);
+		
+		stage.initModality(Modality.APPLICATION_MODAL);
+		
+		stage.show();
+		
+		stage.setOnHidden(efg->{
+		
+			if(ctlMain.result==true) {
+			
+				System.exit(0);
+			
+			}else {
+
+			}
+		});
+	}
+	
 
 	//load file FXML
 	public void loadFXML(Parent root,JFXButton btn) {
@@ -100,6 +152,8 @@ public class DialogBox  implements Initializable{
 		stage.setScene(new Scene(root));
 
 		stage.initStyle(StageStyle.UNDECORATED);
+		
+		stage.getIcons().add(new Image(loadTitlePng));
 
 		stage.initModality(Modality.APPLICATION_MODAL);
 
@@ -143,11 +197,7 @@ public class DialogBox  implements Initializable{
 		
 		((Node)(e.getSource())).getScene().getWindow().hide(); 
 		
-		File currentDirFile = new File("");
-		
-		String helper = currentDirFile.getAbsolutePath();
-		
-		root=(Parent) FXMLLoader.load(new URL("file:////"+helper+"/src/application/fxml/Login.fxml"));
+		root=(Parent) FXMLLoader.load(new URL(loadLogin));
 		
 		loadFXML(root,btn);
 		

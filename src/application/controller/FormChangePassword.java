@@ -23,10 +23,6 @@ public class FormChangePassword extends DialogBox implements Initializable{
 
 	@FXML JFXButton btnE;
 
-	private double xOffset=0;
-
-	private double YOffset=0;
-
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 

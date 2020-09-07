@@ -18,6 +18,8 @@ public class Error implements Initializable{
 	}
 	
 	public void btnExit(ActionEvent e) {
+		
 		((Node)(e.getSource())).getScene().getWindow().hide(); 
+	
 	}
 }

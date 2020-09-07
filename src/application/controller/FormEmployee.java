@@ -51,7 +51,7 @@ public class FormEmployee extends DialogBox implements Initializable{
 
 	public void btnExit(ActionEvent e) throws IOException {
 
-		System.exit(0);
+		areYouSure(btnLogOut);
 
 	}
 
