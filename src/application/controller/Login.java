@@ -2,9 +2,12 @@ package application.controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.EventObject;
 import java.util.ResourceBundle;
 import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -12,6 +15,8 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 
 public class Login extends DialogBox implements Initializable {
 
@@ -30,27 +35,36 @@ public class Login extends DialogBox implements Initializable {
 	public void btnExit(ActionEvent e) {
 		System.exit(0);
 	}
+	
+	public void handleKeyEvents(KeyEvent e) throws IOException {
+		if(e.getCode()==KeyCode.ENTER) {
+			
+			if(handleFieldLogin()==false) {
+				return;
+			};
+			
+			if(txtAcc.getText().toString().equals("admin") && txtPass.getText().toString().equals("123")) {
+
+				loadInterfaceAdmin(btnLogin,e);
+
+			}else if(txtAcc.getText().toString().equals("employ") && txtPass.getText().toString().equals("123")){
+				
+				loadInterfaceEmploy(btnLogin,e);
+				
+			}else {
+				
+				Error("username don't exists", btnLogin);
+				
+			}
+			
+		}
+	}
 
 	public void login(ActionEvent e) throws IOException {
 
-		if(txtAcc.getText().trim().isEmpty()==true) {
-
-			System.out.println("Please enter username");
-
-			Error("Please enter username",btnLogin);
-
+		if(handleFieldLogin()==false) {
 			return;
-		}
-
-
-		if(txtPass.getText().trim().isEmpty()==true) {
-
-			System.out.println("Please enter pass");
-
-			Error("Please enter username",btnLogin);
-
-			return;
-		}
+		};
 
 		if(txtAcc.getText().toString().equals("admin") && txtPass.getText().toString().equals("123")) {
 
@@ -68,9 +82,35 @@ public class Login extends DialogBox implements Initializable {
 
 	}
 	
-	public void loadInterfaceAdmin(JFXButton btn,ActionEvent e) throws IOException{
+	public boolean handleFieldLogin() throws IOException {
+		
+		if(txtAcc.getText().trim().isEmpty()==true) {
 
-		((Node)(e.getSource())).getScene().getWindow().hide(); 
+			System.out.println("Please enter username");
+
+			Error("Please enter username",btnLogin);
+
+			return false;
+		}
+
+
+		if(txtPass.getText().trim().isEmpty()==true) {
+
+			System.out.println("Please enter pass");
+
+			Error("Please enter username",btnLogin);
+
+			return false;
+		}
+		
+		return true;
+		
+	}
+	
+	
+	public <T> void loadInterfaceAdmin(JFXButton btn,T e) throws IOException{
+
+		((Node)(((EventObject) e).getSource())).getScene().getWindow().hide(); 
 		
 		FXMLLoader loader= new FXMLLoader(getClass().getResource("../fxml/FormAdmin.fxml"));
 
@@ -80,9 +120,9 @@ public class Login extends DialogBox implements Initializable {
 
 	}
 	
-	public void loadInterfaceEmploy(JFXButton btn,ActionEvent e) throws IOException{
+	public <T> void loadInterfaceEmploy(JFXButton btn,T e) throws IOException{
 
-		((Node)(e.getSource())).getScene().getWindow().hide(); 
+		((Node)(((EventObject) e).getSource())).getScene().getWindow().hide(); 
 		
 		FXMLLoader loader= new FXMLLoader(getClass().getResource("../fxml/FormEmployee.fxml"));
 

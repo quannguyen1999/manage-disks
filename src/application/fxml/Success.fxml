@@ -37,7 +37,7 @@
                         <Insets right="120.0" top="5.0" />
                      </HBox.margin>
                   </Label>
-                  <JFXButton onAction="#btnExit" prefHeight="21.0" prefWidth="22.0" styleClass="btnMacExit" stylesheets="@application.css" text="X" textFill="WHITE">
+                  <JFXButton onAction="#btnExit" onKeyPressed="#handleKeyEvents" prefHeight="21.0" prefWidth="22.0" styleClass="btnMacExit" stylesheets="@application.css" text="X" textFill="WHITE">
                      <font>
                         <Font size="14.0" />
                      </font>
