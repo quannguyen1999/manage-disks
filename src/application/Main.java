@@ -3,6 +3,7 @@ package application;
 import java.io.File;
 
 import animatefx.animation.FadeInUpBig;
+import application.controller.DAO.Connect;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
@@ -24,6 +25,8 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
+			
+			
 			//load file fxml
 			Parent root=(Parent) FXMLLoader.load(getClass().getResource("fxml/Login.fxml"));
 			
