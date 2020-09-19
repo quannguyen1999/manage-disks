@@ -28,7 +28,7 @@ public class Main extends Application {
 			
 			
 			//load file fxml
-			Parent root=(Parent) FXMLLoader.load(getClass().getResource("fxml/Login.fxml"));
+			Parent root=(Parent) FXMLLoader.load(getClass().getResource("fxml/LoginV2.fxml"));
 			
 			//set move mouse
 			root.setOnMousePressed((MouseEvent event)->{

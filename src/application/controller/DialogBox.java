@@ -38,7 +38,7 @@ public class DialogBox  implements Initializable{
 	
 	static final String loadAreYouSure="../fxml/AreYouSure.fxml";
 	
-	static final String loadLogin="file:////"+helper+"/src/application/fxml/Login.fxml";
+	static final String loadLogin="file:////"+helper+"/src/application/fxml/LoginV2.fxml";
 	
 	static final String loadTitlePng="file:////"+helper+"/src/application/image/title.png";
 	

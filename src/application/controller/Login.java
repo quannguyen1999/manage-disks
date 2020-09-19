@@ -5,6 +5,8 @@ import java.net.URL;
 import java.util.EventObject;
 import java.util.ResourceBundle;
 import com.jfoenix.controls.JFXButton;
+
+import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -15,21 +17,32 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import javafx.util.Duration;
 
 public class Login extends DialogBox implements Initializable {
 
-	@FXML 
-	TextField txtAcc;
+	@FXML StackPane pnlSign;
+	@FXML Pane pnlSignIn;
+	@FXML Pane pnlSignIn2;
+	@FXML Pane pnlSignOut;
+	@FXML Pane pnlSignOut2;
+	@FXML StackPane pnlFill;
+	
+	@FXML TextField txtAcc;
 
 	@FXML PasswordField txtPass;
 
 	@FXML JFXButton btnLogin;
 
+	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-
+		
 	}
 
 	public void btnExit(ActionEvent e) {
@@ -70,10 +83,6 @@ public class Login extends DialogBox implements Initializable {
 
 			loadInterfaceAdmin(btnLogin,e);
 
-		}else if(txtAcc.getText().toString().equals("employ") && txtPass.getText().toString().equals("123")){
-			
-			loadInterfaceEmploy(btnLogin,e);
-			
 		}else {
 			
 			Error("username don't exists", btnLogin);
@@ -82,7 +91,11 @@ public class Login extends DialogBox implements Initializable {
 
 	}
 	
-	public boolean handleFieldLogin() throws IOException {
+	public void enter(ActionEvent e) throws IOException {
+		loadInterfaceEmploy(btnLogin,e);
+	}
+	
+	private boolean handleFieldLogin() throws IOException {
 		
 		if(txtAcc.getText().trim().isEmpty()==true) {
 
@@ -105,6 +118,47 @@ public class Login extends DialogBox implements Initializable {
 		
 		return true;
 		
+	}
+	
+	public void clickSignOut(ActionEvent e) {
+		pnlSignOut.toFront();
+		pnlSignOut2.toFront();
+		
+		TranslateTransition slide=new TranslateTransition();
+		slide.setAutoReverse(true);
+		slide.setDuration(Duration.seconds(0.7));
+		slide.setNode(pnlFill);
+		slide.setToX(-644);
+		slide.play();
+
+		TranslateTransition slide2=new TranslateTransition();
+		slide2.setAutoReverse(true);
+		slide2.setDuration(Duration.seconds(0.7));
+		slide2.setNode(pnlSign);
+		slide2.setToX(322);
+		slide2.play();
+		
+		
+	}
+	
+	public void clickSignIn(ActionEvent e) {
+		pnlSignIn.toFront();
+		pnlSignIn2.toFront();
+		
+		TranslateTransition slide=new TranslateTransition();
+		slide.setAutoReverse(true);
+		slide.setDuration(Duration.seconds(0.7));
+		slide.setNode(pnlFill);
+		slide.setToX(0);
+		slide.play();
+
+		TranslateTransition slide2=new TranslateTransition();
+		slide2.setAutoReverse(true);
+		slide2.setDuration(Duration.seconds(0.7));
+		slide2.setNode(pnlSign);
+		slide2.setToX(0);
+		slide2.play();
+
 	}
 	
 	
