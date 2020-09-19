@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2020-09-19T09:52:31.379Z" agent="5.0 (X11)" etag="8QUCkecI_yvC5NEGTuXm" version="13.7.3" type="github">
+<mxfile host="app.diagrams.net" modified="2020-09-19T09:54:44.727Z" agent="5.0 (X11)" etag="q5IwyNJ9to10jQki833S" version="13.7.3" type="github">
   <diagram id="C5RBs43oDa-KdzZeNtuy" name="Page-1">
     <mxGraphModel dx="2249" dy="1899" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -165,6 +165,12 @@
         </mxCell>
         <mxCell id="HUHal7CJubi-LXtCCVxJ-30" value="Name:String" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="HUHal7CJubi-LXtCCVxJ-28" vertex="1">
           <mxGeometry y="52" width="160" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="3YXi7fwlqKHGW41oBB8G-26" value="Status::Boolean" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="HUHal7CJubi-LXtCCVxJ-28">
+          <mxGeometry y="78" width="160" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="3YXi7fwlqKHGW41oBB8G-27" value="CategoieId:Categories" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="HUHal7CJubi-LXtCCVxJ-28">
+          <mxGeometry y="104" width="160" height="26" as="geometry" />
         </mxCell>
         <mxCell id="HUHal7CJubi-LXtCCVxJ-88" value="1" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
           <mxGeometry x="780" y="-30" width="20" height="20" as="geometry" />
