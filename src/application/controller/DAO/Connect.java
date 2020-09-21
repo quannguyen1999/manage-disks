@@ -1,33 +1,15 @@
 package application.controller.DAO;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import javax.persistence.EntityManager;
+import javax.persistence.Persistence;
+
 public class Connect {
-	public static Connection conn;
+	private static EntityManager entityManager=null;
 	
-	public static void connect() {
-		try {
-			
-			conn = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databasename=manageDisks;useUnicode=yes&characterEncoding=UTF-8","sa","123");
-		
-		} catch (Exception e) {
-		
-			e.printStackTrace();
-		
+	public static EntityManager getEntityManager() {
+		if(entityManager==null) {
+			entityManager = Persistence.createEntityManagerFactory("manage-disks").createEntityManager();
 		}
-	
-	}
-	public static void disconnect() {
-		if(conn!=null) {
-			try {
-				conn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-	}
-	public static Connection getConnection() {
-		return conn;
+		return entityManager;
 	}
 }
