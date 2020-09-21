@@ -12,13 +12,17 @@ import animatefx.animation.BounceInLeft;
 import animatefx.animation.FadeInRight;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 public class FormEmployee extends DialogBox implements Initializable{
+	
 	@FXML JFXButton btnLogOut;
 
 	@FXML JFXButton btnUser;
@@ -32,6 +36,8 @@ public class FormEmployee extends DialogBox implements Initializable{
 	@FXML Pane pnlCustomer;
 
 	@FXML Label lblCustomer;
+	
+//	@FXML BorderPane bd;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -84,11 +90,15 @@ public class FormEmployee extends DialogBox implements Initializable{
 
 	}
 
-	public void btnClickCustomer(ActionEvent e) {
+	public void btnClickCustomer(ActionEvent e) throws IOException {
 		
-		new BounceInDown(lblCustomer).play();
-
-		pnlDiscs.toFront();
+		
+//		
+//		new BounceInDown(lblCustomer).play();
+//
+//		Parent root=(Parent) FXMLLoader.load(getClass().getResource("fxml/ManageCustomer.fxml"));
+//		
+//		bd.setCenter(root);
 
 	}
 

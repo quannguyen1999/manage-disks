@@ -28,6 +28,8 @@ public class DialogBox  implements Initializable{
 	static File currentDirFile = new File("");
 	static String helper = currentDirFile.getAbsolutePath();
 	
+	static final String loadFormAddCustomer="../fxml/FormAddCustomer.fxml";
+	
 	static final String loadError="../fxml/Error.fxml";
 	
 	static final String loadSuccess="../fxml/Success.fxml";
@@ -49,6 +51,14 @@ public class DialogBox  implements Initializable{
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
+	}
+	
+	public int ranDomNumber() {
+		  int min = 0;
+	      int max = 10000;
+	      System.out.println("Random value in int from "+min+" to "+max+ ":");
+	      int random_int = (int)(Math.random() * (max - min + 1) + min);
+	      return random_int;
 	}
 
 	//text to set for label, btn to declined user click windows first
@@ -133,7 +143,7 @@ public class DialogBox  implements Initializable{
 	
 
 	//load file FXML
-	public void loadFXML(Parent root,JFXButton btn) {
+	public Stage loadFXML(Parent root,JFXButton btn) {
 		Stage stage=new Stage();
 
 		root.setOnMousePressed((MouseEvent event)->{
@@ -158,6 +168,8 @@ public class DialogBox  implements Initializable{
 		stage.initModality(Modality.APPLICATION_MODAL);
 
 		stage.show();
+		
+		return stage;
 	}
 
 	//load image

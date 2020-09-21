@@ -25,8 +25,6 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			
-			
 			//load file fxml
 			Parent root=(Parent) FXMLLoader.load(getClass().getResource("fxml/LoginV2.fxml"));
 			

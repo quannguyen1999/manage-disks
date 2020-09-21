@@ -24,5 +24,10 @@ public class TestConnect {
 //		customerService.listCustomer().forEach(t->{
 //			System.out.println(t);
 //		});
+		
+		  int min = 0;
+	      int max = 1000;
+	      System.out.println("Random value in int from "+min+" to "+max+ ":");
+	      int random_int = (int)(Math.random() * (max - min + 1) + min);
 	}
 }
