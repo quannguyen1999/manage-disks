@@ -30,6 +30,8 @@ public class DialogBox  implements Initializable{
 	
 	static final String loadFormAddCustomer="../fxml/FormAddCustomer.fxml";
 	
+	static final String loadFormAddCategory="../fxml/FormAddCategory.fxml";
+	
 	static final String loadError="../fxml/Error.fxml";
 	
 	static final String loadSuccess="../fxml/Success.fxml";

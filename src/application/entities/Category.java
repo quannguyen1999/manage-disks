@@ -1,6 +1,5 @@
 package application.entities;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 
 import javax.persistence.Column;
@@ -8,43 +7,29 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-
 
 @Entity
-@Table(name = "Customer")
+@Table(name = "Category")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @ToString
-public class Customer implements Serializable{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-
+public class Category {
 	@Id
-	private String customerId;
+	private String categoryId;
 	
 	@Column(columnDefinition = "nvarchar(500)")
 	private String name;
 	
-	@Column(columnDefinition = "nvarchar(500)")
-	private String address;
+	@Column(columnDefinition = "nvarchar(1000)")
+	private String description;
 	
 	@Column
-	private String phone;
-	
-	@Column
-	private Boolean gender;
-	
-	@Column
-	private LocalDate dateOfBirth;
-	
-	
+	private float price;
 }

@@ -5,6 +5,10 @@
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
 	<persistence-unit name="manage-disks">
 		<class>application.entities.Customer</class>
+		<class>application.entities.Category</class>
+		<class>application.entities.Supplier</class>
+		<class>application.entities.Title</class>
+		<class>application.entities.Product</class>
 		<properties>
 			<property name="hibernate.generate_statistics" value="true" />
 			<property name="hibernate.dialect"

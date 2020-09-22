@@ -37,7 +37,7 @@ public class  CustomerImpl extends Repository implements CustomerService{
 
 	@Override
 	public List<Customer> listCustomer() {
-		List<Object> listObject=list(new Customer());
+		List<Object> listObject=list(new Customer(),Customer.class.getSimpleName().toString());
 		List<Customer> listCustomer=new ArrayList<>();
 		for(int i=0;i<listObject.size();i++) {
 			listCustomer.add((Customer)listObject.get(i));

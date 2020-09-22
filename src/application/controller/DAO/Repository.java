@@ -86,13 +86,13 @@ public class Repository {
 		return tFind;
 	}
 	
-	public static <T> List<Object> list(T t) {
+	public static <T> List<Object> list(T t,String nameClass) {
 		EntityTransaction transaction = null;
 		List<Object> accs=new ArrayList<>();
 		try {
 			transaction =  connect.getEntityManager().getTransaction();
 			transaction.begin();
-			accs= (List<Object>) connect.getEntityManager().createQuery("select s from "+Customer.class.getSimpleName().toString()+" s",t.getClass()).getResultList();
+			accs= (List<Object>) connect.getEntityManager().createQuery("select s from "+nameClass+" s",t.getClass()).getResultList();
 			transaction.commit();
 		} catch (Exception ex) {
 			if (transaction != null) {
