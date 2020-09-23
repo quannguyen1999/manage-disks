@@ -31,7 +31,6 @@ public class Title {
 	
 	private boolean status;
 	
-	
 	@ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	@JoinColumn(name = "categoryId")
 	private Category category;

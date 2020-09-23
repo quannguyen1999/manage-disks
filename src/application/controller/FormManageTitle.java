@@ -69,32 +69,46 @@ public class FormManageTitle extends DialogBox implements Initializable{
 				int result=tbl_view.getSelectionModel().getSelectedIndex();
 				if(result!=-1) {
 
-//					FXMLLoader loader= new FXMLLoader(getClass().getResource(loadFormAddTitle));
-//
-//					Parent root=null;
-//					try {
-//						root = loader.load();
-//					} catch (IOException e1) {
-//						e1.printStackTrace();
-//					}
-//
-//					FormAddTitle ctlMain=loader.getController();
-//
-//					ctlMain.lblTitle.setText("Cập nhập mặt hàng");
-//
-//					ctlMain.txtMa.setText(tbl_view.getItems().get(result).getTitleId());
-//
-//					ctlMain.txtName.setText(tbl_view.getItems().get(result).getName());
-//
-//					ctlMain.txtPrice.setText(String.valueOf(tbl_view.getItems().get(result).getPrice()));
-//
-//					ctlMain.txtDescription.setText(tbl_view.getItems().get(result).getDescription());
-//
-//					loadFXML(root,btnRefresh).setOnHidden(ev->{
-//
-//						handleRefersh(new ActionEvent());
-//
-//					});;
+					FXMLLoader loader= new FXMLLoader(getClass().getResource(loadFormAddTitle));
+
+					Parent root=null;
+					try {
+						root = loader.load();
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
+
+					FormAddTitle ctlMain=loader.getController();
+
+					ctlMain.lblTitle.setText("Cập nhập title");
+
+					ctlMain.txtMa.setText(tbl_view.getItems().get(result).getTitleId());
+
+					ctlMain.cbc.setValue(tbl_view.getItems().get(result).getCategory().getCategoryId());
+					
+					ctlMain.maCategoryRemember=tbl_view.getItems().get(result).getCategory().getCategoryId();
+					
+					ctlMain.txtNameTitle.setText(tbl_view.getItems().get(result).getName());
+					
+					boolean status=tbl_view.getItems().get(result).isStatus();
+					
+					ctlMain.txtNameCategory.setText(tbl_view.getItems().get(result).getCategory().getName());
+					
+					ctlMain.txtDescriptionCategory.setText(tbl_view.getItems().get(result).getCategory().getDescription());
+					
+					ctlMain.txtPriceCategory.setText(String.valueOf(tbl_view.getItems().get(result).getCategory().getPrice()));
+					
+					if(status==true) {
+						ctlMain.rdTrue.setSelected(true);
+					}else {
+						ctlMain.rdFalse.setSelected(true);
+					}
+					
+					loadFXML(root,btnRefresh).setOnHidden(ev->{
+
+						handleRefersh(new ActionEvent());
+
+					});;
 				}
 			}
 		});
@@ -197,27 +211,28 @@ public class FormManageTitle extends DialogBox implements Initializable{
 	}
 
 	public void btnClickAdd(ActionEvent e) throws IOException {
-//		FXMLLoader loader= new FXMLLoader(getClass().getResource(loadFormAddTitle));
-//
-//		Parent root=loader.load();
-//
-//		FormAddTitle ctlMain=loader.getController();
-//
-//		String id=null;
-//
-//		do {
-//
-//			id="C"+ranDomNumber();
-//
-//			ctlMain.txtMa.setText(id);
-//
-//		} while (TitleService.findTitleById(id)!=null);
-//
-//		loadFXML(root,btnRefresh).setOnHidden(ev->{
-//
-//			handleRefersh(e);
-//
-//		});;
+		FXMLLoader loader= new FXMLLoader(getClass().getResource(loadFormAddTitle));
+
+		Parent root=loader.load();
+
+		FormAddTitle ctlMain=loader.getController();
+
+		String id=null;
+
+		do {
+
+			id="C"+ranDomNumber();
+
+			ctlMain.txtMa.setText(id);
+			
+
+		} while (TitleService.findTitleById(id)!=null);
+
+		loadFXML(root,btnRefresh).setOnHidden(ev->{
+
+			handleRefersh(e);
+
+		});;
 
 
 	}
