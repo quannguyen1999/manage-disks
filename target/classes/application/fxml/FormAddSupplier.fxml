@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="mainBd" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="462.0" prefWidth="600.0" stylesheets="@../css/application.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.FormAddSupplier">
+   <center>
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER_RIGHT" prefHeight="31.0" prefWidth="600.0" style="-fx-background-color: rgb(23,35,51);" stylesheets="@../css/application.css">
+               <children>
+                  <JFXButton onAction="#btnCLoseWindow" text="X" textFill="WHITE">
+                     <font>
+                        <Font name="Calibri Light" size="18.0" />
+                     </font>
+                  </JFXButton>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="52.0" prefWidth="600.0">
+               <children>
+                  <Label fx:id="lblTitle" text="Thêm nhà cung cấp">
+                     <font>
+                        <Font name="Calibri Light" size="24.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets bottom="20.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox prefHeight="31.0" prefWidth="600.0">
+               <children>
+                  <Label prefHeight="27.0" prefWidth="616.0" text="Mã nhà cung cấp:">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="150.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox prefHeight="33.0" prefWidth="600.0">
+               <children>
+                  <JFXTextField fx:id="txtMa" prefHeight="25.0" prefWidth="278.0" style="-fx-prompt-text-fill: black; -fx-text-inner-color: black;">
+                     <HBox.margin>
+                        <Insets left="150.0" />
+                     </HBox.margin>
+                  </JFXTextField>
+               </children>
+            </HBox>
+            <HBox prefHeight="31.0" prefWidth="600.0">
+               <children>
+                  <Label prefHeight="27.0" prefWidth="616.0" text="Điện thoại">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="150.0" top="20.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox prefHeight="33.0" prefWidth="600.0">
+               <children>
+                  <JFXTextField fx:id="txtPhone" prefHeight="25.0" prefWidth="278.0" style="-fx-prompt-text-fill: black; -fx-text-inner-color: black;">
+                     <HBox.margin>
+                        <Insets left="150.0" />
+                     </HBox.margin>
+                  </JFXTextField>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="41.0" prefWidth="600.0">
+               <children>
+                  <Label prefHeight="27.0" prefWidth="616.0" text="Địa chỉ">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <padding>
+                        <Insets left="150.0" />
+                     </padding>
+                     <HBox.margin>
+                        <Insets top="20.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox prefHeight="40.0" prefWidth="600.0">
+               <children>
+                  <JFXTextField fx:id="txtAddress" prefHeight="25.0" prefWidth="278.0" style="-fx-prompt-text-fill: black; -fx-text-inner-color: black;" />
+               </children>
+               <padding>
+                  <Insets left="150.0" />
+               </padding>
+            </HBox>
+            <HBox prefHeight="34.0" prefWidth="600.0">
+               <children>
+                  <Label prefHeight="27.0" prefWidth="616.0" text="Tên công ty">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <padding>
+                        <Insets left="150.0" />
+                     </padding>
+                     <HBox.margin>
+                        <Insets top="20.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <JFXTextField fx:id="txtNameCompany" prefHeight="25.0" prefWidth="278.0" style="-fx-prompt-text-fill: black; -fx-text-inner-color: black;">
+                     <HBox.margin>
+                        <Insets left="150.0" />
+                     </HBox.margin>
+                  </JFXTextField>
+               </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <JFXButton onAction="#btnCLoseWindow" styleClass="btnLogin" stylesheets="@../css/application.css" text="Thoát">
+                     <font>
+                        <Font name="Calibri" size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="150.0" />
+                     </HBox.margin>
+                  </JFXButton>
+                  <JFXButton onAction="#CLickOK" prefHeight="36.0" prefWidth="72.0" styleClass="btnLogin" stylesheets="@../css/application.css" text="Ok">
+                     <font>
+                        <Font name="Calibri" size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="40.0" />
+                     </HBox.margin>
+                  </JFXButton>
+                  <JFXButton fx:id="btn" onAction="#btnXoaRong" prefHeight="36.0" prefWidth="109.0" styleClass="btnLogin" stylesheets="@../css/application.css" text="Xóa rỗng">
+                     <font>
+                        <Font name="Calibri" size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="30.0" />
+                     </HBox.margin>
+                  </JFXButton>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </center>
+</BorderPane>
