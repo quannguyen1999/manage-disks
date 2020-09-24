@@ -20,8 +20,13 @@ import application.entities.Title;
 public class TestConnect {
 	public static void main(String[] args) {
 		
-
-
+		
+		ProductService productService=new ProductImpl();
+		
+		productService.listProduct().forEach(t->{
+			System.out.println(t);
+		});
+		
 
 	}
 	
