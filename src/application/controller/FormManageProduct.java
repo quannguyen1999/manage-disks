@@ -220,27 +220,29 @@ public class FormManageProduct extends DialogBox implements Initializable{
 	}
 
 	public void btnClickAdd(ActionEvent e) throws IOException {
-//		FXMLLoader loader= new FXMLLoader(getClass().getResource(loadFormAddProduct));
-//
-//		Parent root=loader.load();
-//
-//		FormAddProduct ctlMain=loader.getController();
-//
-//		String id=null;
-//
-//		do {
-//
-//			id="C"+ranDomNumber();
-//
-//			ctlMain.txtMa.setText(id);
-//
-//		} while (ProductService.findProductById(id)!=null);
-//
-//		loadFXML(root,btnRefresh).setOnHidden(ev->{
-//
-//			handleRefersh(e);
-//
-//		});;
+		FXMLLoader loader= new FXMLLoader(getClass().getResource(loadFormAddProduct));
+
+		Parent root=loader.load();
+
+		FormAddProduct ctlMain=loader.getController();
+
+		String id=null;
+
+		do {
+
+			id="C"+ranDomNumber();
+
+			ctlMain.txtMa.setText(id);
+			
+			ctlMain.txtDateAdded.setValue(LocalDate.now());
+
+		} while (ProductService.findProductById(id)!=null);
+
+		loadFXML(root,btnRefresh).setOnHidden(ev->{
+
+			handleRefersh(e);
+
+		});;
 
 
 	}

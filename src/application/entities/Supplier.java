@@ -30,4 +30,11 @@ public class Supplier {
 	
 	@Column(columnDefinition = "nvarchar(500)")
 	private String companyName;
+
+	public Supplier(String supplierId) {
+		super();
+		this.supplierId = supplierId;
+	}
+	
+	
 }

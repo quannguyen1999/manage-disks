@@ -34,4 +34,11 @@ public class Title {
 	@ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	@JoinColumn(name = "categoryId")
 	private Category category;
+
+	public Title(String titleId) {
+		super();
+		this.titleId = titleId;
+	}
+	
+	
 }
