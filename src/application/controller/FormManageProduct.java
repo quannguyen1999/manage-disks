@@ -33,6 +33,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -73,33 +74,60 @@ public class FormManageProduct extends DialogBox implements Initializable{
 			if(e.getClickCount()==2) {
 				int result=tbl_view.getSelectionModel().getSelectedIndex();
 				if(result!=-1) {
-//
-//					FXMLLoader loader= new FXMLLoader(getClass().getResource(loadFormAddProduct));
-//
-//					Parent root=null;
-//					try {
-//						root = loader.load();
-//					} catch (IOException e1) {
-//						e1.printStackTrace();
-//					}
-//
-//					FormAddProduct ctlMain=loader.getController();
-//
-//					ctlMain.lblTitle.setText("Cập nhập mặt hàng");
-//
-//					ctlMain.txtMa.setText(tbl_view.getItems().get(result).getProductId());
-//
-//					ctlMain.txtName.setText(tbl_view.getItems().get(result).getName());
-//
-//					ctlMain.txtPrice.setText(String.valueOf(tbl_view.getItems().get(result).getPrice()));
-//
-//					ctlMain.txtDescription.setText(tbl_view.getItems().get(result).getDescription());
-//
-//					loadFXML(root,btnRefresh).setOnHidden(ev->{
-//
-//						handleRefersh(new ActionEvent());
-//
-//					});;
+
+					FXMLLoader loader= new FXMLLoader(getClass().getResource(loadFormAddProduct));
+
+					Parent root=null;
+					try {
+						root = loader.load();
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
+
+					FormAddProduct ctlMain=loader.getController();
+
+					ctlMain.lblTitle.setText("Cập nhập sản phẩm");
+
+					ctlMain.maProductRemember=tbl_view.getItems().get(result).getProductId();
+					
+					ctlMain.txtMa.setText(tbl_view.getItems().get(result).getProductId());
+					
+					ctlMain.txtName.setText(tbl_view.getItems().get(result).getName());
+					
+					ctlMain.txtQuantity.setText(String.valueOf(tbl_view.getItems().get(result).getQuantity()));
+					
+					ctlMain.txtDescription.setText(tbl_view.getItems().get(result).getDescription());
+					
+					ctlMain.txtStatus.setText(tbl_view.getItems().get(result).getStatus());
+					
+					ctlMain.txtDateAdded.setValue(tbl_view.getItems().get(result).getDateAdded());
+					
+					Image image = new Image("file:///"+tbl_view.getItems().get(result).getPicture());
+					ctlMain.img.setImage(image);
+					
+					ctlMain.txtImage.setText(tbl_view.getItems().get(result).getPicture());
+					
+					ctlMain.cbcSupplier.setValue(tbl_view.getItems().get(result).getSupplier().getSupplierId());
+					
+					ctlMain.txtPhoneSupplier.setText(tbl_view.getItems().get(result).getSupplier().getPhone());
+					
+					ctlMain.txtCompanySupplier.setText(tbl_view.getItems().get(result).getSupplier().getCompanyName());
+					
+					ctlMain.cbcTitle.setValue(tbl_view.getItems().get(result).getTitle().getTitleId());
+					
+					ctlMain.txtNameTitle.setText(tbl_view.getItems().get(result).getTitle().getName());
+					
+					if(tbl_view.getItems().get(result).getTitle().isStatus()==true) {
+						ctlMain.txtStatusTitle.setText("Hết hàng");
+					}else {
+						ctlMain.txtStatusTitle.setText("Còn hàng");
+					}
+
+					loadFXML(root,btnRefresh).setOnHidden(ev->{
+
+						handleRefersh(new ActionEvent());
+
+					});;
 				}
 			}
 		});

@@ -12,6 +12,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.controls.JFXTextField;
+import com.sun.javafx.webkit.ThemeClientImpl;
 
 import application.controller.impl.TitleImpl;
 import application.controller.impl.ProductImpl;
@@ -96,6 +97,9 @@ public class FormAddProduct extends DialogBox implements Initializable{
 		txtMa.setEditable(false);
 		
 		txtDateAdded.setEditable(false);
+		
+		txtDateAdded.setValue(LocalDate.now());
+		
 
 		txtPhoneSupplier.setEditable(false);
 
@@ -459,7 +463,7 @@ public class FormAddProduct extends DialogBox implements Initializable{
 		}
 		
 		if(stillContunite==true) {
-
+			
 
 			Product product2=new Product(ma, nameProduct,imageProduct,
 					Integer.parseInt(quantityProduct)	, descriptionProduct, statusProduct,
@@ -495,14 +499,19 @@ public class FormAddProduct extends DialogBox implements Initializable{
 		}
 	}
 	public void btnXoaRong(ActionEvent e) {
-		if(maProductRemember.isEmpty()==true) {
+		if(maProductRemember.isEmpty()==false) {
 			Product product=productService.findProductById(maProductRemember);
 			txtMa.setText(product.getProductId());
 			txtName.setText(product.getName());
 			txtQuantity.setText(String.valueOf(product.getQuantity()));
 			txtDescription.setText(product.getDescription());
 			txtStatus.setText(product.getStatus());
-			txtDateAdded.setValue(LocalDate.now());
+			txtDateAdded.setValue(product.getDateAdded());
+			
+			Image image = new Image("file:///"+product.getPicture());
+			img.setImage(image);
+			
+			
 			txtImage.setText(product.getPicture());
 			cbcSupplier.setValue(product.getSupplier().getSupplierId());
 			cbcTitle.setValue(product.getTitle().getTitleId());
@@ -515,14 +524,11 @@ public class FormAddProduct extends DialogBox implements Initializable{
 				txtStatusTitle.setText("Còn hàng");
 			}else {
 				txtStatusTitle.setText("Hết hàng");
-				
-				
 			}
-		
-			
-
 		}else {
-			
+			System.out.println();
+			Image image=new Image(getClass().getResource("../image/Login-2.jpg").toString());
+			img.setImage(image);
 			txtName.setText("");
 			txtQuantity.setText("");
 			txtDescription.setText("");

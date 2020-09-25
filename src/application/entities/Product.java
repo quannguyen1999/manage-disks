@@ -46,11 +46,11 @@ public class Product {
 	@Column
 	private LocalDate dateAdded;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToOne//( fetch = FetchType.LAZY)
 	@JoinColumn(name = "titleId")
 	private Title title;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToOne//(fetch = FetchType.LAZY)
 	@JoinColumn(name = "supplierId")
 	private Supplier supplier;
 
