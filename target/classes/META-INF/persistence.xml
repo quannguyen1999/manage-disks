@@ -9,6 +9,11 @@
 		<class>application.entities.Supplier</class>
 		<class>application.entities.Title</class>
 		<class>application.entities.Product</class>
+		<class>application.entities.Bill</class>
+		<class>application.entities.LateFee</class>
+		<class>application.entities.BillDetail</class>
+		<class>application.entities.Order</class>
+		<class>application.entities.OrderDetail</class>
 		<properties>
 			<property name="hibernate.generate_statistics" value="true" />
 			<property name="hibernate.dialect"
