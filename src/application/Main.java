@@ -26,7 +26,7 @@ public class Main extends Application {
 	public void start(Stage primaryStage) {
 		try {
 			//load file fxml
-			Parent root=(Parent) FXMLLoader.load(getClass().getResource("fxml/ManageProduct.fxml"));
+			Parent root=(Parent) FXMLLoader.load(getClass().getResource("fxml/ManageBill.fxml"));
 			
 			//set move mouse
 			root.setOnMousePressed((MouseEvent event)->{
