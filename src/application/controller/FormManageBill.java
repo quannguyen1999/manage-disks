@@ -200,27 +200,29 @@ public class FormManageBill extends DialogBox implements Initializable{
 	}
 
 	public void btnClickAdd(ActionEvent e) throws IOException {
-//		FXMLLoader loader= new FXMLLoader(getClass().getResource(loadFormAddBill));
-//
-//		Parent root=loader.load();
-//
-//		FormAddBill ctlMain=loader.getController();
-//
-//		String id=null;
-//
-//		do {
-//
-//			id="C"+ranDomNumber();
-//
-//			ctlMain.txtMa.setText(id);
-//
-//		} while (BillService.findBillById(id)!=null);
-//
-//		loadFXML(root,btnRefresh).setOnHidden(ev->{
-//
-//			handleRefersh(e);
-//
-//		});;
+		FXMLLoader loader= new FXMLLoader(getClass().getResource(loadFormAddBill));
+
+		Parent root=loader.load();
+
+		FormAddBill ctlMain=loader.getController();
+
+		String id=null;
+
+		do {
+
+			id="C"+ranDomNumber();
+
+			ctlMain.txtBillMa.setText(id);
+			
+			ctlMain.txtBillDateOrder.setText(String.valueOf(LocalDate.now()));
+
+		} while (BillService.findBillById(id)!=null);
+
+		loadFXML(root,btnRefresh).setOnHidden(ev->{
+
+			handleRefersh(e);
+
+		});;
 
 
 	}
