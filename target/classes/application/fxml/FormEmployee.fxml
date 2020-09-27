@@ -7,7 +7,7 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -94,111 +94,6 @@
    <center>
       <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Pane fx:id="pnlDiscs" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #212022;">
-               <children>
-                  <BorderPane layoutX="104.0" layoutY="677.0" prefHeight="200.0" prefWidth="143.0" />
-                  <StackPane layoutX="967.0" layoutY="5.0" prefHeight="272.0" prefWidth="492.0">
-                     <children>
-                        <Pane fx:id="pnlBackVideoGame" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #212022;" />
-                        <Pane fx:id="pnlBackPictureGame" style="-fx-background-color: #212022;" />
-                     </children>
-                  </StackPane>
-                  <BorderPane layoutY="2.0" prefHeight="752.0" prefWidth="1531.0">
-                     <right>
-                        <VBox prefHeight="752.0" prefWidth="293.0" BorderPane.alignment="CENTER">
-                           <children>
-                              <JFXButton fx:id="btnAccount" prefHeight="85.0" prefWidth="300.0" styleClass="btnLogin" stylesheets="@../css/application.css" text="Manage accounts" textFill="WHITE">
-                                 <font>
-                                    <Font name="Calibri Light" size="20.0" />
-                                 </font>
-                                 <VBox.margin>
-                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                 </VBox.margin>
-                              </JFXButton>
-                              <JFXButton fx:id="btnAccount1" prefHeight="85.0" prefWidth="300.0" styleClass="btnLogin" stylesheets="@../css/application.css" text="Manage accounts" textFill="WHITE">
-                                 <font>
-                                    <Font name="Calibri Light" size="20.0" />
-                                 </font>
-                                 <VBox.margin>
-                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                 </VBox.margin>
-                              </JFXButton>
-                              <JFXButton fx:id="btnAccount2" prefHeight="85.0" prefWidth="300.0" styleClass="btnLogin" stylesheets="@../css/application.css" text="Manage accounts" textFill="WHITE">
-                                 <font>
-                                    <Font name="Calibri Light" size="20.0" />
-                                 </font>
-                                 <VBox.margin>
-                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                 </VBox.margin>
-                              </JFXButton>
-                           </children>
-                        </VBox>
-                     </right>
-                     <center>
-                        <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                           <children>
-                              <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;">
-                                 <children>
-                                    <BorderPane fx:id="bdGame" prefHeight="752.0" prefWidth="1240.0">
-                                       <bottom>
-                                          <HBox fx:id="hboxGame" alignment="CENTER" prefHeight="69.0" prefWidth="1240.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
-                                             <children>
-                                                <Label text="Find customer : " textFill="WHITE">
-                                                   <font>
-                                                      <Font size="20.0" />
-                                                   </font>
-                                                </Label>
-                                                <TextField fx:id="txtSearchGame" prefHeight="33.0" prefWidth="232.0" promptText="find name game">
-                                                   <HBox.margin>
-                                                      <Insets left="20.0" right="20.0" />
-                                                   </HBox.margin>
-                                                </TextField>
-                                                <JFXButton prefHeight="35.0" prefWidth="192.0" styleClass="btnLogin" stylesheets="@../css/application.css" text="add new customer" textFill="WHITE">
-                                                   <font>
-                                                      <Font size="15.0" />
-                                                   </font>
-                                                   <HBox.margin>
-                                                      <Insets right="10.0" />
-                                                   </HBox.margin>
-                                                </JFXButton>
-                                                <JFXButton prefHeight="35.0" prefWidth="217.0" styleClass="btnLogin" stylesheets="@../css/application.css" text="delete customer" textFill="WHITE">
-                                                   <font>
-                                                      <Font size="15.0" />
-                                                   </font>
-                                                   <HBox.margin>
-                                                      <Insets right="15.0" />
-                                                   </HBox.margin>
-                                                </JFXButton>
-                                                <JFXButton prefHeight="35.0" prefWidth="225.0" styleClass="btnLogin" stylesheets="@../css/application.css" text="Reresh" textFill="WHITE">
-                                                   <font>
-                                                      <Font size="15.0" />
-                                                   </font>
-                                                </JFXButton>
-                                             </children>
-                                          </HBox>
-                                       </bottom>
-                                       <top>
-                                          <Label fx:id="lblCustomer" alignment="CENTER" prefHeight="86.0" prefWidth="1241.0" style="-fx-background-color: #FF8619;" text="Manage customers" BorderPane.alignment="CENTER">
-                                             <font>
-                                                <Font name="Calibri" size="26.0" />
-                                             </font>
-                                             <BorderPane.margin>
-                                                <Insets bottom="10.0" top="10.0" />
-                                             </BorderPane.margin>
-                                             <padding>
-                                                <Insets right="40.0" />
-                                             </padding>
-                                          </Label>
-                                       </top>
-                                    </BorderPane>
-                                 </children>
-                              </Pane>
-                           </children>
-                        </StackPane>
-                     </center>
-                  </BorderPane>
-               </children>
-            </Pane>
             <Pane fx:id="pnlCustomer" prefHeight="762.0" prefWidth="1531.0" style="-fx-background-color: #212022;">
                <children>
                   <BorderPane layoutY="-2.0" prefHeight="764.0" prefWidth="1534.0">
@@ -264,6 +159,123 @@
                            </children>
                         </FlowPane>
                      </top>
+                  </BorderPane>
+               </children>
+            </Pane>
+            <Pane fx:id="pnlDiscs" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #212022;">
+               <children>
+                  <BorderPane layoutX="104.0" layoutY="677.0" prefHeight="200.0" prefWidth="143.0" />
+                  <StackPane layoutX="967.0" layoutY="5.0" prefHeight="272.0" prefWidth="492.0">
+                     <children>
+                        <Pane fx:id="pnlBackVideoGame" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #212022;" />
+                        <Pane fx:id="pnlBackPictureGame" style="-fx-background-color: #212022;" />
+                     </children>
+                  </StackPane>
+                  <BorderPane layoutY="2.0" prefHeight="752.0" prefWidth="1531.0">
+                     <right>
+                        <VBox prefHeight="697.0" prefWidth="293.0" BorderPane.alignment="CENTER">
+                           <children>
+                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="46.0" prefWidth="299.0" style="-fx-background-color: #212022;" text="Information customer" textFill="WHITE">
+                                 <font>
+                                    <Font size="25.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets top="25.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="26.0" prefWidth="239.0" style="-fx-background-color: #212022;" textFill="WHITE">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                     </right>
+                     <center>
+                        <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                           <children>
+                              <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;">
+                                 <children>
+                                    <BorderPane fx:id="bd" prefHeight="752.0" prefWidth="1240.0">
+                                       <bottom>
+                                          <HBox fx:id="hboxGame" alignment="CENTER" prefHeight="69.0" prefWidth="1240.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
+                                             <children>
+                                                <ComboBox fx:id="cbc" prefHeight="25.0" prefWidth="201.0">
+                                                   <HBox.margin>
+                                                      <Insets left="10.0" right="10.0" />
+                                                   </HBox.margin>
+                                                </ComboBox>
+                                                <JFXButton onAction="#findItemInTable" prefHeight="35.0" prefWidth="192.0" styleClass="btnLogin" stylesheets="@../css/application.css" text="Find By id" textFill="WHITE">
+                                                   <font>
+                                                      <Font size="15.0" />
+                                                   </font>
+                                                   <HBox.margin>
+                                                      <Insets right="10.0" />
+                                                   </HBox.margin>
+                                                </JFXButton>
+                                                <Separator orientation="VERTICAL" prefHeight="200.0" />
+                                                <ComboBox fx:id="cbcPhone" prefHeight="25.0" prefWidth="201.0">
+                                                   <HBox.margin>
+                                                      <Insets left="10.0" right="10.0" />
+                                                   </HBox.margin>
+                                                </ComboBox>
+                                                <JFXButton onAction="#findItemInTablePhone" prefHeight="35.0" prefWidth="192.0" styleClass="btnLogin" stylesheets="@../css/application.css" text="Find by phone" textFill="WHITE">
+                                                   <font>
+                                                      <Font size="15.0" />
+                                                   </font>
+                                                   <HBox.margin>
+                                                      <Insets right="10.0" />
+                                                   </HBox.margin>
+                                                </JFXButton>
+                                                <Separator orientation="VERTICAL" prefHeight="200.0" />
+                                                <JFXButton onAction="#handleRefersh" prefHeight="35.0" prefWidth="192.0" styleClass="btnLogin" stylesheets="@../css/application.css" text="Refresh" textFill="WHITE">
+                                                   <font>
+                                                      <Font size="15.0" />
+                                                   </font>
+                                                   <HBox.margin>
+                                                      <Insets left="10.0" right="10.0" />
+                                                   </HBox.margin>
+                                                </JFXButton>
+                                                <Separator orientation="VERTICAL" prefHeight="200.0" />
+                                                <JFXButton onAction="#btnClickAdd" prefHeight="35.0" prefWidth="192.0" styleClass="btnLogin" stylesheets="@../css/application.css" text="Add new Customer" textFill="WHITE">
+                                                   <font>
+                                                      <Font size="15.0" />
+                                                   </font>
+                                                   <HBox.margin>
+                                                      <Insets left="10.0" right="10.0" />
+                                                   </HBox.margin>
+                                                </JFXButton>
+                                                <Separator orientation="VERTICAL" prefHeight="200.0" />
+                                                <JFXButton prefHeight="35.0" prefWidth="192.0" styleClass="btnLogin" stylesheets="@../css/application.css" text="Chọn" textFill="WHITE">
+                                                   <font>
+                                                      <Font size="15.0" />
+                                                   </font>
+                                                   <HBox.margin>
+                                                      <Insets left="10.0" right="10.0" />
+                                                   </HBox.margin>
+                                                </JFXButton>
+                                             </children>
+                                          </HBox>
+                                       </bottom>
+                                       <top>
+                                          <Label fx:id="lblCustomer" alignment="CENTER" prefHeight="86.0" prefWidth="1241.0" style="-fx-background-color: #FF8619;" text="Manage customers" BorderPane.alignment="CENTER">
+                                             <font>
+                                                <Font name="Calibri" size="26.0" />
+                                             </font>
+                                             <BorderPane.margin>
+                                                <Insets bottom="10.0" top="10.0" />
+                                             </BorderPane.margin>
+                                             <padding>
+                                                <Insets right="40.0" />
+                                             </padding>
+                                          </Label>
+                                       </top>
+                                    </BorderPane>
+                                 </children>
+                              </Pane>
+                           </children>
+                        </StackPane>
+                     </center>
                   </BorderPane>
                </children>
             </Pane>

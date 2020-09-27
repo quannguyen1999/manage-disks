@@ -118,7 +118,7 @@ public class FormAddProduct extends DialogBox implements Initializable{
 	String fileHinh="";
 	public void btnChonHinh(ActionEvent e) {
 		FileChooser fc = new FileChooser();
-		fc.getExtensionFilters().add(new ExtensionFilter("PNG Files", "*.PNG","*.png"));
+		fc.getExtensionFilters().add(new ExtensionFilter("PNG Files", "*.PNG","*.png","*.jpg"));
 		List<File> f=fc.showOpenMultipleDialog(null);
 		for(File file:f) {
 			fileHinh=file.getAbsolutePath();
