@@ -16,6 +16,7 @@
 .btnLogin:hover{
 	-fx-background-color: #C3350B;
 }
+
 .btnExit
 {
 	-fx-background-color: transparent ;

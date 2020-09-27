@@ -36,7 +36,7 @@ public class Bill {
 	@Column
 	private LocalDate billPay;
 	
-	@ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "customerId")
 	private Customer customer;
 	

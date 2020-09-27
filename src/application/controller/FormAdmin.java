@@ -10,6 +10,8 @@ import com.jfoenix.controls.JFXButton;
 
 import animatefx.animation.BounceInDown;
 import animatefx.animation.FadeIn;
+import application.controller.impl.CustomerImpl;
+import application.controller.services.CustomerService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -31,10 +33,22 @@ import javafx.stage.StageStyle;
 public class FormAdmin extends DialogBox implements Initializable{
 
 	//JFXButton
-	@FXML JFXButton btnAccount;
-
+	@FXML JFXButton btnCustomer;
+	
+	@FXML JFXButton btnProduct;
+	
 	@FXML JFXButton btnCategory;
-
+	
+	@FXML JFXButton btnBill;
+	
+	@FXML JFXButton btnSupplier;
+	
+	@FXML JFXButton btnTitle;
+	
+	@FXML JFXButton btnOrder;
+	
+	@FXML JFXButton btnStatistical;
+	
 	@FXML JFXButton btnLogOut;
 
 	@FXML JFXButton btnUser;
@@ -43,16 +57,15 @@ public class FormAdmin extends DialogBox implements Initializable{
 
 	@FXML JFXButton btnChangePass;
 
-	@FXML JFXButton btnProduct;
-
-	@FXML JFXButton btnStatistical;
-
-	@FXML JFXButton btnCustomer;
-
 	@FXML BorderPane bd;
+	
+	private CustomerService customerService=new CustomerImpl();
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		
+		customerService.listCustomer();
+		
 		//set icon for button
 		btnLogOut.setGraphic(getImageView("Logout.png"));
 		btnUser.setGraphic(getImageView("IconUser.png"));
@@ -62,7 +75,7 @@ public class FormAdmin extends DialogBox implements Initializable{
 		//init color
 		Parent root=null;
 		try {
-			root = (Parent) FXMLLoader.load(getClass().getResource("../fxml/Welcome.fxml"));
+			root = (Parent) FXMLLoader.load(getClass().getResource(loadWelcome));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -73,31 +86,7 @@ public class FormAdmin extends DialogBox implements Initializable{
 
 	public void btnClickChangePassword(ActionEvent e) throws IOException {
 
-		changePassword(btnAccount);
-
-	}
-
-	public void btnCLickManageStatistical(ActionEvent e) {
-
-		//		changeCssManage(btnStatistical, lblStatisical, pnlStatisical);
-
-	}
-
-	public void btnClickManageAccount(ActionEvent e) {
-
-		//		changeCssManage(btnAccount, lblAccount, pnlAccounts);
-
-	}
-
-	public void btnClickManageProducts(ActionEvent e) {
-
-		//		changeCssManage(btnProduct, lblProduct, pnlProduct);
-
-	}
-
-	public void btnCLickManageCategories(ActionEvent e) {
-
-		//		changeCssManage(btnCategory, lblCateGory, pnlCategory);
+		changePassword(btnHelp);
 
 	}
 
@@ -105,11 +94,71 @@ public class FormAdmin extends DialogBox implements Initializable{
 
 		changeCssManage(btnCustomer);
 
-		Parent root=(Parent) FXMLLoader.load(getClass().getResource("../fxml/ManageCustomer.fxml"));
+		Parent root=(Parent) FXMLLoader.load(getClass().getResource(loadManageCustomer));
 
 		bd.setCenter(root);
 
 	}
+	
+	public void btnClickManageProducts(ActionEvent e) throws IOException {
+
+		changeCssManage(btnProduct);
+
+		Parent root=(Parent) FXMLLoader.load(getClass().getResource(loadManageProduct));
+
+		bd.setCenter(root);
+
+	}
+	
+	public void btnCLickManageCategories(ActionEvent e) throws IOException {
+		changeCssManage(btnCategory);
+
+		Parent root=(Parent) FXMLLoader.load(getClass().getResource(loadManageCategories));
+
+		bd.setCenter(root);
+	}
+	
+	public void btnCLickManageBill(ActionEvent e) throws IOException {
+		changeCssManage(btnBill);
+
+		Parent root=(Parent) FXMLLoader.load(getClass().getResource(loadManageBill));
+
+		bd.setCenter(root);
+	}
+	
+	public void btnCLickManageSupplier(ActionEvent e) throws IOException {
+		changeCssManage(btnSupplier);
+
+		Parent root=(Parent) FXMLLoader.load(getClass().getResource(loadManageSupplier));
+
+		bd.setCenter(root);
+	}
+	
+	public void btnCLickManageTitle(ActionEvent e) throws IOException {
+		changeCssManage(btnTitle);
+
+		Parent root=(Parent) FXMLLoader.load(getClass().getResource(loadManageTitle));
+
+		bd.setCenter(root);
+	}
+	
+	public void btnCLickManageOrder(ActionEvent e) throws IOException {
+//		changeCssManage(btnOrder);
+//
+//		Parent root=(Parent) FXMLLoader.load(getClass().getResource(loadWelcome));
+//
+//		bd.setCenter(root);
+	}
+	
+	public void btnCLickManageStastical(ActionEvent e) throws IOException {
+//		changeCssManage(btnStatistical);
+//
+//		Parent root=(Parent) FXMLLoader.load(getClass().getResource(loadWelcome));
+//
+//		bd.setCenter(root);
+	}
+	
+	
 
 	//change css manage
 	public void changeCssManage(JFXButton btn) {
@@ -123,15 +172,21 @@ public class FormAdmin extends DialogBox implements Initializable{
 	//refresh color btn manage to black
 	public void refreshBtnColor() {
 
-		btnStatistical.setStyle("-fx-background-color:black");
-
-		btnCustomer.setStyle("-fx-background-color:black");
-
-		btnAccount.setStyle("-fx-background-color:black");
-
-		btnProduct.setStyle("-fx-background-color:black");
-
-		btnCategory.setStyle("-fx-background-color:black");
+		 btnCustomer.setStyle("-fx-background-color:black");//.setStyle("-fx-background-color:white,-fx-border-width: 0px 0px 2px 0px,-fx-border-color:gray");
+			
+		 btnProduct.setStyle("-fx-background-color:black");//.setStyle("-fx-background-color:white,-fx-border-width: 0px 0px 2px 0px,-fx-border-color:gray");
+		
+		 btnCategory.setStyle("-fx-background-color:black");//.setStyle("-fx-background-color:white,-fx-border-width: 0px 0px 2px 0px,-fx-border-color:gray");
+		
+		 btnBill.setStyle("-fx-background-color:black");//.setStyle("-fx-background-color:white,-fx-border-width: 0px 0px 2px 0px,-fx-border-color:gray");
+		
+		 btnSupplier.setStyle("-fx-background-color:black");//.setStyle("-fx-background-color:white,-fx-border-width: 0px 0px 2px 0px,-fx-border-color:gray");
+		
+		 btnTitle.setStyle("-fx-background-color:black");//.setStyle("-fx-background-color:white,-fx-border-width: 0px 0px 2px 0px,-fx-border-color:gray");
+		
+		 btnOrder.setStyle("-fx-background-color:black");//.setStyle("-fx-background-color:white,-fx-border-width: 0px 0px 2px 0px,-fx-border-color:gray");
+		
+		 btnStatistical.setStyle("-fx-background-color:black");//.setStyle("-fx-background-color:white,-fx-border-width: 0px 0px 2px 0px,-fx-border-color:gray");
 
 	}
 
@@ -143,7 +198,7 @@ public class FormAdmin extends DialogBox implements Initializable{
 
 	public void clickBtnHelp(ActionEvent e) throws IOException {
 
-		Help(btnAccount);
+		Help(btnCustomer);
 
 	}
 

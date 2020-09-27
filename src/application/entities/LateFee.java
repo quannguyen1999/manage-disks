@@ -34,7 +34,7 @@ public class LateFee {
 	@Column
 	private LocalDate datePay;
 	
-	@ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "billId")
 	private Bill bill;
 	

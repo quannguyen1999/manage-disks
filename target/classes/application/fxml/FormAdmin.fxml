@@ -13,13 +13,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="907.0" prefWidth="1531.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.FormAdmin">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="907.0" prefWidth="1531.0" stylesheets="@../css/application.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.FormAdmin">
    <top>
-      <VBox prefHeight="55.0" prefWidth="1531.0" style="-fx-background-color: #0E0C0E;" BorderPane.alignment="CENTER">
+      <VBox prefHeight="55.0" prefWidth="1531.0" BorderPane.alignment="CENTER">
          <children>
             <BorderPane prefHeight="11.0" prefWidth="1531.0">
                <right>
-                  <HBox prefHeight="30.0" prefWidth="69.0" BorderPane.alignment="CENTER">
+                  <HBox prefHeight="30.0" prefWidth="69.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
                      <children>
                         <HBox prefHeight="25.0" prefWidth="62.0" style="-fx-background-color: black;">
                            <children>
@@ -36,7 +36,7 @@
                                     <Insets />
                                  </HBox.margin>
                               </Pane>
-                              <Pane prefHeight="28.0" prefWidth="31.0">
+                              <Pane prefHeight="28.0" prefWidth="31.0" style="-fx-background-color: black;">
                                  <children>
                                     <ImageView fitHeight="28.0" fitWidth="32.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -52,9 +52,9 @@
                   </HBox>
                </right>
                <center>
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="1467.0" text="Mange discs" textFill="#9a9a9a" BorderPane.alignment="CENTER">
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="1467.0" style="-fx-background-color: black;" text="Mange discs" textFill="WHITE" BorderPane.alignment="CENTER">
                      <font>
-                        <Font name="Calibri Light" size="25.0" />
+                        <Font name="Calibri" size="30.0" />
                      </font>
                      <BorderPane.margin>
                         <Insets />
@@ -65,13 +65,13 @@
                   </Label>
                </center>
             </BorderPane>
-            <BorderPane prefHeight="32.0" prefWidth="1531.0">
+            <BorderPane prefHeight="32.0" prefWidth="1531.0" style="-fx-background-color: black;">
                <left>
                   <HBox prefHeight="47.0" prefWidth="280.0" BorderPane.alignment="CENTER">
                      <children>
                         <JFXButton fx:id="btnChangePass" onAction="#btnClickChangePassword" />
                         <JFXButton fx:id="btnForward" />
-                        <Accordion prefHeight="25.0" prefWidth="128.0" style="-fx-background-color: black;" />
+                        <Accordion prefHeight="25.0" prefWidth="128.0" />
                      </children>
                   </HBox>
                </left>
@@ -93,35 +93,14 @@
       </VBox>
    </top>
    <bottom>
-      <StackPane prefHeight="101.0" prefWidth="1531.0" BorderPane.alignment="CENTER">
-         <children>
-            <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #212022;" />
-            <Pane prefHeight="200.0" prefWidth="200.0">
-               <children>
-                  <HBox layoutX="-5.0" layoutY="6.0" prefHeight="95.0" prefWidth="1531.0" style="-fx-background-color: #212022;">
-                     <children>
-                        <Pane prefHeight="95.0" prefWidth="291.0">
-                           <children>
-                              <ImageView fitHeight="36.0" fitWidth="93.0" layoutX="128.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../images/icons8_exit_100px.png" />
-                                 </image>
-                              </ImageView>
-                           </children>
-                        </Pane>
-                     </children>
-                  </HBox>
-               </children>
-            </Pane>
-         </children>
-      </StackPane>
+      <StackPane prefHeight="101.0" prefWidth="1531.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER" />
    </bottom>
    <center>
       <BorderPane fx:id="bd" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <left>
-            <VBox prefHeight="751.0" prefWidth="284.0" style="-fx-background-color: #212022;" BorderPane.alignment="CENTER">
+            <VBox prefHeight="751.0" prefWidth="284.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
                <children>
-                  <JFXButton fx:id="btnAccount" onAction="#btnClickManageAccount" prefHeight="85.0" prefWidth="300.0" style="-fx-background-color: black; -fx-border-color: #212022;" styleClass="sidebar-btn" stylesheets="@..\css\application.css" text="Manage accounts" textFill="WHITE">
+                  <JFXButton fx:id="btnCustomer" onAction="#btnClickCustomer" prefHeight="85.0" prefWidth="300.0" style="-fx-background-color: black;" styleClass="sidebar-btn" stylesheets="@..\css\application.css" text="Manage customers" textFill="WHITE">
                      <font>
                         <Font name="Calibri Light" size="20.0" />
                      </font>
@@ -129,22 +108,37 @@
                         <Insets top="10.0" />
                      </VBox.margin>
                   </JFXButton>
-                  <JFXButton fx:id="btnProduct" onAction="#btnClickManageProducts" prefHeight="85.0" prefWidth="300.0" style="-fx-background-color: black; -fx-border-color: #212022;" styleClass="sidebar-btn" stylesheets="@..\css\application.css" text="Manage products" textFill="WHITE">
+                  <JFXButton fx:id="btnProduct" onAction="#btnClickManageProducts" prefHeight="85.0" prefWidth="300.0" style="-fx-background-color: black;" styleClass="sidebar-btn" stylesheets="@..\css\application.css" text="Manage products" textFill="WHITE">
                      <font>
                         <Font name="Calibri Light" size="20.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton fx:id="btnCategory" onAction="#btnCLickManageCategories" prefHeight="85.0" prefWidth="300.0" style="-fx-background-color: black; -fx-border-color: #212022;" styleClass="sidebar-btn" stylesheets="@..\css\application.css" text="Manage categories" textFill="WHITE">
+                  <JFXButton fx:id="btnCategory" onAction="#btnCLickManageCategories" prefHeight="85.0" prefWidth="300.0" style="-fx-background-color: black;" styleClass="sidebar-btn" stylesheets="@..\css\application.css" text="Manage categories" textFill="WHITE">
                      <font>
                         <Font name="Calibri Light" size="20.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton fx:id="btnCustomer" onAction="#btnClickCustomer" prefHeight="85.0" prefWidth="300.0" style="-fx-background-color: black; -fx-border-color: #212022;" styleClass="sidebar-btn" stylesheets="@..\css\application.css" text="Manage customers" textFill="WHITE">
+                  <JFXButton fx:id="btnBill" onAction="#btnCLickManageBill" prefHeight="85.0" prefWidth="300.0" style="-fx-background-color: black;" styleClass="sidebar-btn" stylesheets="@..\css\application.css" text="Manage Bill" textFill="WHITE">
                      <font>
                         <Font name="Calibri Light" size="20.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton fx:id="btnStatistical" onAction="#btnCLickManageStatistical" prefHeight="85.0" prefWidth="300.0" style="-fx-background-color: black; -fx-border-color: #212022;" styleClass="sidebar-btn" stylesheets="@..\css\application.css" text="statistical" textFill="WHITE">
+                  <JFXButton fx:id="btnSupplier" onAction="#btnCLickManageSupplier" prefHeight="85.0" prefWidth="300.0" style="-fx-background-color: black;" styleClass="sidebar-btn" stylesheets="@..\css\application.css" text="Manage Supplier" textFill="WHITE">
+                     <font>
+                        <Font name="Calibri Light" size="20.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="btnTitle" onAction="#btnCLickManageTitle" prefHeight="85.0" prefWidth="300.0" style="-fx-background-color: black;" styleClass="sidebar-btn" stylesheets="@..\css\application.css" text="Manage Title" textFill="WHITE">
+                     <font>
+                        <Font name="Calibri Light" size="20.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="btnOrder" prefHeight="85.0" prefWidth="300.0" style="-fx-background-color: black;" styleClass="sidebar-btn" stylesheets="@..\css\application.css" text="Manage order" textFill="WHITE">
+                     <font>
+                        <Font name="Calibri Light" size="20.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="btnStatistical" prefHeight="85.0" prefWidth="300.0" style="-fx-background-color: black;" styleClass="sidebar-btn" stylesheets="@..\css\application.css" text="Statistical" textFill="WHITE">
                      <font>
                         <Font name="Calibri Light" size="20.0" />
                      </font>
