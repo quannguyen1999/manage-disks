@@ -22,9 +22,13 @@ public class FormChangePassword extends DialogBox implements Initializable{
 	@FXML PasswordField txtPassNewAgin;
 
 	@FXML JFXButton btnE;
+	
+	@FXML JFXButton btnExit;
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		
+		btnExit.setGraphic(getImageView("CLoseWindows.png"));
 
 	}
 

@@ -30,6 +30,8 @@ public class FormAddCustomer extends DialogBox implements Initializable{
 
 	@FXML JFXButton btn;
 
+	Customer customer=null;
+	
 	private CustomerService customerService=new CustomerImpl();
 
 	@Override
@@ -126,6 +128,7 @@ public class FormAddCustomer extends DialogBox implements Initializable{
 			}else {
 				txtDienThoai.requestFocus();
 				stillContunite=false;
+				return;
 			}
 		}
 		if(stillContunite==true) {
@@ -142,8 +145,54 @@ public class FormAddCustomer extends DialogBox implements Initializable{
 				Error("Ngày sinh chưa ch�?n",btn);
 				txtNgaySinh.requestFocus();
 			}
+			
+			if(txtNgaySinh.getValue().getYear()>=2010) {
+				
+				stillContunite=false;
+				
+				Error("Ngày sinh không hợp lệ", btn);
+				
+				txtNgaySinh.requestFocus();
+				
+			}
+			
+			
 		}
-		System.out.println(stillContunite);
+		
+		if(stillContunite==true) {
+
+			if(lblTitle.getText().equals("Cập nhập khách hàng")==true) {
+				
+				if(customer.getPhone().equals(DienThoai)==false) {
+					
+					if(	customerService.findCustomerByPhone(DienThoai)!=null) {
+						
+						Error("Điện thoại đã tồn tại", btn);
+						
+						txtDienThoai.requestFocus();
+						
+						return;
+						
+					}
+					
+				}
+				
+			}else {
+				if(	customerService.findCustomerByPhone(DienThoai)!=null) {
+					
+					Error("Điện thoại đã tồn tại", btn);
+					
+					txtDienThoai.requestFocus();
+					
+					return;
+					
+				}
+			}
+			
+			
+			
+		}
+		
 		if(stillContunite==true) {
 
 			if(lblTitle.getText().equals("Cập nhập khách hàng")==false) {
@@ -169,18 +218,27 @@ public class FormAddCustomer extends DialogBox implements Initializable{
 					((Node)(e.getSource())).getScene().getWindow().hide();  
 
 				};
-
-
 			}
 
 
 		}
 	}
 	public void btnXoaRong(ActionEvent e) {
-		txtDiaChi.setText("");
-		txtDienThoai.setText("");
-		txtTenKH.setText("");
-		txtNgaySinh.setValue(LocalDate.of(1999, 11, 24));
+		if(customer==null) {
+			txtDiaChi.setText("");
+			txtDienThoai.setText("");
+			txtTenKH.setText("");
+			txtNgaySinh.setValue(LocalDate.of(1999, 11, 24));
+		}else {
+			txtDiaChi.setText(customer.getAddress());
+			
+			txtDienThoai.setText(customer.getPhone());
+			
+			txtTenKH.setText(customer.getName());
+			
+			txtNgaySinh.setValue(customer.getDateOfBirth());
+		}
+		
 
 	}
 	public void btnCLoseWindow(ActionEvent e) throws IOException {

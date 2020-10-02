@@ -46,7 +46,9 @@ public class FormManageCustomer extends DialogBox implements Initializable{
 	private CustomerService customerService=new CustomerImpl();
 
 	@FXML ComboBox<String> cbc=new ComboBox<String>();
-
+	
+	@FXML ComboBox<String> cbcPhone=new ComboBox<String>();
+	
 	@FXML JFXButton btnRefresh;
 
 	List<Customer> listCustomer=new ArrayList<>();
@@ -58,6 +60,8 @@ public class FormManageCustomer extends DialogBox implements Initializable{
 		loadDataSearch();
 
 		cbc.setEditable(true);
+		
+		cbcPhone.setEditable(true);
 
 		tbl_view.setOnMouseClicked(e->{
 			if(e.getClickCount()==2) {
@@ -79,11 +83,17 @@ public class FormManageCustomer extends DialogBox implements Initializable{
 
 					ctlMain.txtMa.setText(tbl_view.getItems().get(result).getCustomerId());
 
+					ctlMain.txtTenKH.setText(tbl_view.getItems().get(result).getName());
+					
 					ctlMain.txtDiaChi.setText(tbl_view.getItems().get(result).getAddress());
 
 					ctlMain.txtDienThoai.setText(tbl_view.getItems().get(result).getPhone());
 
 					ctlMain.txtNgaySinh.setValue(tbl_view.getItems().get(result).getDateOfBirth());
+					
+					ctlMain.btn.setText("Reset");
+					
+					ctlMain.customer=tbl_view.getItems().get(result);
 
 					loadFXML(root,btnRefresh).setOnHidden(ev->{
 
@@ -185,6 +195,8 @@ public class FormManageCustomer extends DialogBox implements Initializable{
 		cbc.setValue("");
 		tbl_view.getItems().clear();
 		uploadDuLieuLenBang();
+		
+		cbcPhone.setValue("");
 	}
 
 	public void btnClickAdd(ActionEvent e) throws IOException {
@@ -257,16 +269,66 @@ public class FormManageCustomer extends DialogBox implements Initializable{
 		}
 
 	}
+	
+	public void findItemPhoneInTable(ActionEvent e) throws IOException {
+		String textFind=null;
+
+		try {
+
+			textFind=cbcPhone.getSelectionModel().getSelectedItem().toString().trim();
+
+		} catch (Exception e2) {
+
+			Error("Bạn chưa nhập tìm kiếm", btnRefresh);
+
+			cbcPhone.requestFocus();
+
+		}
+
+		if(textFind.isEmpty()) {
+
+			Error("Bạn chưa nhập tìm kiếm", btnRefresh);
+
+			cbcPhone.requestFocus();
+
+			return;
+
+		}
+
+		tbl_view.getItems().clear();
+
+		Customer customerFind=customerService.findCustomerByPhone(textFind);
+
+		if(customerFind==null) {
+
+			Error("Không tìm thấy", btnRefresh);
+
+			cbcPhone.requestFocus();
+
+			return;
+
+		}else {
+
+			tbl_view.getItems().add(customerFind);
+
+		}
+
+	}
 
 
 
 	private void loadDataSearch() {
 		ObservableList<String> items = FXCollections.observableArrayList();
+		ObservableList<String> itemsPhone = FXCollections.observableArrayList();
+		
+		
 		List<Customer> accs=customerService.listCustomer();
 
 		accs.forEach(t->{
 
 			items.add(t.getCustomerId());
+			
+			itemsPhone.add(t.getPhone());
 
 		});
 
@@ -277,45 +339,15 @@ public class FormManageCustomer extends DialogBox implements Initializable{
 		cbc.setItems(filteredItems);
 
 		cbc.setEditable(true);
+		
+		FilteredList<String> filteredItemsPhone = new FilteredList<String>(itemsPhone);
 
-		//		try {
-		//			cbc.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() { 
-		//				public void changed(ObservableValue ov, Number value, Number new_value) 
-		//				{ 
-		//					System.out.println("ok");
-		//					Customer listnv = null;
-		//					System.out.println(cbc.getSelectionModel().getSelectedItem().toString());
-		//					try {
-		//						for(int i=0;i<accs.size();i++) {
-		//							
-		//							if(accs.get(i).equals(cbc.getSelectionModel().getSelectedItem().toString())) {
-		//								listnv=accs.get(i);
-		// 							}
-		//							
-		//						}
-		//					} catch (Exception e) {
-		//						// TODO Auto-generated catch block
-		//						e.printStackTrace();
-		//					}
-		//					if(listnv!=null) {
-		//						Customer nv=listnv;
-		//						if(nv!=null) {
-		//								tbl_view.getItems().clear();
-		//								
-		//						}else {
-		//							System.out.println("error");
-		//						}
-		//
-		//					}else {
-		//						System.out.println("error");
-		//					}
-		//
-		//				}
-		//			});
-		//		} catch (Exception ev) {
-		//			// TODO: handle exception
-		//			System.out.println(ev.getMessage());
-		//		}
+		cbcPhone.getEditor().textProperty().addListener(new InputFilter(cbcPhone, filteredItemsPhone, false));
+
+		cbcPhone.setItems(filteredItemsPhone);
+
+		cbcPhone.setEditable(true);
+
 
 	}
 }

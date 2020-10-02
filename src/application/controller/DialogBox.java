@@ -1,10 +1,15 @@
 package application.controller;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import javax.imageio.ImageIO;
+
 import com.jfoenix.controls.JFXButton;
 
 import animatefx.animation.FadeIn;
@@ -22,6 +27,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import sun.misc.BASE64Decoder;
 
 public class DialogBox  implements Initializable{
 	
@@ -73,6 +79,8 @@ public class DialogBox  implements Initializable{
 	public void initialize(URL location, ResourceBundle resources) {
 
 	}
+	
+	
 	
 	public int ranDomNumber() {
 		  int min = 0;

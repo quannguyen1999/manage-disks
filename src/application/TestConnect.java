@@ -29,21 +29,25 @@ import application.entities.Title;
 
 public class TestConnect {
 	public static void main(String[] args) {
-		Category category=new Category("CT101", "quân", "bao cao su", 10000);
-
-		Title title=new Title("T101", "abc", true, category);
+//		Category category=new Category("CT101", "quân", "bao cao su", 10000);
+//
+//		Title title=new Title("T101", "abc", true, category);
+//		
+//		Customer customer=new Customer("C02", "slut", "34/16", "0708821227", true, LocalDate.of(1999, 2, 1));
+//		
+//		Order order=new Order("OD011", LocalDate.of(1999, 2, 1), customer);
+//		
+//		OrderDetail orderDetail=new OrderDetail("ODDT01", 10, 10, order, title);
+//		
+//		OrderService orderService=new OrderImpl();
+//		
+//		OrderDetailService orderDetailService=new OrderDetailImpl();
+//		
+//		System.out.println(orderDetailService.addOrderDetail(orderDetail));
 		
-		Customer customer=new Customer("C02", "slut", "34/16", "0708821227", true, LocalDate.of(1999, 2, 1));
+		CustomerService customerService=new CustomerImpl();
 		
-		Order order=new Order("OD011", LocalDate.of(1999, 2, 1), customer);
-		
-		OrderDetail orderDetail=new OrderDetail("ODDT01", 10, 10, order, title);
-		
-		OrderService orderService=new OrderImpl();
-		
-		OrderDetailService orderDetailService=new OrderDetailImpl();
-		
-		System.out.println(orderDetailService.addOrderDetail(orderDetail));
+		System.out.println(customerService.findCustomerByPhone("008821227"));
 		
 		
 		

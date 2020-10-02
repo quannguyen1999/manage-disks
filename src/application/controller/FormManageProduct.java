@@ -34,6 +34,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -49,8 +50,8 @@ public class FormManageProduct extends DialogBox implements Initializable{
 	TableColumn<Product, String> colDescription;
 	TableColumn<Product, String> colStatus;
 	TableColumn<Product, String> colDateAdded;
-	TableColumn<Product, String> colTitleId;
-	TableColumn<Product, String> colSupplierId;
+	TableColumn<Product, String> colNameTitle;
+	TableColumn<Product, String> colNameSupplier;
 
 	@FXML BorderPane bd;
 
@@ -194,35 +195,37 @@ public class FormManageProduct extends DialogBox implements Initializable{
 
 		 colProductId=new TableColumn<Product, String>("mã");
 		 colName=new TableColumn<Product, String>("tên");
-		 colPicture=new TableColumn<Product, String>("hình");
 		colQuantity=new TableColumn<Product, Integer>("số lượng");
 		 colDescription=new TableColumn<Product, String>("mô tả");
 		 colStatus=new TableColumn<Product, String>("status");
 		 colDateAdded=new TableColumn<Product, String>("ngày thêm");
-		 colTitleId=new TableColumn<Product, String>("mã title");
-		 colSupplierId=new TableColumn<Product, String>("mã ncc");
+		 colNameTitle=new TableColumn<Product, String>("tên title");
+		 colNameSupplier=new TableColumn<Product, String>("tên supplier");
 
 		tbl_view.getColumns().addAll(colProductId,
 				colName,
-				colPicture,
 				colQuantity,
-				colDescription,
 				colStatus,
 				colDateAdded,
-				colTitleId,
-				colSupplierId);
+				colNameTitle,
+				colNameSupplier,
+				colDescription);
 
 		bd.setCenter(tbl_view);
 
 		colProductId.setCellValueFactory(new PropertyValueFactory<>("productId"));
 		colName.setCellValueFactory(new PropertyValueFactory<>("name"));
-		colPicture.setCellValueFactory(new PropertyValueFactory<>("picture"));
+		
+//		Image image = new Image("file:///"+tbl_view.getItems().get(result).getPicture());
+//		 ImageView emp1photo = new ImageView(new Image("file:///C:\\Users\\Admin\\Pictures\\4.jpg)"));
+//		colPicture.setCellValueFactory(new PropertyValueFactory<>("picture"));
+		
 		colQuantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
 		colDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
 		colStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
 		colDateAdded.setCellValueFactory(new PropertyValueFactory<>("dateAdded"));
-		colTitleId.setCellValueFactory( cellData->new SimpleStringProperty(cellData.getValue().getTitle().getTitleId()));
-		colSupplierId.setCellValueFactory(cellData->new SimpleStringProperty(cellData.getValue().getSupplier().getSupplierId()));
+		colNameTitle.setCellValueFactory( cellData->new SimpleStringProperty(cellData.getValue().getTitle().getName()));
+		colNameSupplier.setCellValueFactory(cellData->new SimpleStringProperty(cellData.getValue().getSupplier().getCompanyName()));
 
 		colProductId.setMinWidth(100);// .setCellValueFactory(new PropertyValueFactory<>("maKH"));
 		colName.setMinWidth(180);//.setCellValueFactory(new PropertyValueFactory<>("diaChi"));

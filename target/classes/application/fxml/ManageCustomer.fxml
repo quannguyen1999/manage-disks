@@ -4,53 +4,18 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="752.0" prefWidth="1249.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.FormManageCustomer">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="781.0" prefWidth="1249.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.FormManageCustomer">
    <top>
-      <BorderPane fx:id="bd" prefHeight="755.0" prefWidth="1240.0" BorderPane.alignment="CENTER">
+      <BorderPane fx:id="bd" prefHeight="783.0" prefWidth="1249.0" BorderPane.alignment="CENTER">
          <right>
-            <VBox fx:id="vboxGame" prefHeight="752.0" prefWidth="239.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
+            <VBox fx:id="vboxGame" alignment="CENTER" prefHeight="752.0" prefWidth="239.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
                <children>
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="46.0" prefWidth="239.0" style="-fx-background-color: #212022;" text="Information customer" textFill="WHITE">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets bottom="10.0" top="10.0" />
-                     </VBox.margin>
-                  </Label>
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="26.0" prefWidth="239.0" style="-fx-background-color: #212022;" text="Name game" textFill="WHITE">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="lblNameGame" alignment="CENTER" contentDisplay="CENTER" prefHeight="34.0" prefWidth="239.0" text="...." textFill="WHITE" />
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="26.0" prefWidth="239.0" style="-fx-background-color: #212022;" text="Path game" textFill="WHITE">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="lblPathGame" alignment="CENTER" contentDisplay="CENTER" prefHeight="34.0" prefWidth="239.0" text="...." textFill="WHITE" />
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="26.0" prefWidth="239.0" style="-fx-background-color: #212022;" text="Image big" textFill="WHITE">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Label>
-                  <ImageView fx:id="imgBig" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                     <VBox.margin>
-                        <Insets left="16.0" top="5.0" />
-                     </VBox.margin>
-                  </ImageView>
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="26.0" prefWidth="239.0" style="-fx-background-color: #212022;" textFill="WHITE">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Label>
                   <JFXButton onAction="#btnClickAdd" prefHeight="35.0" prefWidth="239.0" style="-fx-border-color: white;" stylesheets="@..\css\application.css" text="Add" textFill="WHITE">
                      <font>
                         <Font size="15.0" />
@@ -73,17 +38,17 @@
          <bottom>
             <HBox fx:id="hboxGame" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
                <children>
-                  <Label text="Find customer : " textFill="WHITE">
+                  <Label text="Find customer by id: " textFill="WHITE">
                      <font>
                         <Font size="20.0" />
                      </font>
                   </Label>
-                  <ComboBox fx:id="cbc" prefHeight="35.0" prefWidth="224.0">
+                  <ComboBox fx:id="cbc" prefHeight="35.0" prefWidth="146.0">
                      <HBox.margin>
                         <Insets left="20.0" right="20.0" />
                      </HBox.margin>
                   </ComboBox>
-                  <JFXButton onAction="#findItemInTable" prefHeight="35.0" prefWidth="192.0" styleClass="btnLogin" stylesheets="@..\css\application.css" text="Find" textFill="WHITE">
+                  <JFXButton onAction="#findItemInTable" prefHeight="35.0" prefWidth="98.0" styleClass="btnLogin" stylesheets="@..\css\application.css" text="Find" textFill="WHITE">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -91,24 +56,43 @@
                         <Insets right="10.0" />
                      </HBox.margin>
                   </JFXButton>
-                  <JFXButton fx:id="btnRefresh" onAction="#handleRefersh" prefHeight="35.0" prefWidth="225.0" styleClass="btnLogin" stylesheets="@..\css\application.css" text="Reresh" textFill="WHITE">
+                  <Separator orientation="VERTICAL" prefHeight="200.0" />
+                  <Label text="Find customer by phone: " textFill="WHITE">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <ComboBox fx:id="cbcPhone" prefHeight="35.0" prefWidth="224.0" />
+                  <JFXButton onAction="#findItemPhoneInTable" prefHeight="35.0" prefWidth="98.0" styleClass="btnLogin" stylesheets="@..\css\application.css" text="Find" textFill="WHITE">
                      <font>
                         <Font size="15.0" />
                      </font>
+                     <HBox.margin>
+                        <Insets left="10.0" right="10.0" />
+                     </HBox.margin>
+                  </JFXButton>
+                  <Separator orientation="VERTICAL" prefHeight="200.0" />
+                  <JFXButton fx:id="btnRefresh" onAction="#handleRefersh" prefHeight="35.0" prefWidth="173.0" styleClass="btnLogin" stylesheets="@..\css\application.css" text="Reresh" textFill="WHITE">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
                   </JFXButton>
                </children>
             </HBox>
          </bottom>
          <top>
-            <Label fx:id="lblProduct" alignment="CENTER" prefHeight="86.0" prefWidth="1261.0" style="-fx-background-color: black;" text="Manage Customer" textFill="WHITE" BorderPane.alignment="CENTER">
+            <Label fx:id="lblProduct" alignment="CENTER" prefHeight="66.0" prefWidth="1249.0" style="-fx-background-color: black;" text="Manage Customer" textFill="WHITE" BorderPane.alignment="CENTER">
                <font>
                   <Font name="Calibri" size="26.0" />
                </font>
                <BorderPane.margin>
-                  <Insets bottom="10.0" top="10.0" />
+                  <Insets />
                </BorderPane.margin>
                <padding>
-                  <Insets right="200.0" />
+                  <Insets bottom="30.0" right="10.0" />
                </padding>
             </Label>
          </top>

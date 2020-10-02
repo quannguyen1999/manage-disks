@@ -51,11 +51,15 @@ public class FormAdmin extends DialogBox implements Initializable{
 	
 	@FXML JFXButton btnLogOut;
 
-	@FXML JFXButton btnUser;
+//	@FXML JFXButton btnUser;
 
 	@FXML JFXButton btnHelp;
 
 	@FXML JFXButton btnChangePass;
+	
+	@FXML JFXButton btnCloseWindow;
+	
+	@FXML JFXButton btnMinium;
 
 	@FXML BorderPane bd;
 	
@@ -68,9 +72,20 @@ public class FormAdmin extends DialogBox implements Initializable{
 		
 		//set icon for button
 		btnLogOut.setGraphic(getImageView("Logout.png"));
-		btnUser.setGraphic(getImageView("IconUser.png"));
+//		btnUser.setGraphic(getImageView("IconUser.png"));
 		btnHelp.setGraphic(getImageView("IconHelp.png"));
 		btnChangePass.setGraphic(getImageView("IconPassworReset.png"));
+		btnCustomer.setGraphic(getImageView("customers.png"));
+		btnProduct.setGraphic(getImageView("product.png"));
+		btnCategory.setGraphic(getImageView("category.png"));
+		btnBill.setGraphic(getImageView("bill.png"));
+		btnSupplier.setGraphic(getImageView("supplier.png"));
+		btnTitle.setGraphic(getImageView("Mtitle.png"));
+		btnOrder.setGraphic(getImageView("order.png"));
+		btnStatistical.setGraphic(getImageView("statistical.png"));
+		
+		btnMinium.setGraphic(getImageView("MiniumWindows.png"));
+		btnCloseWindow.setGraphic(getImageView("CLoseWindows.png"));
 
 		//init color
 		Parent root=null;

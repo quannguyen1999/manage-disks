@@ -35,20 +35,16 @@
                         <Font name="System Bold" size="15.0" />
                      </font>
                      <HBox.margin>
-                        <Insets right="80.0" top="5.0" />
+                        <Insets right="20.0" top="5.0" />
                      </HBox.margin>
                   </Label>
-                  <JFXButton onAction="#btnNo" prefHeight="14.0" prefWidth="10.0" styleClass="btnMacExit" text="X" textFill="WHITE">
+                  <JFXButton fx:id="btnExit" onAction="#btnNo" prefHeight="30.0" prefWidth="46.0" textFill="WHITE">
                      <font>
                         <Font size="14.0" />
                      </font>
                      <HBox.margin>
                         <Insets top="5.0" />
                      </HBox.margin>
-                     <stylesheets>
-                        <URL value="@application.css" />
-                        <URL value="@../css/application.css" />
-                     </stylesheets>
                   </JFXButton>
                </children>
             </HBox>

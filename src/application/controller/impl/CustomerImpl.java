@@ -3,6 +3,9 @@ package application.controller.impl;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.persistence.EntityTransaction;
+
 import application.controller.DAO.Connect;
 import application.controller.DAO.Repository;
 import application.controller.services.CustomerService;
@@ -10,6 +13,7 @@ import application.entities.Customer;
 
 public class  CustomerImpl extends Repository implements CustomerService{
 	static Connection conn;
+	
 	static Connect connect;
 	
 	@Override
@@ -48,6 +52,24 @@ public class  CustomerImpl extends Repository implements CustomerService{
 	@Override
 	public boolean addCustomer(Customer customer) {
 		return add(customer);
+	}
+
+	@Override
+	public Customer findCustomerByPhone(String phone) {
+		EntityTransaction transaction = null;
+		List<Customer> accs=new ArrayList<>();
+		try {
+			transaction =  connect.getEntityManager().getTransaction();
+			transaction.begin();
+			accs=  connect.getEntityManager().createQuery("from Customer where phone='"+phone+"'",Customer.class).getResultList();
+			transaction.commit();
+		} catch (Exception ex) {
+			if (transaction != null) {
+				transaction.rollback();
+			}
+			connect.getEntityManager().close();
+		}
+		return accs.size()==0?null:accs.get(0);
 	}
 	
 }

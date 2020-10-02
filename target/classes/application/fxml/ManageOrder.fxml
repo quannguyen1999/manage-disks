@@ -10,9 +10,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="752.0" prefWidth="1249.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.FormManageOrder">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="781.0" prefWidth="1257.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.FormManageOrder">
    <top>
-      <BorderPane fx:id="bd" prefHeight="755.0" prefWidth="1240.0" BorderPane.alignment="CENTER">
+      <BorderPane fx:id="bd" prefHeight="785.0" prefWidth="1257.0" BorderPane.alignment="CENTER">
          <right>
             <VBox fx:id="vboxGame" prefHeight="752.0" prefWidth="239.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
                <children>
@@ -100,15 +100,15 @@
             </HBox>
          </bottom>
          <top>
-            <Label fx:id="lblProduct" alignment="CENTER" prefHeight="86.0" prefWidth="1261.0" style="-fx-background-color: black;" text="Manage Order" textFill="WHITE" BorderPane.alignment="CENTER">
+            <Label fx:id="lblProduct" alignment="CENTER" prefHeight="57.0" prefWidth="1257.0" style="-fx-background-color: black;" text="Manage Order" textFill="WHITE" BorderPane.alignment="CENTER">
                <font>
                   <Font name="Calibri" size="26.0" />
                </font>
                <BorderPane.margin>
-                  <Insets bottom="10.0" top="10.0" />
+                  <Insets />
                </BorderPane.margin>
                <padding>
-                  <Insets right="200.0" />
+                  <Insets bottom="30.0" right="10.0" />
                </padding>
             </Label>
          </top>

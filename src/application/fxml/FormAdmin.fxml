@@ -2,150 +2,110 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Accordion?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="907.0" prefWidth="1531.0" stylesheets="@../css/application.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.FormAdmin">
-   <top>
-      <VBox prefHeight="55.0" prefWidth="1531.0" BorderPane.alignment="CENTER">
-         <children>
-            <BorderPane prefHeight="11.0" prefWidth="1531.0">
-               <right>
-                  <HBox prefHeight="30.0" prefWidth="69.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
-                     <children>
-                        <HBox prefHeight="25.0" prefWidth="62.0" style="-fx-background-color: black;">
-                           <children>
-                              <Pane prefHeight="28.0" prefWidth="31.0">
-                                 <children>
-                                    <ImageView fitHeight="28.0" fitWidth="32.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../image/MiniumWindows.png" />
-                                       </image>
-                                    </ImageView>
-                                    <JFXButton layoutX="-2.0" layoutY="1.0" onAction="#btnHideWindow" prefHeight="25.0" prefWidth="32.0" />
-                                 </children>
-                                 <HBox.margin>
-                                    <Insets />
-                                 </HBox.margin>
-                              </Pane>
-                              <Pane prefHeight="28.0" prefWidth="31.0" style="-fx-background-color: black;">
-                                 <children>
-                                    <ImageView fitHeight="28.0" fitWidth="32.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../image/CLoseWindows.png" />
-                                       </image>
-                                    </ImageView>
-                                    <JFXButton layoutX="-2.0" layoutY="1.0" onAction="#btnExit" prefHeight="25.0" prefWidth="32.0" />
-                                 </children>
-                              </Pane>
-                           </children>
-                        </HBox>
-                     </children>
-                  </HBox>
-               </right>
-               <center>
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="1467.0" style="-fx-background-color: black;" text="Mange discs" textFill="WHITE" BorderPane.alignment="CENTER">
-                     <font>
-                        <Font name="Calibri" size="30.0" />
-                     </font>
-                     <BorderPane.margin>
-                        <Insets />
-                     </BorderPane.margin>
-                     <padding>
-                        <Insets left="150.0" />
-                     </padding>
-                  </Label>
-               </center>
-            </BorderPane>
-            <BorderPane prefHeight="32.0" prefWidth="1531.0" style="-fx-background-color: black;">
-               <left>
-                  <HBox prefHeight="47.0" prefWidth="280.0" BorderPane.alignment="CENTER">
-                     <children>
-                        <JFXButton fx:id="btnChangePass" onAction="#btnClickChangePassword" />
-                        <JFXButton fx:id="btnForward" />
-                        <Accordion prefHeight="25.0" prefWidth="128.0" />
-                     </children>
-                  </HBox>
-               </left>
-               <right>
-                  <HBox prefHeight="25.0" prefWidth="161.0" BorderPane.alignment="CENTER">
-                     <children>
-                        <HBox prefHeight="25.0" prefWidth="190.0">
-                           <children>
-                              <JFXButton fx:id="btnHelp" onAction="#clickBtnHelp" prefHeight="25.0" prefWidth="57.0" />
-                              <JFXButton fx:id="btnUser" />
-                              <JFXButton fx:id="btnLogOut" onAction="#btnLogOut" />
-                           </children>
-                        </HBox>
-                     </children>
-                  </HBox>
-               </right>
-            </BorderPane>
-         </children>
-      </VBox>
-   </top>
-   <bottom>
-      <StackPane prefHeight="101.0" prefWidth="1531.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER" />
-   </bottom>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="829.0" prefWidth="1521.0" stylesheets="@../css/application.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.FormAdmin">
    <center>
       <BorderPane fx:id="bd" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <left>
-            <VBox prefHeight="751.0" prefWidth="284.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
+            <VBox alignment="CENTER" prefHeight="751.0" prefWidth="284.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
                <children>
-                  <JFXButton fx:id="btnCustomer" onAction="#btnClickCustomer" prefHeight="85.0" prefWidth="300.0" style="-fx-background-color: black;" styleClass="sidebar-btn" stylesheets="@..\css\application.css" text="Manage customers" textFill="WHITE">
+                  <HBox alignment="CENTER" prefHeight="46.0" prefWidth="284.0">
+                     <children>
+                        <JFXButton fx:id="btnChangePass" onAction="#btnClickChangePassword" />
+                        <JFXButton fx:id="btnHelp" onAction="#clickBtnHelp" />
+                        <JFXButton fx:id="btnLogOut" onAction="#btnLogOut" />
+                     </children>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <JFXButton fx:id="btnCustomer" alignment="BASELINE_LEFT" onAction="#btnClickCustomer" prefHeight="85.0" prefWidth="300.0" style="-fx-background-color: black;" styleClass="sidebar-btn" stylesheets="@..\css\application.css" text="Manage customers" textFill="WHITE">
                      <font>
                         <Font name="Calibri Light" size="20.0" />
                      </font>
                      <VBox.margin>
-                        <Insets top="10.0" />
+                        <Insets top="20.0" />
                      </VBox.margin>
+                     <padding>
+                        <Insets left="50.0" />
+                     </padding>
                   </JFXButton>
-                  <JFXButton fx:id="btnProduct" onAction="#btnClickManageProducts" prefHeight="85.0" prefWidth="300.0" style="-fx-background-color: black;" styleClass="sidebar-btn" stylesheets="@..\css\application.css" text="Manage products" textFill="WHITE">
+                  <JFXButton fx:id="btnProduct" alignment="BASELINE_LEFT" onAction="#btnClickManageProducts" prefHeight="85.0" prefWidth="300.0" style="-fx-background-color: black;" styleClass="sidebar-btn" stylesheets="@..\css\application.css" text="Manage products" textFill="WHITE">
                      <font>
                         <Font name="Calibri Light" size="20.0" />
                      </font>
+                     <padding>
+                        <Insets left="50.0" />
+                     </padding>
                   </JFXButton>
-                  <JFXButton fx:id="btnCategory" onAction="#btnCLickManageCategories" prefHeight="85.0" prefWidth="300.0" style="-fx-background-color: black;" styleClass="sidebar-btn" stylesheets="@..\css\application.css" text="Manage categories" textFill="WHITE">
+                  <JFXButton fx:id="btnCategory" alignment="BASELINE_LEFT" onAction="#btnCLickManageCategories" prefHeight="85.0" prefWidth="300.0" style="-fx-background-color: black;" styleClass="sidebar-btn" stylesheets="@..\css\application.css" text="Manage categories" textFill="WHITE">
                      <font>
                         <Font name="Calibri Light" size="20.0" />
                      </font>
+                     <padding>
+                        <Insets left="50.0" />
+                     </padding>
                   </JFXButton>
-                  <JFXButton fx:id="btnBill" onAction="#btnCLickManageBill" prefHeight="85.0" prefWidth="300.0" style="-fx-background-color: black;" styleClass="sidebar-btn" stylesheets="@..\css\application.css" text="Manage Bill" textFill="WHITE">
+                  <JFXButton fx:id="btnBill" alignment="BASELINE_LEFT" onAction="#btnCLickManageBill" prefHeight="85.0" prefWidth="300.0" style="-fx-background-color: black;" styleClass="sidebar-btn" stylesheets="@..\css\application.css" text="Manage Bill" textFill="WHITE">
                      <font>
                         <Font name="Calibri Light" size="20.0" />
                      </font>
+                     <padding>
+                        <Insets left="50.0" />
+                     </padding>
                   </JFXButton>
-                  <JFXButton fx:id="btnSupplier" onAction="#btnCLickManageSupplier" prefHeight="85.0" prefWidth="300.0" style="-fx-background-color: black;" styleClass="sidebar-btn" stylesheets="@..\css\application.css" text="Manage Supplier" textFill="WHITE">
+                  <JFXButton fx:id="btnSupplier" alignment="BASELINE_LEFT" onAction="#btnCLickManageSupplier" prefHeight="85.0" prefWidth="300.0" style="-fx-background-color: black;" styleClass="sidebar-btn" stylesheets="@..\css\application.css" text="Manage Supplier" textFill="WHITE">
                      <font>
                         <Font name="Calibri Light" size="20.0" />
                      </font>
+                     <padding>
+                        <Insets left="50.0" />
+                     </padding>
                   </JFXButton>
-                  <JFXButton fx:id="btnTitle" onAction="#btnCLickManageTitle" prefHeight="85.0" prefWidth="300.0" style="-fx-background-color: black;" styleClass="sidebar-btn" stylesheets="@..\css\application.css" text="Manage Title" textFill="WHITE">
+                  <JFXButton fx:id="btnTitle" alignment="BASELINE_LEFT" onAction="#btnCLickManageTitle" prefHeight="85.0" prefWidth="300.0" style="-fx-background-color: black;" styleClass="sidebar-btn" stylesheets="@..\css\application.css" text="Manage Title" textFill="WHITE">
                      <font>
                         <Font name="Calibri Light" size="20.0" />
                      </font>
+                     <padding>
+                        <Insets left="50.0" />
+                     </padding>
                   </JFXButton>
-                  <JFXButton fx:id="btnOrder" prefHeight="85.0" prefWidth="300.0" style="-fx-background-color: black;" styleClass="sidebar-btn" stylesheets="@..\css\application.css" text="Manage order" textFill="WHITE">
+                  <JFXButton fx:id="btnOrder" alignment="BASELINE_LEFT" prefHeight="85.0" prefWidth="300.0" style="-fx-background-color: black;" styleClass="sidebar-btn" stylesheets="@..\css\application.css" text="Manage order" textFill="WHITE">
                      <font>
                         <Font name="Calibri Light" size="20.0" />
                      </font>
+                     <padding>
+                        <Insets left="50.0" />
+                     </padding>
                   </JFXButton>
-                  <JFXButton fx:id="btnStatistical" prefHeight="85.0" prefWidth="300.0" style="-fx-background-color: black;" styleClass="sidebar-btn" stylesheets="@..\css\application.css" text="Statistical" textFill="WHITE">
+                  <JFXButton fx:id="btnStatistical" alignment="BASELINE_LEFT" prefHeight="85.0" prefWidth="300.0" style="-fx-background-color: black;" styleClass="sidebar-btn" stylesheets="@..\css\application.css" text="Statistical" textFill="WHITE">
                      <font>
                         <Font name="Calibri Light" size="20.0" />
                      </font>
+                     <padding>
+                        <Insets left="50.0" />
+                     </padding>
                   </JFXButton>
+                  <HBox prefHeight="100.0" prefWidth="200.0" />
                </children>
             </VBox>
          </left>
+         <center>
+            <BorderPane fx:id="bd" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
+               <top>
+                  <HBox alignment="CENTER_RIGHT" prefHeight="42.0" prefWidth="1237.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
+                     <children>
+                        <JFXButton fx:id="btnMinium" onAction="#btnHideWindow" />
+                        <JFXButton fx:id="btnCloseWindow" onAction="#btnExit" />
+                     </children>
+                  </HBox>
+               </top>
+            </BorderPane>
+         </center>
       </BorderPane>
    </center>
 </BorderPane>
