@@ -13,14 +13,9 @@
          <left>
             <VBox alignment="CENTER" prefHeight="751.0" prefWidth="284.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
                <children>
-                  <HBox alignment="CENTER" prefHeight="46.0" prefWidth="284.0">
-                     <children>
-                        <JFXButton fx:id="btnChangePass" onAction="#btnClickChangePassword" />
-                        <JFXButton fx:id="btnHelp" onAction="#clickBtnHelp" />
-                        <JFXButton fx:id="btnLogOut" onAction="#btnLogOut" />
-                     </children>
+                  <HBox alignment="CENTER" prefHeight="44.0" prefWidth="284.0" style="-fx-background-color: black;">
                      <VBox.margin>
-                        <Insets top="10.0" />
+                        <Insets />
                      </VBox.margin>
                   </HBox>
                   <JFXButton fx:id="btnCustomer" alignment="BASELINE_LEFT" onAction="#btnClickCustomer" prefHeight="85.0" prefWidth="300.0" style="-fx-background-color: black;" styleClass="sidebar-btn" stylesheets="@..\css\application.css" text="Manage customers" textFill="WHITE">
@@ -90,7 +85,10 @@
                         <Insets left="50.0" />
                      </padding>
                   </JFXButton>
-                  <HBox prefHeight="100.0" prefWidth="200.0" />
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <JFXButton fx:id="btnLogOut" onAction="#btnLogOut" prefHeight="98.0" prefWidth="294.0" />
+                     </children></HBox>
                </children>
             </VBox>
          </left>
@@ -99,6 +97,8 @@
                <top>
                   <HBox alignment="CENTER_RIGHT" prefHeight="42.0" prefWidth="1237.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
                      <children>
+                        <JFXButton fx:id="btnChangePass" onAction="#btnClickChangePassword" />
+                        <JFXButton fx:id="btnHelp" onAction="#clickBtnHelp" />
                         <JFXButton fx:id="btnMinium" onAction="#btnHideWindow" />
                         <JFXButton fx:id="btnCloseWindow" onAction="#btnExit" />
                      </children>

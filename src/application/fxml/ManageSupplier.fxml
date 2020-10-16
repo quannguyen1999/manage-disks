@@ -100,7 +100,7 @@
             </HBox>
          </bottom>
          <top>
-            <Label fx:id="lblProduct" alignment="CENTER" prefHeight="76.0" prefWidth="1257.0" style="-fx-background-color: black;" text="Manage Supplier" textFill="WHITE" BorderPane.alignment="CENTER">
+            <Label fx:id="lblProduct" alignment="CENTER" prefHeight="76.0" prefWidth="1257.0" style="-fx-background-color: #AF231A;" text="Manage Supplier" textFill="WHITE" BorderPane.alignment="CENTER">
                <font>
                   <Font name="Calibri" size="26.0" />
                </font>
@@ -108,7 +108,7 @@
                   <Insets />
                </BorderPane.margin>
                <padding>
-                  <Insets bottom="30.0" right="10.0" />
+                  <Insets bottom="20.0" right="10.0" top="20.0" />
                </padding>
             </Label>
          </top>

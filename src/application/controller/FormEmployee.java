@@ -63,6 +63,12 @@ public class FormEmployee extends DialogBox implements Initializable{
 	
 	@FXML FlowPane flowPane;
 	
+	@FXML JFXButton btnCustomer;
+	
+	@FXML JFXButton btnDisks;
+	
+	
+	
 	private TableView<Customer> tbl_view;
 
 	TableColumn<Customer, String> colCustomerId;
@@ -95,6 +101,9 @@ public class FormEmployee extends DialogBox implements Initializable{
 		btnUser.setGraphic(getImageView("IconUser.png"));
 		btnHelp.setGraphic(getImageView("IconHelp.png"));
 		btnChangePass.setGraphic(getImageView("IconPassworReset.png"));
+		
+		btnCustomer.setGraphic(getImageView("customers.png"));
+		btnDisks.setGraphic(getImageView("product.png"));
 		
 		productService.listProduct().forEach(t->{
 			

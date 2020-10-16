@@ -173,7 +173,7 @@
                   </StackPane>
                   <BorderPane layoutY="2.0" prefHeight="752.0" prefWidth="1531.0">
                      <right>
-                        <VBox prefHeight="697.0" prefWidth="293.0" BorderPane.alignment="CENTER">
+                        <VBox prefHeight="752.0" prefWidth="291.0" BorderPane.alignment="CENTER">
                            <children>
                               <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="46.0" prefWidth="299.0" style="-fx-background-color: #212022;" text="Information customer" textFill="WHITE">
                                  <font>
@@ -296,7 +296,7 @@
                                     <Image url="@../images/icons8_circled_menu_100px.png" />
                                  </image>
                               </ImageView>
-                              <JFXButton layoutX="35.0" layoutY="24.0" onAction="#btnClickCustomer" prefHeight="10.0" prefWidth="200.0" styleClass="btnLogin" stylesheets="@..\css\application.css" text="list customers" textFill="WHITE">
+                              <JFXButton fx:id="btnCustomer" layoutX="35.0" layoutY="24.0" onAction="#btnClickCustomer" prefHeight="10.0" prefWidth="200.0" styleClass="btnLogin" stylesheets="@..\css\application.css" text="list customers" textFill="WHITE">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
@@ -313,7 +313,7 @@
                                     <Image url="@../images/icons8_circled_menu_100px.png" />
                                  </image>
                               </ImageView>
-                              <JFXButton layoutX="35.0" layoutY="24.0" onAction="#btnCLickDiscs" prefHeight="10.0" prefWidth="200.0" styleClass="btnLogin" stylesheets="@..\css\application.css" text="list discs" textFill="WHITE">
+                              <JFXButton fx:id="btnDisks" layoutX="35.0" layoutY="24.0" onAction="#btnCLickDiscs" prefHeight="10.0" prefWidth="200.0" styleClass="btnLogin" stylesheets="@..\css\application.css" text="list discs" textFill="WHITE">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
