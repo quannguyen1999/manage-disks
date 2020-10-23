@@ -16,7 +16,7 @@
          <right>
             <VBox fx:id="vboxGame" alignment="CENTER" prefHeight="752.0" prefWidth="239.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
                <children>
-                  <JFXButton onAction="#btnClickAdd" prefHeight="35.0" prefWidth="239.0" style="-fx-border-color: white;" stylesheets="@..\css\application.css" text="Add" textFill="WHITE">
+                  <JFXButton onAction="#btnClickAdd" prefHeight="35.0" prefWidth="239.0" style="-fx-border-color: white;" stylesheets="@..\css\application.css" text="Thuê đĩa" textFill="WHITE">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -24,7 +24,15 @@
                         <Insets bottom="10.0" top="10.0" />
                      </VBox.margin>
                   </JFXButton>
-                  <JFXButton onAction="#btnXoaCustomer" prefHeight="35.0" prefWidth="239.0" style="-fx-border-color: white;" stylesheets="@..\css\application.css" text="Remove" textFill="WHITE">
+                  <JFXButton onAction="#btnXoaCustomer" prefHeight="35.0" prefWidth="239.0" style="-fx-border-color: white;" stylesheets="@..\css\application.css" text="Xóa khách hàng" textFill="WHITE">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="10.0" top="10.0" />
+                     </VBox.margin>
+                  </JFXButton>
+                  <JFXButton onAction="#btnClickAdd" prefHeight="35.0" prefWidth="239.0" style="-fx-border-color: white;" stylesheets="@..\css\application.css" text="Thêm khách hàng" textFill="WHITE">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -38,7 +46,7 @@
          <bottom>
             <HBox fx:id="hboxGame" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
                <children>
-                  <Label text="Find customer by id: " textFill="WHITE">
+                  <Label text="Tìm id :" textFill="WHITE">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -57,13 +65,13 @@
                      </HBox.margin>
                   </JFXButton>
                   <Separator orientation="VERTICAL" prefHeight="200.0" />
-                  <Label text="Find customer by phone: " textFill="WHITE">
+                  <Label text="Tìm theo số điện thoại :   " textFill="WHITE">
                      <font>
                         <Font size="20.0" />
                      </font>
                   </Label>
                   <ComboBox fx:id="cbcPhone" prefHeight="35.0" prefWidth="224.0" />
-                  <JFXButton onAction="#findItemPhoneInTable" prefHeight="35.0" prefWidth="98.0" styleClass="btnLogin" stylesheets="@..\css\application.css" text="Find" textFill="WHITE">
+                  <JFXButton onAction="#findItemPhoneInTable" prefHeight="35.0" prefWidth="98.0" styleClass="btnLogin" stylesheets="@..\css\application.css" text="Tìm kiếm" textFill="WHITE">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -72,7 +80,7 @@
                      </HBox.margin>
                   </JFXButton>
                   <Separator orientation="VERTICAL" prefHeight="200.0" />
-                  <JFXButton fx:id="btnRefresh" onAction="#handleRefersh" prefHeight="35.0" prefWidth="173.0" styleClass="btnLogin" stylesheets="@..\css\application.css" text="Reresh" textFill="WHITE">
+                  <JFXButton fx:id="btnRefresh" onAction="#handleRefersh" prefHeight="35.0" prefWidth="173.0" styleClass="btnLogin" stylesheets="@..\css\application.css" text="Reset" textFill="WHITE">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -84,7 +92,7 @@
             </HBox>
          </bottom>
          <top>
-            <Label fx:id="lblProduct" alignment="CENTER" prefHeight="66.0" prefWidth="1249.0" style="-fx-background-color: #AF231A;" text="Manage Customer" textFill="WHITE" BorderPane.alignment="CENTER">
+            <Label fx:id="lblProduct" alignment="CENTER" prefHeight="66.0" prefWidth="1249.0" style="-fx-background-color: #AF231A;" text="Quản lý khách hàng" textFill="WHITE" BorderPane.alignment="CENTER">
                <font>
                   <Font name="Calibri" size="26.0" />
                </font>
