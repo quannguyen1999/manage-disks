@@ -9,7 +9,9 @@ import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
 
+import application.controller.impl.BillImpl;
 import application.controller.impl.CustomerImpl;
+import application.controller.services.BillService;
 import application.controller.services.CustomerService;
 import application.entities.Customer;
 import javafx.beans.value.ChangeListener;
@@ -45,6 +47,8 @@ public class FormManageCustomer extends DialogBox implements Initializable{
 
 	private CustomerService customerService=new CustomerImpl();
 
+	private BillService billService = new BillImpl();
+	
 	@FXML ComboBox<String> cbc=new ComboBox<String>();
 	
 	@FXML ComboBox<String> cbcPhone=new ComboBox<String>();
@@ -222,6 +226,31 @@ public class FormManageCustomer extends DialogBox implements Initializable{
 
 		});;
 
+
+	}
+	
+	public void btnRentDisk(ActionEvent e) throws IOException {
+		FXMLLoader loader= new FXMLLoader(getClass().getResource(loadFormRentDisk));
+
+		Parent root=loader.load();
+
+		FormRentDisk ctlMain=loader.getController();
+
+		String id=null;
+
+		do {
+
+			id="B"+ranDomNumber();
+
+			ctlMain.txtIdBill.setText(id);
+
+		} while (billService.findBillById(id)!=null);
+
+		loadFXML(root,btnRefresh).setOnHidden(ev->{
+
+			handleRefersh(e);
+
+		});;
 
 	}
 

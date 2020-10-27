@@ -8,6 +8,7 @@ import application.controller.DAO.Connect;
 import application.controller.DAO.Repository;
 import application.controller.services.BillService;
 import application.entities.Bill;
+import application.entities.BillDetail;
 
 public class BillImpl  extends Repository implements BillService{
 
@@ -53,6 +54,11 @@ public class BillImpl  extends Repository implements BillService{
 			listBill.add((Bill)listObject.get(i));
 		}
 		return listBill;
+	}
+
+	@Override
+	public boolean addBillDetail(BillDetail BillDetail) {
+		return update(BillDetail)==null?false:true;
 	}
 
 }

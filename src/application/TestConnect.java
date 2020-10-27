@@ -1,4 +1,6 @@
 package application;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.time.LocalDate;
 
 import application.controller.impl.BillImpl;
@@ -45,10 +47,12 @@ public class TestConnect {
 //		
 //		System.out.println(orderDetailService.addOrderDetail(orderDetail));
 		
-		CustomerService customerService=new CustomerImpl();
+//		CustomerService customerService=new CustomerImpl();
+//		
+//		System.out.println(customerService.findCustomerByPhone("008821227"));
 		
-		System.out.println(customerService.findCustomerByPhone("008821227"));
-		
+		NumberFormat formatter = new DecimalFormat("#000,000");     
+		System.out.println(formatter.format(400000000));
 		
 		
 	}

@@ -17,6 +17,7 @@ import application.controller.services.BillService;
 import application.entities.Bill;
 import application.entities.Bill;
 import application.entities.Bill;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -178,7 +179,7 @@ public class FormManageBill extends DialogBox implements Initializable{
 		colBillPay.setCellValueFactory(new PropertyValueFactory<>("billPay"));
 		colCustomerId.setCellValueFactory(cellData->new SimpleStringProperty(cellData.getValue().getCustomer().getCustomerId()));
 		colNameCustomer.setCellValueFactory(cellData->new SimpleStringProperty(cellData.getValue().getCustomer().getName()));
-		colDebt.setCellValueFactory(new PropertyValueFactory<>("BillId"));
+		colDebt.setCellValueFactory(new PropertyValueFactory<>("debt"));
 		
 
 		uploadDuLieuLenBang();
