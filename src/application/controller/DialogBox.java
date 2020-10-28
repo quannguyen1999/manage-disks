@@ -38,6 +38,8 @@ public class DialogBox  implements Initializable{
 	
 	static final String loadFormRentDisk="../fxml/FormRentDisk.fxml";
 	
+	static final String loadFormReturnDisk="../fxml/ReturnDisk.fxml";
+	
 	static final String loadFormAddCategory="../fxml/FormAddCategory.fxml";
 	
 	static final String loadFormAddSupplier="../fxml/FormAddSupplier.fxml";

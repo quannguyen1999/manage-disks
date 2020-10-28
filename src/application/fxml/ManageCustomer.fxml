@@ -24,6 +24,11 @@
                         <Insets bottom="10.0" top="10.0" />
                      </VBox.margin>
                   </JFXButton>
+                  <JFXButton onAction="#btnReturnDisk" prefHeight="23.0" prefWidth="269.0" style="-fx-border-color: white;" text="Trả đĩa" textFill="WHITE">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </JFXButton>
                   <JFXButton onAction="#btnXoaCustomer" prefHeight="35.0" prefWidth="239.0" style="-fx-border-color: white;" stylesheets="@..\css\application.css" text="Xóa khách hàng" textFill="WHITE">
                      <font>
                         <Font size="15.0" />

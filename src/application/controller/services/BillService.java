@@ -1,5 +1,6 @@
 package application.controller.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import application.entities.Bill;
@@ -11,10 +12,17 @@ public interface BillService {
 	public boolean addBillDetail(BillDetail BillDetail);
 
 	public boolean removeBill(String id);
+	
+	public boolean removeBillDetail(String id);
 
 	public Bill updateBill(Bill BillUpdate,String id);
 
 	public Bill findBillById(String id);
 
 	public List<Bill> listBill();
+	
+	public List<Bill> findAllBillByIdCustomer(String id);
+	
+	public List<BillDetail> findAllBillDetailByIdBill(ArrayList<Bill> listIdBill);
+	
 }

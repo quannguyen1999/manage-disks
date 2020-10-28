@@ -250,6 +250,19 @@ public class FormManageCustomer extends DialogBox implements Initializable{
 
 			handleRefersh(e);
 
+		});
+
+	}
+	
+	public void btnReturnDisk(ActionEvent e) throws IOException {
+		FXMLLoader loader= new FXMLLoader(getClass().getResource(loadFormReturnDisk));
+
+		Parent root=loader.load();
+
+		loadFXML(root,btnRefresh).setOnHidden(ev->{
+
+			handleRefersh(e);
+
 		});;
 
 	}

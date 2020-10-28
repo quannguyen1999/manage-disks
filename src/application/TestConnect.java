@@ -2,6 +2,8 @@ package application;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import application.controller.impl.BillImpl;
 import application.controller.impl.CategoryImpl;
@@ -51,9 +53,14 @@ public class TestConnect {
 //		
 //		System.out.println(customerService.findCustomerByPhone("008821227"));
 		
-		NumberFormat formatter = new DecimalFormat("#000,000");     
-		System.out.println(formatter.format(400000000));
+//		NumberFormat formatter = new DecimalFormat("#000,000");     
+//		System.out.println(formatter.format(400000000));
 		
+		BillService billService=new BillImpl();
+		ArrayList<Bill> listBill=(ArrayList<Bill>) billService.findAllBillByIdCustomer("C01");
+		billService.findAllBillDetailByIdBill(listBill).forEach(t->{
+			System.out.println(t.getBillDetailId());
+		});;
 		
 	}
 
