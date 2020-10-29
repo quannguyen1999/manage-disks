@@ -98,6 +98,8 @@ public class FormManageTitle extends DialogBox implements Initializable{
 					
 					ctlMain.txtPriceCategory.setText(String.valueOf(tbl_view.getItems().get(result).getCategory().getPrice()));
 					
+					ctlMain.titleOld=tbl_view.getItems().get(result);
+					
 					if(status==true) {
 						ctlMain.rdTrue.setSelected(true);
 					}else {

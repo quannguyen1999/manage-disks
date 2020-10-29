@@ -56,12 +56,15 @@ public class TestConnect {
 //		NumberFormat formatter = new DecimalFormat("#000,000");     
 //		System.out.println(formatter.format(400000000));
 		
-		BillService billService=new BillImpl();
-		ArrayList<Bill> listBill=(ArrayList<Bill>) billService.findAllBillByIdCustomer("C01");
-		billService.findAllBillDetailByIdBill(listBill).forEach(t->{
-			System.out.println(t.getBillDetailId());
-		});;
+//		BillService billService=new BillImpl();
+//		ArrayList<Bill> listBill=(ArrayList<Bill>) billService.findAllBillByIdCustomer("C01");
+//		billService.findAllBillDetailByIdBill(listBill).forEach(t->{
+//			System.out.println(t.getBillDetailId());
+//		});;
 		
+		TitleService titleService = new TitleImpl();
+		
+		System.out.println(titleService.findTitleByName("fuck") == null);
 	}
 
 	public void testBill() {

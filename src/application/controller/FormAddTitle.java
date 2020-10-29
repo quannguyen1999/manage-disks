@@ -62,6 +62,8 @@ public class FormAddTitle extends DialogBox implements Initializable{
 	public CategoryService categoryService=new CategoryImpl();
 	
 	public String maCategoryRemember="";
+	
+	public Title titleOld;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -223,9 +225,6 @@ public class FormAddTitle extends DialogBox implements Initializable{
 			return;
 		}
 
-		System.out.println("asd:"+maCategory);
-
-
 		String tenTitle=txtNameTitle.getText().toString();
 
 		String nameCategory=txtNameCategory.getText().toString();
@@ -268,7 +267,17 @@ public class FormAddTitle extends DialogBox implements Initializable{
 
 
 			if(lblTitle.getText().equals("Cập nhập title")==false) {
-
+				
+				List<Title> listTitleFind = TitleService.findTitleByName(tenTitle);
+				
+				System.out.println("asd:"+listTitleFind.toString());
+				
+				if(listTitleFind != null) {
+					
+					Error("Lỗi trùng title", btn);
+					
+				}
+				
 				if(TitleService.addTitle(title)==false) {
 
 					Error("Lỗi thêm không thành công", btn);
@@ -280,7 +289,21 @@ public class FormAddTitle extends DialogBox implements Initializable{
 				};
 
 			}else {
-
+				
+				if(tenTitle.equalsIgnoreCase(titleOld.getName()) == false) {
+					
+					List<Title> listTitleFind = TitleService.findTitleByName(tenTitle);
+					
+					if(listTitleFind != null) {
+						
+						Error("Lỗi trùng title", btn);
+						
+						return;
+						
+					}
+					
+				}
+				
 				if(TitleService.updateTitle(title,ma)==null) {
 
 					Error("Lỗi cập nhập không thành công", btn);
@@ -296,30 +319,55 @@ public class FormAddTitle extends DialogBox implements Initializable{
 		}
 	}
 	public void btnXoaRong(ActionEvent e) {
-		txtNameTitle.setText("");
 		
-		rdTrue.setSelected(true);
-		
-		
-		if(maCategoryRemember.isEmpty()==true) {
+		if(lblTitle.getText().toString().equalsIgnoreCase("Cập nhập title")) {
 			
-			cbc.setValue("");
+			txtMa.setText(titleOld.getTitleId());
 			
-			xoaRongCategory();
+			cbc.setValue(titleOld.getCategory().getCategoryId());
+			
+			txtNameTitle.setText(titleOld.getName());
+			
+			if(titleOld.isStatus() == true) {
+				
+				rdTrue.setSelected(true);
+				
+			}
+			
+			txtNameCategory.setText(titleOld.getCategory().getName());
+			
+			txtDescriptionCategory.setText(titleOld.getCategory().getDescription());
+			
+			txtPriceCategory.setText(String.valueOf(titleOld.getCategory().getPrice()));
 			
 		}else {
+			txtNameTitle.setText("");
 			
-			cbc.setValue(maCategoryRemember);
+			rdTrue.setSelected(true);
 			
-			Category category=categoryService.findCategoryById(maCategoryRemember);
 			
-			txtDescriptionCategory.setText(category.getDescription());
-			
-			txtNameCategory.setText(category.getName());
-			
-			txtPriceCategory.setText(String.valueOf(category.getPrice()));
-			
+			if(maCategoryRemember.isEmpty()==true) {
+				
+				cbc.setValue("");
+				
+				xoaRongCategory();
+				
+			}else {
+				
+				cbc.setValue(maCategoryRemember);
+				
+				Category category=categoryService.findCategoryById(maCategoryRemember);
+				
+				txtDescriptionCategory.setText(category.getDescription());
+				
+				txtNameCategory.setText(category.getName());
+				
+				txtPriceCategory.setText(String.valueOf(category.getPrice()));
+				
+			}
 		}
+		
+		
 		
 		
 	}

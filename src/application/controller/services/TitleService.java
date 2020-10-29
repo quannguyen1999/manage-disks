@@ -13,6 +13,8 @@ public interface TitleService {
 	public Title updateTitle(Title titleUpdate,String id);
 
 	public Title findTitleById(String id);
+	
+	public List<Title> findTitleByName(String name);
 
 	public List<Title> listTitle();
 }

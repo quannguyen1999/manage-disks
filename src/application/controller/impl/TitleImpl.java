@@ -4,11 +4,14 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.EntityTransaction;
+
 import application.controller.DAO.Connect;
 import application.controller.DAO.Repository;
 import application.controller.services.CategoryService;
 import application.controller.services.TitleService;
 import application.entities.Category;
+import application.entities.Customer;
 import application.entities.Title;
 
 public class TitleImpl extends Repository implements TitleService{
@@ -69,6 +72,25 @@ public class TitleImpl extends Repository implements TitleService{
 			listTitle.add((Title)listObject.get(i));
 		}
 		return listTitle;
+	}
+
+	@Override
+	public List<Title> findTitleByName(String name) {
+		EntityTransaction transaction = null;
+		List<Title> titles=new ArrayList<>();
+		try {
+			transaction =  connect.getEntityManager().getTransaction();
+			transaction.begin();
+			titles=  connect.getEntityManager().createQuery("from Title where name='"+name+"'",Title.class)
+					.getResultList();
+			transaction.commit();
+		} catch (Exception ex) {
+			if (transaction != null) {
+				transaction.rollback();
+			}
+			connect.getEntityManager().close();
+		}
+		return titles.size()==0?null:titles;
 	}
 
 }
