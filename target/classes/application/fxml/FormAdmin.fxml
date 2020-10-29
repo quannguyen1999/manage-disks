@@ -13,11 +13,6 @@
          <left>
             <VBox alignment="CENTER" prefHeight="751.0" prefWidth="284.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
                <children>
-                  <HBox alignment="CENTER" prefHeight="44.0" prefWidth="284.0" style="-fx-background-color: black;">
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                  </HBox>
                   <JFXButton fx:id="btnCustomer" alignment="BASELINE_LEFT" onAction="#btnClickCustomer" prefHeight="85.0" prefWidth="300.0" style="-fx-background-color: black;" styleClass="sidebar-btn" stylesheets="@..\css\application.css" text="Quản lý khách hàng" textFill="WHITE">
                      <font>
                         <Font name="Calibri Light" size="20.0" />
@@ -46,6 +41,14 @@
                      </padding>
                   </JFXButton>
                   <JFXButton fx:id="btnBill" alignment="BASELINE_LEFT" onAction="#btnCLickManageBill" prefHeight="85.0" prefWidth="300.0" style="-fx-background-color: black;" styleClass="sidebar-btn" stylesheets="@..\css\application.css" text="Quản lý bill" textFill="WHITE">
+                     <font>
+                        <Font name="Calibri Light" size="20.0" />
+                     </font>
+                     <padding>
+                        <Insets left="50.0" />
+                     </padding>
+                  </JFXButton>
+                  <JFXButton fx:id="btnLateFee" alignment="BASELINE_LEFT" onAction="#btnCLickManageLateFee" prefHeight="85.0" prefWidth="300.0" style="-fx-background-color: black;" styleClass="sidebar-btn" stylesheets="@..\css\application.css" text="Quản lý phí trễ" textFill="WHITE">
                      <font>
                         <Font name="Calibri Light" size="20.0" />
                      </font>

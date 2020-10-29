@@ -34,45 +34,47 @@ public class FormAdmin extends DialogBox implements Initializable{
 
 	//JFXButton
 	@FXML JFXButton btnCustomer;
-	
+
 	@FXML JFXButton btnProduct;
-	
+
 	@FXML JFXButton btnCategory;
-	
+
 	@FXML JFXButton btnBill;
-	
+
 	@FXML JFXButton btnSupplier;
-	
+
 	@FXML JFXButton btnTitle;
-	
+
 	@FXML JFXButton btnOrder;
-	
+
 	@FXML JFXButton btnStatistical;
-	
+
 	@FXML JFXButton btnLogOut;
 
-//	@FXML JFXButton btnUser;
+	@FXML JFXButton btnLateFee;
+
+	//	@FXML JFXButton btnUser;
 
 	@FXML JFXButton btnHelp;
 
 	@FXML JFXButton btnChangePass;
-	
+
 	@FXML JFXButton btnCloseWindow;
-	
+
 	@FXML JFXButton btnMinium;
 
 	@FXML BorderPane bd;
-	
+
 	private CustomerService customerService=new CustomerImpl();
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		
+
 		customerService.listCustomer();
-		
+
 		//set icon for button
 		btnLogOut.setGraphic(getImageView("Logout.png"));
-//		btnUser.setGraphic(getImageView("IconUser.png"));
+		//		btnUser.setGraphic(getImageView("IconUser.png"));
 		btnHelp.setGraphic(getImageView("IconHelp.png"));
 		btnChangePass.setGraphic(getImageView("IconPassworReset.png"));
 		btnCustomer.setGraphic(getImageView("customers.png"));
@@ -83,6 +85,8 @@ public class FormAdmin extends DialogBox implements Initializable{
 		btnTitle.setGraphic(getImageView("Mtitle.png"));
 		btnOrder.setGraphic(getImageView("order.png"));
 		btnStatistical.setGraphic(getImageView("statistical.png"));
+		btnLateFee.setGraphic(getImageView("lateFee.png"));
+		
 		
 		btnMinium.setGraphic(getImageView("MiniumWindows.png"));
 		btnCloseWindow.setGraphic(getImageView("CLoseWindows.png"));
@@ -114,7 +118,7 @@ public class FormAdmin extends DialogBox implements Initializable{
 		bd.setCenter(root);
 
 	}
-	
+
 	public void btnClickManageProducts(ActionEvent e) throws IOException {
 
 		changeCssManage(btnProduct);
@@ -124,7 +128,7 @@ public class FormAdmin extends DialogBox implements Initializable{
 		bd.setCenter(root);
 
 	}
-	
+
 	public void btnCLickManageCategories(ActionEvent e) throws IOException {
 		changeCssManage(btnCategory);
 
@@ -132,7 +136,7 @@ public class FormAdmin extends DialogBox implements Initializable{
 
 		bd.setCenter(root);
 	}
-	
+
 	public void btnCLickManageBill(ActionEvent e) throws IOException {
 		changeCssManage(btnBill);
 
@@ -140,7 +144,7 @@ public class FormAdmin extends DialogBox implements Initializable{
 
 		bd.setCenter(root);
 	}
-	
+
 	public void btnCLickManageSupplier(ActionEvent e) throws IOException {
 		changeCssManage(btnSupplier);
 
@@ -148,7 +152,7 @@ public class FormAdmin extends DialogBox implements Initializable{
 
 		bd.setCenter(root);
 	}
-	
+
 	public void btnCLickManageTitle(ActionEvent e) throws IOException {
 		changeCssManage(btnTitle);
 
@@ -156,24 +160,32 @@ public class FormAdmin extends DialogBox implements Initializable{
 
 		bd.setCenter(root);
 	}
-	
+
+	public void btnCLickManageLateFee(ActionEvent e) throws IOException {
+		changeCssManage(btnLateFee);
+
+		Parent root=(Parent) FXMLLoader.load(getClass().getResource(loadManageLateFee));
+
+		bd.setCenter(root);
+	}
+
 	public void btnCLickManageOrder(ActionEvent e) throws IOException {
-//		changeCssManage(btnOrder);
-//
-//		Parent root=(Parent) FXMLLoader.load(getClass().getResource(loadWelcome));
-//
-//		bd.setCenter(root);
+		//		changeCssManage(btnOrder);
+		//
+		//		Parent root=(Parent) FXMLLoader.load(getClass().getResource(loadWelcome));
+		//
+		//		bd.setCenter(root);
 	}
-	
+
 	public void btnCLickManageStastical(ActionEvent e) throws IOException {
-//		changeCssManage(btnStatistical);
-//
-//		Parent root=(Parent) FXMLLoader.load(getClass().getResource(loadWelcome));
-//
-//		bd.setCenter(root);
+		//		changeCssManage(btnStatistical);
+		//
+		//		Parent root=(Parent) FXMLLoader.load(getClass().getResource(loadWelcome));
+		//
+		//		bd.setCenter(root);
 	}
-	
-	
+
+
 
 	//change css manage
 	public void changeCssManage(JFXButton btn) {
@@ -186,22 +198,23 @@ public class FormAdmin extends DialogBox implements Initializable{
 
 	//refresh color btn manage to black
 	public void refreshBtnColor() {
+		btnCustomer.setStyle("-fx-background-color:black");//.setStyle("-fx-background-color:white,-fx-border-width: 0px 0px 2px 0px,-fx-border-color:gray");
 
-		 btnCustomer.setStyle("-fx-background-color:black");//.setStyle("-fx-background-color:white,-fx-border-width: 0px 0px 2px 0px,-fx-border-color:gray");
-			
-		 btnProduct.setStyle("-fx-background-color:black");//.setStyle("-fx-background-color:white,-fx-border-width: 0px 0px 2px 0px,-fx-border-color:gray");
-		
-		 btnCategory.setStyle("-fx-background-color:black");//.setStyle("-fx-background-color:white,-fx-border-width: 0px 0px 2px 0px,-fx-border-color:gray");
-		
-		 btnBill.setStyle("-fx-background-color:black");//.setStyle("-fx-background-color:white,-fx-border-width: 0px 0px 2px 0px,-fx-border-color:gray");
-		
-		 btnSupplier.setStyle("-fx-background-color:black");//.setStyle("-fx-background-color:white,-fx-border-width: 0px 0px 2px 0px,-fx-border-color:gray");
-		
-		 btnTitle.setStyle("-fx-background-color:black");//.setStyle("-fx-background-color:white,-fx-border-width: 0px 0px 2px 0px,-fx-border-color:gray");
-		
-		 btnOrder.setStyle("-fx-background-color:black");//.setStyle("-fx-background-color:white,-fx-border-width: 0px 0px 2px 0px,-fx-border-color:gray");
-		
-		 btnStatistical.setStyle("-fx-background-color:black");//.setStyle("-fx-background-color:white,-fx-border-width: 0px 0px 2px 0px,-fx-border-color:gray");
+		btnLateFee.setStyle("-fx-background-color:black");//.setStyle("-fx-background-color:white,-fx-border-width: 0px 0px 2px 0px,-fx-border-color:gray");
+
+		btnProduct.setStyle("-fx-background-color:black");//.setStyle("-fx-background-color:white,-fx-border-width: 0px 0px 2px 0px,-fx-border-color:gray");
+
+		btnCategory.setStyle("-fx-background-color:black");//.setStyle("-fx-background-color:white,-fx-border-width: 0px 0px 2px 0px,-fx-border-color:gray");
+
+		btnBill.setStyle("-fx-background-color:black");//.setStyle("-fx-background-color:white,-fx-border-width: 0px 0px 2px 0px,-fx-border-color:gray");
+
+		btnSupplier.setStyle("-fx-background-color:black");//.setStyle("-fx-background-color:white,-fx-border-width: 0px 0px 2px 0px,-fx-border-color:gray");
+
+		btnTitle.setStyle("-fx-background-color:black");//.setStyle("-fx-background-color:white,-fx-border-width: 0px 0px 2px 0px,-fx-border-color:gray");
+
+		btnOrder.setStyle("-fx-background-color:black");//.setStyle("-fx-background-color:white,-fx-border-width: 0px 0px 2px 0px,-fx-border-color:gray");
+
+		btnStatistical.setStyle("-fx-background-color:black");//.setStyle("-fx-background-color:white,-fx-border-width: 0px 0px 2px 0px,-fx-border-color:gray");
 
 	}
 

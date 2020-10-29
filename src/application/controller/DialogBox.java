@@ -55,6 +55,7 @@ public class DialogBox  implements Initializable{
 	static final String loadManageCustomer="../fxml/ManageCustomer.fxml";
 	static final String loadManageProduct="../fxml/ManageProduct.fxml";
 	static final String loadManageTitle="../fxml/ManageTitle.fxml";
+	static final String loadManageLateFee="../fxml/ManageLateFee.fxml";
 	static final String loadManageCategories="../fxml/ManageCategory.fxml";
 	static final String loadManageBill="../fxml/ManageBill.fxml";
 	static final String loadManageSupplier="../fxml/ManageSupplier.fxml";
