@@ -51,6 +51,8 @@ public class FormManageTitle extends DialogBox implements Initializable{
 	public TitleService TitleService=new TitleImpl();
 
 	@FXML ComboBox<String> cbc=new ComboBox<String>();
+	
+	@FXML ComboBox<String> cbcNameTitle=new ComboBox<String>();
 
 	@FXML JFXButton btnRefresh;
 
@@ -63,6 +65,8 @@ public class FormManageTitle extends DialogBox implements Initializable{
 		loadDataSearch();
 
 		cbc.setEditable(true);
+		
+		cbcNameTitle.setEditable(true);
 
 		tbl_view.setOnMouseClicked(e->{
 			if(e.getClickCount()==2) {
@@ -208,6 +212,7 @@ public class FormManageTitle extends DialogBox implements Initializable{
 	public void handleRefersh(ActionEvent e) {
 		//		cbc.getItems().clear();
 		cbc.setValue("");
+		cbcNameTitle.setValue("");
 		tbl_view.getItems().clear();
 		uploadDuLieuLenBang();
 	}
@@ -283,17 +288,72 @@ public class FormManageTitle extends DialogBox implements Initializable{
 		}
 
 	}
+	
+	public void findItemNameTitleInTable(ActionEvent e) throws IOException {
+		String textFind=null;
+
+		try {
+
+			textFind=cbcNameTitle.getSelectionModel().getSelectedItem().toString().trim();
+
+		} catch (Exception e2) {
+
+			Error("Bạn chưa nhập tìm kiếm", btnRefresh);
+
+			cbcNameTitle.requestFocus();
+
+		}
+
+		if(textFind.isEmpty()) {
+
+			Error("Bạn chưa nhập tìm kiếm", btnRefresh);
+
+			cbcNameTitle.requestFocus();
+
+			return;
+
+		}
+
+		tbl_view.getItems().clear();
+
+		List<Title> TitleFind=TitleService.findTitleByName(textFind);
+
+		if(TitleFind == null) {
+
+			Error("Không tìm thấy", btnRefresh);
+
+			cbcNameTitle.requestFocus();
+
+			return;
+
+		}else {
+			
+			tbl_view.getItems().clear();
+			
+			TitleFind.forEach(t->{
+				
+				tbl_view.getItems().add(t);
+				
+			});
+		
+
+		}
+
+	}
 
 
 
 	private void loadDataSearch() {
 		ObservableList<String> items = FXCollections.observableArrayList();
+		
+		ObservableList<String> itemsNameTitle = FXCollections.observableArrayList();
+		
 		List<Title> accs=TitleService.listTitle();
 
 		accs.forEach(t->{
-
 			items.add(t.getTitleId());
-
+			
+			itemsNameTitle.add(t.getName());
 		});
 
 		FilteredList<String> filteredItems = new FilteredList<String>(items);
@@ -303,5 +363,13 @@ public class FormManageTitle extends DialogBox implements Initializable{
 		cbc.setItems(filteredItems);
 
 		cbc.setEditable(true);
+		
+		FilteredList<String> filteredNameItems = new FilteredList<String>(itemsNameTitle);
+		
+		cbcNameTitle.getEditor().textProperty().addListener(new InputFilter(cbcNameTitle, filteredNameItems, false));
+
+		cbcNameTitle.setItems(filteredNameItems);
+
+		cbcNameTitle.setEditable(true);
 	}
 }
