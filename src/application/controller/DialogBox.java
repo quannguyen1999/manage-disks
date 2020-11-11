@@ -220,8 +220,6 @@ public class DialogBox  implements Initializable{
 
 		} catch (MalformedURLException e) {
 
-			System.out.println("FIle not found");
-
 			e.printStackTrace();
 
 		}

@@ -49,11 +49,7 @@ public class FormEmployee extends DialogBox implements Initializable{
 	
 	@FXML JFXButton btnLogOut;
 
-	@FXML JFXButton btnUser;
-
 	@FXML JFXButton btnHelp;
-
-	@FXML JFXButton btnChangePass;
 
 	@FXML Pane pnlDiscs;
 
@@ -98,9 +94,7 @@ public class FormEmployee extends DialogBox implements Initializable{
 	public void initialize(URL location, ResourceBundle resources) {
 		//set icon for button
 		btnLogOut.setGraphic(getImageView("Logout.png"));
-		btnUser.setGraphic(getImageView("IconUser.png"));
 		btnHelp.setGraphic(getImageView("IconHelp.png"));
-		btnChangePass.setGraphic(getImageView("IconPassworReset.png"));
 		
 		btnCustomer.setGraphic(getImageView("customers.png"));
 		btnDisks.setGraphic(getImageView("product.png"));
@@ -157,7 +151,7 @@ public class FormEmployee extends DialogBox implements Initializable{
 
 					ctlMain.txtNgaySinh.setValue(tbl_view.getItems().get(result).getDateOfBirth());
 
-					loadFXML(root,btnChangePass).setOnHidden(ev->{
+					loadFXML(root,btnHelp).setOnHidden(ev->{
 
 						handleRefersh(new ActionEvent());
 
@@ -180,7 +174,7 @@ public class FormEmployee extends DialogBox implements Initializable{
 
 		} catch (Exception e2) {
 
-			Error("Bạn chưa nhập tìm kiếm", btnUser);
+			Error("Bạn chưa nhập tìm kiếm", btnHelp);
 
 			cbc.requestFocus();
 
@@ -188,7 +182,7 @@ public class FormEmployee extends DialogBox implements Initializable{
 
 		if(textFind.isEmpty()) {
 
-			Error("Bạn chưa nhập tìm kiếm", btnUser);
+			Error("Bạn chưa nhập tìm kiếm", btnHelp);
 
 			cbc.requestFocus();
 
@@ -202,7 +196,7 @@ public class FormEmployee extends DialogBox implements Initializable{
 
 		if(customerFind==null) {
 
-			Error("Không tìm thấy", btnUser);
+			Error("Không tìm thấy", btnHelp);
 
 			cbc.requestFocus();
 
@@ -225,7 +219,7 @@ public class FormEmployee extends DialogBox implements Initializable{
 
 		} catch (Exception e2) {
 
-			Error("Bạn chưa nhập tìm kiếm", btnUser);
+			Error("Bạn chưa nhập tìm kiếm", btnHelp);
 
 			cbcPhone.requestFocus();
 
@@ -233,7 +227,7 @@ public class FormEmployee extends DialogBox implements Initializable{
 
 		if(textFind.isEmpty()) {
 
-			Error("Bạn chưa nhập tìm kiếm", btnUser);
+			Error("Bạn chưa nhập tìm kiếm", btnHelp);
 
 			cbcPhone.requestFocus();
 

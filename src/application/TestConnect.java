@@ -1,9 +1,19 @@
 package application;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.mindrot.jbcrypt.BCrypt;
 
 import application.controller.impl.BillImpl;
 import application.controller.impl.CategoryImpl;
@@ -30,41 +40,62 @@ import application.entities.OrderDetail;
 import application.entities.Product;
 import application.entities.Supplier;
 import application.entities.Title;
+import javafx.scene.image.Image;
 
 public class TestConnect {
-	public static void main(String[] args) {
-//		Category category=new Category("CT101", "quân", "bao cao su", 10000);
-//
-//		Title title=new Title("T101", "abc", true, category);
-//		
-//		Customer customer=new Customer("C02", "slut", "34/16", "0708821227", true, LocalDate.of(1999, 2, 1));
-//		
-//		Order order=new Order("OD011", LocalDate.of(1999, 2, 1), customer);
-//		
-//		OrderDetail orderDetail=new OrderDetail("ODDT01", 10, 10, order, title);
-//		
-//		OrderService orderService=new OrderImpl();
-//		
-//		OrderDetailService orderDetailService=new OrderDetailImpl();
-//		
-//		System.out.println(orderDetailService.addOrderDetail(orderDetail));
+
+	public static void main(String[] args) throws IOException {
+		//		Category category=new Category("CT101", "quân", "bao cao su", 10000);
+		//
+		//		Title title=new Title("T101", "abc", true, category);
+		//		
+		//		Customer customer=new Customer("C02", "slut", "34/16", "0708821227", true, LocalDate.of(1999, 2, 1));
+		//		
+		//		Order order=new Order("OD011", LocalDate.of(1999, 2, 1), customer);
+		//		
+		//		OrderDetail orderDetail=new OrderDetail("ODDT01", 10, 10, order, title);
+		//		
+		//		OrderService orderService=new OrderImpl();
+		//		
+		//		OrderDetailService orderDetailService=new OrderDetailImpl();
+		//		
+		//		System.out.println(orderDetailService.addOrderDetail(orderDetail));
+
+		//		CustomerService customerService=new CustomerImpl();
+		//		
+		//		System.out.println(customerService.findCustomerByPhone("008821227"));
+
+		//		NumberFormat formatter = new DecimalFormat("#000,000");     
+		//		System.out.println(formatter.format(400000000));
+
+		//		BillService billService=new BillImpl();
+		//		ArrayList<Bill> listBill=(ArrayList<Bill>) billService.findAllBillByIdCustomer("C01");
+		//		billService.findAllBillDetailByIdBill(listBill).forEach(t->{
+		//			System.out.println(t.getBillDetailId());
+		//		});;
+
+
+		String line= "";
+
+		FileWriter writer = new FileWriter("MyFile.txt", false);
+		String password = "123";
+		String hash = BCrypt.hashpw(password, BCrypt.gensalt(12));
+		writer.write(hash);
+		writer.close();
+
+		try {
+			FileReader reader = new FileReader("MyFile.txt");
+			BufferedReader bufferedReader = new BufferedReader(reader);
+			line = bufferedReader.readLine();
+			reader.close();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
-//		CustomerService customerService=new CustomerImpl();
-//		
-//		System.out.println(customerService.findCustomerByPhone("008821227"));
+		System.out.println(BCrypt.checkpw(password, line));
 		
-//		NumberFormat formatter = new DecimalFormat("#000,000");     
-//		System.out.println(formatter.format(400000000));
 		
-//		BillService billService=new BillImpl();
-//		ArrayList<Bill> listBill=(ArrayList<Bill>) billService.findAllBillByIdCustomer("C01");
-//		billService.findAllBillDetailByIdBill(listBill).forEach(t->{
-//			System.out.println(t.getBillDetailId());
-//		});;
-		
-		TitleService titleService = new TitleImpl();
-		
-		System.out.println(titleService.findTitleByName("fuck") == null);
 	}
 
 	public void testBill() {

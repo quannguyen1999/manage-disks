@@ -1,9 +1,14 @@
 package application.controller;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
 import java.util.EventObject;
 import java.util.ResourceBundle;
+
+import org.mindrot.jbcrypt.BCrypt;
+
 import com.jfoenix.controls.JFXButton;
 
 import javafx.animation.TranslateTransition;
@@ -32,11 +37,8 @@ public class Login extends DialogBox implements Initializable {
 	@FXML Pane pnlSignOut;
 	@FXML Pane pnlSignOut2;
 	@FXML StackPane pnlFill;
-	
 	@FXML TextField txtAcc;
-
 	@FXML PasswordField txtPass;
-
 	@FXML JFXButton btnLogin;
 
 	
@@ -49,46 +51,55 @@ public class Login extends DialogBox implements Initializable {
 		System.exit(0);
 	}
 	
+	
+	
 	public void handleKeyEvents(KeyEvent e) throws IOException {
 		if(e.getCode()==KeyCode.ENTER) {
 			
-			if(handleFieldLogin()==false) {
-				return;
-			};
-			
-			if(txtAcc.getText().toString().equals("admin") && txtPass.getText().toString().equals("123")) {
-
-				loadInterfaceAdmin(btnLogin,e);
-
-			}else if(txtAcc.getText().toString().equals("employ") && txtPass.getText().toString().equals("123")){
-				
-				loadInterfaceEmploy(btnLogin,e);
-				
-			}else {
-				
-				Error("username don't exists", btnLogin);
-				
-			}
+			loadFormLogin(null,e);
 			
 		}
 	}
 
 	public void login(ActionEvent e) throws IOException {
 
+		loadFormLogin(e,null);
+
+	}
+	
+	public void loadFormLogin(ActionEvent e, KeyEvent eKey) throws IOException {
 		if(handleFieldLogin()==false) {
 			return;
 		};
 
-		if(txtAcc.getText().toString().equals("admin") && txtPass.getText().toString().equals("123")) {
-
-			loadInterfaceAdmin(btnLogin,e);
+		if(txtAcc.getText().toString().equals("admin") && checkPassword(txtPass.getText().toString())) {
+			
+			if(e != null) {
+				loadInterfaceAdmin(btnLogin,e);
+			}else {
+				loadInterfaceAdmin(btnLogin,eKey);
+			}
 
 		}else {
 			
 			Error("username don't exists", btnLogin);
 			
 		}
+	}
+	
+	public boolean checkPassword(String password) {
+		String line = "";
+		try {
+			FileReader reader = new FileReader("MyFile.txt");
+			BufferedReader bufferedReader = new BufferedReader(reader);
+			line = bufferedReader.readLine();
+			reader.close();
 
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return BCrypt.checkpw(password, line);
 	}
 	
 	public void enter(ActionEvent e) throws IOException {
@@ -125,18 +136,18 @@ public class Login extends DialogBox implements Initializable {
 		pnlSignOut2.toFront();
 		
 		TranslateTransition slide=new TranslateTransition();
-		slide.setAutoReverse(true);
-		slide.setDuration(Duration.seconds(0.7));
-		slide.setNode(pnlFill);
-		slide.setToX(-644);
-		slide.play();
+//		slide.setAutoReverse(true);
+//		slide.setDuration(Duration.seconds(0.7));
+//		slide.setNode(pnlFill);
+//		slide.setToX(-644);
+//		slide.play();
 
 		TranslateTransition slide2=new TranslateTransition();
-		slide2.setAutoReverse(true);
-		slide2.setDuration(Duration.seconds(0.7));
-		slide2.setNode(pnlSign);
-		slide2.setToX(322);
-		slide2.play();
+//		slide2.setAutoReverse(true);
+//		slide2.setDuration(Duration.seconds(0.7));
+//		slide2.setNode(pnlSign);
+//		slide2.setToX(322);
+//		slide2.play();
 		
 		
 	}
@@ -145,19 +156,19 @@ public class Login extends DialogBox implements Initializable {
 		pnlSignIn.toFront();
 		pnlSignIn2.toFront();
 		
-		TranslateTransition slide=new TranslateTransition();
-		slide.setAutoReverse(true);
-		slide.setDuration(Duration.seconds(0.7));
-		slide.setNode(pnlFill);
-		slide.setToX(0);
-		slide.play();
+//		TranslateTransition slide=new TranslateTransition();
+//		slide.setAutoReverse(true);
+//		slide.setDuration(Duration.seconds(0.7));
+//		slide.setNode(pnlFill);
+//		slide.setToX(0);
+//		slide.play();
 
-		TranslateTransition slide2=new TranslateTransition();
-		slide2.setAutoReverse(true);
-		slide2.setDuration(Duration.seconds(0.7));
-		slide2.setNode(pnlSign);
-		slide2.setToX(0);
-		slide2.play();
+//		TranslateTransition slide2=new TranslateTransition();
+//		slide2.setAutoReverse(true);
+//		slide2.setDuration(Duration.seconds(0.7));
+//		slide2.setNode(pnlSign);
+//		slide2.setToX(0);
+//		slide2.play();
 
 	}
 	

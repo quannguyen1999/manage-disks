@@ -68,19 +68,17 @@
                <left>
                   <HBox prefHeight="25.0" prefWidth="1362.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
                      <children>
-                        <JFXButton fx:id="btnChangePass" onAction="#btnClickChangePassword" />
                         <JFXButton fx:id="btnForward" />
                         <Accordion prefHeight="25.0" prefWidth="128.0" style="-fx-background-color: black;" />
                      </children>
                   </HBox>
                </left>
                <right>
-                  <HBox prefHeight="25.0" prefWidth="170.0" BorderPane.alignment="CENTER">
+                  <HBox prefHeight="25.0" prefWidth="111.0" BorderPane.alignment="CENTER">
                      <children>
                         <HBox prefHeight="25.0" prefWidth="183.0">
                            <children>
                               <JFXButton fx:id="btnHelp" onAction="#clickBtnHelp" prefHeight="25.0" prefWidth="57.0" />
-                              <JFXButton fx:id="btnUser" />
                               <JFXButton fx:id="btnLogOut" onAction="#btnLogOut" />
                            </children>
                         </HBox>
