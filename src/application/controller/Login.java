@@ -44,7 +44,8 @@ public class Login extends DialogBox implements Initializable {
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		
+		txtAcc.setText("admin");
+		txtAcc.setEditable(false);
 	}
 
 	public void btnExit(ActionEvent e) {
@@ -72,7 +73,7 @@ public class Login extends DialogBox implements Initializable {
 			return;
 		};
 
-		if(txtAcc.getText().toString().equals("admin") && checkPassword(txtPass.getText().toString())) {
+		if(checkPassword(txtPass.getText().toString())) {
 			
 			if(e != null) {
 				loadInterfaceAdmin(btnLogin,e);
@@ -82,7 +83,7 @@ public class Login extends DialogBox implements Initializable {
 
 		}else {
 			
-			Error("username don't exists", btnLogin);
+			Error("Mật khẩu không hợp lệ", btnLogin);
 			
 		}
 	}
@@ -110,9 +111,7 @@ public class Login extends DialogBox implements Initializable {
 		
 		if(txtAcc.getText().trim().isEmpty()==true) {
 
-			System.out.println("Please enter username");
-
-			Error("Please enter username",btnLogin);
+			Error("Vui lòng nhập tên tài khoản",btnLogin);
 
 			return false;
 		}
@@ -120,9 +119,7 @@ public class Login extends DialogBox implements Initializable {
 
 		if(txtPass.getText().trim().isEmpty()==true) {
 
-			System.out.println("Please enter pass");
-
-			Error("Please enter username",btnLogin);
+			Error("Vui lòng nhập mật khẩu",btnLogin);
 
 			return false;
 		}

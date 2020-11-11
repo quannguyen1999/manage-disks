@@ -18,20 +18,20 @@
          <children>
             <Pane fx:id="pnlSignOut2" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;">
                <children>
-                  <TextField fx:id="txtAcc" layoutX="171.0" layoutY="456.0" onKeyPressed="#handleKeyEvents" prefHeight="36.0" prefWidth="305.0" promptText="Account..." />
-                  <Label layoutX="257.0" layoutY="408.0" prefHeight="17.0" prefWidth="135.0" text="Login your account" textFill="#26264a" />
+                  <TextField fx:id="txtAcc" layoutX="171.0" layoutY="456.0" onKeyPressed="#handleKeyEvents" prefHeight="36.0" prefWidth="305.0" promptText="Tên tài khoản" />
+                  <Label layoutX="290.0" layoutY="413.0" prefHeight="14.0" prefWidth="64.0" text="Đăng nhập" textFill="#26264a" />
                   <Label layoutX="150.0" layoutY="533.0">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <PasswordField fx:id="txtPass" layoutX="173.0" layoutY="515.0" onKeyPressed="#handleKeyEvents" prefHeight="36.0" prefWidth="302.0" promptText="Password..." />
+                  <PasswordField fx:id="txtPass" layoutX="173.0" layoutY="515.0" onKeyPressed="#handleKeyEvents" prefHeight="36.0" prefWidth="302.0" promptText="Mật khẩu" />
                   <ImageView fitHeight="432.0" fitWidth="735.0" layoutY="-56.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../image/Login-1.jpg" />
                      </image>
                   </ImageView>
-                  <JFXButton fx:id="btnLogin" layoutX="424.0" layoutY="577.0" onAction="#login" prefHeight="33.0" prefWidth="128.0" style="-fx-background-color: black;" styleClass="btnSignIn" stylesheets="@..\css\application.css" text="Login" textFill="WHITE">
+                  <JFXButton fx:id="btnLogin" layoutX="424.0" layoutY="577.0" onAction="#login" prefHeight="33.0" prefWidth="128.0" style="-fx-background-color: black;" styleClass="btnSignIn" stylesheets="@..\css\application.css" text="Xác minh" textFill="WHITE">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -64,13 +64,13 @@
          <children>
             <Pane fx:id="pnlSignOut" prefHeight="583.0" prefWidth="431.0" styleClass="linear-grad" stylesheets="@..\css\application.css">
                <children>
-                  <Label layoutX="107.0" layoutY="50.0" prefHeight="58.0" prefWidth="111.0" text=" Hello" textFill="WHITE">
+                  <Label layoutX="56.0" layoutY="56.0" prefHeight="61.0" prefWidth="212.0" text="Chào mừng" textFill="WHITE">
                      <font>
                         <Font name="Angsana New Bold Italic" size="40.0" />
                      </font>
                   </Label>
                   <Label layoutX="139.0" layoutY="108.0" prefHeight="17.0" prefWidth="47.0" text="admin" textFill="WHITE" />
-                  <JFXButton layoutX="85.0" layoutY="231.0" onAction="#clickSignIn" prefHeight="51.0" prefWidth="156.0" styleClass="btnLogin" stylesheets="@..\css\application.css" text="Turn back " textFill="WHITE">
+                  <JFXButton layoutX="70.0" layoutY="231.0" onAction="#clickSignIn" prefHeight="49.0" prefWidth="184.0" styleClass="btnLogin" stylesheets="@..\css\application.css" text="Quay lại employee" textFill="WHITE">
                      <font>
                         <Font name="Calibri Light" size="20.0" />
                      </font>
@@ -85,12 +85,12 @@
             </Pane>
             <Pane fx:id="pnlSignIn" prefHeight="200.0" prefWidth="200.0" styleClass="linear-grad" stylesheets="@..\css\application.css">
                <children>
-                  <Button layoutX="73.0" layoutY="249.0" mnemonicParsing="false" onAction="#clickSignOut" prefHeight="47.0" prefWidth="178.0" styleClass="btnLogin" stylesheets="@..\css\application.css" text="Turn back to admin" textFill="WHITE">
+                  <Button layoutX="73.0" layoutY="249.0" mnemonicParsing="false" onAction="#clickSignOut" prefHeight="47.0" prefWidth="178.0" styleClass="btnLogin" stylesheets="@..\css\application.css" text="Quay lại admin" textFill="WHITE">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </Button>
-                  <Label layoutX="83.0" layoutY="89.0" prefHeight="58.0" prefWidth="171.0" text="Welcome" textFill="WHITE">
+                  <Label layoutX="61.0" layoutY="89.0" prefHeight="54.0" prefWidth="216.0" text="Chào mừng" textFill="WHITE">
                      <font>
                         <Font name="Angsana New Bold Italic" size="40.0" />
                      </font>
