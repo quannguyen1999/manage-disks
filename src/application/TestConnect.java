@@ -55,7 +55,9 @@ public class TestConnect {
 		//		
 		//		OrderDetail orderDetail=new OrderDetail("ODDT01", 10, 10, order, title);
 		//		
-		//		OrderService orderService=new OrderImpl();
+				OrderService orderService=new OrderImpl();
+				System.out.println(orderService.listOrder());
+				System.out.println(orderService.findAllOrderByIdCustomer("C02"));
 		//		
 		//		OrderDetailService orderDetailService=new OrderDetailImpl();
 		//		
@@ -75,25 +77,25 @@ public class TestConnect {
 		//		});;
 
 
-		String line= "";
-
-		FileWriter writer = new FileWriter("MyFile.txt", false);
-		String password = "123";
-		String hash = BCrypt.hashpw(password, BCrypt.gensalt(12));
-		writer.write(hash);
-		writer.close();
-
-		try {
-			FileReader reader = new FileReader("MyFile.txt");
-			BufferedReader bufferedReader = new BufferedReader(reader);
-			line = bufferedReader.readLine();
-			reader.close();
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		System.out.println(BCrypt.checkpw(password, line));
+//		String line= "";
+//
+//		FileWriter writer = new FileWriter("MyFile.txt", false);
+//		String password = "123";
+//		String hash = BCrypt.hashpw(password, BCrypt.gensalt(12));
+//		writer.write(hash);
+//		writer.close();
+//
+//		try {
+//			FileReader reader = new FileReader("MyFile.txt");
+//			BufferedReader bufferedReader = new BufferedReader(reader);
+//			line = bufferedReader.readLine();
+//			reader.close();
+//
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//		
+//		System.out.println(BCrypt.checkpw(password, line));
 		
 		
 	}

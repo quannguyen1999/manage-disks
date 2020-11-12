@@ -4,9 +4,12 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.EntityTransaction;
+
 import application.controller.DAO.Connect;
 import application.controller.DAO.Repository;
 import application.controller.services.OrderService;
+import application.entities.Bill;
 import application.entities.Order;
 
 public class OrderImpl  extends Repository implements OrderService{
@@ -53,6 +56,20 @@ public class OrderImpl  extends Repository implements OrderService{
 			listOrder.add((Order)listObject.get(i));
 		}
 		return listOrder;
+	}
+
+	@Override
+	public List<Order> findAllOrderByIdCustomer(String id) {
+		List<Order> listOrderFind = new ArrayList<>();
+		List<Order> listOrderX=listOrder();
+		if(listOrderX!=null && listOrderX.size()>=1) {
+			for(int i=0;i<listOrderX.size();i++) {
+				if(listOrderX.get(i).getCustomer().getCustomerId().equalsIgnoreCase(id)) {
+					listOrderFind.add(listOrderX.get(i));
+				}
+			}
+		}
+		return listOrderFind.size()==0?null:listOrderFind;
 	}
 
 }

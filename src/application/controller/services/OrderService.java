@@ -14,4 +14,6 @@ public interface OrderService {
 	public Order findOrderById(String id);
 
 	public List<Order> listOrder();
+	
+	public List<Order> findAllOrderByIdCustomer(String id);
 }

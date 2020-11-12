@@ -299,39 +299,6 @@ public class FormRentDisk  extends DialogBox implements Initializable{
 				tbl_view.getItems().add(t);
 			});
 
-			//			tbl_view.getItems().forEach(t->{
-			//				if(t.getProductId().equalsIgnoreCase(product.getProductId())) {
-			//					if(t.getQuantity()>=product.getQuantity()) {
-			//						try {
-			//							Error("Không đủ hàng chỉ còn "+product.getQuantity(), btnExit);
-			//							result=true;
-			//						} catch (IOException e1) {
-			//							// TODO Auto-generated catch block
-			//							e1.printStackTrace();
-			//						}
-			//						return;
-			//					}else {
-			//						System.out.println("not working");
-			//						t.setQuantity(t.getQuantity()+1);
-			//						result=true;
-			//						return;
-			//					}
-			//				}
-			//			});
-			//			if(result == false) {
-			//				tbl_view.getItems().add(new Product(product.getProductId(), product.getName(),
-			//						product.getPicture(), 1,
-			//						product.getDescription(), product.getStatus(), 
-			//						product.getDateAdded(), product.getTitle(), product.getSupplier()));
-			//			}
-			//			tbl_view.getItems().forEach(t->{
-			//
-			//				total+=(t.getQuantity()*t.getTitle().getCategory().getPrice());
-			//
-			//			});
-			//
-			//			lblTotal.setText(String.valueOf(total));
-
 		}
 	}
 
@@ -687,29 +654,6 @@ public class FormRentDisk  extends DialogBox implements Initializable{
 
 		}
 		
-
-		FXMLLoader loader= new FXMLLoader(getClass().getResource(loadSuccess));
-		
-		Parent root=loader.load();
-		
-		Success ctlMain=loader.getController();
-		
-		ctlMain.lblSuccess.setText("Thuê thành công");
-		
-		new animatefx.animation.FadeIn(root).play();
-		
-		Stage stage=new Stage();
-		
-		stage.initOwner(btnExit.getScene().getWindow());
-		
-		stage.setScene(new Scene(root));
-		
-		stage.initStyle(StageStyle.UNDECORATED);
-		
-		stage.initModality(Modality.APPLICATION_MODAL);
-		
-		stage.show();
-	
 		Customer customerFind = customerService.findCustomerById(cbcIdCustomer.getSelectionModel()
 				.getSelectedItem().toString().trim());
 
@@ -731,8 +675,7 @@ public class FormRentDisk  extends DialogBox implements Initializable{
 
 			Success("Thuê đĩa thành công", btnExit);
 
-			((Node)(e.getSource())).getScene().getWindow().hide();  
-
+			resetAllField(e);
 		}else{
 
 			Error("Lỗi thêm không thành công", btnExit);

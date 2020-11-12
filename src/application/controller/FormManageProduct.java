@@ -30,6 +30,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -54,6 +55,10 @@ public class FormManageProduct extends DialogBox implements Initializable{
 	TableColumn<Product, String> colNameSupplier;
 
 	@FXML BorderPane bd;
+	
+	@FXML Label lblName;
+	@FXML Label lblPath;
+	@FXML ImageView img;
 
 	public ProductService ProductService=new ProductImpl();
 
@@ -123,6 +128,8 @@ public class FormManageProduct extends DialogBox implements Initializable{
 					}else {
 						ctlMain.txtStatusTitle.setText("Còn hàng");
 					}
+					
+				
 
 					loadFXML(root,btnRefresh).setOnHidden(ev->{
 
@@ -130,6 +137,13 @@ public class FormManageProduct extends DialogBox implements Initializable{
 
 					});;
 				}
+			
+			}else if(e.getClickCount() == 1) {
+				int resultX=tbl_view.getSelectionModel().getSelectedIndex();
+				lblName.setText(tbl_view.getItems().get(resultX).getName());
+				lblPath.setText(tbl_view.getItems().get(resultX).getStatus());
+				Image image = new Image("file:///"+tbl_view.getItems().get(resultX).getPicture());
+				img.setImage(image);
 			}
 		});
 	}

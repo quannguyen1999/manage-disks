@@ -202,7 +202,7 @@ public class FormAddCustomer extends DialogBox implements Initializable{
 					Error("Lỗi thêm không thành công", btn);
 
 				}else{
-
+//					Success("Thêm khách hàng thành công")
 					((Node)(e.getSource())).getScene().getWindow().hide();  
 
 				};

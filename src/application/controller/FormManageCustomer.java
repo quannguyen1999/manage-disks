@@ -11,9 +11,13 @@ import com.jfoenix.controls.JFXButton;
 
 import application.controller.impl.BillImpl;
 import application.controller.impl.CustomerImpl;
+import application.controller.impl.OrderImpl;
 import application.controller.services.BillService;
 import application.controller.services.CustomerService;
+import application.controller.services.OrderService;
+import application.entities.Bill;
 import application.entities.Customer;
+import application.entities.Order;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -48,11 +52,13 @@ public class FormManageCustomer extends DialogBox implements Initializable{
 	private CustomerService customerService=new CustomerImpl();
 
 	private BillService billService = new BillImpl();
-	
+
+	private OrderService orderService = new OrderImpl();
+
 	@FXML ComboBox<String> cbc=new ComboBox<String>();
-	
+
 	@FXML ComboBox<String> cbcPhone=new ComboBox<String>();
-	
+
 	@FXML JFXButton btnRefresh;
 
 	List<Customer> listCustomer=new ArrayList<>();
@@ -64,7 +70,7 @@ public class FormManageCustomer extends DialogBox implements Initializable{
 		loadDataSearch();
 
 		cbc.setEditable(true);
-		
+
 		cbcPhone.setEditable(true);
 
 		tbl_view.setOnMouseClicked(e->{
@@ -88,15 +94,15 @@ public class FormManageCustomer extends DialogBox implements Initializable{
 					ctlMain.txtMa.setText(tbl_view.getItems().get(result).getCustomerId());
 
 					ctlMain.txtTenKH.setText(tbl_view.getItems().get(result).getName());
-					
+
 					ctlMain.txtDiaChi.setText(tbl_view.getItems().get(result).getAddress());
 
 					ctlMain.txtDienThoai.setText(tbl_view.getItems().get(result).getPhone());
 
 					ctlMain.txtNgaySinh.setValue(tbl_view.getItems().get(result).getDateOfBirth());
-					
+
 					ctlMain.btn.setText("Reset");
-					
+
 					ctlMain.customer=tbl_view.getItems().get(result);
 
 					loadFXML(root,btnRefresh).setOnHidden(ev->{
@@ -113,42 +119,64 @@ public class FormManageCustomer extends DialogBox implements Initializable{
 	public void btnXoaCustomer(ActionEvent e) throws IOException{
 
 		int result=tbl_view.getSelectionModel().getSelectedIndex();
-		
+
 		if(result!=-1) {
+			List<Bill> listBill=
+					billService.findAllBillByIdCustomer(tbl_view.getItems().get(result).getCustomerId());
 
-			FXMLLoader loader= new FXMLLoader(getClass().getResource(loadAreYouSure));
+			System.out.println(tbl_view.getItems().get(result).getCustomerId());
 			
-			Parent root=loader.load();
-			
-			AreYouSure ctlMain=loader.getController();
-			
-			new animatefx.animation.FadeIn(root).play();
-			
-			Stage stage=new Stage();
-			
-			stage.initOwner(btnRefresh.getScene().getWindow());
-			
-			stage.setScene(new Scene(root));
-			
-			stage.initStyle(StageStyle.UNDECORATED);
-			
-			stage.initModality(Modality.APPLICATION_MODAL);
-			
-			stage.show();
-			
-			stage.setOnHidden(efg->{
-			
-				if(ctlMain.result==true) {
-				
-					customerService.removeCustomer(tbl_view.getItems().get(result).getCustomerId());
-					
-					handleRefersh(e);
-				
-				}else {
+			List<Order> listOrder=
+					orderService.findAllOrderByIdCustomer(tbl_view.getItems().get(result).getCustomerId());
+			if(listBill!=null && listBill.size()>=1) {
 
-				}
-			});
-			
+				Error("Khách hàng đang nợ đĩa", btnRefresh);
+
+				return;
+
+			}else if(listOrder!=null && listOrder.size()>=1) {
+				
+				Error("Khách hàng đang đặt đĩa", btnRefresh);
+
+				return;
+
+			}else {
+				FXMLLoader loader= new FXMLLoader(getClass().getResource(loadAreYouSure));
+
+				Parent root=loader.load();
+
+				AreYouSure ctlMain=loader.getController();
+
+				new animatefx.animation.FadeIn(root).play();
+
+				Stage stage=new Stage();
+
+				stage.initOwner(btnRefresh.getScene().getWindow());
+
+				stage.setScene(new Scene(root));
+
+				stage.initStyle(StageStyle.UNDECORATED);
+
+				stage.initModality(Modality.APPLICATION_MODAL);
+
+				stage.show();
+
+				stage.setOnHidden(efg->{
+
+					if(ctlMain.result==true) {
+
+						customerService.removeCustomer(tbl_view.getItems().get(result).getCustomerId());
+
+						handleRefersh(e);
+
+					}else {
+
+					}
+				});
+			}
+
+
+
 		}else {
 
 			Error("bạn chưa chọn bảng cần xóa", btnRefresh);
@@ -199,7 +227,7 @@ public class FormManageCustomer extends DialogBox implements Initializable{
 		cbc.setValue("");
 		tbl_view.getItems().clear();
 		uploadDuLieuLenBang();
-		
+
 		cbcPhone.setValue("");
 	}
 
@@ -228,7 +256,7 @@ public class FormManageCustomer extends DialogBox implements Initializable{
 
 
 	}
-	
+
 	public void btnRentDisk(ActionEvent e) throws IOException {
 		FXMLLoader loader= new FXMLLoader(getClass().getResource(loadFormRentDisk));
 
@@ -253,7 +281,7 @@ public class FormManageCustomer extends DialogBox implements Initializable{
 		});
 
 	}
-	
+
 	public void btnReturnDisk(ActionEvent e) throws IOException {
 		FXMLLoader loader= new FXMLLoader(getClass().getResource(loadFormReturnDisk));
 
@@ -311,7 +339,7 @@ public class FormManageCustomer extends DialogBox implements Initializable{
 		}
 
 	}
-	
+
 	public void findItemPhoneInTable(ActionEvent e) throws IOException {
 		String textFind=null;
 
@@ -362,14 +390,14 @@ public class FormManageCustomer extends DialogBox implements Initializable{
 	private void loadDataSearch() {
 		ObservableList<String> items = FXCollections.observableArrayList();
 		ObservableList<String> itemsPhone = FXCollections.observableArrayList();
-		
-		
+
+
 		List<Customer> accs=customerService.listCustomer();
 
 		accs.forEach(t->{
 
 			items.add(t.getCustomerId());
-			
+
 			itemsPhone.add(t.getPhone());
 
 		});
@@ -381,7 +409,7 @@ public class FormManageCustomer extends DialogBox implements Initializable{
 		cbc.setItems(filteredItems);
 
 		cbc.setEditable(true);
-		
+
 		FilteredList<String> filteredItemsPhone = new FilteredList<String>(itemsPhone);
 
 		cbcPhone.getEditor().textProperty().addListener(new InputFilter(cbcPhone, filteredItemsPhone, false));
