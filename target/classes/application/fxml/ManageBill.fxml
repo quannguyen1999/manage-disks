@@ -4,7 +4,9 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -14,44 +16,9 @@
    <top>
       <BorderPane fx:id="bd" prefHeight="783.0" prefWidth="1257.0" BorderPane.alignment="CENTER">
          <right>
-            <VBox fx:id="vboxGame" prefHeight="752.0" prefWidth="239.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
+            <VBox fx:id="vboxGame" alignment="CENTER" prefHeight="752.0" prefWidth="239.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
                <children>
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="46.0" prefWidth="239.0" style="-fx-background-color: #212022;" text="Information bill" textFill="WHITE">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets bottom="10.0" top="10.0" />
-                     </VBox.margin>
-                  </Label>
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="26.0" prefWidth="239.0" style="-fx-background-color: #212022;" text="Name game" textFill="WHITE">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="lblNameGame" alignment="CENTER" contentDisplay="CENTER" prefHeight="34.0" prefWidth="239.0" text="...." textFill="WHITE" />
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="26.0" prefWidth="239.0" style="-fx-background-color: #212022;" text="Path game" textFill="WHITE">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="lblPathGame" alignment="CENTER" contentDisplay="CENTER" prefHeight="34.0" prefWidth="239.0" text="...." textFill="WHITE" />
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="26.0" prefWidth="239.0" style="-fx-background-color: #212022;" text="Image big" textFill="WHITE">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Label>
-                  <ImageView fx:id="imgBig" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                     <VBox.margin>
-                        <Insets left="16.0" top="5.0" />
-                     </VBox.margin>
-                  </ImageView>
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="26.0" prefWidth="239.0" style="-fx-background-color: #212022;" textFill="WHITE">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Label>
-                  <JFXButton onAction="#btnClickAdd" prefHeight="35.0" prefWidth="239.0" style="-fx-border-color: white;" stylesheets="@..\css\application.css" text="Add" textFill="WHITE">
+                  <JFXButton onAction="#btnClickAdd" prefHeight="35.0" prefWidth="239.0" style="-fx-border-color: white;" stylesheets="@..\css\application.css" text="Thêm" textFill="WHITE">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -59,7 +26,15 @@
                         <Insets bottom="10.0" top="10.0" />
                      </VBox.margin>
                   </JFXButton>
-                  <JFXButton onAction="#btnXoaBill" prefHeight="35.0" prefWidth="239.0" style="-fx-border-color: white;" stylesheets="@..\css\application.css" text="Remove" textFill="WHITE">
+                  <JFXButton onAction="#btnXoaBill" prefHeight="35.0" prefWidth="239.0" style="-fx-border-color: white;" stylesheets="@..\css\application.css" text="Xóa" textFill="WHITE">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="10.0" top="10.0" />
+                     </VBox.margin>
+                  </JFXButton>
+                  <JFXButton fx:id="btnRefresh" onAction="#handleRefersh" prefHeight="35.0" prefWidth="239.0" style="-fx-border-color: white;" stylesheets="@..\css\application.css" text="Reset" textFill="WHITE">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -73,17 +48,62 @@
          <bottom>
             <HBox fx:id="hboxGame" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
                <children>
-                  <Label text="Find bill: " textFill="WHITE">
+                  <RadioButton fx:id="rdOne" mnemonicParsing="false" onAction="#clickRdOne" prefHeight="30.0" prefWidth="175.0" text="Tìm bill theo id" textFill="WHITE">
                      <font>
                         <Font size="20.0" />
                      </font>
-                  </Label>
-                  <ComboBox fx:id="cbc" prefHeight="35.0" prefWidth="224.0">
+                     <HBox.margin>
+                        <Insets left="10.0" right="10.0" />
+                     </HBox.margin>
+                     <toggleGroup>
+                        <ToggleGroup fx:id="find" />
+                     </toggleGroup>
+                  </RadioButton>
+                  <ComboBox fx:id="cbc" prefHeight="38.0" prefWidth="163.0">
                      <HBox.margin>
                         <Insets left="20.0" right="20.0" />
                      </HBox.margin>
                   </ComboBox>
-                  <JFXButton onAction="#findItemInTable" prefHeight="35.0" prefWidth="192.0" styleClass="btnLogin" stylesheets="@..\css\application.css" text="Find" textFill="WHITE">
+                  <Separator orientation="VERTICAL" prefHeight="200.0">
+                     <opaqueInsets>
+                        <Insets right="20.0" />
+                     </opaqueInsets>
+                  </Separator>
+                  <RadioButton fx:id="rdTwo" mnemonicParsing="false" onAction="#clickRdTwo" prefHeight="30.0" prefWidth="139.0" selected="true" text="Tìm phone" textFill="#fcfcfc" toggleGroup="$find">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </RadioButton>
+                  <Label textFill="WHITE">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="5.0" right="5.0" />
+                     </HBox.margin>
+                  </Label>
+                  <ComboBox fx:id="cbcPhoneKH" prefHeight="38.0" prefWidth="199.0">
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </ComboBox>
+                  <Separator orientation="VERTICAL" prefHeight="200.0" />
+                  <Label textFill="WHITE">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <RadioButton fx:id="rdThree" mnemonicParsing="false" onAction="#clickRdThree" prefHeight="33.0" prefWidth="151.0" text="Theo id kh :" textFill="#cdcdcd" toggleGroup="$find">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </RadioButton>
+                  <ComboBox fx:id="cbcIdKH" prefHeight="39.0" prefWidth="167.0">
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </ComboBox>
+                  <JFXButton onAction="#findItemInTable" prefHeight="35.0" prefWidth="192.0" styleClass="btnLogin" stylesheets="@..\css\application.css" text="Tìm " textFill="WHITE">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -91,16 +111,11 @@
                         <Insets right="10.0" />
                      </HBox.margin>
                   </JFXButton>
-                  <JFXButton fx:id="btnRefresh" onAction="#handleRefersh" prefHeight="35.0" prefWidth="225.0" styleClass="btnLogin" stylesheets="@..\css\application.css" text="Reresh" textFill="WHITE">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </JFXButton>
                </children>
             </HBox>
          </bottom>
          <top>
-            <Label fx:id="lblProduct" alignment="CENTER" prefHeight="68.0" prefWidth="1257.0" style="-fx-background-color: #AF231A;" text="Manage Bill" textFill="WHITE" BorderPane.alignment="CENTER">
+            <Label fx:id="lblProduct" alignment="CENTER" prefHeight="68.0" prefWidth="1257.0" style="-fx-background-color: #AF231A;" text="Quản lý bill" textFill="WHITE" BorderPane.alignment="CENTER">
                <font>
                   <Font name="Calibri" size="26.0" />
                </font>

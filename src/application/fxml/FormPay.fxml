@@ -14,14 +14,20 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="mainBd" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="507.0" prefWidth="1276.0" stylesheets="@../css/application.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.FormAddBill">
+<BorderPane fx:id="mainBd" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="507.0" prefWidth="1276.0" stylesheets="@../css/application.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.FormPay">
    <left>
       <VBox prefHeight="423.0" prefWidth="277.0" BorderPane.alignment="CENTER">
          <children>
-            <Label text="Bill">
+            <Label text="Mã phí trễ">
                <VBox.margin>
                   <Insets left="20.0" top="20.0" />
-               </VBox.margin></Label>
+               </VBox.margin>
+            </Label>
+            <JFXTextField fx:id="txtLateFee">
+               <VBox.margin>
+                  <Insets left="20.0" right="20.0" />
+               </VBox.margin>
+            </JFXTextField>
             <Label prefHeight="53.0" prefWidth="277.0" text="Mã bill">
                <font>
                   <Font name="Calibri Light" size="18.0" />
@@ -42,10 +48,11 @@
                   <Insets left="20.0" right="20.0" />
                </VBox.margin>
             </Label>
-            <JFXTextField fx:id="txtBillDateOrder">
+            <JFXDatePicker fx:id="txtBillDateOrder" prefHeight="25.0" prefWidth="312.0">
                <VBox.margin>
                   <Insets left="20.0" right="20.0" />
-               </VBox.margin></JFXTextField>
+               </VBox.margin>
+            </JFXDatePicker>
             <Label prefHeight="53.0" prefWidth="277.0" text="Ngày thanh toán (billPay)">
                <font>
                   <Font name="Calibri Light" size="18.0" />
@@ -99,13 +106,6 @@
                         <Insets top="20.0" />
                      </HBox.margin>
                   </Label>
-                  <JFXRadioButton fx:id="rdFindCustomerById" onAction="#clickFindByCustomerId" text="Chọn">
-                     <HBox.margin>
-                        <Insets top="20.0" />
-                     </HBox.margin>
-                     <toggleGroup>
-                        <ToggleGroup fx:id="kh" />
-                     </toggleGroup></JFXRadioButton>
                </children>
             </HBox>
             <HBox prefHeight="29.0" prefWidth="299.0">
@@ -115,10 +115,6 @@
                         <Insets right="10.0" top="18.0" />
                      </HBox.margin>
                   </ComboBox>
-                  <JFXButton onAction="#findCustomerById" styleClass="btnLogin" stylesheets="@../css/application.css" text="Tìm">
-                     <HBox.margin>
-                        <Insets top="18.0" />
-                     </HBox.margin></JFXButton>
                </children>
             </HBox>
             <HBox prefHeight="15.0" prefWidth="299.0">
@@ -131,10 +127,6 @@
                         <Insets top="10.0" />
                      </HBox.margin>
                   </Label>
-                  <JFXRadioButton fx:id="rdFindCustomerByPhone" onAction="#clickFindByCustomerPhone" selected="true" text="Chọn" toggleGroup="$kh">
-                     <HBox.margin>
-                        <Insets top="10.0" />
-                     </HBox.margin></JFXRadioButton>
                </children>
             </HBox>
             <HBox prefHeight="29.0" prefWidth="299.0">
@@ -144,10 +136,6 @@
                         <Insets right="10.0" top="10.0" />
                      </HBox.margin>
                   </ComboBox>
-                  <JFXButton onAction="#findCustomerByPhone" styleClass="btnLogin" stylesheets="@../css/application.css" text="Tìm">
-                     <HBox.margin>
-                        <Insets top="10.0" />
-                     </HBox.margin></JFXButton>
                </children>
             </HBox>
             <Label prefHeight="40.0" prefWidth="277.0" text="Tên">
@@ -184,67 +172,43 @@
                </top>
                <bottom>
                   <HBox alignment="CENTER" prefHeight="37.0" prefWidth="669.0" BorderPane.alignment="CENTER">
-                     <children>
-                        <Label text="Tổng :">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                           <HBox.margin>
-                              <Insets top="5.0" />
-                           </HBox.margin>
-                        </Label>
-                        <Label fx:id="lblTotal" text="đ">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                           <HBox.margin>
-                              <Insets top="5.0" />
-                           </HBox.margin>
-                        </Label>
-                     </children>
                      <BorderPane.margin>
                         <Insets left="20.0" right="20.0" />
                      </BorderPane.margin>
+                     <children>
+                        <Label text="Số tiền muốn trả :">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <JFXTextField fx:id="txtPayWant" />
+                     </children>
                   </HBox>
                </bottom>
                <center>
-                  <BorderPane fx:id="bdLeft" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                  <BorderPane fx:id="bdLeft" prefHeight="294.0" prefWidth="358.0" BorderPane.alignment="CENTER">
                      <top>
-                        <Label text="Đĩa đặt" BorderPane.alignment="CENTER" />
-                     </top>
-                     <bottom>
-                        <HBox alignment="CENTER" prefHeight="38.0" prefWidth="356.0" BorderPane.alignment="CENTER">
-                           <children>
-                              <JFXButton onAction="#btnXoaProduct" styleClass="btnLogin" stylesheets="@../css/application.css" text="Xóa" />
-                           </children>
-                        </HBox>
-                     </bottom>
-                  </BorderPane>
-               </center>
-               <left>
-                  <BorderPane fx:id="bdRight" prefHeight="294.0" prefWidth="358.0" BorderPane.alignment="CENTER">
-                     <top>
-                        <Label text="Danh sách đĩa cửa hàng" BorderPane.alignment="CENTER" />
+                        <Label text="Danh sách đĩa đã thuê" BorderPane.alignment="CENTER" />
                      </top>
                      <bottom>
                         <HBox alignment="CENTER" prefHeight="43.0" prefWidth="358.0" BorderPane.alignment="CENTER">
                            <children>
-                              <ComboBox fx:id="cbcProductId" prefWidth="150.0">
+                              <Label text="Số tiền nợ :">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
                                  <HBox.margin>
-                                    <Insets right="20.0" />
+                                    <Insets top="5.0" />
                                  </HBox.margin>
-                              </ComboBox>
-                              <JFXButton onAction="#findItemInTable" styleClass="btnLogin" stylesheets="@../css/application.css" text="Find">
+                              </Label>
+                              <Label fx:id="lblTotal" text="đ">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
                                  <HBox.margin>
-                                    <Insets right="10.0" />
+                                    <Insets top="5.0" />
                                  </HBox.margin>
-                              </JFXButton>
-                              <JFXButton onAction="#btnChonProduct" styleClass="btnLogin" stylesheets="@../css/application.css" text="Chọn">
-                                 <HBox.margin>
-                                    <Insets right="10.0" />
-                                 </HBox.margin>
-                              </JFXButton>
-                              <JFXButton onAction="#handleRefersh" styleClass="btnLogin" stylesheets="@../css/application.css" text="Refresh" />
+                              </Label>
                            </children>
                         </HBox>
                      </bottom>
@@ -252,14 +216,14 @@
                         <Separator orientation="VERTICAL" prefHeight="278.0" prefWidth="0.0" BorderPane.alignment="CENTER" />
                      </left>
                   </BorderPane>
-               </left>
+               </center>
             </BorderPane>
          </children></VBox>
    </right>
    <top>
       <HBox alignment="CENTER_RIGHT" prefHeight="39.0" prefWidth="600.0" style="-fx-background-color: rgb(23,35,51);" BorderPane.alignment="CENTER">
          <children>
-            <Label fx:id="lblTitle" alignment="CENTER" contentDisplay="CENTER" prefHeight="39.0" prefWidth="1228.0" text="Thêm Bill" textFill="WHITE">
+            <Label fx:id="lblTitle" alignment="CENTER" contentDisplay="CENTER" prefHeight="39.0" prefWidth="1228.0" text="Thanh toán phí trễ" textFill="WHITE">
                <font>
                   <Font name="Calibri Light" size="18.0" />
                </font>
@@ -280,7 +244,7 @@
                   <Insets right="20.0" />
                </HBox.margin>
             </JFXButton>
-            <JFXButton onAction="#xoaRong" prefHeight="36.0" prefWidth="127.0" styleClass="btnLogin" stylesheets="@../css/application.css" text="Xóa rỗng">
+            <JFXButton onAction="#xoaRong" prefHeight="36.0" prefWidth="127.0" styleClass="btnLogin" stylesheets="@../css/application.css" text="reset">
                <HBox.margin>
                   <Insets right="20.0" />
                </HBox.margin>

@@ -8,6 +8,7 @@ import java.util.List;
 import application.controller.DAO.Connect;
 import application.controller.DAO.Repository;
 import application.controller.services.LateFeeService;
+import application.entities.BillDetail;
 import application.entities.LateFee;
 
 public class LateFeeImpl  extends Repository implements LateFeeService{
@@ -54,6 +55,30 @@ public class LateFeeImpl  extends Repository implements LateFeeService{
 			listLateFee.add((LateFee)listObject.get(i));
 		}
 		return listLateFee;
+	}
+
+	@Override
+	public List<LateFee> findAllLteFeeByIdCustomer(String id) {
+		List<LateFee> listLateFeeFind = new ArrayList<>();
+		List<LateFee> listLateFee = listLateFee();
+		for(int i=0;i<listLateFee.size();i++) {
+			if(listLateFee.get(i).getBill().getCustomer().getCustomerId().equalsIgnoreCase(id)) {
+				listLateFeeFind.add(listLateFee.get(i));
+			}
+		}
+		return listLateFeeFind.size()<=0?null:listLateFeeFind;
+	}
+
+	@Override
+	public List<LateFee> findAllLteFeeByPhoneCustomer(String phone) {
+		List<LateFee> listLateFeeFind = new ArrayList<>();
+		List<LateFee> listLateFee = listLateFee();
+		for(int i=0;i<listLateFee.size();i++) {
+			if(listLateFee.get(i).getBill().getCustomer().getPhone().equalsIgnoreCase(phone)) {
+				listLateFeeFind.add(listLateFee.get(i));
+			}
+		}
+		return listLateFeeFind.size()<=0?null:listLateFeeFind;
 	}
 
 

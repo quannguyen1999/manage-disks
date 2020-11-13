@@ -18,10 +18,14 @@ public interface BillService {
 	public Bill updateBill(Bill BillUpdate,String id);
 
 	public Bill findBillById(String id);
+	
+	public BillDetail findBillDetailById(String id);
 
 	public List<Bill> listBill();
 	
 	public List<Bill> findAllBillByIdCustomer(String id);
+	
+	public List<Bill> findAllBillByPhoneCustomer(String phone);
 	
 	public List<BillDetail> findAllBillDetailByIdBill(ArrayList<Bill> listIdBill);
 	

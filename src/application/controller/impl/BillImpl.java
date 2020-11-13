@@ -147,6 +147,23 @@ public class BillImpl  extends Repository implements BillService{
 		}
 		return listBillDetailFind.size()<=0?null:listBillDetailFind;
 	}
+
+	@Override
+	public List<Bill> findAllBillByPhoneCustomer(String phone) {
+		List<Bill> listBillDetailFind = new ArrayList<>();
+		List<Bill> listBillDetail = listBill();
+		for(int i=0;i<listBillDetail.size();i++) {
+			if(listBillDetail.get(i).getCustomer().getPhone().equalsIgnoreCase(phone)) {
+				listBillDetailFind.add(listBillDetail.get(i));
+			}
+		}
+		return listBillDetailFind.size()<=0?null:listBillDetailFind;
+	}
+
+	@Override
+	public BillDetail findBillDetailById(String id) {
+		return (BillDetail) findById(id,new BillDetail());
+	}
 	
 	
 

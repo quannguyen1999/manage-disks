@@ -29,6 +29,7 @@ import application.entities.Title;
 import application.entities.Product;
 import application.entities.Supplier;
 import application.entities.Bill;
+import application.entities.BillDetail;
 import application.entities.Customer;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
@@ -101,6 +102,8 @@ public class FormAddBill extends DialogBox implements Initializable{
 
 	public ArrayList<Product> listProductInDb=new ArrayList<>();
 
+	public ArrayList<BillDetail> listBillDetail=new ArrayList<>();
+
 	public ArrayList<Customer> listCustomer=new ArrayList<>();
 
 	@FXML BorderPane bdLeft;
@@ -110,6 +113,7 @@ public class FormAddBill extends DialogBox implements Initializable{
 	TableColumn<Product, Integer> colQuantity;
 	TableColumn<Product, String> colStatus;
 	TableColumn<Product, String> colDateAdded;
+	TableColumn<Product, String> colPrice;
 
 	@FXML BorderPane bdRight;
 	private TableView<Product> tbl_viewOrder;
@@ -280,10 +284,12 @@ public class FormAddBill extends DialogBox implements Initializable{
 		//		 colDescription=new TableColumn<Product, String>("mô tả");
 		colStatus=new TableColumn<Product, String>("status");
 		colDateAdded=new TableColumn<Product, String>("ngày thêm");
+		colPrice=new TableColumn<Product, String>("giá");
 		//		 colTitleId=new TableColumn<Product, String>("mã title");
 		//		 colSupplierId=new TableColumn<Product, String>("mã ncc");
 
 		tbl_view.getColumns().addAll(colProductId,
+				colPrice,
 				colName,
 				//				colPicture,
 				colQuantity,
@@ -302,6 +308,8 @@ public class FormAddBill extends DialogBox implements Initializable{
 		//		colDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
 		colStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
 		colDateAdded.setCellValueFactory(new PropertyValueFactory<>("dateAdded"));
+		colPrice.setCellValueFactory(
+				cellData-> new SimpleStringProperty(String.valueOf(cellData.getValue().getTitle().getCategory().getPrice()) +" $"));
 		//		colTitleId.setCellValueFactory( cellData->new SimpleStringProperty(cellData.getValue().getTitle().getTitleId()));
 		//		colSupplierId.setCellValueFactory(cellData->new SimpleStringProperty(cellData.getValue().getSupplier().getSupplierId()));
 
@@ -435,7 +443,7 @@ public class FormAddBill extends DialogBox implements Initializable{
 	}
 
 	public void clickFindByCustomerId(ActionEvent e) {
-		
+
 		rdFindCustomerById.setSelected(true);
 
 		cbcCustomerId.setDisable(false);
@@ -515,6 +523,7 @@ public class FormAddBill extends DialogBox implements Initializable{
 						return;
 					}
 
+
 					listProductOrder.get(i).setQuantity(listProductOrder.get(i).getQuantity()+1);
 
 					uploadDuLieuOrderLenBang();
@@ -563,10 +572,11 @@ public class FormAddBill extends DialogBox implements Initializable{
 		total=0;
 
 		listProductOrder.forEach(t->{
-			total+=t.getQuantity();
+			total+=(t.getQuantity()*t.getTitle().getCategory().getPrice());
 		});
 
-		lblTotal.setText(String.valueOf(total));
+
+		lblTotal.setText(String.valueOf(total) +" $");
 
 	}
 
@@ -658,25 +668,35 @@ public class FormAddBill extends DialogBox implements Initializable{
 
 		if(lblTitle.getText().equals("Cập nhập bill")==false) {
 
-			if(billService.addBill(bill)==false) {
+			if(billService.addBill(bill)==true) {
 
-				
-				
-				Error("Lỗi thêm không thành công", btn);
-
-			}else{
-				
 				listProductOrder.forEach(t->{
-					
-					Product product=productService.findProductById(t.getProductId());
-					
-					product.setQuantity(product.getQuantity()-t.getQuantity());
-					
-					productService.updateProduct(product, product.getProductId());
-					
+					Product product = productService.findProductById(t.getProductId());
+
+					Bill billFind = billService.findBillById(txtBillMa.getText().toString());
+
+					BillDetail billDetail = 
+							new BillDetail(checkIdBIllDetail(), t.getQuantity(), 
+									t.getQuantity()*Math.round(t.getTitle().getCategory().getPrice()), product, billFind);
+					billService.addBillDetail(billDetail);
+
 				});
 				
+				listProductOrder.forEach(t->{
+
+					Product product=productService.findProductById(t.getProductId());
+
+					product.setQuantity(product.getQuantity()-t.getQuantity());
+
+					productService.updateProduct(product, product.getProductId());
+
+				});
+
 				((Node)(e.getSource())).getScene().getWindow().hide();  
+
+			}else{
+
+				Error("Lỗi thêm không thành công", btn);
 
 			};
 
@@ -694,6 +714,18 @@ public class FormAddBill extends DialogBox implements Initializable{
 
 
 		}
+	}
+
+	public String checkIdBIllDetail() {
+		String id=null;
+
+		do {
+
+			id="BD"+ranDomNumber();
+
+		} while (billService.findBillDetailById(id)!=null);
+
+		return id;
 	}
 
 	public void btnCLoseWindow(ActionEvent e) throws IOException {

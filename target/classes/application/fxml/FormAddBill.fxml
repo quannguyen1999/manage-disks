@@ -207,7 +207,21 @@
                      </BorderPane.margin>
                   </HBox>
                </bottom>
-               <right>
+               <center>
+                  <BorderPane fx:id="bdLeft" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                     <top>
+                        <Label text="Đĩa đặt" BorderPane.alignment="CENTER" />
+                     </top>
+                     <bottom>
+                        <HBox alignment="CENTER" prefHeight="38.0" prefWidth="356.0" BorderPane.alignment="CENTER">
+                           <children>
+                              <JFXButton onAction="#btnXoaProduct" styleClass="btnLogin" stylesheets="@../css/application.css" text="Xóa" />
+                           </children>
+                        </HBox>
+                     </bottom>
+                  </BorderPane>
+               </center>
+               <left>
                   <BorderPane fx:id="bdRight" prefHeight="294.0" prefWidth="358.0" BorderPane.alignment="CENTER">
                      <top>
                         <Label text="Danh sách đĩa cửa hàng" BorderPane.alignment="CENTER" />
@@ -238,21 +252,7 @@
                         <Separator orientation="VERTICAL" prefHeight="278.0" prefWidth="0.0" BorderPane.alignment="CENTER" />
                      </left>
                   </BorderPane>
-               </right>
-               <center>
-                  <BorderPane fx:id="bdLeft" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                     <top>
-                        <Label text="Đĩa đặt" BorderPane.alignment="CENTER" />
-                     </top>
-                     <bottom>
-                        <HBox alignment="CENTER" prefHeight="38.0" prefWidth="356.0" BorderPane.alignment="CENTER">
-                           <children>
-                              <JFXButton onAction="#btnXoaProduct" styleClass="btnLogin" stylesheets="@../css/application.css" text="Xóa" />
-                           </children>
-                        </HBox>
-                     </bottom>
-                  </BorderPane>
-               </center>
+               </left>
             </BorderPane>
          </children></VBox>
    </right>

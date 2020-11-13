@@ -18,6 +18,7 @@ import org.mindrot.jbcrypt.BCrypt;
 import application.controller.impl.BillImpl;
 import application.controller.impl.CategoryImpl;
 import application.controller.impl.CustomerImpl;
+import application.controller.impl.LateFeeImpl;
 import application.controller.impl.OrderDetailImpl;
 import application.controller.impl.OrderImpl;
 import application.controller.impl.ProductImpl;
@@ -26,6 +27,7 @@ import application.controller.impl.TitleImpl;
 import application.controller.services.BillService;
 import application.controller.services.CategoryService;
 import application.controller.services.CustomerService;
+import application.controller.services.LateFeeService;
 import application.controller.services.OrderDetailService;
 import application.controller.services.OrderService;
 import application.controller.services.ProductService;
@@ -35,6 +37,7 @@ import application.entities.Bill;
 import application.entities.BillDetail;
 import application.entities.Category;
 import application.entities.Customer;
+import application.entities.LateFee;
 import application.entities.Order;
 import application.entities.OrderDetail;
 import application.entities.Product;
@@ -45,6 +48,10 @@ import javafx.scene.image.Image;
 public class TestConnect {
 
 	public static void main(String[] args) throws IOException {
+		BillService billService = new BillImpl();
+		Bill bill = billService.findBillById("C5656");
+		LateFeeService lateFeeService = new LateFeeImpl();
+		lateFeeService.addLateFee(new LateFee("LF002", Float.parseFloat("45"), LocalDate.now(), bill, "..."));
 		//		Category category=new Category("CT101", "quân", "bao cao su", 10000);
 		//
 		//		Title title=new Title("T101", "abc", true, category);
@@ -58,9 +65,9 @@ public class TestConnect {
 //				OrderService orderService=new OrderImpl();
 //				System.out.println(orderService.listOrder());
 //				System.out.println(orderService.findAllOrderByIdCustomer("C02"));
-		
-		ProductService productService = new ProductImpl();
-		System.out.println(productService.listProduct());
+//		
+//		ProductService productService = new ProductImpl();
+//		System.out.println(productService.listProduct());
 //		System.out.println(productService.removeProduct("P101"));
 		
 		//		
