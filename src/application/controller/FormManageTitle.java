@@ -10,11 +10,14 @@ import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
 
+import application.controller.impl.OrderDetailImpl;
 import application.controller.impl.TitleImpl;
 import application.controller.impl.TitleImpl;
+import application.controller.services.OrderDetailService;
 import application.controller.services.TitleService;
 import application.controller.services.TitleService;
 import application.entities.Category;
+import application.entities.OrderDetail;
 import application.entities.Title;
 import application.entities.Title;
 import javafx.beans.property.SimpleStringProperty;
@@ -48,7 +51,9 @@ public class FormManageTitle extends DialogBox implements Initializable{
 
 	@FXML BorderPane bd;
 
-	public TitleService TitleService=new TitleImpl();
+	TitleService titleService=new TitleImpl();
+	
+	OrderDetailService orderDetailService = new OrderDetailImpl();
 
 	@FXML ComboBox<String> cbc=new ComboBox<String>();
 	
@@ -153,13 +158,22 @@ public class FormManageTitle extends DialogBox implements Initializable{
 				
 //					TitleService.removeTitle(tbl_view.getItems().get(result).getTitleId());
 					
-					try {
-						Success("Chưa code :v", btnRefresh);
-					} catch (IOException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
+					List<OrderDetail> listOrderDetail = 
+							orderDetailService.findAllOrderDetailByTitleId(tbl_view.getItems().get(result).getTitleId());
+					
+					if(listOrderDetail!=null && listOrderDetail.size()>=1) {
+						try {
+							Error("Đang có khách hàng đặt title", btnRefresh);
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+						
+						return;
 					}
 					
+					titleService.removeTitle(tbl_view.getItems().get(result).getTitleId());
+
 					handleRefersh(e);
 				
 				}else {
@@ -202,7 +216,7 @@ public class FormManageTitle extends DialogBox implements Initializable{
 	}
 
 	private void uploadDuLieuLenBang() {
-		List<Title> cuss=TitleService.listTitle();
+		List<Title> cuss=titleService.listTitle();
 		cuss.forEach(t->{
 			tbl_view.getItems().add(t);
 			listTitle.add(t);
@@ -233,7 +247,7 @@ public class FormManageTitle extends DialogBox implements Initializable{
 			ctlMain.txtMa.setText(id);
 			
 
-		} while (TitleService.findTitleById(id)!=null);
+		} while (titleService.findTitleById(id)!=null);
 
 		loadFXML(root,btnRefresh).setOnHidden(ev->{
 
@@ -271,7 +285,7 @@ public class FormManageTitle extends DialogBox implements Initializable{
 
 		tbl_view.getItems().clear();
 
-		Title TitleFind=TitleService.findTitleById(textFind);
+		Title TitleFind=titleService.findTitleById(textFind);
 
 		if(TitleFind==null) {
 
@@ -316,7 +330,7 @@ public class FormManageTitle extends DialogBox implements Initializable{
 
 		tbl_view.getItems().clear();
 
-		List<Title> TitleFind=TitleService.findTitleByName(textFind);
+		List<Title> TitleFind=titleService.findTitleByName(textFind);
 
 		if(TitleFind == null) {
 
@@ -348,7 +362,7 @@ public class FormManageTitle extends DialogBox implements Initializable{
 		
 		ObservableList<String> itemsNameTitle = FXCollections.observableArrayList();
 		
-		List<Title> accs=TitleService.listTitle();
+		List<Title> accs=titleService.listTitle();
 
 		accs.forEach(t->{
 			items.add(t.getTitleId());

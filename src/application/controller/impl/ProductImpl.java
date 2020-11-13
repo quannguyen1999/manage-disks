@@ -3,6 +3,9 @@ package application.controller.impl;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.persistence.EntityTransaction;
+
 import application.controller.DAO.Connect;
 import application.controller.DAO.Repository;
 import application.controller.services.ProductService;
@@ -50,7 +53,23 @@ public class ProductImpl extends Repository implements ProductService{
 
 	@Override
 	public boolean removeProduct(String id) {
-		return deleteById(id,new Product());
+//		return deleteById(id,new Product());
+		EntityTransaction transaction = null;
+		try {
+			transaction = connect.getEntityManager().getTransaction();
+			transaction.begin();
+			Object tFind=Connect.getEntityManager().find(Product.class,id);
+			connect.getEntityManager().remove(tFind);
+			transaction.commit();
+		} catch (Exception ex) {
+			if (transaction != null) {
+				transaction.rollback();
+			}
+			connect.getEntityManager().close();
+			ex.printStackTrace();
+			return false;
+		}
+		return true;
 	}
 
 	@Override

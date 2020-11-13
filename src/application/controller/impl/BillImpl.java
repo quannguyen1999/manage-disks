@@ -61,6 +61,16 @@ public class BillImpl  extends Repository implements BillService{
 		}
 		return listBill;
 	}
+	
+	@Override
+	public List<BillDetail> listBillDetail() {
+		List<Object> listObject=list(new BillDetail(),BillDetail.class.getSimpleName().toString());
+		List<BillDetail> listBill=new ArrayList<>();
+		for(int i=0;i<listObject.size();i++) {
+			listBill.add((BillDetail)listObject.get(i));
+		}
+		return listBill;
+	}
 
 	@Override
 	public boolean addBillDetail(BillDetail BillDetail) {
@@ -124,6 +134,18 @@ public class BillImpl  extends Repository implements BillService{
 	@Override
 	public boolean removeBillDetail(String id) {
 		return deleteById(id, new BillDetail());
+	}
+
+	@Override
+	public List<BillDetail> findAllBillDetailByProductId(String id) {
+		List<BillDetail> listBillDetailFind = new ArrayList<>();
+		List<BillDetail> listBillDetail = listBillDetail();
+		for(int i=0;i<listBillDetail.size();i++) {
+			if(listBillDetail.get(i).getProduct().getProductId().equalsIgnoreCase(id)) {
+				listBillDetailFind.add(listBillDetail.get(i));
+			}
+		}
+		return listBillDetailFind.size()<=0?null:listBillDetailFind;
 	}
 	
 	

@@ -31,7 +31,7 @@ public class Product {
 	@Column(columnDefinition = "nvarchar(1000)")
 	private String name;
 	
-	@Column(columnDefinition = "nvarchar(50)")
+	@Column(columnDefinition = "nvarchar(max)")
 	private String picture;
 	
 	@Column//(columnDefinition = "nvarchar(1000)")

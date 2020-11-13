@@ -1,5 +1,7 @@
 package application.controller;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.text.spi.CollatorProvider;
@@ -8,12 +10,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import javax.imageio.ImageIO;
+
 import com.jfoenix.controls.JFXButton;
 
+import application.controller.impl.BillImpl;
 import application.controller.impl.ProductImpl;
 import application.controller.impl.ProductImpl;
+import application.controller.services.BillService;
 import application.controller.services.ProductService;
 import application.controller.services.ProductService;
+import application.entities.BillDetail;
 import application.entities.Product;
 import application.entities.Product;
 import application.entities.Product;
@@ -23,6 +30,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -40,6 +48,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import sun.misc.BASE64Decoder;
 
 public class FormManageProduct extends DialogBox implements Initializable{
 	private TableView<Product> tbl_view;
@@ -60,7 +69,9 @@ public class FormManageProduct extends DialogBox implements Initializable{
 	@FXML Label lblPath;
 	@FXML ImageView img;
 
-	public ProductService ProductService=new ProductImpl();
+	public ProductService productService=new ProductImpl();
+	
+	public BillService billService = new BillImpl();
 
 	@FXML ComboBox<String> cbc=new ComboBox<String>();
 
@@ -92,6 +103,8 @@ public class FormManageProduct extends DialogBox implements Initializable{
 
 					FormAddProduct ctlMain=loader.getController();
 
+					ctlMain.product = tbl_view.getItems().get(result);
+					
 					ctlMain.lblTitle.setText("Cập nhập sản phẩm");
 
 					ctlMain.maProductRemember=tbl_view.getItems().get(result).getProductId();
@@ -108,10 +121,14 @@ public class FormManageProduct extends DialogBox implements Initializable{
 					
 					ctlMain.txtDateAdded.setValue(tbl_view.getItems().get(result).getDateAdded());
 					
-					Image image = new Image("file:///"+tbl_view.getItems().get(result).getPicture());
-					ctlMain.img.setImage(image);
+					try {
+						ctlMain.img.setImage(getImage(tbl_view.getItems().get(result).getPicture()));
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 					
-					ctlMain.txtImage.setText(tbl_view.getItems().get(result).getPicture());
+					ctlMain.txtImage.setText("...");
 					
 					ctlMain.cbcSupplier.setValue(tbl_view.getItems().get(result).getSupplier().getSupplierId());
 					
@@ -142,8 +159,12 @@ public class FormManageProduct extends DialogBox implements Initializable{
 				int resultX=tbl_view.getSelectionModel().getSelectedIndex();
 				lblName.setText(tbl_view.getItems().get(resultX).getName());
 				lblPath.setText(tbl_view.getItems().get(resultX).getStatus());
-				Image image = new Image("file:///"+tbl_view.getItems().get(resultX).getPicture());
-				img.setImage(image);
+				try {
+					img.setImage(getImage(tbl_view.getItems().get(resultX).getPicture()));
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 	}
@@ -179,14 +200,26 @@ public class FormManageProduct extends DialogBox implements Initializable{
 			
 				if(ctlMain.result==true) {
 				
-//					ProductService.removeProduct(tbl_view.getItems().get(result).getProductId());
-					
-					try {
-						Success("Chưa code :v", btnRefresh);
-					} catch (IOException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
+					List<BillDetail> listBillDetail = billService.findAllBillDetailByProductId(
+							tbl_view.getItems().get(result).getProductId());
+					if(listBillDetail!=null && listBillDetail.size()>=1) {
+						
+						try {
+							Error("Đang có khách hàng đặt bill", btnRefresh);
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+						
+						return;
+						
 					}
+					
+					System.out.println(productService.removeProduct(tbl_view.getItems().get(result).getProductId()));
+					
+					lblName.setText("");
+					lblPath.setText("");
+					img.setImage(null);
 					
 					handleRefersh(e);
 				
@@ -250,7 +283,7 @@ public class FormManageProduct extends DialogBox implements Initializable{
 	}
 
 	private void uploadDuLieuLenBang() {
-		List<Product> cuss=ProductService.listProduct();
+		List<Product> cuss=productService.listProduct();
 		cuss.forEach(t->{
 			tbl_view.getItems().add(t);
 			listProduct.add(t);
@@ -259,6 +292,9 @@ public class FormManageProduct extends DialogBox implements Initializable{
 
 	public void handleRefersh(ActionEvent e) {
 		//		cbc.getItems().clear();
+		lblName.setText("");
+		lblPath.setText("");
+		img.setImage(null);
 		cbc.setValue("");
 		tbl_view.getItems().clear();
 		uploadDuLieuLenBang();
@@ -281,7 +317,7 @@ public class FormManageProduct extends DialogBox implements Initializable{
 			
 			ctlMain.txtDateAdded.setValue(LocalDate.now());
 
-		} while (ProductService.findProductById(id)!=null);
+		} while (productService.findProductById(id)!=null);
 
 		loadFXML(root,btnRefresh).setOnHidden(ev->{
 
@@ -319,7 +355,7 @@ public class FormManageProduct extends DialogBox implements Initializable{
 
 		tbl_view.getItems().clear();
 
-		Product ProductFind=ProductService.findProductById(textFind);
+		Product ProductFind=productService.findProductById(textFind);
 
 		if(ProductFind==null) {
 
@@ -341,7 +377,7 @@ public class FormManageProduct extends DialogBox implements Initializable{
 
 	private void loadDataSearch() {
 		ObservableList<String> items = FXCollections.observableArrayList();
-		List<Product> accs=ProductService.listProduct();
+		List<Product> accs=productService.listProduct();
 
 		accs.forEach(t->{
 

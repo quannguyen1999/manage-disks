@@ -2,9 +2,15 @@ package application.controller;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
+import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -97,6 +103,8 @@ public class FormAddProduct extends DialogBox implements Initializable{
 	public SupplierService supplierService=new SupplierImpl();
 
 	public String maProductRemember="";
+	
+	public Product product ;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -472,60 +480,68 @@ public class FormAddProduct extends DialogBox implements Initializable{
 		}
 
 		if(stillContunite==true) {
-			// this is not the real stream just for example
-			String base64String= "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";
-
-			BASE64Decoder decoder = new BASE64Decoder();
-			
-			byte[] decodedBytes = decoder.decodeBuffer(base64String);
-
-
-
-			String uploadFile = "/tmp/test.png";
-
-			BufferedImage image = ImageIO.read(new ByteArrayInputStream(decodedBytes));
-			if (image == null) {
-				
+			String base64String = null;
+			if(product!=null) {
+				base64String = product.getPicture();
 			}
-			File f = new File(uploadFile);
+			
+			if(txtImage.getText().toString().equalsIgnoreCase("...")) {
+				
+			}else {
+				base64String = encoder(txtImage.getText().toString());
+				img.setImage(getImage(base64String));
+			}
+			
+			Product product2=new Product(ma, nameProduct,base64String,
+					Integer.parseInt(quantityProduct)	, descriptionProduct, statusProduct,
+					dateAddedProduct, new Title(idTitle), new Supplier(idSupplier));
 
-			// write the image
-			img.setImage(SwingFXUtils.toFXImage(image, null));
+			if(lblTitle.getText().equals("Cập nhập sản phẩm")==false) {
 
+				if(productService.addProduct(product2)==false) {
 
-			//			Product product2=new Product(ma, nameProduct,imageProduct,
-			//					Integer.parseInt(quantityProduct)	, descriptionProduct, statusProduct,
-			//					dateAddedProduct, new Title(idTitle), new Supplier(idSupplier));
-			//
-			//
-			//			if(lblTitle.getText().equals("Cập nhập sản phẩm")==false) {
-			//
-			//				if(productService.addProduct(product2)==false) {
-			//
-			//					Error("Lỗi thêm không thành công", btn);
-			//
-			//				}else{
-			//
-			//					((Node)(e.getSource())).getScene().getWindow().hide();  
-			//
-			//				};
-			//
-			//			}else {
-			//
-			//				if(productService.updateProduct(product2,ma)==null) {
-			//
-			//					Error("Lỗi cập nhập không thành công", btn);
-			//
-			//				}else{
-			//
-			//					((Node)(e.getSource())).getScene().getWindow().hide();  
-			//
-			//				};
-			//
-			//			}
+					Error("Lỗi thêm không thành công", btn);
+
+				}else{
+
+					((Node)(e.getSource())).getScene().getWindow().hide();  
+
+				};
+
+			}else {
+
+				if(productService.updateProduct(product2,ma)==null) {
+
+					Error("Lỗi cập nhập không thành công", btn);
+
+				}else{
+
+					((Node)(e.getSource())).getScene().getWindow().hide();  
+
+				};
+
+			}
 
 		}
 	}
+
+	public static String encoder(String imagePath) {
+		String base64Image = "";
+		File file = new File(imagePath);
+		try (FileInputStream imageInFile = new FileInputStream(file)) {
+			// Reading a Image file from file system
+			byte imageData[] = new byte[(int) file.length()];
+			imageInFile.read(imageData);
+			base64Image = Base64.getEncoder().encodeToString(imageData);
+		} catch (FileNotFoundException e) {
+			System.out.println("Image not found" + e);
+		} catch (IOException ioe) {
+			System.out.println("Exception while reading the Image " + ioe);
+		}
+		return base64Image;
+	}
+
+
 	public void btnXoaRong(ActionEvent e) {
 		if(maProductRemember.isEmpty()==false) {
 			Product product=productService.findProductById(maProductRemember);

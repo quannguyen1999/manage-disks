@@ -55,9 +55,14 @@ public class TestConnect {
 		//		
 		//		OrderDetail orderDetail=new OrderDetail("ODDT01", 10, 10, order, title);
 		//		
-				OrderService orderService=new OrderImpl();
-				System.out.println(orderService.listOrder());
-				System.out.println(orderService.findAllOrderByIdCustomer("C02"));
+//				OrderService orderService=new OrderImpl();
+//				System.out.println(orderService.listOrder());
+//				System.out.println(orderService.findAllOrderByIdCustomer("C02"));
+		
+		ProductService productService = new ProductImpl();
+		System.out.println(productService.listProduct());
+//		System.out.println(productService.removeProduct("P101"));
+		
 		//		
 		//		OrderDetailService orderDetailService=new OrderDetailImpl();
 		//		

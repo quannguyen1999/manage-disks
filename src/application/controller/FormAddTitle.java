@@ -268,19 +268,23 @@ public class FormAddTitle extends DialogBox implements Initializable{
 
 			if(lblTitle.getText().equals("Cập nhập title")==false) {
 				
-				List<Title> listTitleFind = TitleService.findTitleByName(tenTitle);
+				System.out.println(tenTitle);
 				
-				System.out.println("asd:"+listTitleFind.toString());
+				List<Title> listTitleFind = TitleService.findTitleByName(tenTitle);
 				
 				if(listTitleFind != null) {
 					
 					Error("Lỗi trùng title", btn);
+					
+					return;
 					
 				}
 				
 				if(TitleService.addTitle(title)==false) {
 
 					Error("Lỗi thêm không thành công", btn);
+					
+					return;
 
 				}else{
 

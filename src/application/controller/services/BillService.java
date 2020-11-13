@@ -25,4 +25,8 @@ public interface BillService {
 	
 	public List<BillDetail> findAllBillDetailByIdBill(ArrayList<Bill> listIdBill);
 	
+	public List<BillDetail> findAllBillDetailByProductId(String id);
+	
+	public List<BillDetail> listBillDetail();
+	
 }

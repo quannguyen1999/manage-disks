@@ -1,6 +1,7 @@
 package application.controller;
 
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
@@ -13,6 +14,7 @@ import javax.imageio.ImageIO;
 import com.jfoenix.controls.JFXButton;
 
 import animatefx.animation.FadeIn;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,6 +24,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
@@ -85,7 +88,20 @@ public class DialogBox  implements Initializable{
 
 	}
 	
-	
+	public WritableImage getImage(String base64String) throws IOException {
+		BASE64Decoder decoder = new BASE64Decoder();
+
+		byte[] decodedBytes = decoder.decodeBuffer(base64String);
+
+		String uploadFile = "/tmp/test.png";
+
+		BufferedImage image = ImageIO.read(new ByteArrayInputStream(decodedBytes));
+		if (image == null) {
+
+		}
+		// write the image
+		return SwingFXUtils.toFXImage(image, null);
+	}
 	
 	public int ranDomNumber() {
 		  int min = 0;

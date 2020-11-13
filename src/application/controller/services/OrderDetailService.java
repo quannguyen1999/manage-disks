@@ -12,6 +12,8 @@ public interface OrderDetailService {
 	public OrderDetail updateOrderDetail(OrderDetail OrderDetailUpdate,String id);
 
 	public OrderDetail findOrderDetailById(String id);
+	
+	public List<OrderDetail> findAllOrderDetailByTitleId(String id);
 
 	public List<OrderDetail> listOrderDetail();
 }
