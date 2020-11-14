@@ -202,29 +202,27 @@ public class FormManageOrder extends DialogBox implements Initializable{
 	}
 
 	public void btnClickAdd(ActionEvent e) throws IOException {
-//		FXMLLoader loader= new FXMLLoader(getClass().getResource(loadFormAddOrder));
-//
-//		Parent root=loader.load();
-//
-//		FormAddOrder ctlMain=loader.getController();
-//
-//		String id=null;
-//
-//		do {
-//
-//			id="C"+ranDomNumber();
-//
-//			ctlMain.txtMa.setText(id);
-//
-//		} while (OrderService.findOrderById(id)!=null);
-//
-//		loadFXML(root,btnRefresh).setOnHidden(ev->{
-//
-//			handleRefersh(e);
-//
-//		});;
+		FXMLLoader loader= new FXMLLoader(getClass().getResource(loadFormAddOrder));
 
+		Parent root=loader.load();
 
+		FormAddOrder ctlMain=loader.getController();
+
+		String id=null;
+
+		do {
+
+			id="C"+ranDomNumber();
+
+			ctlMain.txtOrderMa.setText(id);
+
+		} while (OrderService.findOrderById(id)!=null);
+
+		loadFXML(root,btnRefresh).setOnHidden(ev->{
+
+			handleRefersh(e);
+
+		});;
 	}
 
 	public void findItemInTable(ActionEvent e) throws IOException {
