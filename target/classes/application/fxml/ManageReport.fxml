@@ -10,13 +10,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="781.0" prefWidth="1249.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.FormManageCustomer">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="781.0" prefWidth="1249.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.FormManageReport">
    <top>
       <BorderPane fx:id="bd" prefHeight="783.0" prefWidth="1249.0" BorderPane.alignment="CENTER">
          <right>
             <VBox fx:id="vboxGame" alignment="CENTER" prefHeight="752.0" prefWidth="239.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
                <children>
-                  <JFXButton onAction="#btnClickAdd" prefHeight="35.0" prefWidth="239.0" style="-fx-border-color: white;" stylesheets="@..\css\application.css" text="Thêm khách hàng" textFill="WHITE">
+                  <JFXButton onAction="#allCustomer" prefHeight="23.0" prefWidth="269.0" style="-fx-border-color: white;" text="Tất cả khách hàng" textFill="WHITE">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -24,7 +24,7 @@
                         <Insets bottom="10.0" top="10.0" />
                      </VBox.margin>
                   </JFXButton>
-                  <JFXButton onAction="#btnXoaCustomer" prefHeight="35.0" prefWidth="239.0" style="-fx-border-color: white;" stylesheets="@..\css\application.css" text="Xóa khách hàng" textFill="WHITE">
+                  <JFXButton onAction="#allCustomerDebt" prefHeight="23.0" prefWidth="269.0" style="-fx-border-color: white;" text="Khách hàng có phí trễ hạn" textFill="WHITE">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -32,15 +32,7 @@
                         <Insets bottom="10.0" top="10.0" />
                      </VBox.margin>
                   </JFXButton>
-                  <JFXButton onAction="#btnRentDisk" prefHeight="35.0" prefWidth="239.0" style="-fx-border-color: white;" stylesheets="@..\css\application.css" text="Thuê đĩa" textFill="WHITE">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets bottom="10.0" top="10.0" />
-                     </VBox.margin>
-                  </JFXButton>
-                  <JFXButton onAction="#btnReturnDisk" prefHeight="23.0" prefWidth="269.0" style="-fx-border-color: white;" text="Trả đĩa" textFill="WHITE">
+                  <JFXButton onAction="#allCustomerNotReturnDisk" prefHeight="23.0" prefWidth="269.0" style="-fx-border-color: white;" text="Khách hàng chưa trả đĩa" textFill="WHITE">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -64,7 +56,7 @@
                         <Insets left="20.0" right="20.0" />
                      </HBox.margin>
                   </ComboBox>
-                  <JFXButton onAction="#findItemInTable" prefHeight="35.0" prefWidth="98.0" styleClass="btnLogin" stylesheets="@..\css\application.css" text="Find" textFill="WHITE">
+                  <JFXButton onAction="#findItemInTable" prefHeight="35.0" prefWidth="98.0" styleClass="btnLogin" stylesheets="@../css/application.css" text="Find" textFill="WHITE">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -79,7 +71,7 @@
                      </font>
                   </Label>
                   <ComboBox fx:id="cbcPhone" prefHeight="35.0" prefWidth="224.0" />
-                  <JFXButton onAction="#findItemPhoneInTable" prefHeight="35.0" prefWidth="98.0" styleClass="btnLogin" stylesheets="@..\css\application.css" text="Tìm kiếm" textFill="WHITE">
+                  <JFXButton onAction="#findItemPhoneInTable" prefHeight="35.0" prefWidth="98.0" styleClass="btnLogin" stylesheets="@../css/application.css" text="Tìm kiếm" textFill="WHITE">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -88,7 +80,7 @@
                      </HBox.margin>
                   </JFXButton>
                   <Separator orientation="VERTICAL" prefHeight="200.0" />
-                  <JFXButton fx:id="btnRefresh" onAction="#handleRefersh" prefHeight="35.0" prefWidth="173.0" styleClass="btnLogin" stylesheets="@..\css\application.css" text="Reset" textFill="WHITE">
+                  <JFXButton fx:id="btnRefresh" onAction="#handleRefersh" prefHeight="35.0" prefWidth="173.0" styleClass="btnLogin" stylesheets="@../css/application.css" text="Reset" textFill="WHITE">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -100,7 +92,7 @@
             </HBox>
          </bottom>
          <top>
-            <Label fx:id="lblProduct" alignment="CENTER" prefHeight="66.0" prefWidth="1249.0" style="-fx-background-color: #AF231A;" text="Quản lý khách hàng" textFill="WHITE" BorderPane.alignment="CENTER">
+            <Label fx:id="lblProduct" alignment="CENTER" prefHeight="66.0" prefWidth="1249.0" style="-fx-background-color: #AF231A;" text="Báo cáo" textFill="WHITE" BorderPane.alignment="CENTER">
                <font>
                   <Font name="Calibri" size="26.0" />
                </font>

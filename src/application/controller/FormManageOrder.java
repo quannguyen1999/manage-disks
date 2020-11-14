@@ -9,12 +9,19 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXRadioButton;
 
+import application.controller.impl.CustomerImpl;
+import application.controller.impl.OrderDetailImpl;
 import application.controller.impl.OrderImpl;
 import application.controller.impl.OrderImpl;
+import application.controller.services.CustomerService;
+import application.controller.services.OrderDetailService;
 import application.controller.services.OrderService;
 import application.controller.services.OrderService;
+import application.entities.Customer;
 import application.entities.Order;
+import application.entities.OrderDetail;
 import application.entities.Order;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
@@ -46,109 +53,159 @@ public class FormManageOrder extends DialogBox implements Initializable{
 	TableColumn<Order, String> colCustomerPhone;
 	TableColumn<Order, String> colCustomerName;
 	TableColumn<Order, String> colCustomrAddress;
-	
+
 
 	@FXML BorderPane bd;
 
 	public OrderService OrderService=new OrderImpl();
+	
+	public OrderDetailService orderDetailService = new OrderDetailImpl();
+	
+	public CustomerService customerService = new CustomerImpl();
 
 	@FXML ComboBox<String> cbc=new ComboBox<String>();
+	@FXML ComboBox<String> cbcPhoneKh=new ComboBox<String>();
+	@FXML ComboBox<String> cbcIdKh=new ComboBox<String>();
 
 	@FXML JFXButton btnRefresh;
 
 	List<Order> listOrder=new ArrayList<>();
+	
+	@FXML JFXRadioButton rdIdOrder;
+	
+	@FXML JFXRadioButton rdIdKh;
+	
+	@FXML JFXRadioButton rdIdPhone;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		
+		
 		initTable();
 
 		loadDataSearch();
+		
+		loadDataSearchKh();
 
-		cbc.setEditable(true);
+		cbc.setDisable(true);
+		cbcIdKh.setDisable(true);
+		cbcPhoneKh.setDisable(false);
+		
+		cbcPhoneKh.setEditable(true);
 
-//		tbl_view.setOnMouseClicked(e->{
-//			if(e.getClickCount()==2) {
-//				int result=tbl_view.getSelectionModel().getSelectedIndex();
-//				if(result!=-1) {
-//
-//					FXMLLoader loader= new FXMLLoader(getClass().getResource(loadFormAddOrder));
-//
-//					Parent root=null;
-//					try {
-//						root = loader.load();
-//					} catch (IOException e1) {
-//						e1.printStackTrace();
-//					}
-//
-//					FormAddOrder ctlMain=loader.getController();
-//
-//					ctlMain.lblTitle.setText("Cập nhập mặt hàng");
-//
-//					ctlMain.txtMa.setText(tbl_view.getItems().get(result).getOrderId());
-//
-//					ctlMain.txtName.setText(tbl_view.getItems().get(result).getName());
-//
-//					ctlMain.txtPrice.setText(String.valueOf(tbl_view.getItems().get(result).getPrice()));
-//
-//					ctlMain.txtDescription.setText(tbl_view.getItems().get(result).getDescription());
-//
-//					loadFXML(root,btnRefresh).setOnHidden(ev->{
-//
-//						handleRefersh(new ActionEvent());
-//
-//					});;
-//				}
-//			}
-//		});
+		//		tbl_view.setOnMouseClicked(e->{
+		//			if(e.getClickCount()==2) {
+		//				int result=tbl_view.getSelectionModel().getSelectedIndex();
+		//				if(result!=-1) {
+		//
+		//					FXMLLoader loader= new FXMLLoader(getClass().getResource(loadFormAddOrder));
+		//
+		//					Parent root=null;
+		//					try {
+		//						root = loader.load();
+		//					} catch (IOException e1) {
+		//						e1.printStackTrace();
+		//					}
+		//
+		//					FormAddOrder ctlMain=loader.getController();
+		//
+		//					ctlMain.lblTitle.setText("Cập nhập mặt hàng");
+		//
+		//					ctlMain.txtMa.setText(tbl_view.getItems().get(result).getOrderId());
+		//
+		//					ctlMain.txtName.setText(tbl_view.getItems().get(result).getName());
+		//
+		//					ctlMain.txtPrice.setText(String.valueOf(tbl_view.getItems().get(result).getPrice()));
+		//
+		//					ctlMain.txtDescription.setText(tbl_view.getItems().get(result).getDescription());
+		//
+		//					loadFXML(root,btnRefresh).setOnHidden(ev->{
+		//
+		//						handleRefersh(new ActionEvent());
+		//
+		//					});;
+		//				}
+		//			}
+		//		});
 	}
 
+	public void clickRdOne(ActionEvent e) {
+		
+		cbc.setEditable(true);
+		cbcIdKh.setEditable(false);
+		cbcPhoneKh.setEditable(false);
+		
+		cbc.setDisable(false);
+		cbcIdKh.setDisable(true);
+		cbcPhoneKh.setDisable(true);
+	}
+	
+	public void clickRdTwo(ActionEvent e) {
+		
+		cbc.setEditable(false);
+		cbcIdKh.setEditable(true);
+		cbcPhoneKh.setEditable(false);
+		
+		cbc.setDisable(true);
+		cbcIdKh.setDisable(false);
+		cbcPhoneKh.setDisable(true);
+	}
+	
+	public void clickRdThree(ActionEvent e) {
+		cbc.setEditable(false);
+		cbcIdKh.setEditable(false);
+		cbcPhoneKh.setEditable(true);
+		
+		cbc.setDisable(true);
+		cbcIdKh.setDisable(true);
+		cbcPhoneKh.setDisable(false);
+	}
 
 	public void btnXoaOrder(ActionEvent e) throws IOException{
 
 		int result=tbl_view.getSelectionModel().getSelectedIndex();
-		
+
 		if(result!=-1) {
 
 			FXMLLoader loader= new FXMLLoader(getClass().getResource(loadAreYouSure));
-			
+
 			Parent root=loader.load();
-			
+
 			AreYouSure ctlMain=loader.getController();
-			
+
 			new animatefx.animation.FadeIn(root).play();
-			
+
 			Stage stage=new Stage();
-			
+
 			stage.initOwner(btnRefresh.getScene().getWindow());
-			
+
 			stage.setScene(new Scene(root));
-			
+
 			stage.initStyle(StageStyle.UNDECORATED);
-			
+
 			stage.initModality(Modality.APPLICATION_MODAL);
-			
+
 			stage.show();
-			
+
 			stage.setOnHidden(efg->{
-			
+
 				if(ctlMain.result==true) {
-				
-//					OrderService.removeOrder(tbl_view.getItems().get(result).getOrderId());
-					
-					try {
-						Success("Chưa code :v", btnRefresh);
-					} catch (IOException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
+					List<OrderDetail> listOrderDetails = orderDetailService.findAllOrderDetailByOrderId(
+							tbl_view.getItems().get(result).getOrderId());
+					if(listOrderDetails!=null) {
+						listOrderDetails.forEach(t->{
+							orderDetailService.removeOrderDetail(t.getOrderDetailsId());
+						});
 					}
-					
+					OrderService.removeOrder(tbl_view.getItems().get(result).getOrderId());
+
 					handleRefersh(e);
-				
+
 				}else {
 
 				}
 			});
-			
+
 		}else {
 
 			Error("bạn chưa chọn bảng cần xóa", btnRefresh);
@@ -163,9 +220,9 @@ public class FormManageOrder extends DialogBox implements Initializable{
 
 		colOrderId=new TableColumn<Order, String>("mã");
 		colOrderDate=new TableColumn<Order, String>("Ngày đặt");
-		
+
 		colCustomerId=new TableColumn<Order, String>("Mã khách hàng");
-		
+
 		colCustomerName=new TableColumn<Order, String>("Tên khách hàng");
 		colCustomerPhone=new TableColumn<Order, String>("sdt");
 		colCustomrAddress=new TableColumn<Order, String>("Địa chỉ");
@@ -177,7 +234,7 @@ public class FormManageOrder extends DialogBox implements Initializable{
 
 		colOrderId.setCellValueFactory(new PropertyValueFactory<>("OrderId"));
 		colOrderDate.setCellValueFactory(new PropertyValueFactory<>("orderDate"));
-		
+
 		colCustomerId.setCellValueFactory(cellData->new SimpleStringProperty(cellData.getValue().getOrderId()));
 		colCustomerPhone.setCellValueFactory(cellData->new SimpleStringProperty(cellData.getValue().getCustomer().getPhone()));
 		colCustomerName.setCellValueFactory(cellData->new SimpleStringProperty(cellData.getValue().getCustomer().getName()));
@@ -195,8 +252,10 @@ public class FormManageOrder extends DialogBox implements Initializable{
 	}
 
 	public void handleRefersh(ActionEvent e) {
-		//		cbc.getItems().clear();
+		rdIdPhone.setSelected(true);
 		cbc.setValue("");
+		cbcIdKh.setValue("");
+		cbcPhoneKh.setValue("");
 		tbl_view.getItems().clear();
 		uploadDuLieuLenBang();
 	}
@@ -228,45 +287,135 @@ public class FormManageOrder extends DialogBox implements Initializable{
 	public void findItemInTable(ActionEvent e) throws IOException {
 		String textFind=null;
 
-		try {
+		if(rdIdOrder.isSelected()) {
+			try {
 
-			textFind=cbc.getSelectionModel().getSelectedItem().toString().trim();
+				textFind=cbc.getSelectionModel().getSelectedItem().toString().trim();
 
-		} catch (Exception e2) {
+			} catch (Exception e2) {
 
-			Error("Bạn chưa nhập tìm kiếm", btnRefresh);
+				Error("Bạn chưa nhập tìm kiếm", btnRefresh);
 
-			cbc.requestFocus();
+				cbc.requestFocus();
 
+			}
+
+			if(textFind.isEmpty()) {
+
+				Error("Bạn chưa nhập tìm kiếm", btnRefresh);
+
+				cbc.requestFocus();
+
+				return;
+
+			}
+
+		}else if(rdIdKh.isSelected()) {
+			try {
+
+				textFind=cbcIdKh.getSelectionModel().getSelectedItem().toString().trim();
+
+			} catch (Exception e2) {
+
+				Error("Bạn chưa nhập tìm kiếm", btnRefresh);
+
+				cbcIdKh.requestFocus();
+
+			}
+
+			if(textFind.isEmpty()) {
+
+				Error("Bạn chưa nhập tìm kiếm", btnRefresh);
+
+				cbcIdKh.requestFocus();
+
+				return;
+
+			}
+			
+			
+		}else if(rdIdPhone.isSelected()){
+			
+			try {
+
+				textFind=cbcPhoneKh.getSelectionModel().getSelectedItem().toString().trim();
+
+			} catch (Exception e2) {
+
+				Error("Bạn chưa nhập tìm kiếm", btnRefresh);
+
+				cbcPhoneKh.requestFocus();
+
+			}
+
+			if(textFind.isEmpty()) {
+
+				Error("Bạn chưa nhập tìm kiếm", btnRefresh);
+
+				cbcPhoneKh.requestFocus();
+
+				return;
+
+			}
+			
 		}
-
-		if(textFind.isEmpty()) {
-
-			Error("Bạn chưa nhập tìm kiếm", btnRefresh);
-
-			cbc.requestFocus();
-
-			return;
-
-		}
-
+		
 		tbl_view.getItems().clear();
 
-		Order OrderFind=OrderService.findOrderById(textFind);
+		if(rdIdOrder.isSelected()) {
+			
+			Order OrderFind=OrderService.findOrderById(textFind);
 
-		if(OrderFind==null) {
+			if(OrderFind==null) {
 
-			Error("Không tìm thấy", btnRefresh);
+				Error("Không tìm thấy", btnRefresh);
 
-			cbc.requestFocus();
+				cbc.requestFocus();
 
-			return;
+				return;
 
-		}else {
+			}else {
 
-			tbl_view.getItems().add(OrderFind);
+				tbl_view.getItems().add(OrderFind);
 
+			}
+		}else if(rdIdKh.isSelected()) {
+			
+			List<Order> listOrders = OrderService.findAllOrderByIdCustomer(textFind);
+
+			if(listOrders==null) {
+
+				Error("Không tìm thấy", btnRefresh);
+
+				cbcIdKh.requestFocus();
+
+				return;
+
+			}else {
+				listOrders.forEach(t->{
+					tbl_view.getItems().add(t);
+				});
+			}
+		}else if(rdIdPhone.isSelected()) {
+			List<Order> listOrders = OrderService.findAllOrderByPhoneCustomer(textFind);
+
+			if(listOrders==null) {
+
+				Error("Không tìm thấy", btnRefresh);
+
+				cbcPhoneKh.requestFocus();
+
+				return;
+
+			}else {
+				listOrders.forEach(t->{
+					tbl_view.getItems().add(t);
+				});
+			}
+			
+			
 		}
+	
 
 	}
 
@@ -289,45 +438,37 @@ public class FormManageOrder extends DialogBox implements Initializable{
 		cbc.setItems(filteredItems);
 
 		cbc.setEditable(true);
-
-		//		try {
-		//			cbc.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() { 
-		//				public void changed(ObservableValue ov, Number value, Number new_value) 
-		//				{ 
-		//					System.out.println("ok");
-		//					Order listnv = null;
-		//					System.out.println(cbc.getSelectionModel().getSelectedItem().toString());
-		//					try {
-		//						for(int i=0;i<accs.size();i++) {
-		//							
-		//							if(accs.get(i).equals(cbc.getSelectionModel().getSelectedItem().toString())) {
-		//								listnv=accs.get(i);
-		// 							}
-		//							
-		//						}
-		//					} catch (Exception e) {
-		//						// TODO Auto-generated catch block
-		//						e.printStackTrace();
-		//					}
-		//					if(listnv!=null) {
-		//						Order nv=listnv;
-		//						if(nv!=null) {
-		//								tbl_view.getItems().clear();
-		//								
-		//						}else {
-		//							System.out.println("error");
-		//						}
-		//
-		//					}else {
-		//						System.out.println("error");
-		//					}
-		//
-		//				}
-		//			});
-		//		} catch (Exception ev) {
-		//			// TODO: handle exception
-		//			System.out.println(ev.getMessage());
-		//		}
-
 	}
+	
+	private void loadDataSearchKh() {
+		ObservableList<String> itemsId = FXCollections.observableArrayList();
+		ObservableList<String> itemsPhone = FXCollections.observableArrayList();
+		List<Customer> accs=customerService.listCustomer();
+
+		accs.forEach(t->{
+
+			itemsId.add(t.getCustomerId());
+			itemsPhone.add(t.getPhone());
+
+		});
+
+		FilteredList<String> filteredItems = new FilteredList<String>(itemsId);
+
+		cbcIdKh.getEditor().textProperty().addListener(new InputFilter(cbcIdKh, filteredItems, false));
+
+		cbcIdKh.setItems(filteredItems);
+
+		cbcIdKh.setEditable(true);
+		
+		FilteredList<String> filteredItemsPhone = new FilteredList<String>(itemsPhone);
+
+		cbcPhoneKh.getEditor().textProperty().addListener(new InputFilter(cbcPhoneKh, filteredItemsPhone, false));
+
+		cbcPhoneKh.setItems(filteredItemsPhone);
+
+		cbcPhoneKh.setEditable(true);
+		
+	}
+	
+	
 }

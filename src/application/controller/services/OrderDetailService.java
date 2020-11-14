@@ -16,4 +16,6 @@ public interface OrderDetailService {
 	public List<OrderDetail> findAllOrderDetailByTitleId(String id);
 
 	public List<OrderDetail> listOrderDetail();
+	
+	public List<OrderDetail> findAllOrderDetailByOrderId(String id);
 }

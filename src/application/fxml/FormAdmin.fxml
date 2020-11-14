@@ -88,6 +88,14 @@
                         <Insets left="50.0" />
                      </padding>
                   </JFXButton>
+                  <JFXButton fx:id="btnReport" alignment="BASELINE_LEFT" prefHeight="85.0" prefWidth="300.0" style="-fx-background-color: black;" styleClass="sidebar-btn" stylesheets="@..\css\application.css" text="Báo cáo" textFill="WHITE">
+                     <font>
+                        <Font name="Calibri Light" size="20.0" />
+                     </font>
+                     <padding>
+                        <Insets left="50.0" />
+                     </padding>
+                  </JFXButton>
                   <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
                         <JFXButton fx:id="btnLogOut" onAction="#btnLogOut" prefHeight="98.0" prefWidth="294.0" />

@@ -30,15 +30,6 @@ public class OrderImpl  extends Repository implements OrderService{
 
 	@Override
 	public Order updateOrder(Order OrderUpdate, String id) {
-//		Order OrderFind=findOrderById(id);
-//		if(OrderFind==null) {
-//
-//			return null;
-//
-//		}
-//
-//		OrderUpdate.setOrderId(id);
-
 		return (Order) update(OrderUpdate);
 	}
 
@@ -65,6 +56,20 @@ public class OrderImpl  extends Repository implements OrderService{
 		if(listOrderX!=null && listOrderX.size()>=1) {
 			for(int i=0;i<listOrderX.size();i++) {
 				if(listOrderX.get(i).getCustomer().getCustomerId().equalsIgnoreCase(id)) {
+					listOrderFind.add(listOrderX.get(i));
+				}
+			}
+		}
+		return listOrderFind.size()==0?null:listOrderFind;
+	}
+
+	@Override
+	public List<Order> findAllOrderByPhoneCustomer(String phone) {
+		List<Order> listOrderFind = new ArrayList<>();
+		List<Order> listOrderX=listOrder();
+		if(listOrderX!=null && listOrderX.size()>=1) {
+			for(int i=0;i<listOrderX.size();i++) {
+				if(listOrderX.get(i).getCustomer().getPhone().equalsIgnoreCase(phone)) {
 					listOrderFind.add(listOrderX.get(i));
 				}
 			}

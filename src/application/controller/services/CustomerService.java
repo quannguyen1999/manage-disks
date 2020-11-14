@@ -16,4 +16,8 @@ public interface CustomerService {
 	public List<Customer> listCustomer();
 	
 	public Customer findCustomerByPhone(String phone);
+	
+	public List<Customer> listAllCustomerByNotReturnDisk();
+	
+	public List<Customer> listAllCustomerByDebt();
 }

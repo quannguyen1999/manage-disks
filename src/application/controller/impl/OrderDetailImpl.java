@@ -69,4 +69,18 @@ public class OrderDetailImpl  extends Repository implements OrderDetailService{
 		return listOrderFind.size()==0?null:listOrderFind;
 	}
 
+	@Override
+	public List<OrderDetail> findAllOrderDetailByOrderId(String id) {
+		List<OrderDetail> listOrderFind = new ArrayList<>();
+		List<OrderDetail> listOrder = listOrderDetail();
+		if(listOrder!=null && listOrder.size()>=1) {
+			for(int i=0;i<listOrder.size();i++) {
+				if(listOrder.get(i).getOrder().getOrderId().equalsIgnoreCase(id)) {
+					listOrderFind.add(listOrder.get(i));
+				}
+			}
+		}
+		return listOrderFind.size()==0?null:listOrderFind;
+	}
+
 }
