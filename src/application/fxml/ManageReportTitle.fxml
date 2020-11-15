@@ -65,7 +65,7 @@
             </HBox>
          </bottom>
          <top>
-            <Label fx:id="lblProduct" alignment="CENTER" prefHeight="62.0" prefWidth="1257.0" style="-fx-background-color: #AF231A;" text="Quản lý title" textFill="WHITE" BorderPane.alignment="CENTER">
+            <Label fx:id="lblProduct" alignment="CENTER" prefHeight="62.0" prefWidth="1257.0" style="-fx-background-color: #AF231A;" text="Báo cáo tiêu đề" textFill="WHITE" BorderPane.alignment="CENTER">
                <font>
                   <Font name="Calibri" size="26.0" />
                </font>

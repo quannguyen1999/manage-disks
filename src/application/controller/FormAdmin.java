@@ -47,7 +47,10 @@ public class FormAdmin extends DialogBox implements Initializable{
 
 	@FXML JFXButton btnOrder;
 
-	@FXML JFXButton btnStatistical;
+	//	@FXML JFXButton btnStatistical;
+	@FXML JFXButton btnReportKh;
+	@FXML JFXButton btnReportTitle;
+
 
 	@FXML JFXButton btnLogOut;
 
@@ -84,10 +87,11 @@ public class FormAdmin extends DialogBox implements Initializable{
 		btnSupplier.setGraphic(getImageView("supplier.png"));
 		btnTitle.setGraphic(getImageView("Mtitle.png"));
 		btnOrder.setGraphic(getImageView("order.png"));
-		btnStatistical.setGraphic(getImageView("statistical.png"));
+		btnReportKh.setGraphic(getImageView("statistical.png"));
+		btnReportTitle.setGraphic(getImageView("statistical.png"));
 		btnLateFee.setGraphic(getImageView("lateFee.png"));
-		
-		
+
+
 		btnMinium.setGraphic(getImageView("MiniumWindows.png"));
 		btnCloseWindow.setGraphic(getImageView("CLoseWindows.png"));
 
@@ -169,12 +173,29 @@ public class FormAdmin extends DialogBox implements Initializable{
 		bd.setCenter(root);
 	}
 
+	public void btnClickReportCustomer(ActionEvent e) throws IOException {
+		changeCssManage(btnReportKh);
+
+		Parent root=(Parent) FXMLLoader.load(getClass().getResource(loadManageReportCustomer));
+
+		bd.setCenter(root);
+	}
+
+	public void btnClickReportTitle(ActionEvent e) throws IOException {
+		changeCssManage(btnReportTitle);
+
+		Parent root=(Parent) FXMLLoader.load(getClass().getResource(loadManageReportTitle));
+
+		bd.setCenter(root);
+	}
+
 	public void btnCLickManageOrder(ActionEvent e) throws IOException {
-		//		changeCssManage(btnOrder);
-		//
-		//		Parent root=(Parent) FXMLLoader.load(getClass().getResource(loadWelcome));
-		//
-		//		bd.setCenter(root);
+		
+		changeCssManage(btnOrder);
+
+		Parent root=(Parent) FXMLLoader.load(getClass().getResource(loadManageOrder));
+
+		bd.setCenter(root);
 	}
 
 	public void btnCLickManageStastical(ActionEvent e) throws IOException {
@@ -214,7 +235,9 @@ public class FormAdmin extends DialogBox implements Initializable{
 
 		btnOrder.setStyle("-fx-background-color:black");//.setStyle("-fx-background-color:white,-fx-border-width: 0px 0px 2px 0px,-fx-border-color:gray");
 
-		btnStatistical.setStyle("-fx-background-color:black");//.setStyle("-fx-background-color:white,-fx-border-width: 0px 0px 2px 0px,-fx-border-color:gray");
+		btnReportKh.setStyle("-fx-background-color:black");//.setStyle("-fx-background-color:white,-fx-border-width: 0px 0px 2px 0px,-fx-border-color:gray");
+
+		btnReportTitle.setStyle("-fx-background-color:black");//.setStyle("-fx-background-color:white,-fx-border-width: 0px 0px 2px 0px,-fx-border-color:gray");
 
 	}
 

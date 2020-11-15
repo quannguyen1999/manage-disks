@@ -60,9 +60,12 @@ public class DialogBox  implements Initializable{
 	
 	static final String loadFormReportCustomer="../fxml/FormReportCustomer.fxml";
 	
+	static final String loadManageReportTitle="../fxml/ManageReportTitle.fxml";
+	static final String loadManageReportCustomer="../fxml/ManageReport.fxml";
 	
 	static final String loadWelcome="../fxml/Welcome.fxml";
 	static final String loadManageCustomer="../fxml/ManageCustomer.fxml";
+	static final String loadManageOrder="../fxml/ManageOrder.fxml";
 	static final String loadManageProduct="../fxml/ManageProduct.fxml";
 	static final String loadManageTitle="../fxml/ManageTitle.fxml";
 	static final String loadManageLateFee="../fxml/ManageLateFee.fxml";
