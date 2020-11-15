@@ -21,14 +21,13 @@ public class ProductImpl extends Repository implements ProductService{
 
 	static Connect connect;
 
-	private TitleService titleService=new TitleImpl();
 	
 	private SupplierService supliService=new SupplierImpl();
 	
-	
-	
 	@Override
 	public boolean addProduct(Product product) {
+		
+		TitleService titleService=new TitleImpl();
 		
 		Title title=titleService.findTitleById(product.getTitle().getTitleId());
 		

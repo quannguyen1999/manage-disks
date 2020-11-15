@@ -33,6 +33,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -60,6 +61,12 @@ public class FormManageReportTitle extends DialogBox implements Initializable{
 	@FXML ComboBox<String> cbcNameTitle=new ComboBox<String>();
 
 	@FXML JFXButton btnRefresh;
+	
+	@FXML Label lblAllFileCope;
+	@FXML Label lblCopyDebt;
+	@FXML Label lblInStock;
+	@FXML Label lblCustomerKeep;
+	@FXML Label lblKeepTitle;
 
 	List<Title> listTitle=new ArrayList<>();
 
@@ -77,52 +84,51 @@ public class FormManageReportTitle extends DialogBox implements Initializable{
 			if(e.getClickCount()==2) {
 				int result=tbl_view.getSelectionModel().getSelectedIndex();
 				if(result!=-1) {
-
-					FXMLLoader loader= new FXMLLoader(getClass().getResource(loadFormAddTitle));
-
-					Parent root=null;
-					try {
-						root = loader.load();
-					} catch (IOException e1) {
-						e1.printStackTrace();
-					}
-
-					FormAddTitle ctlMain=loader.getController();
-
-					ctlMain.lblTitle.setText("Cập nhập title");
-
-					ctlMain.txtMa.setText(tbl_view.getItems().get(result).getTitleId());
-
-					ctlMain.cbc.setValue(tbl_view.getItems().get(result).getCategory().getCategoryId());
-					
-					ctlMain.maCategoryRemember=tbl_view.getItems().get(result).getCategory().getCategoryId();
-					
-					ctlMain.txtNameTitle.setText(tbl_view.getItems().get(result).getName());
-					
-					boolean status=tbl_view.getItems().get(result).isStatus();
-					
-					ctlMain.txtNameCategory.setText(tbl_view.getItems().get(result).getCategory().getName());
-					
-					ctlMain.txtDescriptionCategory.setText(tbl_view.getItems().get(result).getCategory().getDescription());
-					
-					ctlMain.txtPriceCategory.setText(String.valueOf(tbl_view.getItems().get(result).getCategory().getPrice()));
-					
-					ctlMain.titleOld=tbl_view.getItems().get(result);
-					
-					if(status==true) {
-						ctlMain.rdTrue.setSelected(true);
-					}else {
-						ctlMain.rdFalse.setSelected(true);
-					}
-					
-					loadFXML(root,btnRefresh).setOnHidden(ev->{
-
-						handleRefersh(new ActionEvent());
-
-					});;
 				}
 			}
 		});
+	}
+	
+	public void watchDetail(ActionEvent e) throws IOException {
+		int result=tbl_view.getSelectionModel().getSelectedIndex();
+
+		if(result!=-1) {
+			
+			Title title = tbl_view.getItems().get(result);
+			
+			int countAllInstockProduct = titleService.countInStockProductByTitleId(title.getTitleId());
+			
+			int countAllBillDebt = titleService.countDebtCustomerByTitleId(title.getTitleId());
+			
+			int countAllProduct = countAllBillDebt + countAllInstockProduct;
+			
+			int countOrderTitle = titleService.countOrderByTitleId(title.getTitleId());
+			
+			int countBillTitleId = titleService.countBillByTitleId(title.getTitleId());
+			
+			lblAllFileCope.setText(String.valueOf("Tổng: "+
+					countAllProduct));
+			
+			lblCopyDebt.setText(String.valueOf("Tổng: "+
+					countBillTitleId));
+			
+			lblInStock.setText(String.valueOf("Tổng: "+
+					countAllInstockProduct));
+			
+			lblCustomerKeep.setText(String.valueOf("Tổng: "+
+					countAllBillDebt));
+			
+			lblKeepTitle.setText(String.valueOf("Tổng: "+
+					countOrderTitle));
+			
+			
+		}else {
+
+			Error("bạn chưa chọn bảng cần xóa", btnRefresh);
+
+		}
+
+		
 	}
 
 

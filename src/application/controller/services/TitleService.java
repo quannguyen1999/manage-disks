@@ -17,4 +17,14 @@ public interface TitleService {
 	public List<Title> findTitleByName(String name);
 
 	public List<Title> listTitle();
+	
+	public int countProductByTitleId(String id);
+	
+	public int countBillByTitleId(String id);
+	
+	public int countInStockProductByTitleId(String id);
+	
+	public int countDebtCustomerByTitleId(String id);
+	
+	public int countOrderByTitleId(String id);
 }

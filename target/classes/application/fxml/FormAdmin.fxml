@@ -111,7 +111,10 @@
                         <JFXButton fx:id="btnChangePass" onAction="#btnClickChangePassword" />
                         <JFXButton fx:id="btnHelp" onAction="#clickBtnHelp" />
                         <JFXButton fx:id="btnMinium" onAction="#btnHideWindow" />
-                        <JFXButton fx:id="btnCloseWindow" onAction="#btnExit" />
+                        <JFXButton fx:id="btnCloseWindow" onAction="#btnExit">
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin></JFXButton>
                      </children>
                   </HBox>
                </top>
