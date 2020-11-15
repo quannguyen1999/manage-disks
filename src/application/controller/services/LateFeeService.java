@@ -19,4 +19,6 @@ public interface LateFeeService {
 	public List<LateFee> findAllLteFeeByIdCustomer(String id);
 	
 	public List<LateFee> findAllLteFeeByPhoneCustomer(String phone);
+	
+	public List<LateFee> findAllLateFeeByBillId(String billId);
 }

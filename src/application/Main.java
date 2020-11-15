@@ -47,7 +47,6 @@ public class Main extends Application {
 			//set transparent for windows
 			scene.setFill(Color.TRANSPARENT);
 			
-			
 			primaryStage.setScene(scene);
 			
 			//animateFX

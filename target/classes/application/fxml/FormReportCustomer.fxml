@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="mainBd" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="496.0" prefWidth="1135.0" stylesheets="@../css/application.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.FormReportCustomer">
+   <center>
+      <VBox prefHeight="358.0" prefWidth="391.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label text="Khách hàng">
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin></Label>
+            <HBox prefHeight="15.0" prefWidth="299.0">
+               <children>
+                  <Label prefHeight="22.0" prefWidth="122.0" text="Mã khách hàng">
+                     <font>
+                        <Font name="Calibri Light" size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets top="20.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox prefHeight="29.0" prefWidth="299.0">
+               <children>
+                  <ComboBox fx:id="cbcCustomerId" prefHeight="25.0" prefWidth="229.0">
+                     <HBox.margin>
+                        <Insets right="10.0" top="18.0" />
+                     </HBox.margin>
+                  </ComboBox>
+               </children>
+            </HBox>
+            <HBox prefHeight="15.0" prefWidth="299.0">
+               <children>
+                  <Label prefHeight="22.0" prefWidth="124.0" text="Điện thoại">
+                     <font>
+                        <Font name="Calibri Light" size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets top="10.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox prefHeight="29.0" prefWidth="299.0">
+               <children>
+                  <ComboBox fx:id="cbcCustomerPhone" prefHeight="25.0" prefWidth="230.0">
+                     <HBox.margin>
+                        <Insets right="10.0" top="10.0" />
+                     </HBox.margin>
+                  </ComboBox>
+               </children>
+            </HBox>
+            <Label prefHeight="40.0" prefWidth="277.0" text="Tên">
+               <font>
+                  <Font name="Calibri Light" size="18.0" />
+               </font>
+            </Label>
+            <JFXTextField fx:id="txtCustomerName">
+               <VBox.margin>
+                  <Insets right="20.0" top="2.0" />
+               </VBox.margin></JFXTextField>
+            <Label prefHeight="40.0" prefWidth="277.0" text="Địa chỉ">
+               <font>
+                  <Font name="Calibri Light" size="18.0" />
+               </font>
+            </Label>
+            <JFXTextField fx:id="txtCustomerAddress">
+               <VBox.margin>
+                  <Insets right="20.0" />
+               </VBox.margin></JFXTextField>
+         </children>
+         <BorderPane.margin>
+            <Insets left="10.0" />
+         </BorderPane.margin>
+      </VBox>
+   </center>
+   <right>
+      <VBox prefHeight="357.0" prefWidth="813.0" BorderPane.alignment="CENTER">
+         <children>
+            <BorderPane fx:id="bdDS" prefHeight="368.0" prefWidth="530.0">
+               <top>
+                  <Label text="Danh sách báo cáo" BorderPane.alignment="CENTER">
+                     <BorderPane.margin>
+                        <Insets top="20.0" />
+                     </BorderPane.margin>
+                  </Label>
+               </top>
+               <center>
+                  <BorderPane fx:id="bdLeft" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                     <top>
+                        <Label text="Danh sách phí trễ" BorderPane.alignment="CENTER" />
+                     </top>
+                     <bottom>
+                        <HBox alignment="CENTER" prefHeight="38.0" prefWidth="356.0" BorderPane.alignment="CENTER">
+                           <children>
+                              <JFXButton onAction="#findAllLateFee" styleClass="btnLogin" stylesheets="@../css/application.css" text="Tìm tất cả">
+                                 <HBox.margin>
+                                    <Insets left="10.0" right="10.0" />
+                                 </HBox.margin>
+                              </JFXButton>
+                           </children>
+                        </HBox>
+                     </bottom>
+                  </BorderPane>
+               </center>
+               <left>
+                  <BorderPane fx:id="bdRight" prefHeight="320.0" prefWidth="438.0" BorderPane.alignment="CENTER">
+                     <top>
+                        <Label text="Danh sách bill" BorderPane.alignment="CENTER" />
+                     </top>
+                     <bottom>
+                        <HBox alignment="CENTER" prefHeight="43.0" prefWidth="358.0" BorderPane.alignment="CENTER">
+                           <children>
+                              <ComboBox fx:id="cbcBillId" prefWidth="150.0">
+                                 <HBox.margin>
+                                    <Insets right="20.0" />
+                                 </HBox.margin>
+                              </ComboBox>
+                              <JFXButton onAction="#findItemInTable" styleClass="btnLogin" stylesheets="@../css/application.css" text="Tìm">
+                                 <HBox.margin>
+                                    <Insets right="10.0" />
+                                 </HBox.margin>
+                              </JFXButton>
+                              <JFXButton onAction="#uploadDuLieuBilLenBang" styleClass="btnLogin" stylesheets="@../css/application.css" text="Refresh" />
+                           </children>
+                        </HBox>
+                     </bottom>
+                     <left>
+                        <Separator orientation="VERTICAL" prefHeight="278.0" prefWidth="0.0" BorderPane.alignment="CENTER" />
+                     </left>
+                  </BorderPane>
+               </left>
+            </BorderPane>
+         </children></VBox>
+   </right>
+   <top>
+      <HBox alignment="CENTER_RIGHT" prefHeight="39.0" prefWidth="600.0" style="-fx-background-color: rgb(23,35,51);" BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="lblTitle" alignment="CENTER" contentDisplay="CENTER" prefHeight="39.0" prefWidth="1228.0" text="Báo cáo thông tin khách hàng" textFill="WHITE">
+               <font>
+                  <Font name="Calibri Light" size="18.0" />
+               </font>
+            </Label>
+            <JFXButton alignment="TOP_RIGHT" contentDisplay="RIGHT" onAction="#btnCLoseWindow" prefHeight="25.0" prefWidth="28.0" text="X" textFill="WHITE">
+               <font>
+                  <Font name="Calibri Light" size="17.0" />
+               </font>
+            </JFXButton>
+         </children>
+      </HBox>
+   </top>
+   <bottom>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <JFXButton fx:id="btn" onAction="#btnCLoseWindow" prefHeight="37.0" prefWidth="129.0" styleClass="btnLogin" stylesheets="@../css/application.css" text="Thoát">
+               <HBox.margin>
+                  <Insets right="20.0" />
+               </HBox.margin>
+            </JFXButton>
+            <JFXButton onAction="#xoaRong" prefHeight="36.0" prefWidth="127.0" styleClass="btnLogin" stylesheets="@../css/application.css" text="Reset">
+               <HBox.margin>
+                  <Insets right="20.0" />
+               </HBox.margin>
+            </JFXButton>
+         </children>
+      </HBox>
+   </bottom>
+</BorderPane>

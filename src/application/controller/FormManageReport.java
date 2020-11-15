@@ -78,7 +78,7 @@ public class FormManageReport extends DialogBox implements Initializable{
 				int result=tbl_view.getSelectionModel().getSelectedIndex();
 				if(result!=-1) {
 
-					FXMLLoader loader= new FXMLLoader(getClass().getResource(loadFormAddCustomer));
+					FXMLLoader loader= new FXMLLoader(getClass().getResource(loadFormReportCustomer));
 
 					Parent root=null;
 					try {
@@ -87,24 +87,24 @@ public class FormManageReport extends DialogBox implements Initializable{
 						e1.printStackTrace();
 					}
 
-					FormAddCustomer ctlMain=loader.getController();
-
-					ctlMain.lblTitle.setText("Cập nhập khách hàng");
-
-					ctlMain.txtMa.setText(tbl_view.getItems().get(result).getCustomerId());
-
-					ctlMain.txtTenKH.setText(tbl_view.getItems().get(result).getName());
-
-					ctlMain.txtDiaChi.setText(tbl_view.getItems().get(result).getAddress());
-
-					ctlMain.txtDienThoai.setText(tbl_view.getItems().get(result).getPhone());
-
-					ctlMain.txtNgaySinh.setValue(tbl_view.getItems().get(result).getDateOfBirth());
-
-					ctlMain.btn.setText("Reset");
-
-					ctlMain.customer=tbl_view.getItems().get(result);
-
+					FormReportCustomer ctlMain=loader.getController();
+					
+					ctlMain.cbcCustomerId.setValue(tbl_view.getItems().get(result).getCustomerId());
+					
+					
+					ctlMain.cbcCustomerPhone.setValue(tbl_view.getItems().get(result).getPhone());
+					
+					
+					ctlMain.txtCustomerName.setText(tbl_view.getItems().get(result).getName());
+					
+					ctlMain.txtCustomerAddress.setText(tbl_view.getItems().get(result).getAddress());
+						
+					ctlMain.customer = tbl_view.getItems().get(result);
+					
+					ctlMain.upload();
+					
+					ctlMain.loadDataSearchBillId();
+					
 					loadFXML(root,btnRefresh).setOnHidden(ev->{
 
 						handleRefersh(new ActionEvent());

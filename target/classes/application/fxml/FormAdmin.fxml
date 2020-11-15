@@ -64,7 +64,7 @@
                         <Insets left="50.0" />
                      </padding>
                   </JFXButton>
-                  <JFXButton fx:id="btnTitle" alignment="BASELINE_LEFT" onAction="#btnCLickManageTitle" prefHeight="85.0" prefWidth="300.0" style="-fx-background-color: black;" styleClass="sidebar-btn" stylesheets="@..\css\application.css" text="Quản lý title" textFill="WHITE">
+                  <JFXButton fx:id="btnTitle" alignment="BASELINE_LEFT" onAction="#btnCLickManageTitle" prefHeight="85.0" prefWidth="300.0" style="-fx-background-color: black;" styleClass="sidebar-btn" stylesheets="@..\css\application.css" text="Quản lý tiêu đề" textFill="WHITE">
                      <font>
                         <Font name="Calibri Light" size="20.0" />
                      </font>
@@ -88,7 +88,15 @@
                         <Insets left="50.0" />
                      </padding>
                   </JFXButton>
-                  <JFXButton fx:id="btnReport" alignment="BASELINE_LEFT" prefHeight="85.0" prefWidth="300.0" style="-fx-background-color: black;" styleClass="sidebar-btn" stylesheets="@..\css\application.css" text="Báo cáo" textFill="WHITE">
+                  <JFXButton fx:id="btnReport" alignment="BASELINE_LEFT" prefHeight="85.0" prefWidth="300.0" style="-fx-background-color: black;" styleClass="sidebar-btn" stylesheets="@..\css\application.css" text="Báo cáo khách hàng" textFill="WHITE">
+                     <font>
+                        <Font name="Calibri Light" size="20.0" />
+                     </font>
+                     <padding>
+                        <Insets left="50.0" />
+                     </padding>
+                  </JFXButton>
+                  <JFXButton fx:id="btnReport1" alignment="BASELINE_LEFT" prefHeight="85.0" prefWidth="300.0" style="-fx-background-color: black;" styleClass="sidebar-btn" stylesheets="@..\css\application.css" text="Báo cáo tiêu đề" textFill="WHITE">
                      <font>
                         <Font name="Calibri Light" size="20.0" />
                      </font>

@@ -40,9 +40,6 @@ public class Bill {
 	@JoinColumn(name = "customerId")
 	private Customer customer;
 	
-//	@OneToMany(mappedBy = "bill", cascade = CascadeType.ALL)
-//	private List<LateFees> lateFees;
-	
 	@Column
 	private boolean debt;
 }

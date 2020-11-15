@@ -81,6 +81,18 @@ public class LateFeeImpl  extends Repository implements LateFeeService{
 		return listLateFeeFind.size()<=0?null:listLateFeeFind;
 	}
 
+	@Override
+	public List<LateFee> findAllLateFeeByBillId(String billId) {
+		List<LateFee> listLateFeeFind = new ArrayList<>();
+		List<LateFee> listLateFee = listLateFee();
+		for(int i=0;i<listLateFee.size();i++) {
+			if(listLateFee.get(i).getBill().getBillId().equalsIgnoreCase(billId)) {
+				listLateFeeFind.add(listLateFee.get(i));
+			}
+		}
+		return listLateFeeFind.size()<=0?null:listLateFeeFind;
+	}
+
 
 
 }
