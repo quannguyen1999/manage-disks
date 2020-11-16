@@ -96,24 +96,26 @@ public class FormManageReportTitle extends DialogBox implements Initializable{
 			
 			Title title = tbl_view.getItems().get(result);
 			
-			int countAllInstockProduct = titleService.countInStockProductByTitleId(title.getTitleId());
+			int countAllInstockProduct = titleService.countProductByTitleId(title.getTitleId());
 			
 			int countAllBillDebt = titleService.countDebtCustomerByTitleId(title.getTitleId());
-			
-			int countAllProduct = countAllBillDebt + countAllInstockProduct;
 			
 			int countOrderTitle = titleService.countOrderByTitleId(title.getTitleId());
 			
 			int countBillTitleId = titleService.countBillByTitleId(title.getTitleId());
 			
+			int countAllProduct = countBillTitleId + countAllInstockProduct;
+			
+			System.out.println(countAllProduct);
+			
 			lblAllFileCope.setText(String.valueOf("Tổng: "+
-					countAllProduct));
+					countAllInstockProduct));
 			
 			lblCopyDebt.setText(String.valueOf("Tổng: "+
 					countBillTitleId));
 			
 			lblInStock.setText(String.valueOf("Tổng: "+
-					countAllInstockProduct));
+					countAllProduct));
 			
 			lblCustomerKeep.setText(String.valueOf("Tổng: "+
 					countAllBillDebt));
@@ -124,7 +126,7 @@ public class FormManageReportTitle extends DialogBox implements Initializable{
 			
 		}else {
 
-			Error("bạn chưa chọn bảng cần xóa", btnRefresh);
+			Error("bạn chưa chọn bảng cần xem chi tiết", btnRefresh);
 
 		}
 
@@ -167,7 +169,11 @@ public class FormManageReportTitle extends DialogBox implements Initializable{
 	}
 
 	public void handleRefersh(ActionEvent e) {
-		//		cbc.getItems().clear();
+		lblAllFileCope.setText("");
+		lblCopyDebt.setText("");
+		lblCustomerKeep.setText("");
+		lblInStock.setText("");
+		lblKeepTitle.setText("");
 		cbc.setValue("");
 		cbcNameTitle.setValue("");
 		tbl_view.getItems().clear();

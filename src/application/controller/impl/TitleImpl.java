@@ -142,6 +142,7 @@ public class TitleImpl extends Repository implements TitleService{
 
 	@Override
 	public int countInStockProductByTitleId(String id) {
+		
 		return 0;
 	}
 
@@ -162,8 +163,8 @@ public class TitleImpl extends Repository implements TitleService{
 			return 0;
 		}
 		
+		
 		for(int i=0;i<listOrderDetail.size();i++) {
-			System.out.println(listOrderDetail.get(i));
 			count+=listOrderDetail.get(i).getQuantity();
 		}
 
