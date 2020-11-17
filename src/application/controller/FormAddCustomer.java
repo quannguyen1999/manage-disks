@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.EventObject;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
@@ -19,6 +20,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 public class FormAddCustomer extends DialogBox implements Initializable{
 	@FXML public BorderPane mainBd;
 	@FXML Label lblTitle;
@@ -40,7 +43,7 @@ public class FormAddCustomer extends DialogBox implements Initializable{
 		txtMa.setEditable(false);
 
 	}
-	public boolean kiemTraMa(ActionEvent e,String text) throws IOException {
+	public boolean kiemTraMa(String text) throws IOException {
 		if(text.isEmpty()==false) {
 			
 			return true;
@@ -52,7 +55,7 @@ public class FormAddCustomer extends DialogBox implements Initializable{
 		}
 		return false;
 	}
-	public boolean kiemTraDiaChi(ActionEvent e,String ma) throws IOException {
+	public boolean kiemTraDiaChi(String ma) throws IOException {
 		String MaKT=ma.trim();
 		if(MaKT.isEmpty()==false) {
 			//			if(MaKT.matches("^[A-Za-z\\sÀ�?ÂÃÈÉÊÌ�?ÒÓÔÕÙÚ�?àáâãèéêìíòóôõùúýĂă�?đĨĩŨũƠơƯưẠ-ỹ]+$")==true) {
@@ -68,7 +71,7 @@ public class FormAddCustomer extends DialogBox implements Initializable{
 	}
 	
 	
-	public boolean kiemTraDienThoai(ActionEvent e,String ma) throws IOException {
+	public boolean kiemTraDienThoai(String ma) throws IOException {
 		String MaKT=ma.trim();
 		if(MaKT.isEmpty()==false) {
 			if(MaKT.length()==10) {
@@ -87,7 +90,7 @@ public class FormAddCustomer extends DialogBox implements Initializable{
 			return false;
 		}
 	}
-	public boolean kiemTraTenKhachHang(ActionEvent e,String ma) throws IOException {
+	public boolean kiemTraTenKhachHang(String ma) throws IOException {
 		String MaKT=ma.trim();
 		if(MaKT.isEmpty()==false) {
 			if(MaKT.matches("^[A-Za-z\\sÀ�?ÂÃÈÉÊÌ�?ÒÓÔÕÙÚ�?àáâãèéêìíòóôõùúýĂă�?đĨĩŨũƠơƯưẠ-ỹ]+$")==true) {
@@ -101,21 +104,39 @@ public class FormAddCustomer extends DialogBox implements Initializable{
 			return false;
 		}
 	}
-	public void CLickOK(ActionEvent e) throws IOException {
+	
+	public void handleKeyEvents(KeyEvent e) throws IOException {
+		if(e.getCode()==KeyCode.ENTER) {
+			
+			loadForm(null,e);
+			
+		}
+	}
+	
+	
+	public void loadForm(ActionEvent e, KeyEvent eKey) throws IOException {
+			if(e != null) {
+				loadInterface(btn,e);
+			}else {
+				loadInterface(btn,eKey);
+			}
+	}
+	
+	public <T> void loadInterface(JFXButton btn,T e) throws IOException{
 		String ma=txtMa.getText().toString();
 		String diaChi=txtDiaChi.getText().toString();
 		String DienThoai=txtDienThoai.getText().toString();
 		String ten=txtTenKH.getText().toString();
 		LocalDate lc=txtNgaySinh.getValue();
 		boolean stillContunite=true;
-		if(kiemTraMa(e, ma)==true) {
+		if(kiemTraMa( ma)==true) {
 			stillContunite=true;
 		}else {
 			txtMa.requestFocus();
 			stillContunite=false;
 		}
 		if(stillContunite==true) {
-			if(kiemTraDiaChi(e,diaChi)) {
+			if(kiemTraDiaChi(diaChi)) {
 				stillContunite=true;
 			}else {
 				txtDiaChi.requestFocus();
@@ -123,7 +144,7 @@ public class FormAddCustomer extends DialogBox implements Initializable{
 			}
 		}
 		if(stillContunite==true) {
-			if(kiemTraDienThoai(e,DienThoai)) {
+			if(kiemTraDienThoai(DienThoai)) {
 				stillContunite=true;
 			}else {
 				txtDienThoai.requestFocus();
@@ -132,7 +153,7 @@ public class FormAddCustomer extends DialogBox implements Initializable{
 			}
 		}
 		if(stillContunite==true) {
-			if(kiemTraTenKhachHang(e,ten)) {
+			if(kiemTraTenKhachHang(ten)) {
 				stillContunite=true;
 			}else {
 				txtTenKH.requestFocus();
@@ -188,9 +209,6 @@ public class FormAddCustomer extends DialogBox implements Initializable{
 					
 				}
 			}
-			
-			
-			
 		}
 		
 		if(stillContunite==true) {
@@ -202,8 +220,7 @@ public class FormAddCustomer extends DialogBox implements Initializable{
 					Error("Lỗi thêm không thành công", btn);
 
 				}else{
-//					Success("Thêm khách hàng thành công")
-					((Node)(e.getSource())).getScene().getWindow().hide();  
+					((Node)(((EventObject) e).getSource())).getScene().getWindow().hide();  
 
 				};
 
@@ -215,13 +232,18 @@ public class FormAddCustomer extends DialogBox implements Initializable{
 
 				}else{
 
-					((Node)(e.getSource())).getScene().getWindow().hide();  
+					((Node)(((EventObject) e).getSource())).getScene().getWindow().hide();  
 
 				};
 			}
 
 
 		}
+	}
+	
+	
+	public void CLickOK(ActionEvent e) throws IOException {
+		loadInterface(btn,e);
 	}
 	public void btnXoaRong(ActionEvent e) {
 		if(customer==null) {

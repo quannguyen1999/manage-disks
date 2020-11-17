@@ -49,7 +49,7 @@
             </HBox>
             <HBox prefHeight="33.0" prefWidth="600.0">
                <children>
-                  <JFXTextField fx:id="txtMa" prefHeight="25.0" prefWidth="278.0" style="-fx-prompt-text-fill: black; -fx-text-inner-color: black;">
+                  <JFXTextField fx:id="txtMa" onKeyPressed="#handleKeyEvents" prefHeight="25.0" prefWidth="278.0" style="-fx-prompt-text-fill: black; -fx-text-inner-color: black;">
                      <HBox.margin>
                         <Insets left="150.0" />
                      </HBox.margin>
@@ -70,7 +70,7 @@
             </HBox>
             <HBox prefHeight="33.0" prefWidth="600.0">
                <children>
-                  <JFXTextField fx:id="txtDiaChi" prefHeight="25.0" prefWidth="278.0" promptText="Nhập địa chỉ..." style="-fx-prompt-text-fill: black; -fx-text-inner-color: black;">
+                  <JFXTextField fx:id="txtDiaChi" onKeyPressed="#handleKeyEvents" prefHeight="25.0" prefWidth="278.0" promptText="Nhập địa chỉ..." style="-fx-prompt-text-fill: black; -fx-text-inner-color: black;">
                      <HBox.margin>
                         <Insets left="150.0" />
                      </HBox.margin>
@@ -96,7 +96,7 @@
             </HBox>
             <HBox prefHeight="40.0" prefWidth="600.0">
                <children>
-                  <JFXTextField fx:id="txtDienThoai" prefHeight="25.0" prefWidth="278.0" promptText="Nhập điện thoại..." style="-fx-prompt-text-fill: black; -fx-text-inner-color: black;" />
+                  <JFXTextField fx:id="txtDienThoai" onKeyPressed="#handleKeyEvents" prefHeight="25.0" prefWidth="278.0" promptText="Nhập điện thoại..." style="-fx-prompt-text-fill: black; -fx-text-inner-color: black;" />
                </children>
                <padding>
                   <Insets left="150.0" />
@@ -119,7 +119,7 @@
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <JFXTextField fx:id="txtTenKH" prefHeight="25.0" prefWidth="278.0" promptText="Nhập tên khách hàng" style="-fx-prompt-text-fill: black; -fx-text-inner-color: black;">
+                  <JFXTextField fx:id="txtTenKH" onKeyPressed="#handleKeyEvents" prefHeight="25.0" prefWidth="278.0" promptText="Nhập tên khách hàng" style="-fx-prompt-text-fill: black; -fx-text-inner-color: black;">
                      <HBox.margin>
                         <Insets left="150.0" />
                      </HBox.margin>
@@ -140,7 +140,7 @@
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <JFXDatePicker fx:id="txtNgaySinh" prefHeight="28.0" prefWidth="275.0">
+                  <JFXDatePicker fx:id="txtNgaySinh" onKeyPressed="#handleKeyEvents" prefHeight="28.0" prefWidth="275.0">
                      <HBox.margin>
                         <Insets left="150.0" />
                      </HBox.margin>

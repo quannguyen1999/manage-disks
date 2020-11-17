@@ -39,6 +39,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 public class FormManageCustomer extends DialogBox implements Initializable{
+	
 	private TableView<Customer> tbl_view;
 
 	TableColumn<Customer, String> colCustomerId;
@@ -114,7 +115,6 @@ public class FormManageCustomer extends DialogBox implements Initializable{
 			}
 		});
 	}
-
 
 	public void btnXoaCustomer(ActionEvent e) throws IOException{
 
@@ -245,6 +245,8 @@ public class FormManageCustomer extends DialogBox implements Initializable{
 			id="C"+ranDomNumber();
 
 			ctlMain.txtMa.setText(id);
+			
+			ctlMain.txtDiaChi.requestFocus();
 
 		} while (customerService.findCustomerById(id)!=null);
 

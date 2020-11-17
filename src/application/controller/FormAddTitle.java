@@ -54,6 +54,8 @@ public class FormAddTitle extends DialogBox implements Initializable{
 	@FXML JFXTextField txtDescriptionCategory;
 
 	@FXML JFXTextField txtPriceCategory;
+	
+	@FXML JFXTextField txtTimeRent;
 
 	@FXML JFXButton btn;
 
@@ -232,7 +234,8 @@ public class FormAddTitle extends DialogBox implements Initializable{
 		String descriptionCategory=txtDescriptionCategory.getText().toString();
 
 		String priceCategory=txtPriceCategory.getText().toString();
-
+		
+		String timeRent = txtTimeRent.getText().toString();
 
 		boolean stillContunite=false;
 		if(kiemTraMaCategory(e,maCategory)) {
@@ -251,7 +254,7 @@ public class FormAddTitle extends DialogBox implements Initializable{
 		}
 		if(stillContunite==true) {
 
-			Category category=new Category(maCategory, nameCategory, descriptionCategory, Float.parseFloat(priceCategory));
+			Category category=new Category(maCategory, nameCategory, descriptionCategory, Float.parseFloat(priceCategory),Integer.parseInt(timeRent));
 
 			Title title=null;
 
@@ -265,10 +268,7 @@ public class FormAddTitle extends DialogBox implements Initializable{
 
 			}
 
-
 			if(lblTitle.getText().equals("Cập nhập title")==false) {
-				
-				System.out.println(tenTitle);
 				
 				List<Title> listTitleFind = TitleService.findTitleByName(tenTitle);
 				

@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="mainBd" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="462.0" prefWidth="600.0" stylesheets="@../css/application.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.FormAddCategory">
+<BorderPane fx:id="mainBd" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="521.0" prefWidth="591.0" stylesheets="@../css/application.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.FormAddCategory">
    <center>
       <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
@@ -123,6 +123,33 @@
                   </JFXTextField>
                </children>
             </HBox>
+            <HBox prefHeight="34.0" prefWidth="600.0">
+               <children>
+                  <Label prefHeight="27.0" prefWidth="616.0" text="Thời gian thuê">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <padding>
+                        <Insets left="150.0" />
+                     </padding>
+                     <HBox.margin>
+                        <Insets top="20.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <JFXTextField fx:id="txtTimeRent" prefHeight="25.0" prefWidth="278.0" style="-fx-prompt-text-fill: black; -fx-text-inner-color: black;">
+                     <HBox.margin>
+                        <Insets left="150.0" />
+                     </HBox.margin>
+                  </JFXTextField>
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
                   <JFXButton onAction="#btnCLoseWindow" styleClass="btnLogin" stylesheets="@../css/application.css" text="Thoát">
@@ -130,7 +157,7 @@
                         <Font name="Calibri" size="18.0" />
                      </font>
                      <HBox.margin>
-                        <Insets left="150.0" />
+                        <Insets left="130.0" />
                      </HBox.margin>
                   </JFXButton>
                   <JFXButton onAction="#CLickOK" prefHeight="36.0" prefWidth="72.0" styleClass="btnLogin" stylesheets="@../css/application.css" text="Ok">

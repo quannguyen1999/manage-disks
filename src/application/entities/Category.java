@@ -32,4 +32,7 @@ public class Category {
 	
 	@Column
 	private float price;
+	
+	@Column
+	private int timeRent;
 }

@@ -29,6 +29,7 @@ public class FormAddCategory extends DialogBox implements Initializable{
 	@FXML JFXTextField txtName;
 	@FXML JFXTextField txtPrice;
 	@FXML JFXTextField txtDescription;
+	@FXML JFXTextField txtTimeRent;
 
 	@FXML JFXButton btn;
 
@@ -76,14 +77,32 @@ public class FormAddCategory extends DialogBox implements Initializable{
 			return false;
 		}
 	}
+	
+	public boolean kiemTraThoiGianThue(ActionEvent e,String ma) throws IOException {
+		String MaKT = ma.trim();
+		if(MaKT.isEmpty()==true) {
+			Error("thời gian thuê không được để trống",btn);
+			return false;
+		}
+		
+		try {
+			Integer.parseInt(ma);
+		} catch (Exception e2) {
+			Error("thời gian thuê không hợp lệ",btn);
+			return false;
+		}
+		
+		return true;
+	}
+	
 
 
 	public void CLickOK(ActionEvent e) throws IOException {
-		System.out.println("ok");
 		String ma=txtMa.getText().toString();
 		String tenMatHang=txtName.getText().toString();
 		String gia=txtPrice.getText().toString();
 		String moTa=txtDescription.getText().toString();
+		String timeRent=txtTimeRent.getText().toString();
 		boolean stillContunite=false;
 		if(kiemTraTenMatHang(e,tenMatHang)) {
 			stillContunite=true;
@@ -107,10 +126,19 @@ public class FormAddCategory extends DialogBox implements Initializable{
 				stillContunite=false;
 			}
 		}
+		
+		if(stillContunite==true) {
+			if(kiemTraThoiGianThue(e, timeRent)) {
+				stillContunite=true;
+			}else {
+				txtTimeRent.requestFocus();
+				stillContunite=false;
+			}
+		}
 
 		if(stillContunite==true) {
 
-			Category category=new Category(ma, tenMatHang, moTa, Float.parseFloat(gia));
+			Category category=new Category(ma, tenMatHang, moTa, Float.parseFloat(gia),Integer.parseInt(timeRent));
 
 			if(lblTitle.getText().equals("Cập nhập mặt hàng")==false) {
 
@@ -146,6 +174,7 @@ public class FormAddCategory extends DialogBox implements Initializable{
 		txtName.setText("");
 		txtPrice.setText("");
 		txtDescription.setText("");
+		txtTimeRent.setText("");
 
 	}
 	public void btnCLoseWindow(ActionEvent e) throws IOException {

@@ -4,7 +4,6 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -14,44 +13,9 @@
    <top>
       <BorderPane fx:id="bd" prefHeight="795.0" prefWidth="1257.0" BorderPane.alignment="CENTER">
          <right>
-            <VBox fx:id="vboxGame" prefHeight="752.0" prefWidth="239.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
+            <VBox fx:id="vboxGame" alignment="CENTER" prefHeight="752.0" prefWidth="239.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
                <children>
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="46.0" prefWidth="239.0" style="-fx-background-color: #212022;" text="Information supplier" textFill="WHITE">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets bottom="10.0" top="10.0" />
-                     </VBox.margin>
-                  </Label>
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="26.0" prefWidth="239.0" style="-fx-background-color: #212022;" text="Name game" textFill="WHITE">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="lblNameGame" alignment="CENTER" contentDisplay="CENTER" prefHeight="34.0" prefWidth="239.0" text="...." textFill="WHITE" />
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="26.0" prefWidth="239.0" style="-fx-background-color: #212022;" text="Path game" textFill="WHITE">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="lblPathGame" alignment="CENTER" contentDisplay="CENTER" prefHeight="34.0" prefWidth="239.0" text="...." textFill="WHITE" />
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="26.0" prefWidth="239.0" style="-fx-background-color: #212022;" text="Image big" textFill="WHITE">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Label>
-                  <ImageView fx:id="imgBig" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                     <VBox.margin>
-                        <Insets left="16.0" top="5.0" />
-                     </VBox.margin>
-                  </ImageView>
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="26.0" prefWidth="239.0" style="-fx-background-color: #212022;" textFill="WHITE">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Label>
-                  <JFXButton onAction="#btnClickAdd" prefHeight="35.0" prefWidth="239.0" style="-fx-border-color: white;" stylesheets="@..\css\application.css" text="Add" textFill="WHITE">
+                  <JFXButton onAction="#btnClickAdd" prefHeight="35.0" prefWidth="239.0" style="-fx-border-color: white;" stylesheets="@..\css\application.css" text="Thêm" textFill="WHITE">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -59,7 +23,7 @@
                         <Insets bottom="10.0" top="10.0" />
                      </VBox.margin>
                   </JFXButton>
-                  <JFXButton onAction="#btnXoaSupplier" prefHeight="35.0" prefWidth="239.0" style="-fx-border-color: white;" stylesheets="@..\css\application.css" text="Remove" textFill="WHITE">
+                  <JFXButton onAction="#btnXoaSupplier" prefHeight="35.0" prefWidth="239.0" style="-fx-border-color: white;" stylesheets="@..\css\application.css" text="Xóa" textFill="WHITE">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -73,7 +37,7 @@
          <bottom>
             <HBox fx:id="hboxGame" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
                <children>
-                  <Label text="Find supplier: " textFill="WHITE">
+                  <Label text="Tìm id :" textFill="WHITE">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -83,7 +47,7 @@
                         <Insets left="20.0" right="20.0" />
                      </HBox.margin>
                   </ComboBox>
-                  <JFXButton onAction="#findItemInTable" prefHeight="35.0" prefWidth="192.0" styleClass="btnLogin" stylesheets="@..\css\application.css" text="Find" textFill="WHITE">
+                  <JFXButton onAction="#findItemInTable" prefHeight="35.0" prefWidth="192.0" styleClass="btnLogin" stylesheets="@..\css\application.css" text="Tìm" textFill="WHITE">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -91,7 +55,7 @@
                         <Insets right="10.0" />
                      </HBox.margin>
                   </JFXButton>
-                  <JFXButton fx:id="btnRefresh" onAction="#handleRefersh" prefHeight="35.0" prefWidth="225.0" styleClass="btnLogin" stylesheets="@..\css\application.css" text="Reresh" textFill="WHITE">
+                  <JFXButton fx:id="btnRefresh" onAction="#handleRefersh" prefHeight="35.0" prefWidth="225.0" styleClass="btnLogin" stylesheets="@..\css\application.css" text="Reset" textFill="WHITE">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -100,7 +64,7 @@
             </HBox>
          </bottom>
          <top>
-            <Label fx:id="lblProduct" alignment="CENTER" prefHeight="76.0" prefWidth="1257.0" style="-fx-background-color: #AF231A;" text="Manage Supplier" textFill="WHITE" BorderPane.alignment="CENTER">
+            <Label fx:id="lblProduct" alignment="CENTER" prefHeight="76.0" prefWidth="1257.0" style="-fx-background-color: #AF231A;" text="Quản lý nhà cung cấp" textFill="WHITE" BorderPane.alignment="CENTER">
                <font>
                   <Font name="Calibri" size="26.0" />
                </font>

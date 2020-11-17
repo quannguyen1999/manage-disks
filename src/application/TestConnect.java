@@ -56,60 +56,60 @@ public class TestConnect {
 
 	public void testBill() {
 
-		Category category=new Category("CT101", "quân", "bao cao su", 10000);
-
-		Title title=new Title("T101", "abc", true, category);
-
-		Supplier supplier=new Supplier("S101", "0123337505", "61/12", "IT");
-
-		Product product=new Product("P101", "Bao cao su", "S1.png", 10, "mô tả","on Hole",LocalDate.of(1999, 2, 1), title, supplier);
-
-		Customer customer=new Customer("C02", "slut", "34/16", "0708821227", true, LocalDate.of(1999, 2, 1));
-
-		Bill bill=new Bill("B01", LocalDate.of(1999, 2, 1), LocalDate.of(1999, 2, 1), customer, true);
-
-		BillDetail billDetail=new BillDetail("BDT01", 10, 10, product, bill);
-
-		BillService billService=new BillImpl();
-
-		System.out.println(billService.addBill(bill));
+//		Category category=new Category("CT101", "quân", "bao cao su", 10000);
+//
+//		Title title=new Title("T101", "abc", true, category);
+//
+//		Supplier supplier=new Supplier("S101", "0123337505", "61/12", "IT");
+//
+//		Product product=new Product("P101", "Bao cao su", "S1.png", 10, "mô tả","on Hole",LocalDate.of(1999, 2, 1), title, supplier);
+//
+//		Customer customer=new Customer("C02", "slut", "34/16", "0708821227", true, LocalDate.of(1999, 2, 1));
+//
+//		Bill bill=new Bill("B01", LocalDate.of(1999, 2, 1), LocalDate.of(1999, 2, 1), customer, true);
+//
+//		BillDetail billDetail=new BillDetail("BDT01", 10, 10, product, bill);
+//
+//		BillService billService=new BillImpl();
+//
+//		System.out.println(billService.addBill(bill));
 
 	}
 
 	public void testProduct() {
-
-		Category category=new Category("CT101", "quân", "bao cao su", 10000);
-
-		Title title=new Title("T101", "abc", true, category);
-
-		Supplier supplier=new Supplier("S101", "0123337505", "61/12", "IT");
-
-		Product product=new Product("P101", "Bao cao su", "S1.png", 10, "mô tả","on Hole",LocalDate.of(1999, 2, 1), title, supplier);
-
-		ProductService productService=new ProductImpl();
-
-		System.out.println(productService.addProduct(product));
-
-		productService.listProduct().forEach(t->{
-			System.out.println(t);
-		});
+//
+//		Category category=new Category("CT101", "quân", "bao cao su", 10000);
+//
+//		Title title=new Title("T101", "abc", true, category);
+//
+//		Supplier supplier=new Supplier("S101", "0123337505", "61/12", "IT");
+//
+//		Product product=new Product("P101", "Bao cao su", "S1.png", 10, "mô tả","on Hole",LocalDate.of(1999, 2, 1), title, supplier);
+//
+//		ProductService productService=new ProductImpl();
+//
+//		System.out.println(productService.addProduct(product));
+//
+//		productService.listProduct().forEach(t->{
+//			System.out.println(t);
+//		});
 
 	}
 
 	public void testTitle() {
-		Category category=new Category("CT101", "quân", "bao cao su", 10000);
-
-		Title title=new Title("T101", "abc", true, category);
-
-		TitleService titleService=new TitleImpl();
-
-		System.out.println(titleService.addTitle(title));
-
-		titleService.listTitle().forEach(t->{
-
-			System.out.println(t);
-
-		});
+//		Category category=new Category("CT101", "quân", "bao cao su", 10000);
+//
+//		Title title=new Title("T101", "abc", true, category);
+//
+//		TitleService titleService=new TitleImpl();
+//
+//		System.out.println(titleService.addTitle(title));
+//
+//		titleService.listTitle().forEach(t->{
+//
+//			System.out.println(t);
+//
+//		});
 
 
 	}
@@ -132,19 +132,19 @@ public class TestConnect {
 
 	public void testCategory() {
 
-		Category category=new Category("CT101", "quân", "bao cao su", 10000);
-
-		category.setDescription("fuck and slut");
-
-		CategoryService categoryService=new CategoryImpl();
-
-		System.out.println(categoryService.updateCategory(category, category.getCategoryId()));
-		//		
-		//		System.out.println(categoryService.addCategory(category));
-
-		categoryService.listCategory().forEach(t->{
-			System.out.println(t);
-		});
+//		Category category=new Category("CT101", "quân", "bao cao su", 10000);
+//
+//		category.setDescription("fuck and slut");
+//
+//		CategoryService categoryService=new CategoryImpl();
+//
+//		System.out.println(categoryService.updateCategory(category, category.getCategoryId()));
+//		//		
+//		//		System.out.println(categoryService.addCategory(category));
+//
+//		categoryService.listCategory().forEach(t->{
+//			System.out.println(t);
+//		});
 
 	}
 

@@ -19,7 +19,7 @@
             <Pane fx:id="pnlSignOut2" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;">
                <children>
                   <TextField fx:id="txtAcc" layoutX="171.0" layoutY="456.0" onKeyPressed="#handleKeyEvents" prefHeight="36.0" prefWidth="305.0" promptText="Tên tài khoản" />
-                  <Label layoutX="290.0" layoutY="413.0" prefHeight="14.0" prefWidth="64.0" text="Đăng nhập" textFill="#26264a" />
+                  <Label layoutX="290.0" layoutY="413.0" prefHeight="13.0" prefWidth="110.0" text="Đăng nhập" textFill="#26264a" />
                   <Label layoutX="150.0" layoutY="533.0">
                      <font>
                         <Font name="System Bold" size="12.0" />

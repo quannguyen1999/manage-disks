@@ -43,6 +43,7 @@ public class FormManageCategories extends DialogBox implements Initializable{
 	TableColumn<Category, String> colName;
 	TableColumn<Category, String> colDescription;
 	TableColumn<Category, String> colPrice;
+	TableColumn<Category, String> colTimeRent;
 
 	@FXML BorderPane bd;
 
@@ -85,6 +86,8 @@ public class FormManageCategories extends DialogBox implements Initializable{
 					ctlMain.txtName.setText(tbl_view.getItems().get(result).getName());
 
 					ctlMain.txtPrice.setText(String.valueOf(tbl_view.getItems().get(result).getPrice()));
+					
+					ctlMain.txtTimeRent.setText(String.valueOf(tbl_view.getItems().get(result).getTimeRent()));
 
 					ctlMain.txtDescription.setText(tbl_view.getItems().get(result).getDescription());
 
@@ -161,8 +164,9 @@ public class FormManageCategories extends DialogBox implements Initializable{
 		colName=new TableColumn<Category, String>("Tên");
 		colDescription=new TableColumn<Category, String>("Mô tả");
 		colPrice=new TableColumn<Category, String>("Giá");
+		colTimeRent = new TableColumn<Category, String>("Thời gian thuê");
 
-		tbl_view.getColumns().addAll(colCategoryId,colName,colDescription,colPrice);
+		tbl_view.getColumns().addAll(colCategoryId,colName,colDescription,colPrice,colTimeRent);
 
 		bd.setCenter(tbl_view);
 
@@ -170,6 +174,7 @@ public class FormManageCategories extends DialogBox implements Initializable{
 		colName.setCellValueFactory(new PropertyValueFactory<>("name"));
 		colDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
 		colPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
+		colTimeRent.setCellValueFactory(new PropertyValueFactory<>("timeRent"));
 
 		colCategoryId.setMinWidth(100);// .setCellValueFactory(new PropertyValueFactory<>("maKH"));
 		colName.setMinWidth(180);//.setCellValueFactory(new PropertyValueFactory<>("diaChi"));
