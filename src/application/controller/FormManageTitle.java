@@ -2,6 +2,7 @@ package application.controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.text.spi.CollatorProvider;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -49,14 +50,16 @@ public class FormManageTitle extends DialogBox implements Initializable{
 	TableColumn<Title, String> colStatus;
 	TableColumn<Title, String> colcategoryId;
 
+	DecimalFormat df = new DecimalFormat("#,###"); 
+
 	@FXML BorderPane bd;
 
 	TitleService titleService=new TitleImpl();
-	
+
 	OrderDetailService orderDetailService = new OrderDetailImpl();
 
 	@FXML ComboBox<String> cbc=new ComboBox<String>();
-	
+
 	@FXML ComboBox<String> cbcNameTitle=new ComboBox<String>();
 
 	@FXML JFXButton btnRefresh;
@@ -70,7 +73,7 @@ public class FormManageTitle extends DialogBox implements Initializable{
 		loadDataSearch();
 
 		cbc.setEditable(true);
-		
+
 		cbcNameTitle.setEditable(true);
 
 		tbl_view.setOnMouseClicked(e->{
@@ -94,27 +97,27 @@ public class FormManageTitle extends DialogBox implements Initializable{
 					ctlMain.txtMa.setText(tbl_view.getItems().get(result).getTitleId());
 
 					ctlMain.cbc.setValue(tbl_view.getItems().get(result).getCategory().getCategoryId());
-					
+
 					ctlMain.maCategoryRemember=tbl_view.getItems().get(result).getCategory().getCategoryId();
-					
+
 					ctlMain.txtNameTitle.setText(tbl_view.getItems().get(result).getName());
-					
-					boolean status=tbl_view.getItems().get(result).isStatus();
-					
+
+					String status=tbl_view.getItems().get(result).getStatus();
+
 					ctlMain.txtNameCategory.setText(tbl_view.getItems().get(result).getCategory().getName());
-					
+
 					ctlMain.txtDescriptionCategory.setText(tbl_view.getItems().get(result).getCategory().getDescription());
-					
+
 					ctlMain.txtPriceCategory.setText(String.valueOf(tbl_view.getItems().get(result).getCategory().getPrice()));
-					
+
 					ctlMain.titleOld=tbl_view.getItems().get(result);
-					
-					if(status==true) {
+
+					if(status.equalsIgnoreCase(DAT)) {
 						ctlMain.rdTrue.setSelected(true);
 					}else {
 						ctlMain.rdFalse.setSelected(true);
 					}
-					
+
 					loadFXML(root,btnRefresh).setOnHidden(ev->{
 
 						handleRefersh(new ActionEvent());
@@ -129,38 +132,38 @@ public class FormManageTitle extends DialogBox implements Initializable{
 	public void btnXoaTitle(ActionEvent e) throws IOException{
 
 		int result=tbl_view.getSelectionModel().getSelectedIndex();
-		
+
 		if(result!=-1) {
 
 			FXMLLoader loader= new FXMLLoader(getClass().getResource(loadAreYouSure));
-			
+
 			Parent root=loader.load();
-			
+
 			AreYouSure ctlMain=loader.getController();
-			
+
 			new animatefx.animation.FadeIn(root).play();
-			
+
 			Stage stage=new Stage();
-			
+
 			stage.initOwner(btnRefresh.getScene().getWindow());
-			
+
 			stage.setScene(new Scene(root));
-			
+
 			stage.initStyle(StageStyle.UNDECORATED);
-			
+
 			stage.initModality(Modality.APPLICATION_MODAL);
-			
+
 			stage.show();
-			
+
 			stage.setOnHidden(efg->{
-			
+
 				if(ctlMain.result==true) {
-				
-//					TitleService.removeTitle(tbl_view.getItems().get(result).getTitleId());
-					
+
+					//					TitleService.removeTitle(tbl_view.getItems().get(result).getTitleId());
+
 					List<OrderDetail> listOrderDetail = 
 							orderDetailService.findAllOrderDetailByTitleId(tbl_view.getItems().get(result).getTitleId());
-					
+
 					if(listOrderDetail!=null && listOrderDetail.size()>=1) {
 						try {
 							Error("Đang có khách hàng đặt title", btnRefresh);
@@ -168,19 +171,19 @@ public class FormManageTitle extends DialogBox implements Initializable{
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
-						
+
 						return;
 					}
-					
+
 					titleService.removeTitle(tbl_view.getItems().get(result).getTitleId());
 
 					handleRefersh(e);
-				
+
 				}else {
 
 				}
 			});
-			
+
 		}else {
 
 			Error("bạn chưa chọn bảng cần xóa", btnRefresh);
@@ -245,7 +248,7 @@ public class FormManageTitle extends DialogBox implements Initializable{
 			id="C"+ranDomNumber();
 
 			ctlMain.txtMa.setText(id);
-			
+
 
 		} while (titleService.findTitleById(id)!=null);
 
@@ -302,7 +305,7 @@ public class FormManageTitle extends DialogBox implements Initializable{
 		}
 
 	}
-	
+
 	public void findItemNameTitleInTable(ActionEvent e) throws IOException {
 		String textFind=null;
 
@@ -341,15 +344,15 @@ public class FormManageTitle extends DialogBox implements Initializable{
 			return;
 
 		}else {
-			
+
 			tbl_view.getItems().clear();
-			
+
 			TitleFind.forEach(t->{
-				
+
 				tbl_view.getItems().add(t);
-				
+
 			});
-		
+
 
 		}
 
@@ -359,14 +362,14 @@ public class FormManageTitle extends DialogBox implements Initializable{
 
 	private void loadDataSearch() {
 		ObservableList<String> items = FXCollections.observableArrayList();
-		
+
 		ObservableList<String> itemsNameTitle = FXCollections.observableArrayList();
-		
+
 		List<Title> accs=titleService.listTitle();
 
 		accs.forEach(t->{
 			items.add(t.getTitleId());
-			
+
 			itemsNameTitle.add(t.getName());
 		});
 
@@ -377,9 +380,9 @@ public class FormManageTitle extends DialogBox implements Initializable{
 		cbc.setItems(filteredItems);
 
 		cbc.setEditable(true);
-		
+
 		FilteredList<String> filteredNameItems = new FilteredList<String>(itemsNameTitle);
-		
+
 		cbcNameTitle.getEditor().textProperty().addListener(new InputFilter(cbcNameTitle, filteredNameItems, false));
 
 		cbcNameTitle.setItems(filteredNameItems);

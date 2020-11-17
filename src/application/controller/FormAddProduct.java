@@ -72,7 +72,12 @@ public class FormAddProduct extends DialogBox implements Initializable{
 
 	@FXML JFXTextField txtDescription;
 
-	@FXML JFXTextField txtStatus;
+//	@FXML JFXTextField txtStatus;
+	
+	@FXML JFXRadioButton rdTrenKe;
+	@FXML JFXRadioButton rdChoThue;
+	@FXML JFXRadioButton rdGiuLai;
+	
 
 	@FXML JFXDatePicker txtDateAdded;
 
@@ -293,13 +298,13 @@ public class FormAddProduct extends DialogBox implements Initializable{
 
 				txtNameTitle.setText(cate.getName());
 
-				if(cate.isStatus()==true) {
+				if(cate.getStatus()==DAT) {
 
-					txtStatusTitle.setText("Còn hàng");
+					txtStatusTitle.setText(DAT);
 
 				}else {
 
-					txtStatusTitle.setText("Hết hàng");
+					txtStatusTitle.setText(CHUADAT);
 
 				}
 
@@ -412,7 +417,14 @@ public class FormAddProduct extends DialogBox implements Initializable{
 		String nameProduct=txtName.getText().toString();
 		String quantityProduct=txtQuantity.getText().toString();
 		String descriptionProduct=txtDescription.getText().toString();
-		String statusProduct=txtStatus.getText().toString();
+		String statusProduct;
+		if(rdTrenKe.isSelected()) {
+			statusProduct = TRENKE;
+		}else if(rdChoThue.isSelected()) {
+			statusProduct = CHOTHUE;
+		}else {
+			statusProduct = GIULAI;
+		}
 		LocalDate dateAddedProduct=txtDateAdded.getValue();
 		String imageProduct=txtImage.getText().toString();
 
@@ -443,14 +455,14 @@ public class FormAddProduct extends DialogBox implements Initializable{
 				stillContunite=false;
 			}
 		}
-		if(stillContunite==true) {
-			if(checkStatusProduct(e,statusProduct)) {
-				stillContunite=true;
-			}else {
-				txtStatus.requestFocus();
-				stillContunite=false;
-			}
-		}
+//		if(stillContunite==true) {
+//			if(checkStatusProduct(e,statusProduct)) {
+//				stillContunite=true;
+//			}else {
+//				txtStatus.requestFocus();
+//				stillContunite=false;
+//			}
+//		}
 
 		if(stillContunite==true) {
 			if(checkImage(e,imageProduct)) {
@@ -529,7 +541,6 @@ public class FormAddProduct extends DialogBox implements Initializable{
 		String base64Image = "";
 		File file = new File(imagePath);
 		try (FileInputStream imageInFile = new FileInputStream(file)) {
-			// Reading a Image file from file system
 			byte imageData[] = new byte[(int) file.length()];
 			imageInFile.read(imageData);
 			base64Image = Base64.getEncoder().encodeToString(imageData);
@@ -549,7 +560,7 @@ public class FormAddProduct extends DialogBox implements Initializable{
 			txtName.setText(product.getName());
 			txtQuantity.setText(String.valueOf(product.getQuantity()));
 			txtDescription.setText(product.getDescription());
-			txtStatus.setText(product.getStatus());
+			rdChoThue.setSelected(true);
 			txtDateAdded.setValue(product.getDateAdded());
 
 			Image image = new Image("file:///"+product.getPicture());
@@ -564,19 +575,18 @@ public class FormAddProduct extends DialogBox implements Initializable{
 			txtPhoneSupplier.setText(product.getSupplier().getPhone());
 
 			txtNameTitle.setText(product.getTitle().getName());
-			if(product.getTitle().isStatus()==true) {
+			if(product.getTitle().getStatus().equalsIgnoreCase(DAT)) {
 				txtStatusTitle.setText("Còn hàng");
 			}else {
 				txtStatusTitle.setText("Hết hàng");
 			}
 		}else {
-			System.out.println();
 			Image image=new Image(getClass().getResource("../image/Login-2.jpg").toString());
 			img.setImage(image);
 			txtName.setText("");
 			txtQuantity.setText("");
 			txtDescription.setText("");
-			txtStatus.setText("");
+			rdChoThue.setSelected(true);
 			txtDateAdded.setValue(LocalDate.now());
 			txtImage.setText("");
 			cbcSupplier.setValue("");

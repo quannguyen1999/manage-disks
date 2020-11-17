@@ -70,6 +70,8 @@ public class FormAddTitle extends DialogBox implements Initializable{
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
+		txtTimeRent.setEditable(false);
+		
 		txtMa.setEditable(false);
 
 		cbc.setEditable(true);
@@ -180,6 +182,7 @@ public class FormAddTitle extends DialogBox implements Initializable{
 
 				txtPriceCategory.setText(String.valueOf(cate.getPrice()));
 
+				txtTimeRent.setText(String.valueOf(cate.getTimeRent()));
 			}
 		}else {
 
@@ -260,11 +263,11 @@ public class FormAddTitle extends DialogBox implements Initializable{
 
 			if(rdFalse.isPressed()) {
 
-				title=new Title(ma, tenTitle, false, category);
+				title=new Title(ma, tenTitle, CHUADAT, category);
 
 			}else {
 
-				title=new Title(ma, tenTitle, true, category);
+				title=new Title(ma, tenTitle, DAT, category);
 
 			}
 
@@ -332,7 +335,7 @@ public class FormAddTitle extends DialogBox implements Initializable{
 			
 			txtNameTitle.setText(titleOld.getName());
 			
-			if(titleOld.isStatus() == true) {
+			if(titleOld.getStatus().equalsIgnoreCase(DAT)) {
 				
 				rdTrue.setSelected(true);
 				

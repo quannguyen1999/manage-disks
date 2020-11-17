@@ -29,7 +29,8 @@ public class Title {
 	@Column(columnDefinition = "nvarchar(50)")
 	private String name;
 	
-	private boolean status;
+	@Column(columnDefinition = "nvarchar(50)")
+	private String status;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "categoryId")

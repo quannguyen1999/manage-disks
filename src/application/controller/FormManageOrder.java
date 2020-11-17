@@ -240,6 +240,16 @@ public class FormManageOrder extends DialogBox implements Initializable{
 		colCustomerName.setCellValueFactory(cellData->new SimpleStringProperty(cellData.getValue().getCustomer().getName()));
 		colCustomrAddress.setCellValueFactory(cellData->new SimpleStringProperty(cellData.getValue().getCustomer().getAddress()));
 
+		colOrderDate.setMinWidth(120);
+		
+		colCustomerId.setMinWidth(120);
+		
+		colCustomerName.setMinWidth(150);
+		
+		colCustomerPhone.setMinWidth(120);
+		
+		colCustomrAddress.setMinWidth(200);
+		
 		uploadDuLieuLenBang();
 	}
 

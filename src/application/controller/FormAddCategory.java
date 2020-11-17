@@ -79,6 +79,7 @@ public class FormAddCategory extends DialogBox implements Initializable{
 	}
 	
 	public boolean kiemTraThoiGianThue(ActionEvent e,String ma) throws IOException {
+		int tgThue = 0;
 		String MaKT = ma.trim();
 		if(MaKT.isEmpty()==true) {
 			Error("thời gian thuê không được để trống",btn);
@@ -86,9 +87,14 @@ public class FormAddCategory extends DialogBox implements Initializable{
 		}
 		
 		try {
-			Integer.parseInt(ma);
+			tgThue = Integer.parseInt(ma);
 		} catch (Exception e2) {
 			Error("thời gian thuê không hợp lệ",btn);
+			return false;
+		}
+		
+		if(tgThue<=0) {
+			Error("Thời gian thuê không hợp lệ", btn);
 			return false;
 		}
 		

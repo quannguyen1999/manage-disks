@@ -48,10 +48,10 @@ import javafx.scene.image.Image;
 public class TestConnect {
 
 	public static void main(String[] args) throws IOException {
-		
-		CustomerService customerService = new CustomerImpl();
-		List<Customer> listCustomer = customerService.listAllCustomerByDebt();
-		System.out.println(listCustomer);
+		 int e = 14562345; 
+		    DecimalFormat df = new DecimalFormat("#,###"); 
+		    String Str5 = df.format(e); 
+		    System.out.println(Str5); 
 	}
 
 	public void testBill() {

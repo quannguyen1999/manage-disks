@@ -33,6 +33,11 @@ import javafx.stage.StageStyle;
 import sun.misc.BASE64Decoder;
 
 public class DialogBox  implements Initializable{
+	static final String TRENKE = "Trên kệ";
+	static final String CHOTHUE = "Cho thuê";
+	static final String GIULAI = "Giữ lại";
+	static final String DAT = "Đặt";
+	static final String CHUADAT = "Chưa đặt";
 	
 	static File currentDirFile = new File("");
 	static String helper = currentDirFile.getAbsolutePath();

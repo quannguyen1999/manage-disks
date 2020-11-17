@@ -244,6 +244,14 @@ public class FormManageLateFee extends DialogBox implements Initializable{
 				String.valueOf(cellData.getValue().getBill().getCustomer().getPhone())));
 
 
+		colDatePay.setMinWidth(200);
+		
+		colContent.setMinWidth(200);
+		
+		colNameCustomer.setMinWidth(150);
+		
+		colPhoneCustomer.setMinWidth(120);
+		
 		uploadDuLieuLenBang();
 	}
 

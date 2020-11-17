@@ -233,6 +233,11 @@ public class FormManageBill extends DialogBox implements Initializable{
 		colNameCustomer.setCellValueFactory(cellData->new SimpleStringProperty(cellData.getValue().getCustomer().getName()));
 		colDebt.setCellValueFactory(new PropertyValueFactory<>("debt"));
 
+		colBillPay.setMinWidth(120);
+		
+		colCustomerId.setMinWidth(100);
+		
+		colNameCustomer.setMinWidth(150);
 
 		uploadDuLieuLenBang();
 	}
@@ -273,7 +278,13 @@ public class FormManageBill extends DialogBox implements Initializable{
 
 			ctlMain.txtBillMa.setText(id);
 
-			ctlMain.txtBillDateOrder.setText(String.valueOf(LocalDate.now()));
+			LocalDate dateNow = LocalDate.now();
+			
+			ctlMain.txtBillDateOrder.setText(String.valueOf(dateNow));
+			
+			
+//			dateNow.plusDays()
+//			ctlMain.txtBillDatePay.setValue();
 
 		} while (BillService.findBillById(id)!=null);
 

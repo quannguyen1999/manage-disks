@@ -3,6 +3,7 @@ package application.controller;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
@@ -91,6 +92,8 @@ public class FormAddBill extends DialogBox implements Initializable{
 	@FXML JFXButton btn;
 
 	@FXML Label lblTotal;
+
+	DecimalFormat df = new DecimalFormat("#,###"); 
 
 	public ProductService productService=new ProductImpl();
 
@@ -576,7 +579,7 @@ public class FormAddBill extends DialogBox implements Initializable{
 		});
 
 
-		lblTotal.setText(String.valueOf(total) +" $");
+		lblTotal.setText(String.valueOf(df.format(total)) +" $");
 
 	}
 
@@ -681,7 +684,7 @@ public class FormAddBill extends DialogBox implements Initializable{
 					billService.addBillDetail(billDetail);
 
 				});
-				
+
 				listProductOrder.forEach(t->{
 
 					Product product=productService.findProductById(t.getProductId());

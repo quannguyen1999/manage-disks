@@ -2,6 +2,7 @@ package application.controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.text.spi.CollatorProvider;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ import application.controller.services.CategoryService;
 import application.controller.services.CategoryService;
 import application.entities.Category;
 import application.entities.Category;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -44,6 +46,8 @@ public class FormManageCategories extends DialogBox implements Initializable{
 	TableColumn<Category, String> colDescription;
 	TableColumn<Category, String> colPrice;
 	TableColumn<Category, String> colTimeRent;
+
+	DecimalFormat df = new DecimalFormat("#,###"); 
 
 	@FXML BorderPane bd;
 
@@ -86,7 +90,7 @@ public class FormManageCategories extends DialogBox implements Initializable{
 					ctlMain.txtName.setText(tbl_view.getItems().get(result).getName());
 
 					ctlMain.txtPrice.setText(String.valueOf(tbl_view.getItems().get(result).getPrice()));
-					
+
 					ctlMain.txtTimeRent.setText(String.valueOf(tbl_view.getItems().get(result).getTimeRent()));
 
 					ctlMain.txtDescription.setText(tbl_view.getItems().get(result).getDescription());
@@ -105,49 +109,49 @@ public class FormManageCategories extends DialogBox implements Initializable{
 	public void btnXoaCategory(ActionEvent e) throws IOException{
 
 		int result=tbl_view.getSelectionModel().getSelectedIndex();
-		
+
 		if(result!=-1) {
 
 			FXMLLoader loader= new FXMLLoader(getClass().getResource(loadAreYouSure));
-			
+
 			Parent root=loader.load();
-			
+
 			AreYouSure ctlMain=loader.getController();
-			
+
 			new animatefx.animation.FadeIn(root).play();
-			
+
 			Stage stage=new Stage();
-			
+
 			stage.initOwner(btnRefresh.getScene().getWindow());
-			
+
 			stage.setScene(new Scene(root));
-			
+
 			stage.initStyle(StageStyle.UNDECORATED);
-			
+
 			stage.initModality(Modality.APPLICATION_MODAL);
-			
+
 			stage.show();
-			
+
 			stage.setOnHidden(efg->{
-			
+
 				if(ctlMain.result==true) {
-				
-//					CategoryService.removeCategory(tbl_view.getItems().get(result).getCategoryId());
-					
+
+					//					CategoryService.removeCategory(tbl_view.getItems().get(result).getCategoryId());
+
 					try {
 						Success("Chưa code :v", btnRefresh);
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
-					
+
 					handleRefersh(e);
-				
+
 				}else {
 
 				}
 			});
-			
+
 		}else {
 
 			Error("bạn chưa chọn bảng cần xóa", btnRefresh);
@@ -173,14 +177,16 @@ public class FormManageCategories extends DialogBox implements Initializable{
 		colCategoryId.setCellValueFactory(new PropertyValueFactory<>("CategoryId"));
 		colName.setCellValueFactory(new PropertyValueFactory<>("name"));
 		colDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
-		colPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
+		colPrice.setCellValueFactory( cellData->new SimpleStringProperty(String.valueOf(df.format(cellData.getValue().getPrice()))+" $"));
 		colTimeRent.setCellValueFactory(new PropertyValueFactory<>("timeRent"));
 
 		colCategoryId.setMinWidth(100);// .setCellValueFactory(new PropertyValueFactory<>("maKH"));
 		colName.setMinWidth(180);//.setCellValueFactory(new PropertyValueFactory<>("diaChi"));
 		colDescription.setMinWidth(120);//.setCellValueFactory(new PropertyValueFactory<>("CMND"));
 		colPrice.setMinWidth(150);//.setCellValueFactory(new PropertyValueFactory<>("tenKH"));
-
+		colTimeRent.setMinWidth(150);
+		
+		
 		uploadDuLieuLenBang();
 	}
 

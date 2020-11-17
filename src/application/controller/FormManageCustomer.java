@@ -256,7 +256,6 @@ public class FormManageCustomer extends DialogBox implements Initializable{
 
 		});;
 
-
 	}
 
 	public void btnRentDisk(ActionEvent e) throws IOException {

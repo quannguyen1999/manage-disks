@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.text.spi.CollatorProvider;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -51,6 +52,7 @@ import javafx.stage.StageStyle;
 import sun.misc.BASE64Decoder;
 
 public class FormManageProduct extends DialogBox implements Initializable{
+
 	private TableView<Product> tbl_view;
 
 	TableColumn<Product, String> colProductId;
@@ -64,13 +66,13 @@ public class FormManageProduct extends DialogBox implements Initializable{
 	TableColumn<Product, String> colNameSupplier;
 
 	@FXML BorderPane bd;
-	
+
 	@FXML Label lblName;
 	@FXML Label lblPath;
 	@FXML ImageView img;
 
 	public ProductService productService=new ProductImpl();
-	
+
 	public BillService billService = new BillImpl();
 
 	@FXML ComboBox<String> cbc=new ComboBox<String>();
@@ -78,6 +80,8 @@ public class FormManageProduct extends DialogBox implements Initializable{
 	@FXML JFXButton btnRefresh;
 
 	List<Product> listProduct=new ArrayList<>();
+
+	DecimalFormat df = new DecimalFormat("#,###"); 
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -104,49 +108,58 @@ public class FormManageProduct extends DialogBox implements Initializable{
 					FormAddProduct ctlMain=loader.getController();
 
 					ctlMain.product = tbl_view.getItems().get(result);
-					
+
 					ctlMain.lblTitle.setText("Cập nhập sản phẩm");
 
 					ctlMain.maProductRemember=tbl_view.getItems().get(result).getProductId();
-					
+
 					ctlMain.txtMa.setText(tbl_view.getItems().get(result).getProductId());
-					
+
 					ctlMain.txtName.setText(tbl_view.getItems().get(result).getName());
-					
+
 					ctlMain.txtQuantity.setText(String.valueOf(tbl_view.getItems().get(result).getQuantity()));
-					
+
 					ctlMain.txtDescription.setText(tbl_view.getItems().get(result).getDescription());
-					
-					ctlMain.txtStatus.setText(tbl_view.getItems().get(result).getStatus());
-					
+
+					//					ctlMain.txtStatus.setText(tbl_view.getItems().get(result).getStatus());
+
+					String status = tbl_view.getItems().get(result).getStatus();
+					if(status.equalsIgnoreCase(CHOTHUE)) {
+						ctlMain.rdChoThue.setSelected(true);
+					}else if(status.equalsIgnoreCase(TRENKE)) {
+						ctlMain.rdTrenKe.setSelected(true);
+					}else {
+						ctlMain.rdGiuLai.setSelected(true);
+					}
+
 					ctlMain.txtDateAdded.setValue(tbl_view.getItems().get(result).getDateAdded());
-					
+
 					try {
 						ctlMain.img.setImage(getImage(tbl_view.getItems().get(result).getPicture()));
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
-					
+
 					ctlMain.txtImage.setText("...");
-					
+
 					ctlMain.cbcSupplier.setValue(tbl_view.getItems().get(result).getSupplier().getSupplierId());
-					
+
 					ctlMain.txtPhoneSupplier.setText(tbl_view.getItems().get(result).getSupplier().getPhone());
-					
+
 					ctlMain.txtCompanySupplier.setText(tbl_view.getItems().get(result).getSupplier().getCompanyName());
-					
+
 					ctlMain.cbcTitle.setValue(tbl_view.getItems().get(result).getTitle().getTitleId());
-					
+
 					ctlMain.txtNameTitle.setText(tbl_view.getItems().get(result).getTitle().getName());
-					
-					if(tbl_view.getItems().get(result).getTitle().isStatus()==true) {
+
+					if(tbl_view.getItems().get(result).getTitle().getStatus().equalsIgnoreCase(DAT)) {
 						ctlMain.txtStatusTitle.setText("Hết hàng");
 					}else {
 						ctlMain.txtStatusTitle.setText("Còn hàng");
 					}
-					
-				
+
+
 
 					loadFXML(root,btnRefresh).setOnHidden(ev->{
 
@@ -154,7 +167,7 @@ public class FormManageProduct extends DialogBox implements Initializable{
 
 					});;
 				}
-			
+
 			}else if(e.getClickCount() == 1) {
 				int resultX=tbl_view.getSelectionModel().getSelectedIndex();
 				lblName.setText(tbl_view.getItems().get(resultX).getName());
@@ -173,61 +186,61 @@ public class FormManageProduct extends DialogBox implements Initializable{
 	public void btnXoaProduct(ActionEvent e) throws IOException{
 
 		int result=tbl_view.getSelectionModel().getSelectedIndex();
-		
+
 		if(result!=-1) {
 
 			FXMLLoader loader= new FXMLLoader(getClass().getResource(loadAreYouSure));
-			
+
 			Parent root=loader.load();
-			
+
 			AreYouSure ctlMain=loader.getController();
-			
+
 			new animatefx.animation.FadeIn(root).play();
-			
+
 			Stage stage=new Stage();
-			
+
 			stage.initOwner(btnRefresh.getScene().getWindow());
-			
+
 			stage.setScene(new Scene(root));
-			
+
 			stage.initStyle(StageStyle.UNDECORATED);
-			
+
 			stage.initModality(Modality.APPLICATION_MODAL);
-			
+
 			stage.show();
-			
+
 			stage.setOnHidden(efg->{
-			
+
 				if(ctlMain.result==true) {
-				
+
 					List<BillDetail> listBillDetail = billService.findAllBillDetailByProductId(
 							tbl_view.getItems().get(result).getProductId());
 					if(listBillDetail!=null && listBillDetail.size()>=1) {
-						
+
 						try {
 							Error("Đang có khách hàng đặt bill", btnRefresh);
 						} catch (IOException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
-						
+
 						return;
-						
+
 					}
-					
+
 					System.out.println(productService.removeProduct(tbl_view.getItems().get(result).getProductId()));
-					
+
 					lblName.setText("");
 					lblPath.setText("");
 					img.setImage(null);
-					
+
 					handleRefersh(e);
-				
+
 				}else {
 
 				}
 			});
-			
+
 		}else {
 
 			Error("bạn chưa chọn bảng cần xóa", btnRefresh);
@@ -240,14 +253,14 @@ public class FormManageProduct extends DialogBox implements Initializable{
 	public void initTable() {
 		tbl_view=new TableView<Product>();
 
-		 colProductId=new TableColumn<Product, String>("mã");
-		 colName=new TableColumn<Product, String>("tên");
+		colProductId=new TableColumn<Product, String>("mã");
+		colName=new TableColumn<Product, String>("tên");
 		colQuantity=new TableColumn<Product, Integer>("số lượng");
-		 colDescription=new TableColumn<Product, String>("mô tả");
-		 colStatus=new TableColumn<Product, String>("status");
-		 colDateAdded=new TableColumn<Product, String>("ngày thêm");
-		 colNameTitle=new TableColumn<Product, String>("tên title");
-		 colNameSupplier=new TableColumn<Product, String>("tên supplier");
+		colDescription=new TableColumn<Product, String>("mô tả");
+		colStatus=new TableColumn<Product, String>("status");
+		colDateAdded=new TableColumn<Product, String>("ngày thêm");
+		colNameTitle=new TableColumn<Product, String>("tên title");
+		colNameSupplier=new TableColumn<Product, String>("tên supplier");
 
 		tbl_view.getColumns().addAll(colProductId,
 				colName,
@@ -262,11 +275,7 @@ public class FormManageProduct extends DialogBox implements Initializable{
 
 		colProductId.setCellValueFactory(new PropertyValueFactory<>("productId"));
 		colName.setCellValueFactory(new PropertyValueFactory<>("name"));
-		
-//		Image image = new Image("file:///"+tbl_view.getItems().get(result).getPicture());
-//		 ImageView emp1photo = new ImageView(new Image("file:///C:\\Users\\Admin\\Pictures\\4.jpg)"));
-//		colPicture.setCellValueFactory(new PropertyValueFactory<>("picture"));
-		
+
 		colQuantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
 		colDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
 		colStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
@@ -277,7 +286,7 @@ public class FormManageProduct extends DialogBox implements Initializable{
 		colProductId.setMinWidth(100);// .setCellValueFactory(new PropertyValueFactory<>("maKH"));
 		colName.setMinWidth(180);//.setCellValueFactory(new PropertyValueFactory<>("diaChi"));
 		colDescription.setMinWidth(120);//.setCellValueFactory(new PropertyValueFactory<>("CMND"));
-//		colPrice.setMinWidth(150);//.setCellValueFactory(new PropertyValueFactory<>("tenKH"));
+		//		colPrice.setMinWidth(150);//.setCellValueFactory(new PropertyValueFactory<>("tenKH"));
 
 		uploadDuLieuLenBang();
 	}
@@ -314,7 +323,7 @@ public class FormManageProduct extends DialogBox implements Initializable{
 			id="C"+ranDomNumber();
 
 			ctlMain.txtMa.setText(id);
-			
+
 			ctlMain.txtDateAdded.setValue(LocalDate.now());
 
 		} while (productService.findProductById(id)!=null);
@@ -392,45 +401,6 @@ public class FormManageProduct extends DialogBox implements Initializable{
 		cbc.setItems(filteredItems);
 
 		cbc.setEditable(true);
-
-		//		try {
-		//			cbc.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() { 
-		//				public void changed(ObservableValue ov, Number value, Number new_value) 
-		//				{ 
-		//					System.out.println("ok");
-		//					Product listnv = null;
-		//					System.out.println(cbc.getSelectionModel().getSelectedItem().toString());
-		//					try {
-		//						for(int i=0;i<accs.size();i++) {
-		//							
-		//							if(accs.get(i).equals(cbc.getSelectionModel().getSelectedItem().toString())) {
-		//								listnv=accs.get(i);
-		// 							}
-		//							
-		//						}
-		//					} catch (Exception e) {
-		//						// TODO Auto-generated catch block
-		//						e.printStackTrace();
-		//					}
-		//					if(listnv!=null) {
-		//						Product nv=listnv;
-		//						if(nv!=null) {
-		//								tbl_view.getItems().clear();
-		//								
-		//						}else {
-		//							System.out.println("error");
-		//						}
-		//
-		//					}else {
-		//						System.out.println("error");
-		//					}
-		//
-		//				}
-		//			});
-		//		} catch (Exception ev) {
-		//			// TODO: handle exception
-		//			System.out.println(ev.getMessage());
-		//		}
 
 	}
 }

@@ -57,7 +57,7 @@
             </HBox>
             <HBox prefHeight="31.0" prefWidth="600.0">
                <children>
-                  <Label prefHeight="27.0" prefWidth="616.0" text="Tên mặt hàng">
+                  <Label prefHeight="27.0" prefWidth="616.0" text="Tên loại:">
                      <font>
                         <Font size="18.0" />
                      </font>

@@ -173,7 +173,7 @@
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <JFXRadioButton fx:id="rdTrue" prefHeight="28.0" prefWidth="23.0" selected="true" text="Còn hàng">
+                  <JFXRadioButton fx:id="rdTrue" prefHeight="28.0" prefWidth="23.0" selected="true" text="Đặt">
                      <HBox.margin>
                         <Insets left="35.0" />
                      </HBox.margin>
@@ -181,7 +181,7 @@
                         <ToggleGroup fx:id="status" />
                      </toggleGroup>
                   </JFXRadioButton>
-                  <JFXRadioButton fx:id="rdFalse" prefHeight="28.0" prefWidth="73.0" text="Đang thuê" toggleGroup="$status">
+                  <JFXRadioButton fx:id="rdFalse" prefHeight="28.0" prefWidth="133.0" selected="true" text="Chưa đặt" toggleGroup="$status">
                      <HBox.margin>
                         <Insets left="50.0" />
                      </HBox.margin>

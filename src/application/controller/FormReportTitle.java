@@ -99,7 +99,7 @@ public class FormReportTitle extends DialogBox implements Initializable{
 					
 					ctlMain.txtNameTitle.setText(tbl_view.getItems().get(result).getName());
 					
-					boolean status=tbl_view.getItems().get(result).isStatus();
+					String status=tbl_view.getItems().get(result).getStatus();
 					
 					ctlMain.txtNameCategory.setText(tbl_view.getItems().get(result).getCategory().getName());
 					
@@ -110,7 +110,7 @@ public class FormReportTitle extends DialogBox implements Initializable{
 					ctlMain.titleOld=tbl_view.getItems().get(result);
 					
 					
-					if(status==true) {
+					if(status.equalsIgnoreCase(DAT)) {
 						ctlMain.rdTrue.setSelected(true);
 					}else {
 						ctlMain.rdFalse.setSelected(true);

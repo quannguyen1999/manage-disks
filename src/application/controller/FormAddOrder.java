@@ -232,7 +232,7 @@ public class FormAddOrder extends DialogBox implements Initializable{
 				cellData.getValue().getName()));
 
 		colStatus.setCellValueFactory(cellData -> new SimpleStringProperty(
-				String.valueOf(cellData.getValue().isStatus())));
+				String.valueOf(cellData.getValue().getStatus())));
 		//		colNameOrder.setMinWidth(180);//.setCellValueFactory(new PropertyValueFactory<>("diaChi"));
 	}
 
@@ -255,7 +255,7 @@ public class FormAddOrder extends DialogBox implements Initializable{
 				cellData.getValue().getName()));
 
 		colStatusV.setCellValueFactory(cellData -> new SimpleStringProperty(
-				String.valueOf(cellData.getValue().isStatus())));
+				String.valueOf(cellData.getValue().getStatus())));
 
 		uploadDuLieuLenBang();
 	}
@@ -584,7 +584,7 @@ public class FormAddOrder extends DialogBox implements Initializable{
 				});
 				
 				listTitleWantOrder.forEach(t->{
-					t.setStatus(true);
+					t.setStatus(DAT);
 					
 					titlService.updateTitle(t, t.getTitleId());
 					
