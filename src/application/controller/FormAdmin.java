@@ -22,6 +22,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
@@ -190,7 +192,7 @@ public class FormAdmin extends DialogBox implements Initializable{
 	}
 
 	public void btnCLickManageOrder(ActionEvent e) throws IOException {
-		
+
 		changeCssManage(btnOrder);
 
 		Parent root=(Parent) FXMLLoader.load(getClass().getResource(loadManageOrder));
@@ -199,11 +201,75 @@ public class FormAdmin extends DialogBox implements Initializable{
 	}
 
 	public void btnCLickManageStastical(ActionEvent e) throws IOException {
-		//		changeCssManage(btnStatistical);
-		//
-		//		Parent root=(Parent) FXMLLoader.load(getClass().getResource(loadWelcome));
-		//
-		//		bd.setCenter(root);
+	}
+
+	public void handleKeyPress(KeyEvent e) throws IOException {
+		if(e.getCode()==KeyCode.F1) {
+			
+			changeCssManage(btnCustomer);
+
+			Parent root=(Parent) FXMLLoader.load(getClass().getResource(loadManageCustomer));
+
+			bd.setCenter(root);
+			
+			root.setFocusTraversable(true);
+			
+		}else if(e.getCode()==KeyCode.F2) {
+			changeCssManage(btnProduct);
+
+			Parent root=(Parent) FXMLLoader.load(getClass().getResource(loadManageProduct));
+
+			bd.setCenter(root);
+			root.setFocusTraversable(true);
+		}else if(e.getCode()==KeyCode.F3) {
+			changeCssManage(btnCategory);
+
+			Parent root=(Parent) FXMLLoader.load(getClass().getResource(loadManageCategories));
+
+			bd.setCenter(root);
+		}else if(e.getCode()==KeyCode.F4) {
+			changeCssManage(btnBill);
+
+			Parent root=(Parent) FXMLLoader.load(getClass().getResource(loadManageBill));
+
+			bd.setCenter(root);
+		}else if(e.getCode()==KeyCode.F5) {
+			changeCssManage(btnLateFee);
+
+			Parent root=(Parent) FXMLLoader.load(getClass().getResource(loadManageLateFee));
+
+			bd.setCenter(root);
+		}else if(e.getCode()==KeyCode.F6) {
+			changeCssManage(btnSupplier);
+
+			Parent root=(Parent) FXMLLoader.load(getClass().getResource(loadManageSupplier));
+
+			bd.setCenter(root);
+		}else if(e.getCode()==KeyCode.F7) {
+			changeCssManage(btnReportTitle);
+
+			Parent root=(Parent) FXMLLoader.load(getClass().getResource(loadManageReportTitle));
+
+			bd.setCenter(root);
+		}else if(e.getCode()==KeyCode.F8) {
+			changeCssManage(btnOrder);
+
+			Parent root=(Parent) FXMLLoader.load(getClass().getResource(loadManageOrder));
+
+			bd.setCenter(root);
+		}else if(e.getCode()==KeyCode.F9) {
+			changeCssManage(btnReportKh);
+
+			Parent root=(Parent) FXMLLoader.load(getClass().getResource(loadManageReportCustomer));
+
+			bd.setCenter(root);
+		}else if(e.getCode()==KeyCode.F10) {
+			changeCssManage(btnReportTitle);
+
+			Parent root=(Parent) FXMLLoader.load(getClass().getResource(loadManageReportTitle));
+
+			bd.setCenter(root);
+		}
 	}
 
 

@@ -235,9 +235,12 @@ public class FormManageBill extends DialogBox implements Initializable{
 
 		colBillPay.setMinWidth(120);
 		
-		colCustomerId.setMinWidth(100);
+		colCustomerId.setMinWidth(120);
 		
-		colNameCustomer.setMinWidth(150);
+		colNameCustomer.setMinWidth(200);
+		
+		colLocalDate.setMinWidth(150);
+		
 
 		uploadDuLieuLenBang();
 	}

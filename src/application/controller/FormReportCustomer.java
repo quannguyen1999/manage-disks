@@ -188,7 +188,7 @@ public class FormReportCustomer extends DialogBox implements Initializable{
 
 		colBillPay.setCellValueFactory(cellData-> new SimpleStringProperty(cellData.getValue().getBillPay().toString()));
 
-		colDebt.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().isDebt())));
+		colDebt.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getDebt())));
 
 		tbl_view_bill.setOnMouseClicked(e->{
 			if(e.getClickCount()==1) {

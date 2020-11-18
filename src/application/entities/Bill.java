@@ -41,5 +41,5 @@ public class Bill {
 	private Customer customer;
 	
 	@Column
-	private boolean debt;
+	private String debt;
 }

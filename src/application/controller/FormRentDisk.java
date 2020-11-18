@@ -103,6 +103,8 @@ public class FormRentDisk  extends DialogBox implements Initializable{
 	List<Product> listProduct=new ArrayList<>();
 
 	List<Product> arrayOrderProduct=new ArrayList<>();
+	
+	DecimalFormat df = new DecimalFormat("#,###"); 
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -160,13 +162,8 @@ public class FormRentDisk  extends DialogBox implements Initializable{
 		colStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
 		//		colPrice.setCellValueFactory( cellData->new SimpleStringProperty(String.valueOf(cellData.getValue().getTitle().getCategory().getPrice())));
 
-		NumberFormat formatter = new DecimalFormat("#000,000");   
 		colPrice.setCellValueFactory( cellData->
-		new SimpleStringProperty(String.valueOf(formatter.format(cellData.getValue().getTitle().getCategory().getPrice()))));
-
-
-		colProductId.setMinWidth(100);// .setCellValueFactory(new PropertyValueFactory<>("maKH"));
-		colName.setMinWidth(180);//.setCellValueFactory(new PropertyValueFactory<>("diaChi"));
+		new SimpleStringProperty(String.valueOf(df.format(cellData.getValue().getTitle().getCategory().getPrice()))));
 
 	}
 	//	private void uploadDuLieuLenBang() {
@@ -287,8 +284,7 @@ public class FormRentDisk  extends DialogBox implements Initializable{
 
 			if(total != 0) {
 
-				NumberFormat formatter = new DecimalFormat("#000,000");   
-				lblTotal.setText(String.valueOf(formatter.format(total))+" $");
+				lblTotal.setText(String.valueOf(df.format(total))+" $");
 
 			}
 
@@ -331,8 +327,7 @@ public class FormRentDisk  extends DialogBox implements Initializable{
 
 			if(total != 0) {
 
-				NumberFormat formatter = new DecimalFormat("#000,000");   
-				lblTotal.setText(String.valueOf(formatter.format(total))+" $");
+				lblTotal.setText(String.valueOf(df.format(total))+" $");
 
 			} else if (total == 0) {
 
@@ -516,8 +511,7 @@ public class FormRentDisk  extends DialogBox implements Initializable{
 			txtDescriptionProduct.setText(product.getDescription());
 			txtStatusProduct.setText(product.getStatus());
 
-			NumberFormat formatter = new DecimalFormat("#000,000");     
-			txtPriceProduct.setText(String.valueOf(formatter.format(product.getTitle().getCategory().getPrice()))+" $");
+			txtPriceProduct.setText(String.valueOf(df.format(product.getTitle().getCategory().getPrice()))+" $");
 		}
 
 	}
@@ -657,7 +651,7 @@ public class FormRentDisk  extends DialogBox implements Initializable{
 		Customer customerFind = customerService.findCustomerById(cbcIdCustomer.getSelectionModel()
 				.getSelectedItem().toString().trim());
 
-		Bill bil = new Bill(txtIdBill.getText().toString(), LocalDate.now(), txtDatePayBill.getValue(), customerFind, true);
+		Bill bil = new Bill(txtIdBill.getText().toString(), LocalDate.now(), txtDatePayBill.getValue(), customerFind, NO);
 
 		if(billService.addBill(bil)==true) {
 			for(int i=0;i<arrayOrderProduct.size();i++) {

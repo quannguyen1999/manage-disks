@@ -286,7 +286,9 @@ public class FormManageProduct extends DialogBox implements Initializable{
 		colProductId.setMinWidth(100);// .setCellValueFactory(new PropertyValueFactory<>("maKH"));
 		colName.setMinWidth(180);//.setCellValueFactory(new PropertyValueFactory<>("diaChi"));
 		colDescription.setMinWidth(120);//.setCellValueFactory(new PropertyValueFactory<>("CMND"));
-		//		colPrice.setMinWidth(150);//.setCellValueFactory(new PropertyValueFactory<>("tenKH"));
+		colDateAdded.setMinWidth(120);
+		colNameTitle.setMinWidth(150);
+		colNameSupplier.setMinWidth(120);
 
 		uploadDuLieuLenBang();
 	}

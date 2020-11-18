@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="mainBd" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="507.0" prefWidth="1276.0" stylesheets="@../css/application.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.FormAddBill">
+<BorderPane fx:id="mainBd" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="507.0" prefWidth="1316.0" stylesheets="@../css/application.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.FormAddBill">
    <left>
       <VBox prefHeight="423.0" prefWidth="277.0" BorderPane.alignment="CENTER">
          <children>
@@ -115,7 +115,7 @@
                         <Insets right="10.0" top="18.0" />
                      </HBox.margin>
                   </ComboBox>
-                  <JFXButton onAction="#findCustomerById" styleClass="btnLogin" stylesheets="@../css/application.css" text="Tìm">
+                  <JFXButton onAction="#findCustomerById" prefHeight="27.0" prefWidth="57.0" styleClass="btnLogin" stylesheets="@../css/application.css" text="Tìm">
                      <HBox.margin>
                         <Insets top="18.0" />
                      </HBox.margin></JFXButton>
@@ -144,7 +144,7 @@
                         <Insets right="10.0" top="10.0" />
                      </HBox.margin>
                   </ComboBox>
-                  <JFXButton onAction="#findCustomerByPhone" styleClass="btnLogin" stylesheets="@../css/application.css" text="Tìm">
+                  <JFXButton onAction="#findCustomerByPhone" prefHeight="27.0" prefWidth="58.0" styleClass="btnLogin" stylesheets="@../css/application.css" text="Tìm">
                      <HBox.margin>
                         <Insets top="10.0" />
                      </HBox.margin></JFXButton>
@@ -222,7 +222,7 @@
                   </BorderPane>
                </center>
                <left>
-                  <BorderPane fx:id="bdRight" prefHeight="294.0" prefWidth="358.0" BorderPane.alignment="CENTER">
+                  <BorderPane fx:id="bdRight" prefHeight="293.0" prefWidth="405.0" BorderPane.alignment="CENTER">
                      <top>
                         <Label text="Danh sách đĩa cửa hàng" BorderPane.alignment="CENTER" />
                      </top>
@@ -234,17 +234,17 @@
                                     <Insets right="20.0" />
                                  </HBox.margin>
                               </ComboBox>
-                              <JFXButton onAction="#findItemInTable" styleClass="btnLogin" stylesheets="@../css/application.css" text="Find">
+                              <JFXButton onAction="#findItemInTable" prefHeight="27.0" prefWidth="66.0" styleClass="btnLogin" stylesheets="@../css/application.css" text="Find">
                                  <HBox.margin>
                                     <Insets right="10.0" />
                                  </HBox.margin>
                               </JFXButton>
-                              <JFXButton onAction="#btnChonProduct" styleClass="btnLogin" stylesheets="@../css/application.css" text="Chọn">
+                              <JFXButton onAction="#btnChonProduct" prefHeight="27.0" prefWidth="72.0" styleClass="btnLogin" stylesheets="@../css/application.css" text="Chọn">
                                  <HBox.margin>
                                     <Insets right="10.0" />
                                  </HBox.margin>
                               </JFXButton>
-                              <JFXButton onAction="#handleRefersh" styleClass="btnLogin" stylesheets="@../css/application.css" text="Refresh" />
+                              <JFXButton onAction="#handleRefersh" prefHeight="27.0" prefWidth="77.0" styleClass="btnLogin" stylesheets="@../css/application.css" text="Refresh" />
                            </children>
                         </HBox>
                      </bottom>

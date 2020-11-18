@@ -33,6 +33,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -66,6 +67,7 @@ public class FormManageCustomer extends DialogBox implements Initializable{
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		
 		initTable();
 
 		loadDataSearch();
@@ -115,6 +117,10 @@ public class FormManageCustomer extends DialogBox implements Initializable{
 			}
 		});
 	}
+	
+	
+	
+	
 
 	public void btnXoaCustomer(ActionEvent e) throws IOException{
 

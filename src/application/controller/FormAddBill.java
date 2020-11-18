@@ -640,9 +640,9 @@ public class FormAddBill extends DialogBox implements Initializable{
 		String txtCustomerId=cbcCustomerId.getSelectionModel().getSelectedItem().toString();
 
 		if(billPay==null) {
-			Error("Bạn chưa nhập ngày", btn);
+			Error("Bạn chưa nhập ngày trả", btn);
 
-			txtBillDateOrder.requestFocus();
+			txtBillDatePay.requestFocus();
 
 			return;
 		}
@@ -661,11 +661,11 @@ public class FormAddBill extends DialogBox implements Initializable{
 
 		Customer customer=customerService.findCustomerById(txtCustomerId);
 
-		Bill bill=new Bill(billId, LocalDate.now(), billPay,customer , false);
+		Bill bill=new Bill(billId, LocalDate.now(), billPay,customer , KHONGCONO);
 
 		if(rdBillDebtYes.isSelected()==true) {
 
-			bill.setDebt(true);
+			bill.setDebt(NO);
 
 		}
 

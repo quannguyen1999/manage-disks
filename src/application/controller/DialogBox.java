@@ -38,6 +38,8 @@ public class DialogBox  implements Initializable{
 	static final String GIULAI = "Giữ lại";
 	static final String DAT = "Đặt";
 	static final String CHUADAT = "Chưa đặt";
+	static final String NO = "Nợ";
+	static final String KHONGCONO = "Không có nợ";
 	
 	static File currentDirFile = new File("");
 	static String helper = currentDirFile.getAbsolutePath();
