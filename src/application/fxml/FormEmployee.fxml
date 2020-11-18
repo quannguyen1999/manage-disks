@@ -92,74 +92,6 @@
    <center>
       <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Pane fx:id="pnlCustomer" prefHeight="762.0" prefWidth="1531.0" style="-fx-background-color: #212022;">
-               <children>
-                  <BorderPane layoutY="-2.0" prefHeight="764.0" prefWidth="1534.0">
-                     <top>
-                        <FlowPane prefHeight="772.0" prefWidth="1534.0">
-                           <children>
-                              <BorderPane prefHeight="765.0" prefWidth="1534.0">
-                                 <top>
-                                    <HBox prefHeight="78.0" prefWidth="1534.0" BorderPane.alignment="CENTER">
-                                       <children>
-                                          <Label prefHeight="31.0" prefWidth="168.0" text="Danh sách đĩa" textFill="#8a8888">
-                                             <font>
-                                                <Font name="System Bold" size="20.0" />
-                                             </font>
-                                          </Label>
-                                          <Accordion prefHeight="76.0" prefWidth="105.0" />
-                                          <Label prefHeight="17.0" prefWidth="873.0" />
-                                          <ComboBox fx:id="cbc" prefHeight="25.0" prefWidth="226.0">
-                                             <HBox.margin>
-                                                <Insets right="25.0" />
-                                             </HBox.margin>
-                                          </ComboBox>
-                                          <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="167.0" styleClass="btnLogin" stylesheets="@..\css\application.css" text="Reset" textFill="WHITE" />
-                                       </children>
-                                       <padding>
-                                          <Insets left="20.0" top="20.0" />
-                                       </padding>
-                                    </HBox>
-                                 </top>
-                                 <left>
-                                    <ScrollPane prefHeight="689.0" prefWidth="1352.0" style="-fx-border-color: #212022; -fx-background: #212022;" stylesheets="@..\css\application.css" BorderPane.alignment="CENTER">
-                                       <BorderPane.margin>
-                                          <Insets />
-                                       </BorderPane.margin>
-                                       <content>
-                                          <FlowPane fx:id="flowPane" prefHeight="685.0" prefWidth="1336.0" style="-fx-background: white;" />
-                                       </content>
-                                    </ScrollPane>
-                                 </left>
-                                 <right>
-                                    <VBox prefHeight="689.0" prefWidth="178.0" BorderPane.alignment="CENTER">
-                                       <children>
-                                          <Accordion fx:id="acc" prefHeight="674.0" prefWidth="169.0" style="-fx-background-color: #212022; -fx-border-color: #212022; -fx-box-border: #212022;">
-                                            <panes>
-                                              <TitledPane fx:id="til1" expanded="false" prefHeight="188.0" prefWidth="184.0" style="-fx-background-color: #212022; -fx-border-color: #212022;" styleClass="accordion" stylesheets="@..\css\application.css" text="Category game" textFill="WHITE" wrapText="true">
-                                                   <content>
-                                                      <ScrollPane>
-                                                         <content>
-                                                            <VBox fx:id="vboxCategoryGame" prefHeight="549.0" prefWidth="178.0" style="-fx-border-color: #212022; -fx-background-color: #212022;" />
-                                                         </content>
-                                                      </ScrollPane>
-                                                   </content>
-                                              </TitledPane>
-                                            </panes>
-                                             <VBox.margin>
-                                                <Insets left="-6.0" top="2.0" />
-                                             </VBox.margin>
-                                          </Accordion>
-                                       </children>
-                                    </VBox>
-                                 </right>
-                              </BorderPane>
-                           </children>
-                        </FlowPane>
-                     </top>
-                  </BorderPane>
-               </children>
-            </Pane>
             <Pane fx:id="pnlDiscs" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #212022;">
                <children>
                   <BorderPane layoutX="104.0" layoutY="677.0" prefHeight="200.0" prefWidth="143.0" />
@@ -277,6 +209,77 @@
                   </BorderPane>
                </children>
             </Pane>
+            <Pane fx:id="pnlCustomer" prefHeight="762.0" prefWidth="1531.0" style="-fx-background-color: #212022;">
+               <children>
+                  <BorderPane layoutY="-2.0" prefHeight="764.0" prefWidth="1534.0">
+                     <top>
+                        <FlowPane prefHeight="772.0" prefWidth="1534.0">
+                           <children>
+                              <BorderPane prefHeight="765.0" prefWidth="1534.0">
+                                 <top>
+                                    <HBox prefHeight="78.0" prefWidth="1534.0" BorderPane.alignment="CENTER">
+                                       <children>
+                                          <Label prefHeight="31.0" prefWidth="168.0" text="Danh sách đĩa" textFill="#8a8888">
+                                             <font>
+                                                <Font name="System Bold" size="20.0" />
+                                             </font>
+                                          </Label>
+                                          <Accordion prefHeight="76.0" prefWidth="105.0" />
+                                          <Label prefHeight="14.0" prefWidth="809.0" />
+                                          <ComboBox fx:id="cbc" onKeyPressed="#handleKeyEvents" prefHeight="25.0" prefWidth="226.0">
+                                             <HBox.margin>
+                                                <Insets right="25.0" />
+                                             </HBox.margin>
+                                          </ComboBox>
+                                          <Button mnemonicParsing="false" onAction="#resetListProduct" prefHeight="27.0" prefWidth="167.0" styleClass="btnLogin" stylesheets="@..\css\application.css" text="Reset" textFill="WHITE" />
+                                       </children>
+                                       <padding>
+                                          <Insets left="20.0" top="20.0" />
+                                       </padding>
+                                    </HBox>
+                                 </top>
+                                 <left>
+                                    <ScrollPane prefHeight="687.0" prefWidth="1378.0" style="-fx-border-color: #212022; -fx-background: #212022;" stylesheets="@..\css\application.css" BorderPane.alignment="CENTER">
+                                       <BorderPane.margin>
+                                          <Insets />
+                                       </BorderPane.margin>
+                                       <content>
+                                          <FlowPane fx:id="flowPane" hgap="70.0" prefHeight="685.0" prefWidth="1336.0" style="-fx-background: white;" vgap="70.0">
+                                             <padding>
+                                                <Insets left="60.0" right="40.0" />
+                                             </padding></FlowPane>
+                                       </content>
+                                    </ScrollPane>
+                                 </left>
+                                 <right>
+                                    <VBox prefHeight="686.0" prefWidth="148.0" BorderPane.alignment="CENTER">
+                                       <children>
+                                          <Accordion fx:id="acc" prefHeight="674.0" prefWidth="169.0" style="-fx-background-color: #212022; -fx-border-color: #212022; -fx-box-border: #212022;">
+                                            <panes>
+                                              <TitledPane fx:id="til1" expanded="false" prefHeight="670.0" prefWidth="154.0" style="-fx-background-color: #212022; -fx-border-color: #212022;" styleClass="accordion" stylesheets="@..\css\application.css" text="Thể loại" textFill="WHITE" wrapText="true">
+                                                   <content>
+                                                      <ScrollPane>
+                                                         <content>
+                                                            <VBox fx:id="vboxCategoryGame" prefHeight="549.0" prefWidth="178.0" style="-fx-border-color: #212022; -fx-background-color: #212022;" />
+                                                         </content>
+                                                      </ScrollPane>
+                                                   </content>
+                                              </TitledPane>
+                                            </panes>
+                                             <VBox.margin>
+                                                <Insets left="-6.0" top="2.0" />
+                                             </VBox.margin>
+                                          </Accordion>
+                                       </children>
+                                    </VBox>
+                                 </right>
+                              </BorderPane>
+                           </children>
+                        </FlowPane>
+                     </top>
+                  </BorderPane>
+               </children>
+            </Pane>
          </children>
       </StackPane>
    </center>
@@ -294,7 +297,7 @@
                                     <Image url="@../images/icons8_circled_menu_100px.png" />
                                  </image>
                               </ImageView>
-                              <JFXButton fx:id="btnCustomer" layoutX="35.0" layoutY="24.0" onAction="#btnClickCustomer" prefHeight="10.0" prefWidth="200.0" styleClass="btnLogin" stylesheets="@..\css\application.css" text="Danh sách khách hàng" textFill="WHITE">
+                              <JFXButton fx:id="btnCustomer" layoutX="35.0" layoutY="24.0" onAction="#btnClickCustomer" prefHeight="64.0" prefWidth="226.0" styleClass="btnLogin" stylesheets="@..\css\application.css" text="Danh sách khách hàng" textFill="WHITE">
                                  <font>
                                     <Font size="15.0" />
                                  </font>

@@ -38,6 +38,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
@@ -46,7 +48,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class FormEmployee extends DialogBox implements Initializable{
-	
+
 	@FXML JFXButton btnLogOut;
 
 	@FXML JFXButton btnHelp;
@@ -56,15 +58,13 @@ public class FormEmployee extends DialogBox implements Initializable{
 	@FXML Pane pnlCustomer;
 
 	@FXML Label lblCustomer;
-	
+
 	@FXML FlowPane flowPane;
-	
+
 	@FXML JFXButton btnCustomer;
-	
+
 	@FXML JFXButton btnDisks;
-	
-	
-	
+
 	private TableView<Customer> tbl_view;
 
 	TableColumn<Customer, String> colCustomerId;
@@ -72,35 +72,35 @@ public class FormEmployee extends DialogBox implements Initializable{
 	TableColumn<Customer, String> colAddress;
 	TableColumn<Customer, String> colPhone;
 	TableColumn<Customer, LocalDate> colDateOfBirth;
-	
+
 	List<Customer> listCustomer=new ArrayList<>();
 
-	
+
 	@FXML BorderPane bd;
-	
+
 	private CustomerService customerService=new CustomerImpl();
 
 	@FXML ComboBox<String> cbc=new ComboBox<String>();
-	
-	
+
+
 	@FXML ComboBox<String> cbcPhone=new ComboBox<String>();
-	
-	
-	
+
+
+
 	private ProductService productService=new ProductImpl();
-//	@FXML BorderPane bd;
+	//	@FXML BorderPane bd;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		//set icon for button
 		btnLogOut.setGraphic(getImageView("Logout.png"));
 		btnHelp.setGraphic(getImageView("IconHelp.png"));
-		
+
 		btnCustomer.setGraphic(getImageView("customers.png"));
 		btnDisks.setGraphic(getImageView("product.png"));
-		
+
 		productService.listProduct().forEach(t->{
-			
+
 			try {
 				btnClickAdd(new ActionEvent(),
 						t);
@@ -111,20 +111,20 @@ public class FormEmployee extends DialogBox implements Initializable{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-//			btnClickAdd(e, imageBig, name, quantity, status);
-			
+			//			btnClickAdd(e, imageBig, name, quantity, status);
+
 		});
-		
+
 		initTable();
 
 		loadDataSearch();
-		
+
 		loadDataSearchPhone();
 
 		cbc.setEditable(true);
-		
+
 		cbcPhone.setEditable(true);
-		
+
 		tbl_view.setOnMouseClicked(e->{
 			if(e.getClickCount()==2) {
 				int result=tbl_view.getSelectionModel().getSelectedIndex();
@@ -159,12 +159,12 @@ public class FormEmployee extends DialogBox implements Initializable{
 				}
 			}
 		});
-		
-		
+
+
 
 	}
 
-	
+
 	public void findItemInTable(ActionEvent e) throws IOException {
 		String textFind=null;
 
@@ -209,7 +209,7 @@ public class FormEmployee extends DialogBox implements Initializable{
 		}
 
 	}
-	
+
 	public void findItemInTablePhone(ActionEvent e) throws IOException {
 		String textFind=null;
 
@@ -235,32 +235,32 @@ public class FormEmployee extends DialogBox implements Initializable{
 
 		}
 
-//		tbl_view.getItems().clear();
-//
-//		Customer customerFind=customerService.findCustomerById(textFind);
-//
-//		if(customerFind==null) {
-//
-//			Error("Không tìm thấy", btnUser);
-//
-//			cbcPhone.requestFocus();
-//
-//			return;
-//
-//		}else {
-//
-//			tbl_view.getItems().add(customerFind);
-//
-//		}
+		//		tbl_view.getItems().clear();
+		//
+		//		Customer customerFind=customerService.findCustomerById(textFind);
+		//
+		//		if(customerFind==null) {
+		//
+		//			Error("Không tìm thấy", btnUser);
+		//
+		//			cbcPhone.requestFocus();
+		//
+		//			return;
+		//
+		//		}else {
+		//
+		//			tbl_view.getItems().add(customerFind);
+		//
+		//		}
 
 	}
 	private void loadDataSearch() {
 		ObservableList<String> items = FXCollections.observableArrayList();
-		List<Customer> accs=customerService.listCustomer();
+		List<Product> accs=productService.listProduct();
 
 		accs.forEach(t->{
 
-			items.add(t.getCustomerId());
+			items.add(t.getProductId());
 
 		});
 
@@ -273,7 +273,7 @@ public class FormEmployee extends DialogBox implements Initializable{
 		cbc.setEditable(true);
 
 	}
-	
+
 	private void loadDataSearchPhone() {
 		ObservableList<String> items = FXCollections.observableArrayList();
 		List<Customer> accs=customerService.listCustomer();
@@ -293,16 +293,15 @@ public class FormEmployee extends DialogBox implements Initializable{
 		cbcPhone.setEditable(true);
 
 	}
-	
+
 	public void handleRefersh(ActionEvent e) {
-		//		cbc.getItems().clear();
 		cbc.setValue("");
 		cbcPhone.setValue("");
-		
+
 		tbl_view.getItems().clear();
 		uploadDuLieuLenBang();
 	}
-	
+
 	public void initTable() {
 		tbl_view=new TableView<Customer>();
 
@@ -330,7 +329,7 @@ public class FormEmployee extends DialogBox implements Initializable{
 
 		uploadDuLieuLenBang();
 	}
-	
+
 	private void uploadDuLieuLenBang() {
 		List<Customer> cuss=customerService.listCustomer();
 		cuss.forEach(t->{
@@ -364,7 +363,7 @@ public class FormEmployee extends DialogBox implements Initializable{
 		stage.setIconified(true);
 
 	}
-	
+
 	public void btnClickAdd(ActionEvent e) throws IOException {
 		FXMLLoader loader= new FXMLLoader(getClass().getResource(loadFormAddCustomer));
 
@@ -395,86 +394,102 @@ public class FormEmployee extends DialogBox implements Initializable{
 	private void btnLogOut(ActionEvent e) throws MalformedURLException, IOException {
 
 		logOut(btnLogOut,e);
-		
+
 	}
 
 	public void btnCLickDiscs(ActionEvent e) {
-
-		new BounceInLeft(pnlCustomer).play();
-
 		pnlCustomer.toFront();
+
+		resetColor();
+
+		btnDisks.setStyle("-fx-background-color:red");
 
 	}
 
 	public void btnClickCustomer(ActionEvent e) throws IOException {
-		
-		
+
+
 		pnlDiscs.toFront();
-//		new BounceInDown(lblCustomer).play();
-//
-//		Parent root=(Parent) FXMLLoader.load(getClass().getResource("fxml/ManageCustomer.fxml"));
-//		
-//		bd.setCenter(root);
+
+		resetColor();
+
+		btnCustomer.setStyle("-fx-background-color:red");
+		//		new BounceInDown(lblCustomer).play();
+		//
+		//		Parent root=(Parent) FXMLLoader.load(getClass().getResource("fxml/ManageCustomer.fxml"));
+		//		
+		//		bd.setCenter(root);
 
 	}
-	
+
+	public void resetColor() {
+		btnCustomer.setStyle("-fx-background-color:black");
+		btnDisks.setStyle("-fx-background-color:black");
+	}
+
 	public void btnClickAdd(ActionEvent e,Product product) throws IOException, InterruptedException {
 		BorderPane bd=new BorderPane();
 		ImageView imgV=new ImageView();
-		Image img = new Image("file:///"+product.getPicture());
 		bd.setMaxHeight(154);
-		imgV.setImage(img);
-		imgV.setFitHeight(190);
-		imgV.setFitWidth(180);
+		imgV.setImage(getImage(product.getPicture()));
+		imgV.setFitHeight(230);
+		imgV.setFitWidth(230);
 		Label lbl=new Label(product.getProductId());
 		Label lbl1=new Label(product.getName());
 		Label lbl2=new Label("SL:"+product.getQuantity());
 		lbl.setAlignment(Pos.CENTER);
 
 		JFXButton btn1=null;
-		if(product.getStatus().equalsIgnoreCase("Hết hàng")) {
-			btn1=new JFXButton("Hết hàng");
-			
-			btn1.setStyle("	-fx-background-color: #C3350B;\r\n" + 
-					"	-fx-border-color: #C3350B;");
-			
-			btn1.setMinSize(174,25);
-		}else {
-			btn1=new JFXButton("Còn hàng");
-			
+		if(product.getStatus().equalsIgnoreCase(TRENKE)) {
+			btn1=new JFXButton(TRENKE);
+
 			btn1.setStyle("	-fx-background-color:#FFC300 ;\r\n" + 
 					"	-fx-border-color:#FFC300 ;");
-			
-			btn1.setMinSize(174,25);
+
+			btn1.setMinSize(250,25);
+		}else if(product.getStatus().equalsIgnoreCase(CHOTHUE)){
+			btn1=new JFXButton(CHOTHUE);
+
+			btn1.setStyle("	-fx-background-color:#FFC300 ;\r\n" + 
+					"	-fx-border-color:#FFC300 ;");
+
+			btn1.setMinSize(250,25);
+		}else {
+			btn1=new JFXButton(GIULAI);
+
+			btn1.setStyle("	-fx-background-color:#FFC300 ;\r\n" + 
+					"	-fx-border-color:#FFC300 ;");
+
+			btn1.setMinSize(250,25);
 		}
-		
+
 		JFXButton btn2=new JFXButton("Chi tiết");
 
 
 		bd.setStyle("-fx-border-color: #73797F;\r\n" + 
 				"		-fx-effect: dropshadow(three-pass-box, gray, 10,0, 0, 0);-fx-background-color:black");
 
-		
+
 		btn2.setStyle("	-fx-background-color: black;\r\n" + 
 				"	-fx-border-color: #73797F;");
-		btn2.setMinSize(174,25);
+		btn2.setMinSize(250,25);
 
 		lbl.setTextFill(Color.web("white"));
 		lbl1.setTextFill(Color.web("white"));
 		lbl2.setTextFill(Color.web("white"));
-		
+
 		lbl.setStyle("	-fx-background-color: black;\r\n" + 
 				"	-fx-border-color: #73797F;");
 		lbl1.setStyle("	-fx-background-color: black;\r\n" + 
 				"	-fx-border-color: #73797F;");
 		lbl2.setStyle("	-fx-background-color: black;\r\n" + 
 				"	-fx-border-color: #73797F;");
-		
-		lbl.setMinSize(174,25);
-		lbl1.setMinSize(174,25);
-		lbl2.setMinSize(174,25);
-		
-		
+
+		lbl.setMinSize(250,25);
+		lbl1.setMinSize(250,25);
+		lbl2.setMinSize(250,25);
+
+
 		btn1.setTextFill(Color.web("white"));
 		btn2.setTextFill(Color.web("white"));
 
@@ -488,6 +503,127 @@ public class FormEmployee extends DialogBox implements Initializable{
 		bd.setBottom(vb);
 
 		flowPane.getChildren().add(bd);
+
+	}
+
+	public void handleKeyEvents(KeyEvent e) throws IOException {
+		if(e.getCode()==KeyCode.ENTER) {
+
+			String textFind = cbc.getValue();
+			if(textFind.isEmpty()) {
+				Error("Bạn chưa nhập mã cần tìm", btnCustomer);
+
+				return;
+			}
+
+			Product product = productService.findProductById(textFind);
+
+			if(product == null) {
+				Error("Không tìm thấy", btnCustomer);
+
+				return;
+			}
+			
+			flowPane.getChildren().clear();
+			
+			BorderPane bd=new BorderPane();
+			ImageView imgV=new ImageView();
+			bd.setMaxHeight(154);
+			imgV.setImage(getImage(product.getPicture()));
+			imgV.setFitHeight(230);
+			imgV.setFitWidth(230);
+			Label lbl=new Label(product.getProductId());
+			Label lbl1=new Label(product.getName());
+			Label lbl2=new Label("SL:"+product.getQuantity());
+			lbl.setAlignment(Pos.CENTER);
+
+			JFXButton btn1=null;
+			if(product.getStatus().equalsIgnoreCase(TRENKE)) {
+				btn1=new JFXButton(TRENKE);
+
+				//			btn1.setStyle("	-fx-background-color: #C3350B;\r\n" + 
+				//					"	-fx-border-color: #C3350B;");
+
+				btn1.setStyle("	-fx-background-color:#FFC300 ;\r\n" + 
+						"	-fx-border-color:#FFC300 ;");
+
+				btn1.setMinSize(250,25);
+			}else if(product.getStatus().equalsIgnoreCase(CHOTHUE)){
+				btn1=new JFXButton(CHOTHUE);
+
+				btn1.setStyle("	-fx-background-color:#FFC300 ;\r\n" + 
+						"	-fx-border-color:#FFC300 ;");
+
+				btn1.setMinSize(250,25);
+			}else {
+				btn1=new JFXButton(GIULAI);
+
+				btn1.setStyle("	-fx-background-color:#FFC300 ;\r\n" + 
+						"	-fx-border-color:#FFC300 ;");
+
+				btn1.setMinSize(250,25);
+			}
+
+			JFXButton btn2=new JFXButton("Chi tiết");
+
+
+			bd.setStyle("-fx-border-color: #73797F;\r\n" + 
+					"		-fx-effect: dropshadow(three-pass-box, gray, 10,0, 0, 0);-fx-background-color:black");
+
+
+			btn2.setStyle("	-fx-background-color: black;\r\n" + 
+					"	-fx-border-color: #73797F;");
+			btn2.setMinSize(250,25);
+
+			lbl.setTextFill(Color.web("white"));
+			lbl1.setTextFill(Color.web("white"));
+			lbl2.setTextFill(Color.web("white"));
+
+			lbl.setStyle("	-fx-background-color: black;\r\n" + 
+					"	-fx-border-color: #73797F;");
+			lbl1.setStyle("	-fx-background-color: black;\r\n" + 
+					"	-fx-border-color: #73797F;");
+			lbl2.setStyle("	-fx-background-color: black;\r\n" + 
+					"	-fx-border-color: #73797F;");
+
+			lbl.setMinSize(250,25);
+			lbl1.setMinSize(250,25);
+			lbl2.setMinSize(250,25);
+
+
+			btn1.setTextFill(Color.web("white"));
+			btn2.setTextFill(Color.web("white"));
+
+			lbl.setPadding(new Insets(10, 0, 5, 0));
+			VBox vb=new VBox(lbl,lbl1,lbl2,btn1,btn2);
+			VBox.setMargin(btn1,new Insets(10,0,10,0));
+			vb.setAlignment(Pos.CENTER);
+
+
+			bd.setCenter(imgV);
+			bd.setBottom(vb);
+
+			flowPane.getChildren().add(bd);
+
+		}
+	}
+	
+	public void resetListProduct(ActionEvent e) {
+		flowPane.getChildren().clear();
+		
+		cbc.setValue(null);
+		
+		productService.listProduct().forEach(t->{
+
+			try {
+				btnClickAdd(new ActionEvent(),
+						t);
+			} catch (IOException ev) {
+				ev.printStackTrace();
+			} catch (InterruptedException ev) {
+				ev.printStackTrace();
+			}
+		});
 	}
 
 
