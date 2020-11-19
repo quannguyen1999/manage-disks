@@ -3,6 +3,7 @@ package application.controller;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,13 +14,25 @@ import com.jfoenix.controls.JFXButton;
 import animatefx.animation.BounceInDown;
 import animatefx.animation.BounceInLeft;
 import animatefx.animation.FadeInRight;
+import application.controller.impl.BillImpl;
 import application.controller.impl.CustomerImpl;
+import application.controller.impl.LateFeeImpl;
+import application.controller.impl.OrderDetailImpl;
+import application.controller.impl.OrderImpl;
 import application.controller.impl.ProductImpl;
+import application.controller.impl.TitleImpl;
+import application.controller.services.BillService;
 import application.controller.services.CustomerService;
+import application.controller.services.LateFeeService;
+import application.controller.services.OrderDetailService;
+import application.controller.services.OrderService;
 import application.controller.services.ProductService;
+import application.controller.services.TitleService;
 import application.entities.Customer;
+import application.entities.LateFee;
 import application.entities.Product;
 import application.entities.Title;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -33,6 +46,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -43,6 +57,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -55,15 +70,21 @@ public class FormEmployee extends DialogBox implements Initializable{
 
 	@FXML Pane pnlDiscs;
 
-	@FXML Pane pnlCustomer;
-
-	@FXML Label lblCustomer;
+	@FXML Pane pnlCustomers;
+	@FXML Pane pnlLateFees;
+	@FXML Pane pnlOrders;
+	@FXML Pane pnlDisks;
+	@FXML Pane pnlTitles;
 
 	@FXML FlowPane flowPane;
 
 	@FXML JFXButton btnCustomer;
 
 	@FXML JFXButton btnDisks;
+	
+	@FXML JFXButton btnTitles;
+	@FXML JFXButton btnLateFees;
+	@FXML JFXButton btnOrders;
 
 	private TableView<Customer> tbl_view;
 
@@ -76,7 +97,15 @@ public class FormEmployee extends DialogBox implements Initializable{
 	List<Customer> listCustomer=new ArrayList<>();
 
 
-	@FXML BorderPane bd;
+	@FXML BorderPane bdCustomer;
+	
+	@FXML BorderPane bdLateFee;
+	
+	@FXML StackPane sp;
+	
+	private BillService billService = new BillImpl();
+
+	private OrderService orderService = new OrderImpl();
 
 	private CustomerService customerService=new CustomerImpl();
 
@@ -88,7 +117,58 @@ public class FormEmployee extends DialogBox implements Initializable{
 
 
 	private ProductService productService=new ProductImpl();
-	//	@FXML BorderPane bd;
+	//late fee
+	private TableView<LateFee> tbl_view_latefee;
+
+	TableColumn<LateFee, String> colLateFeeId;
+	TableColumn<LateFee, String> colPrice;
+	TableColumn<LateFee, String> colDatePay;
+	TableColumn<LateFee, String> colCustomerIdLateFee;
+	TableColumn<LateFee, String> colBillId;
+	TableColumn<LateFee, String> colContent;
+	TableColumn<LateFee, String> colNameCustomer;
+	TableColumn<LateFee, String> colPhoneCustomer;
+
+
+	public LateFeeService lateFeeService=new LateFeeImpl();
+
+//	@FXML ComboBox<String> cbcLateFee=new ComboBox<String>();
+//	@FXML ComboBox<String> cbcIdKh=new ComboBox<String>();
+//	@FXML ComboBox<String> cbcPhoneKh=new ComboBox<String>();
+//
+//	@FXML RadioButton rdOne;
+//	@FXML RadioButton rdTwo;
+//	@FXML RadioButton rdThree;
+
+
+//	@FXML JFXButton btnRefresh;
+
+	List<LateFee> listFee=new ArrayList<>();
+	
+	
+	//title 
+	private TableView<Title> tbl_view_title;
+
+	TableColumn<Title, String> colTitleId;
+	TableColumn<Title, String> colNameTitle;
+	TableColumn<Title, String> colStatus;
+	TableColumn<Title, String> colcategoryId;
+
+	DecimalFormat df = new DecimalFormat("#,###"); 
+
+	@FXML BorderPane bdTitle;
+
+	TitleService titleService=new TitleImpl();
+
+	OrderDetailService orderDetailService = new OrderDetailImpl();
+
+	@FXML ComboBox<String> cbcIdTitle=new ComboBox<String>();
+
+	@FXML ComboBox<String> cbcNameTitle=new ComboBox<String>();
+
+	@FXML JFXButton btnRefreshTitle;
+
+	List<Title> listTitle=new ArrayList<>();
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -98,6 +178,8 @@ public class FormEmployee extends DialogBox implements Initializable{
 
 		btnCustomer.setGraphic(getImageView("customers.png"));
 		btnDisks.setGraphic(getImageView("product.png"));
+		btnTitles.setGraphic(getImageView("product.png"));
+		
 
 		productService.listProduct().forEach(t->{
 
@@ -159,8 +241,54 @@ public class FormEmployee extends DialogBox implements Initializable{
 				}
 			}
 		});
+		
+		
+		initTableLateFee();
+		initTableTitle();
+		
+		//load titie
+		loadDataSearchTitle();
+		
+		cbcIdTitle.setEditable(true);
 
+		cbcNameTitle.setEditable(true);
+	}
+	
+	public void btnReturnDisk(ActionEvent e) throws IOException {
+		FXMLLoader loader= new FXMLLoader(getClass().getResource(loadFormReturnDisk));
 
+		Parent root=loader.load();
+
+		loadFXML(root,btnCustomer).setOnHidden(ev->{
+
+			handleRefersh(e);
+
+		});;
+
+	}
+	
+	public void btnRentDisk(ActionEvent e) throws IOException {
+		FXMLLoader loader= new FXMLLoader(getClass().getResource(loadFormRentDisk));
+
+		Parent root=loader.load();
+
+		FormRentDisk ctlMain=loader.getController();
+
+		String id=null;
+
+		do {
+
+			id="B"+ranDomNumber();
+
+			ctlMain.txtIdBill.setText(id);
+
+		} while (billService.findBillById(id)!=null);
+
+		loadFXML(root,btnCustomer).setOnHidden(ev->{
+
+			handleRefersh(e);
+
+		});
 
 	}
 
@@ -313,7 +441,7 @@ public class FormEmployee extends DialogBox implements Initializable{
 
 		tbl_view.getColumns().addAll(colCustomerId,colName,colAddress,colPhone,colDateOfBirth);
 
-		bd.setCenter(tbl_view);
+		bdCustomer.setCenter(tbl_view);
 
 		colCustomerId.setCellValueFactory(new PropertyValueFactory<>("customerId"));
 		colName.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -398,18 +526,33 @@ public class FormEmployee extends DialogBox implements Initializable{
 	}
 
 	public void btnCLickDiscs(ActionEvent e) {
-		pnlCustomer.toFront();
+//		ObservableList list = sp.getChildren();
+//	
+//		list.forEach(t->{
+//			System.out.println(t);
+//		});
+		
+		pnlDiscs.toFront();
 
 		resetColor();
 
 		btnDisks.setStyle("-fx-background-color:red");
 
 	}
+	
+	public void btnCLickTitle(ActionEvent e) {
+		pnlTitles.toFront();
+
+		resetColor();
+
+		btnTitles.setStyle("-fx-background-color:red");
+
+	}
+	
+	
 
 	public void btnClickCustomer(ActionEvent e) throws IOException {
-
-
-		pnlDiscs.toFront();
+		pnlCustomers.toFront();
 
 		resetColor();
 
@@ -421,10 +564,48 @@ public class FormEmployee extends DialogBox implements Initializable{
 		//		bd.setCenter(root);
 
 	}
+	
+	public void btnClickLateFee(ActionEvent e) throws IOException {
+		pnlLateFees.toFront();
+
+		resetColor();
+
+		btnLateFees.setStyle("-fx-background-color:red");
+		
+//
+//		Parent root=(Parent) FXMLLoader.load(getClass().getResource(loadManageLateFee));
+//
+//		bdLateFee.setCenter(root);
+//		//		new BounceInDown(lblCustomer).play();
+//		//
+//		//		Parent root=(Parent) FXMLLoader.load(getClass().getResource("fxml/ManageCustomer.fxml"));
+//		//		
+//		//		bd.setCenter(root);
+
+	}
+	
+	public void btnClickOrders(ActionEvent e) throws IOException {
+		pnlOrders.toFront();
+
+		resetColor();
+
+		btnOrders.setStyle("-fx-background-color:red");
+		//		new BounceInDown(lblCustomer).play();
+		//
+		//		Parent root=(Parent) FXMLLoader.load(getClass().getResource("fxml/ManageCustomer.fxml"));
+		//		
+		//		bd.setCenter(root);
+
+	}
+	
+	
 
 	public void resetColor() {
 		btnCustomer.setStyle("-fx-background-color:black");
 		btnDisks.setStyle("-fx-background-color:black");
+		btnTitles.setStyle("-fx-background-color:black");
+		btnLateFees.setStyle("-fx-background-color:black");
+		btnOrders.setStyle("-fx-background-color:black");
 	}
 
 	public void btnClickAdd(ActionEvent e,Product product) throws IOException, InterruptedException {
@@ -623,6 +804,233 @@ public class FormEmployee extends DialogBox implements Initializable{
 			} catch (InterruptedException ev) {
 				ev.printStackTrace();
 			}
+		});
+	}
+	
+	//manage late fee
+	public void initTableLateFee() {
+		tbl_view_latefee=new TableView<LateFee>();
+
+		colLateFeeId=new TableColumn<LateFee, String>("Mã");
+		colPrice=new TableColumn<LateFee, String>("Phí");
+		colDatePay=new TableColumn<LateFee, String>("Ngày phải thanh toán");
+		colBillId=new TableColumn<LateFee, String>("Mã bill");
+		colContent=new TableColumn<LateFee, String>("Nội dung");
+		colNameCustomer=new TableColumn<LateFee, String>("Tên Kh");
+		colPhoneCustomer=new TableColumn<LateFee, String>("Phone kh");
+
+
+		tbl_view_latefee.getColumns().addAll(colLateFeeId, 
+				colPrice,
+				colDatePay,
+				colBillId,
+				colContent,
+				colNameCustomer,
+				colPhoneCustomer);
+
+		bdLateFee.setCenter(tbl_view_latefee);
+
+		colLateFeeId.setCellValueFactory(new PropertyValueFactory<>("lateFeetId"));
+		colPrice.setCellValueFactory(cellData-> new SimpleStringProperty(
+				String.valueOf(cellData.getValue().getPrice())));
+		colDatePay.setCellValueFactory(new PropertyValueFactory<>("datePay"));
+		colContent.setCellValueFactory(new PropertyValueFactory<>("content"));
+
+		colBillId.setCellValueFactory(cellData-> new SimpleStringProperty(
+				String.valueOf(cellData.getValue().getBill().getBillId())));
+
+		colNameCustomer.setCellValueFactory(cellData-> new SimpleStringProperty(
+				String.valueOf(cellData.getValue().getBill().getCustomer().getName())));
+
+		colPhoneCustomer.setCellValueFactory(cellData-> new SimpleStringProperty(
+				String.valueOf(cellData.getValue().getBill().getCustomer().getPhone())));
+
+
+		colDatePay.setMinWidth(200);
+		
+		colContent.setMinWidth(200);
+		
+		colNameCustomer.setMinWidth(150);
+		
+		colPhoneCustomer.setMinWidth(120);
+		
+		uploadDuLieuLenBangLateFee();
+	}
+
+	private void uploadDuLieuLenBangLateFee() {
+		List<LateFee> cuss=lateFeeService.listLateFee();
+		cuss.forEach(t->{
+			tbl_view_latefee.getItems().add(t);
+			listFee.add(t);
+		});
+	}
+	
+	private void loadDataSearchTitle() {
+		ObservableList<String> items = FXCollections.observableArrayList();
+
+		ObservableList<String> itemsNameTitle = FXCollections.observableArrayList();
+
+		List<Title> accs=titleService.listTitle();
+
+		accs.forEach(t->{
+			items.add(t.getTitleId());
+
+			itemsNameTitle.add(t.getName());
+		});
+
+		FilteredList<String> filteredItems = new FilteredList<String>(items);
+
+		cbcIdTitle.getEditor().textProperty().addListener(new InputFilter(cbcIdTitle, filteredItems, false));
+
+		cbcIdTitle.setItems(filteredItems);
+
+		cbcIdTitle.setEditable(true);
+
+		FilteredList<String> filteredNameItems = new FilteredList<String>(itemsNameTitle);
+
+		cbcNameTitle.getEditor().textProperty().addListener(new InputFilter(cbcNameTitle, filteredNameItems, false));
+
+		cbcNameTitle.setItems(filteredNameItems);
+
+		cbcNameTitle.setEditable(true);
+	}
+	
+	public void findItemInTableTitleId(ActionEvent e) throws IOException {
+		String textFind=null;
+
+		try {
+
+			textFind=cbcIdTitle.getSelectionModel().getSelectedItem().toString().trim();
+
+		} catch (Exception e2) {
+
+			Error("Bạn chưa nhập tìm kiếm", btnCustomer);
+
+			cbcIdTitle.requestFocus();
+
+		}
+
+		if(textFind.isEmpty()) {
+
+			Error("Bạn chưa nhập tìm kiếm", btnCustomer);
+
+			cbcIdTitle.requestFocus();
+
+			return;
+
+		}
+
+		tbl_view_title.getItems().clear();
+
+		Title TitleFind=titleService.findTitleById(textFind);
+
+		if(TitleFind==null) {
+
+			Error("Không tìm thấy", btnCustomer);
+
+			cbcIdTitle.requestFocus();
+
+			return;
+
+		}else {
+
+			tbl_view_title.getItems().add(TitleFind);
+
+		}
+
+	}
+	
+	public void findItemNameTitleInTable(ActionEvent e) throws IOException {
+		String textFind=null;
+
+		try {
+
+			textFind=cbcNameTitle.getSelectionModel().getSelectedItem().toString().trim();
+
+		} catch (Exception e2) {
+
+			Error("Bạn chưa nhập tìm kiếm", btnCustomer);
+
+			cbcNameTitle.requestFocus();
+
+		}
+
+		if(textFind.isEmpty()) {
+
+			Error("Bạn chưa nhập tìm kiếm", btnCustomer);
+
+			cbcNameTitle.requestFocus();
+
+			return;
+
+		}
+
+		tbl_view_title.getItems().clear();
+		
+		List<Title> TitleFind=titleService.findTitleByName(textFind);
+
+		if(TitleFind == null) {
+
+			Error("Không tìm thấy", btnCustomer);
+
+			cbcNameTitle.requestFocus();
+
+			return;
+
+		}else {
+
+			tbl_view_title.getItems().clear();
+
+			TitleFind.forEach(t->{
+
+				tbl_view_title.getItems().add(t);
+
+			});
+
+
+		}
+
+	}
+	
+	public void handleRefershTitle(ActionEvent e) {
+		//		cbc.getItems().clear();
+		cbcIdTitle.setValue("");
+		cbcNameTitle.setValue("");
+		tbl_view_title.getItems().clear();
+		uploadDuLieuLenBangTitle();
+	}
+	
+	//manage title
+	public void initTableTitle() {
+		tbl_view_title=new TableView<Title>();
+
+		colTitleId=new TableColumn<Title, String>("mã");
+		colNameTitle=new TableColumn<Title, String>("Tên");
+		colStatus=new TableColumn<Title, String>("status");
+		colcategoryId=new TableColumn<Title, String>("mã mặt hàng");
+
+		tbl_view_title.getColumns().addAll(colTitleId,colNameTitle,colStatus,colcategoryId);
+
+		bdTitle.setCenter(tbl_view_title);
+
+		colTitleId.setCellValueFactory(new PropertyValueFactory<>("titleId"));
+		colNameTitle.setCellValueFactory(new PropertyValueFactory<>("name"));
+		colStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
+		colcategoryId.setCellValueFactory(cellData->new SimpleStringProperty(cellData.getValue().getCategory().getCategoryId()));
+
+		colTitleId.setMinWidth(100);// .setCellValueFactory(new PropertyValueFactory<>("maKH"));
+		colNameTitle.setMinWidth(180);//.setCellValueFactory(new PropertyValueFactory<>("diaChi"));
+		colStatus.setMinWidth(120);//.setCellValueFactory(new PropertyValueFactory<>("CMND"));
+		colcategoryId.setMinWidth(150);//.setCellValueFactory(new PropertyValueFactory<>("tenKH"));
+
+		uploadDuLieuLenBangTitle();
+	}
+
+	private void uploadDuLieuLenBangTitle() {
+		List<Title> cuss=titleService.listTitle();
+		cuss.forEach(t->{
+			tbl_view_title.getItems().add(t);
+			listTitle.add(t);
 		});
 	}
 

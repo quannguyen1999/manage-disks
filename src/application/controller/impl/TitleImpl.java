@@ -89,21 +89,28 @@ public class TitleImpl extends Repository implements TitleService{
 
 	@Override
 	public List<Title> findTitleByName(String name) {
-		EntityTransaction transaction = null;
-		List<Title> titles=new ArrayList<>();
-		try {
-			transaction =  connect.getEntityManager().getTransaction();
-			transaction.begin();
-			titles=  connect.getEntityManager().createQuery("from Title where name='"+name+"'",Title.class)
-					.getResultList();
-			transaction.commit();
-		} catch (Exception ex) {
-			if (transaction != null) {
-				transaction.rollback();
+//		EntityTransaction transaction = null;
+//		List<Title> titles=new ArrayList<>();
+//		try {
+//			transaction =  connect.getEntityManager().getTransaction();
+//			transaction.begin();
+//			titles=  connect.getEntityManager().createQuery("from Title where name='"+name+"'",Title.class)
+//					.getResultList();
+//			transaction.commit();
+//		} catch (Exception ex) {
+//			if (transaction != null) {
+//				transaction.rollback();
+//			}
+//			connect.getEntityManager().close();
+//		}
+		List<Title> listTitleFind = new ArrayList<>();
+		List<Title> titles = listTitle();
+		for(int i=0;i<titles.size();i++) {
+			if(titles.get(i).getName().equalsIgnoreCase(name)) {
+				listTitleFind.add(titles.get(i));
 			}
-			connect.getEntityManager().close();
 		}
-		return titles.size()==0?null:titles;
+		return listTitleFind.size()==0?null:listTitleFind;
 	}
 
 	@Override
