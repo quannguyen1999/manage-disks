@@ -132,13 +132,13 @@ public class FormEmployee extends DialogBox implements Initializable{
 
 	public LateFeeService lateFeeService=new LateFeeImpl();
 
-//	@FXML ComboBox<String> cbcLateFee=new ComboBox<String>();
-//	@FXML ComboBox<String> cbcIdKh=new ComboBox<String>();
-//	@FXML ComboBox<String> cbcPhoneKh=new ComboBox<String>();
-//
-//	@FXML RadioButton rdOne;
-//	@FXML RadioButton rdTwo;
-//	@FXML RadioButton rdThree;
+	@FXML ComboBox<String> cbcLateFee=new ComboBox<String>();
+	@FXML ComboBox<String> cbcIdKh=new ComboBox<String>();
+	@FXML ComboBox<String> cbcPhoneKh=new ComboBox<String>();
+
+	@FXML RadioButton rdOne;
+	@FXML RadioButton rdTwo;
+	@FXML RadioButton rdThree;
 
 
 //	@FXML JFXButton btnRefresh;
@@ -252,6 +252,75 @@ public class FormEmployee extends DialogBox implements Initializable{
 		cbcIdTitle.setEditable(true);
 
 		cbcNameTitle.setEditable(true);
+		
+		//load late fee
+		tbl_view_latefee.setOnMouseClicked(e->{
+			if(e.getClickCount()==2) {
+				int result=tbl_view_latefee.getSelectionModel().getSelectedIndex();
+				if(result!=-1) {
+
+					FXMLLoader loader= new FXMLLoader(getClass().getResource(loadFormPay));
+
+					Parent root=null;
+					try {
+						root = loader.load();
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
+
+					FormPay ctlMain=loader.getController();
+						
+					ctlMain.txtLateFee.setText(tbl_view_latefee.getItems().get(result).getLateFeetId());
+					
+					ctlMain.txtBillMa.setText(tbl_view_latefee.getItems().get(result).getBill().getBillId());
+					
+					ctlMain.txtBillDateOrder.setValue(tbl_view_latefee.getItems().get(result).getBill().getLocalDate());
+					
+					ctlMain.txtBillDatePay.setValue(tbl_view_latefee.getItems().get(result).getDatePay());
+					
+					ctlMain.rdBillDebtYes.setSelected(true);
+					
+					ctlMain.cbcCustomerId.setValue(tbl_view_latefee.getItems().get(result).getBill().getCustomer().getCustomerId());
+					
+					ctlMain.cbcCustomerPhone.setValue(tbl_view_latefee.getItems().get(result).getBill().getCustomer().getPhone());
+					
+					ctlMain.txtCustomerName.setText(tbl_view_latefee.getItems().get(result).getBill().getCustomer().getName());
+					
+					ctlMain.txtCustomerAddress.setText(tbl_view_latefee.getItems().get(result).getBill().getCustomer().getAddress());
+					
+					ctlMain.bill = tbl_view_latefee.getItems().get(result).getBill();
+					
+					ctlMain.lateFee = tbl_view_latefee.getItems().get(result);
+					
+					ctlMain.total = Math.round(tbl_view_latefee.getItems().get(result).getPrice());
+					
+					ctlMain.uploadDuLieuLenBang(tbl_view_latefee.getItems().get(result).getBill().getBillId());
+					
+					loadFXML(root,btnCustomer).setOnHidden(ev->{
+						handleRefersh(new ActionEvent());
+						if(ctlMain.total == 0) {
+							try {
+								Success("Thanh toán thành công", btnCustomer);
+							} catch (IOException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+							
+							return;
+						}
+					});;
+				}
+			}
+		});
+		
+		loadDataSearchManageLateFee();
+		
+		cbcLateFee.setEditable(false);
+		cbcIdKh.setEditable(false);
+		cbcPhoneKh.setEditable(true);
+
+		cbcIdKh.setDisable(true);
+		cbcLateFee.setDisable(true);
 	}
 	
 	public void btnReturnDisk(ActionEvent e) throws IOException {
@@ -999,6 +1068,274 @@ public class FormEmployee extends DialogBox implements Initializable{
 		tbl_view_title.getItems().clear();
 		uploadDuLieuLenBangTitle();
 	}
+	
+	public void clickRdOne(ActionEvent e) {
+
+		cbcLateFee.setEditable(true);
+		cbcIdKh.setEditable(false);
+		cbcPhoneKh.setEditable(false);
+
+		cbcLateFee.setDisable(false);
+		cbcIdKh.setDisable(true);
+		cbcPhoneKh.setDisable(true);
+	}
+
+	public void clickRdTwo(ActionEvent e) {
+
+		cbcLateFee.setEditable(false);
+		cbcIdKh.setEditable(false);
+		cbcPhoneKh.setEditable(true);
+
+		cbcLateFee.setDisable(true);
+		cbcIdKh.setDisable(true);
+		cbcPhoneKh.setDisable(false);
+	}
+
+	public void clickRdThree(ActionEvent e) {
+
+		cbcLateFee.setEditable(false);
+		cbcIdKh.setEditable(true);
+		cbcPhoneKh.setEditable(false);
+
+		cbcLateFee.setDisable(true);
+		cbcIdKh.setDisable(false);
+		cbcPhoneKh.setDisable(true);
+	}
+	
+	private void loadDataSearchManageLateFee() {
+		ObservableList<String> items = FXCollections.observableArrayList();
+
+		List<LateFee> accs=lateFeeService.listLateFee();
+
+		accs.forEach(t->{
+
+			if(items.contains(t.getBill().getCustomer().getPhone())==false) {
+				items.add(t.getBill().getCustomer().getPhone());
+			}
+
+		});
+
+		FilteredList<String> filteredItems = new FilteredList<String>(items);
+
+		cbcLateFee.getEditor().textProperty().addListener(new InputFilter(cbcLateFee, filteredItems, false));
+
+		cbcLateFee.setItems(filteredItems);
+
+		cbcLateFee.setEditable(true);
+
+		ObservableList<String> itemsPhoneKH = FXCollections.observableArrayList();
+		ObservableList<String> itemsIdKH = FXCollections.observableArrayList();
+		List<Customer> listCusommer=customerService.listCustomer();
+
+		listCusommer.forEach(t->{
+
+			itemsPhoneKH.add(t.getPhone());
+			itemsIdKH.add(t.getCustomerId());
+
+
+		});
+
+		FilteredList<String> filteredItemsPhoneKH = new FilteredList<String>(itemsPhoneKH);
+
+		cbcPhoneKh.getEditor().textProperty().addListener(new InputFilter(cbcPhoneKh, filteredItemsPhoneKH, false));
+
+		cbcPhoneKh.setItems(filteredItemsPhoneKH);
+
+		cbcPhoneKh.setEditable(true);
+
+		FilteredList<String> filteredItemsIdKH = new FilteredList<String>(itemsIdKH);
+
+		cbcIdKh.getEditor().textProperty().addListener(new InputFilter(cbcIdKh, filteredItemsIdKH, false));
+
+		cbcIdKh.setItems(filteredItemsIdKH);
+
+		cbcIdKh.setEditable(true);
+
+
+
+	}
+	
+	public void findItemPhoneCustomerInTable(ActionEvent e) throws IOException {
+		String textFind=null;
+
+		if(rdOne.isSelected()) {
+			try {
+
+				textFind=cbcLateFee.getSelectionModel().getSelectedItem().toString().trim();
+
+			} catch (Exception e2) {
+
+				Error("Bạn chưa nhập tìm kiếm", btnCustomer);
+
+				cbcLateFee.requestFocus();
+
+			}
+
+			if(textFind.isEmpty()) {
+
+				Error("Bạn chưa nhập tìm kiếm", btnCustomer);
+
+				cbcLateFee.requestFocus();
+
+				return;
+
+			}
+		}else if(rdThree.isSelected()) {
+
+
+			try {
+
+				textFind=cbcPhoneKh.getSelectionModel().getSelectedItem().toString().trim();
+
+			} catch (Exception e2) {
+
+				Error("Bạn chưa nhập tìm kiếm", btnCustomer);
+
+				cbcPhoneKh.requestFocus();
+
+			}
+
+			if(textFind.isEmpty()) {
+
+				Error("Bạn chưa nhập tìm kiếm", btnCustomer);
+
+				cbcPhoneKh.requestFocus();
+
+				return;
+
+			}
+
+
+		}else {
+
+			try {
+
+				textFind=cbcIdKh.getSelectionModel().getSelectedItem().toString().trim();
+
+			} catch (Exception e2) {
+
+				Error("Bạn chưa nhập tìm kiếm", btnCustomer);
+
+				cbcIdKh.requestFocus();
+
+			}
+
+			if(textFind.isEmpty()) {
+
+				Error("Bạn chưa nhập tìm kiếm", btnCustomer);
+
+				cbcIdKh.requestFocus();
+
+				return;
+
+			}
+
+		}
+
+
+		tbl_view_latefee.getItems().clear();
+
+		if(rdOne.isSelected()) {
+			List<LateFee> listLateFeeSpecific = new ArrayList<>();
+
+			for(int i=0;i<listFee.size();i++) {
+				if(listFee.get(i).getBill().getCustomer().getPhone().equalsIgnoreCase(textFind)) {
+					listLateFeeSpecific.add(listFee.get(i));
+				}
+			}
+
+			if(listLateFeeSpecific.size() == 0) {
+
+				Error("Không tìm thấy", btnCustomer);
+
+				cbc.requestFocus();
+
+				return;
+
+			}else {
+
+				tbl_view_latefee.getItems().clear();
+
+				listLateFeeSpecific.forEach(t->{
+
+					tbl_view_latefee.getItems().add(t);
+
+				});
+
+
+
+			}
+
+		}else if(rdThree.isSelected()) {
+
+			List<LateFee> listLateFeeFind = lateFeeService.findAllLteFeeByPhoneCustomer(textFind);
+
+			if(listLateFeeFind == null) {
+
+				Error("Không tìm thấy", btnCustomer);
+
+				cbcPhoneKh.requestFocus();
+
+				return;
+
+			}else {
+				tbl_view_latefee.getItems().clear();
+
+				listLateFeeFind.forEach(t->{
+
+					tbl_view_latefee.getItems().add(t);
+
+				});
+			}
+
+
+
+
+		}else {
+			List<LateFee> listLateFeeFind = lateFeeService.findAllLteFeeByIdCustomer(textFind);
+
+			if(listLateFeeFind == null) {
+
+				Error("Không tìm thấy", btnCustomer);
+
+				cbcIdKh.requestFocus();
+
+				return;
+
+			}else {
+				tbl_view_latefee.getItems().clear();
+
+				listLateFeeFind.forEach(t->{
+
+					tbl_view_latefee.getItems().add(t);
+
+				});
+			}
+
+
+		}
+
+
+	}
+	
+	public void handleRefershManageTitle(ActionEvent e) {
+		rdThree.setSelected(true);
+		
+		cbcLateFee.setEditable(false);
+		cbcIdKh.setEditable(false);
+		cbcPhoneKh.setEditable(true);
+
+		cbcLateFee.setDisable(true);
+		cbcIdKh.setDisable(true);
+		cbcPhoneKh.setDisable(false);
+		
+		cbcIdKh.setValue("");
+		cbcPhoneKh.setValue("");
+		cbcLateFee.setValue("");
+		tbl_view_latefee.getItems().clear();
+		uploadDuLieuLenBangLateFee();
+	}
+
 	
 	//manage title
 	public void initTableTitle() {
