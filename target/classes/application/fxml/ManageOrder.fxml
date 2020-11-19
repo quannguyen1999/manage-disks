@@ -6,6 +6,7 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -39,10 +40,13 @@
          <bottom>
             <HBox fx:id="hboxGame" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
                <children>
-                  <JFXRadioButton text="Tìm mã đơn" textFill="WHITE">
+                  <JFXRadioButton fx:id="rdIdOrder" text="Tìm mã đơn" textFill="WHITE">
                      <font>
                         <Font size="20.0" />
                      </font>
+                     <toggleGroup>
+                        <ToggleGroup fx:id="TT" />
+                     </toggleGroup>
                   </JFXRadioButton>
                   <ComboBox fx:id="cbc" prefHeight="35.0" prefWidth="224.0">
                      <HBox.margin>
@@ -50,7 +54,7 @@
                      </HBox.margin>
                   </ComboBox>
                   <Separator orientation="VERTICAL" prefHeight="200.0" />
-                  <JFXRadioButton text="Tìm id kh" textFill="WHITE">
+                  <JFXRadioButton fx:id="rdIdKh" text="Tìm id kh" textFill="WHITE" toggleGroup="$TT">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -58,18 +62,18 @@
                         <Insets right="10.0" />
                      </HBox.margin>
                   </JFXRadioButton>
-                  <ComboBox prefHeight="35.0" prefWidth="224.0">
+                  <ComboBox fx:id="cbcIdKh" prefHeight="35.0" prefWidth="224.0">
                      <HBox.margin>
                         <Insets right="10.0" />
                      </HBox.margin>
                   </ComboBox>
                   <Separator orientation="VERTICAL" prefHeight="200.0" />
-                  <JFXRadioButton text="Tìm phone kh" textFill="WHITE">
+                  <JFXRadioButton fx:id="rdIdPhone" selected="true" text="Tìm phone kh" textFill="WHITE" toggleGroup="$TT">
                      <font>
                         <Font size="20.0" />
                      </font>
                   </JFXRadioButton>
-                  <ComboBox prefHeight="35.0" prefWidth="224.0">
+                  <ComboBox fx:id="cbcPhoneKh" prefHeight="35.0" prefWidth="224.0">
                      <HBox.margin>
                         <Insets left="10.0" right="10.0" />
                      </HBox.margin>

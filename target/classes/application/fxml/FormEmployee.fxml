@@ -61,8 +61,14 @@
                <center>
                   <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="1423.0" style="-fx-background-color: black;" text="Quản lý cửa hàng đĩa" textFill="WHITE" BorderPane.alignment="CENTER">
                      <font>
-                        <Font name="Arial Unicode MS" size="25.0" />
+                        <Font name="Calibri Light" size="25.0" />
                      </font>
+                     <BorderPane.margin>
+                        <Insets />
+                     </BorderPane.margin>
+                     <padding>
+                        <Insets bottom="2.0" top="5.0" />
+                     </padding>
                   </Label>
                </center>
             </BorderPane>
@@ -94,74 +100,122 @@
    <center>
       <StackPane fx:id="sp" prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Pane fx:id="pnlDiscs" prefHeight="762.0" prefWidth="1531.0" style="-fx-background-color: #212022;">
+            <Pane fx:id="pnlOrders" onDragDetected="#btnClickOrders" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #212022;">
                <children>
-                  <BorderPane layoutY="-2.0" prefHeight="764.0" prefWidth="1534.0">
-                     <top>
-                        <FlowPane prefHeight="772.0" prefWidth="1534.0">
+                  <BorderPane layoutX="104.0" layoutY="677.0" prefHeight="200.0" prefWidth="143.0" />
+                  <StackPane layoutX="967.0" layoutY="5.0" prefHeight="272.0" prefWidth="492.0">
+                     <children>
+                        <Pane fx:id="pnlBackVideoGame21" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #212022;" />
+                        <Pane fx:id="pnlBackPictureGame21" style="-fx-background-color: #212022;" />
+                     </children>
+                  </StackPane>
+                  <BorderPane layoutY="2.0" prefHeight="752.0" prefWidth="1531.0">
+                     <right>
+                        <VBox alignment="CENTER" prefHeight="752.0" prefWidth="291.0" BorderPane.alignment="CENTER">
                            <children>
-                              <BorderPane prefHeight="765.0" prefWidth="1534.0">
-                                 <top>
-                                    <HBox prefHeight="78.0" prefWidth="1534.0" BorderPane.alignment="CENTER">
-                                       <children>
-                                          <Label prefHeight="31.0" prefWidth="168.0" text="Danh sách đĩa" textFill="#8a8888">
-                                             <font>
-                                                <Font name="System Bold" size="20.0" />
-                                             </font>
-                                          </Label>
-                                          <Accordion prefHeight="76.0" prefWidth="105.0" />
-                                          <Label prefHeight="14.0" prefWidth="809.0" />
-                                          <ComboBox fx:id="cbc" onKeyPressed="#handleKeyEvents" prefHeight="25.0" prefWidth="226.0">
-                                             <HBox.margin>
-                                                <Insets right="25.0" />
-                                             </HBox.margin>
-                                          </ComboBox>
-                                          <Button mnemonicParsing="false" onAction="#resetListProduct" prefHeight="27.0" prefWidth="167.0" styleClass="btnLogin" stylesheets="@..\css\application.css" text="Reset" textFill="WHITE" />
-                                       </children>
-                                       <padding>
-                                          <Insets left="20.0" top="20.0" />
-                                       </padding>
-                                    </HBox>
-                                 </top>
-                                 <left>
-                                    <ScrollPane prefHeight="687.0" prefWidth="1378.0" style="-fx-border-color: #212022; -fx-background: #212022;" stylesheets="@..\css\application.css" BorderPane.alignment="CENTER">
-                                       <BorderPane.margin>
-                                          <Insets />
-                                       </BorderPane.margin>
-                                       <content>
-                                          <FlowPane fx:id="flowPane" hgap="70.0" prefHeight="685.0" prefWidth="1336.0" style="-fx-background: white;" vgap="70.0">
-                                             <padding>
-                                                <Insets left="60.0" right="40.0" />
-                                             </padding></FlowPane>
-                                       </content>
-                                    </ScrollPane>
-                                 </left>
-                                 <right>
-                                    <VBox prefHeight="686.0" prefWidth="148.0" BorderPane.alignment="CENTER">
-                                       <children>
-                                          <Accordion fx:id="acc" prefHeight="674.0" prefWidth="169.0" style="-fx-background-color: #212022; -fx-border-color: #212022; -fx-box-border: #212022;">
-                                            <panes>
-                                              <TitledPane fx:id="til1" expanded="false" prefHeight="670.0" prefWidth="154.0" style="-fx-background-color: #212022; -fx-border-color: #212022;" styleClass="accordion" stylesheets="@..\css\application.css" text="Thể loại" textFill="WHITE" wrapText="true">
-                                                   <content>
-                                                      <ScrollPane>
-                                                         <content>
-                                                            <VBox fx:id="vboxCategoryGame" prefHeight="549.0" prefWidth="178.0" style="-fx-border-color: #212022; -fx-background-color: #212022;" />
-                                                         </content>
-                                                      </ScrollPane>
-                                                   </content>
-                                              </TitledPane>
-                                            </panes>
-                                             <VBox.margin>
-                                                <Insets left="-6.0" top="2.0" />
-                                             </VBox.margin>
-                                          </Accordion>
-                                       </children>
-                                    </VBox>
-                                 </right>
-                              </BorderPane>
+                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="46.0" prefWidth="299.0" style="-fx-background-color: #212022;" text="Chức năng" textFill="WHITE">
+                                 <font>
+                                    <Font size="25.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets top="25.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="26.0" prefWidth="239.0" style="-fx-background-color: #212022;" textFill="WHITE">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                              <JFXButton onAction="#handleRefershOrder" prefHeight="58.0" prefWidth="312.0" style="-fx-border-color: white;" stylesheets="@../css/application.css" text="Reset" textFill="WHITE">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </JFXButton>
+                              <JFXButton onAction="#btnHuyDonHangOrder" prefHeight="58.0" prefWidth="312.0" style="-fx-border-color: white;" stylesheets="@../css/application.css" text="Hủy đơn hàng" textFill="WHITE">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets top="20.0" />
+                                 </VBox.margin>
+                              </JFXButton>
                            </children>
-                        </FlowPane>
-                     </top>
+                        </VBox>
+                     </right>
+                     <center>
+                        <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                           <children>
+                              <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;">
+                                 <children>
+                                    <BorderPane fx:id="bdOrder" prefHeight="752.0" prefWidth="1240.0">
+                                       <bottom>
+                                          <HBox fx:id="hboxGame21" alignment="CENTER" prefHeight="69.0" prefWidth="1240.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
+                                             <children>
+                                                <JFXRadioButton fx:id="rdIdOrder" onAction="#clickRdOneOrder" text="Tìm mã đơn" textFill="WHITE">
+                                                   <font>
+                                                      <Font size="15.0" />
+                                                   </font>
+                                                   <toggleGroup>
+                                                      <ToggleGroup fx:id="TTOrder" />
+                                                   </toggleGroup>
+                                                </JFXRadioButton>
+                                                <ComboBox fx:id="cbcOrder" prefHeight="25.0" prefWidth="201.0">
+                                                   <HBox.margin>
+                                                      <Insets left="10.0" right="10.0" />
+                                                   </HBox.margin>
+                                                </ComboBox>
+                                                <Separator orientation="VERTICAL" prefHeight="200.0" />
+                                                <JFXRadioButton fx:id="rdIdKhOrder" onAction="#clickRdTwoOrder" text="Tìm id kh" textFill="WHITE" toggleGroup="$TTOrder">
+                                                   <font>
+                                                      <Font size="15.0" />
+                                                   </font>
+                                                </JFXRadioButton>
+                                                <ComboBox fx:id="cbcIdKhOrder" prefHeight="25.0" prefWidth="201.0">
+                                                   <HBox.margin>
+                                                      <Insets left="10.0" right="10.0" />
+                                                   </HBox.margin>
+                                                </ComboBox>
+                                                <Separator orientation="VERTICAL" prefHeight="200.0" />
+                                                <JFXRadioButton fx:id="rdIdPhoneOrder" onAction="#clickRdThreeOrder" selected="true" text="Tìm phone kh" textFill="WHITE" toggleGroup="$TTOrder">
+                                                   <font>
+                                                      <Font size="15.0" />
+                                                   </font>
+                                                </JFXRadioButton>
+                                                <ComboBox fx:id="cbcPhoneKhOrder" prefWidth="150.0">
+                                                   <HBox.margin>
+                                                      <Insets left="10.0" />
+                                                   </HBox.margin>
+                                                </ComboBox>
+                                                <JFXButton onAction="#findItemInTableOrder" prefHeight="35.0" prefWidth="192.0" styleClass="btnLogin" stylesheets="@../css/application.css" text="Tìm" textFill="WHITE">
+                                                   <font>
+                                                      <Font size="15.0" />
+                                                   </font>
+                                                   <HBox.margin>
+                                                      <Insets left="10.0" right="10.0" />
+                                                   </HBox.margin>
+                                                </JFXButton>
+                                             </children>
+                                          </HBox>
+                                       </bottom>
+                                       <top>
+                                          <Label fx:id="lblCustomer21" alignment="CENTER" prefHeight="86.0" prefWidth="1241.0" style="-fx-background-color: red;" text="Danh sách đơn hàng" BorderPane.alignment="CENTER">
+                                             <font>
+                                                <Font name="Calibri" size="26.0" />
+                                             </font>
+                                             <BorderPane.margin>
+                                                <Insets bottom="10.0" top="10.0" />
+                                             </BorderPane.margin>
+                                             <padding>
+                                                <Insets right="40.0" />
+                                             </padding>
+                                          </Label>
+                                       </top>
+                                    </BorderPane>
+                                 </children>
+                              </Pane>
+                           </children>
+                        </StackPane>
+                     </center>
                   </BorderPane>
                </children>
             </Pane>
@@ -274,135 +328,6 @@
                                        </bottom>
                                        <top>
                                           <Label fx:id="lblCustomer1" alignment="CENTER" prefHeight="86.0" prefWidth="1241.0" style="-fx-background-color: #FF8619;" text="Quản lý khách hàng" BorderPane.alignment="CENTER">
-                                             <font>
-                                                <Font name="Calibri" size="26.0" />
-                                             </font>
-                                             <BorderPane.margin>
-                                                <Insets bottom="10.0" top="10.0" />
-                                             </BorderPane.margin>
-                                             <padding>
-                                                <Insets right="40.0" />
-                                             </padding>
-                                          </Label>
-                                       </top>
-                                    </BorderPane>
-                                 </children>
-                              </Pane>
-                           </children>
-                        </StackPane>
-                     </center>
-                  </BorderPane>
-               </children>
-            </Pane>
-            <Pane fx:id="pnlOrders" onDragDetected="#btnClickOrders" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #212022;">
-               <children>
-                  <BorderPane layoutX="104.0" layoutY="677.0" prefHeight="200.0" prefWidth="143.0" />
-                  <StackPane layoutX="967.0" layoutY="5.0" prefHeight="272.0" prefWidth="492.0">
-                     <children>
-                        <Pane fx:id="pnlBackVideoGame21" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #212022;" />
-                        <Pane fx:id="pnlBackPictureGame21" style="-fx-background-color: #212022;" />
-                     </children>
-                  </StackPane>
-                  <BorderPane layoutY="2.0" prefHeight="752.0" prefWidth="1531.0">
-                     <right>
-                        <VBox alignment="CENTER" prefHeight="752.0" prefWidth="291.0" BorderPane.alignment="CENTER">
-                           <children>
-                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="46.0" prefWidth="299.0" style="-fx-background-color: #212022;" text="Chức năng" textFill="WHITE">
-                                 <font>
-                                    <Font size="25.0" />
-                                 </font>
-                                 <VBox.margin>
-                                    <Insets top="25.0" />
-                                 </VBox.margin>
-                              </Label>
-                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="26.0" prefWidth="239.0" style="-fx-background-color: #212022;" textFill="WHITE">
-                                 <font>
-                                    <Font size="15.0" />
-                                 </font>
-                              </Label>
-                              <JFXButton onAction="#btnRentDisk" prefHeight="56.0" prefWidth="319.0" style="-fx-border-color: white;" stylesheets="@../css/application.css" text="Thuê đĩa" textFill="WHITE">
-                                 <font>
-                                    <Font size="20.0" />
-                                 </font>
-                              </JFXButton>
-                              <JFXButton onAction="#btnReturnDisk" prefHeight="60.0" prefWidth="318.0" style="-fx-border-color: white;" stylesheets="@../css/application.css" text="Trả đĩa" textFill="WHITE">
-                                 <font>
-                                    <Font size="20.0" />
-                                 </font>
-                                 <VBox.margin>
-                                    <Insets top="20.0" />
-                                 </VBox.margin>
-                              </JFXButton>
-                              <JFXButton onAction="#btnClickAdd" prefHeight="60.0" prefWidth="318.0" style="-fx-border-color: white;" stylesheets="@../css/application.css" text="Thêm khách hàng" textFill="WHITE">
-                                 <font>
-                                    <Font size="20.0" />
-                                 </font>
-                                 <VBox.margin>
-                                    <Insets top="20.0" />
-                                 </VBox.margin>
-                              </JFXButton>
-                           </children>
-                        </VBox>
-                     </right>
-                     <center>
-                        <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                           <children>
-                              <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;">
-                                 <children>
-                                    <BorderPane fx:id="bd21" prefHeight="752.0" prefWidth="1240.0">
-                                       <bottom>
-                                          <HBox fx:id="hboxGame21" alignment="CENTER" prefHeight="69.0" prefWidth="1240.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
-                                             <children>
-                                                <ComboBox fx:id="cbc21" prefHeight="25.0" prefWidth="201.0">
-                                                   <HBox.margin>
-                                                      <Insets left="10.0" right="10.0" />
-                                                   </HBox.margin>
-                                                </ComboBox>
-                                                <JFXButton onAction="#findItemInTable" prefHeight="35.0" prefWidth="192.0" styleClass="btnLogin" stylesheets="@../css/application.css" text="TÌm id kh" textFill="WHITE">
-                                                   <font>
-                                                      <Font size="15.0" />
-                                                   </font>
-                                                   <HBox.margin>
-                                                      <Insets right="10.0" />
-                                                   </HBox.margin>
-                                                </JFXButton>
-                                                <Separator orientation="VERTICAL" prefHeight="200.0" />
-                                                <ComboBox fx:id="cbcPhone21" prefHeight="25.0" prefWidth="201.0">
-                                                   <HBox.margin>
-                                                      <Insets left="10.0" right="10.0" />
-                                                   </HBox.margin>
-                                                </ComboBox>
-                                                <JFXButton onAction="#findItemInTablePhone" prefHeight="35.0" prefWidth="192.0" styleClass="btnLogin" stylesheets="@../css/application.css" text="Tìm bằng phone" textFill="WHITE">
-                                                   <font>
-                                                      <Font size="15.0" />
-                                                   </font>
-                                                   <HBox.margin>
-                                                      <Insets right="10.0" />
-                                                   </HBox.margin>
-                                                </JFXButton>
-                                                <Separator orientation="VERTICAL" prefHeight="200.0" />
-                                                <JFXButton prefHeight="35.0" prefWidth="192.0" styleClass="btnLogin" stylesheets="@../css/application.css" text="Chọn" textFill="WHITE">
-                                                   <font>
-                                                      <Font size="15.0" />
-                                                   </font>
-                                                   <HBox.margin>
-                                                      <Insets left="10.0" right="10.0" />
-                                                   </HBox.margin>
-                                                </JFXButton>
-                                                <Separator orientation="VERTICAL" prefHeight="200.0" />
-                                                <JFXButton onAction="#handleRefersh" prefHeight="35.0" prefWidth="192.0" styleClass="btnLogin" stylesheets="@../css/application.css" text="Reset" textFill="WHITE">
-                                                   <font>
-                                                      <Font size="15.0" />
-                                                   </font>
-                                                   <HBox.margin>
-                                                      <Insets left="10.0" right="10.0" />
-                                                   </HBox.margin>
-                                                </JFXButton>
-                                             </children>
-                                          </HBox>
-                                       </bottom>
-                                       <top>
-                                          <Label fx:id="lblCustomer21" alignment="CENTER" prefHeight="86.0" prefWidth="1241.0" style="-fx-background-color: red;" text="Danh sách đơn hàng" BorderPane.alignment="CENTER">
                                              <font>
                                                 <Font name="Calibri" size="26.0" />
                                              </font>
@@ -634,6 +559,77 @@
                   </BorderPane>
                </children>
             </Pane>
+            <Pane fx:id="pnlDiscs" prefHeight="762.0" prefWidth="1531.0" style="-fx-background-color: #212022;">
+               <children>
+                  <BorderPane layoutY="-2.0" prefHeight="764.0" prefWidth="1534.0">
+                     <top>
+                        <FlowPane prefHeight="772.0" prefWidth="1534.0">
+                           <children>
+                              <BorderPane prefHeight="765.0" prefWidth="1534.0">
+                                 <top>
+                                    <HBox prefHeight="78.0" prefWidth="1534.0" BorderPane.alignment="CENTER">
+                                       <children>
+                                          <Label prefHeight="31.0" prefWidth="168.0" text="Danh sách đĩa" textFill="#8a8888">
+                                             <font>
+                                                <Font name="System Bold" size="20.0" />
+                                             </font>
+                                          </Label>
+                                          <Accordion prefHeight="76.0" prefWidth="105.0" />
+                                          <Label prefHeight="14.0" prefWidth="809.0" />
+                                          <ComboBox fx:id="cbc" onKeyPressed="#handleKeyEvents" prefHeight="25.0" prefWidth="226.0">
+                                             <HBox.margin>
+                                                <Insets right="25.0" />
+                                             </HBox.margin>
+                                          </ComboBox>
+                                          <Button mnemonicParsing="false" onAction="#resetListProduct" prefHeight="27.0" prefWidth="167.0" styleClass="btnLogin" stylesheets="@..\css\application.css" text="Reset" textFill="WHITE" />
+                                       </children>
+                                       <padding>
+                                          <Insets left="20.0" top="20.0" />
+                                       </padding>
+                                    </HBox>
+                                 </top>
+                                 <left>
+                                    <ScrollPane prefHeight="687.0" prefWidth="1378.0" style="-fx-border-color: #212022; -fx-background: #212022;" stylesheets="@..\css\application.css" BorderPane.alignment="CENTER">
+                                       <BorderPane.margin>
+                                          <Insets />
+                                       </BorderPane.margin>
+                                       <content>
+                                          <FlowPane fx:id="flowPane" hgap="70.0" prefHeight="685.0" prefWidth="1336.0" style="-fx-background: white;" vgap="70.0">
+                                             <padding>
+                                                <Insets left="60.0" right="40.0" />
+                                             </padding></FlowPane>
+                                       </content>
+                                    </ScrollPane>
+                                 </left>
+                                 <right>
+                                    <VBox prefHeight="686.0" prefWidth="148.0" BorderPane.alignment="CENTER">
+                                       <children>
+                                          <Accordion fx:id="acc" prefHeight="674.0" prefWidth="169.0" style="-fx-background-color: #212022; -fx-border-color: #212022; -fx-box-border: #212022;">
+                                            <panes>
+                                              <TitledPane fx:id="til1" expanded="false" prefHeight="670.0" prefWidth="154.0" style="-fx-background-color: #212022; -fx-border-color: #212022;" styleClass="accordion" stylesheets="@..\css\application.css" text="Thể loại" textFill="WHITE" wrapText="true">
+                                                   <content>
+                                                      <ScrollPane>
+                                                         <content>
+                                                            <VBox fx:id="vboxCategoryGame" prefHeight="549.0" prefWidth="178.0" style="-fx-border-color: #212022; -fx-background-color: #212022;" />
+                                                         </content>
+                                                      </ScrollPane>
+                                                   </content>
+                                              </TitledPane>
+                                            </panes>
+                                             <VBox.margin>
+                                                <Insets left="-6.0" top="2.0" />
+                                             </VBox.margin>
+                                          </Accordion>
+                                       </children>
+                                    </VBox>
+                                 </right>
+                              </BorderPane>
+                           </children>
+                        </FlowPane>
+                     </top>
+                  </BorderPane>
+               </children>
+            </Pane>
          </children>
       </StackPane>
    </center>
@@ -642,7 +638,7 @@
          <children>
             <Pane prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <HBox layoutX="-5.0" layoutY="-10.0" prefHeight="111.0" prefWidth="1539.0" style="-fx-background-color: black;">
+                  <HBox alignment="CENTER" layoutX="-5.0" layoutY="-10.0" prefHeight="111.0" prefWidth="1539.0" style="-fx-background-color: black;">
                      <children>
                         <Pane prefHeight="111.0" prefWidth="270.0">
                            <children>
@@ -668,7 +664,7 @@
                                     <Image url="@../images/icons8_circled_menu_100px.png" />
                                  </image>
                               </ImageView>
-                              <JFXButton fx:id="btnDisks" layoutX="35.0" layoutY="24.0" onAction="#btnCLickDiscs" prefHeight="10.0" prefWidth="200.0" styleClass="btnLogin" stylesheets="@..\css\application.css" text="Danh sách đĩa" textFill="WHITE">
+                              <JFXButton fx:id="btnDisks" layoutX="35.0" layoutY="24.0" onAction="#btnCLickDiscs" prefHeight="63.0" prefWidth="229.0" styleClass="btnLogin" stylesheets="@..\css\application.css" text="Danh sách đĩa" textFill="WHITE">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
@@ -685,7 +681,7 @@
                                     <Image url="@../images/icons8_circled_menu_100px.png" />
                                  </image>
                               </ImageView>
-                              <JFXButton fx:id="btnTitles" layoutX="35.0" layoutY="24.0" onAction="#btnCLickTitle" prefHeight="10.0" prefWidth="200.0" styleClass="btnLogin" stylesheets="@..\css\application.css" text="Danh sách title" textFill="WHITE">
+                              <JFXButton fx:id="btnTitles" layoutX="35.0" layoutY="24.0" onAction="#btnCLickTitle" prefHeight="60.0" prefWidth="239.0" styleClass="btnLogin" stylesheets="@..\css\application.css" text="Danh sách title" textFill="WHITE">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
@@ -702,7 +698,7 @@
                                     <Image url="@../images/icons8_circled_menu_100px.png" />
                                  </image>
                               </ImageView>
-                              <JFXButton fx:id="btnLateFees" layoutX="35.0" layoutY="24.0" onAction="#btnClickLateFee" prefHeight="10.0" prefWidth="200.0" styleClass="btnLogin" stylesheets="@..\css\application.css" text="Danh sách phí trễ hạn" textFill="WHITE">
+                              <JFXButton fx:id="btnLateFees" layoutX="35.0" layoutY="24.0" onAction="#btnClickLateFee" prefHeight="62.0" prefWidth="234.0" styleClass="btnLogin" stylesheets="@..\css\application.css" text="Danh sách phí trễ hạn" textFill="WHITE">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
@@ -719,7 +715,7 @@
                                     <Image url="@../images/icons8_circled_menu_100px.png" />
                                  </image>
                               </ImageView>
-                              <JFXButton fx:id="btnOrders" layoutX="35.0" layoutY="24.0" onAction="#btnClickOrders" prefHeight="10.0" prefWidth="200.0" styleClass="btnLogin" stylesheets="@..\css\application.css" text="Danh sách đơn hàng" textFill="WHITE">
+                              <JFXButton fx:id="btnOrders" layoutX="35.0" layoutY="24.0" onAction="#btnClickOrders" prefHeight="61.0" prefWidth="238.0" styleClass="btnLogin" stylesheets="@..\css\application.css" text="Danh sách đơn hàng" textFill="WHITE">
                                  <font>
                                     <Font size="15.0" />
                                  </font>

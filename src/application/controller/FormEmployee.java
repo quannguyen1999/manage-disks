@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXRadioButton;
 
 import animatefx.animation.BounceInDown;
 import animatefx.animation.BounceInLeft;
@@ -30,6 +31,8 @@ import application.controller.services.ProductService;
 import application.controller.services.TitleService;
 import application.entities.Customer;
 import application.entities.LateFee;
+import application.entities.Order;
+import application.entities.OrderDetail;
 import application.entities.Product;
 import application.entities.Title;
 import javafx.beans.property.SimpleStringProperty;
@@ -44,6 +47,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
@@ -60,7 +64,9 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class FormEmployee extends DialogBox implements Initializable{
 
@@ -81,7 +87,7 @@ public class FormEmployee extends DialogBox implements Initializable{
 	@FXML JFXButton btnCustomer;
 
 	@FXML JFXButton btnDisks;
-	
+
 	@FXML JFXButton btnTitles;
 	@FXML JFXButton btnLateFees;
 	@FXML JFXButton btnOrders;
@@ -98,11 +104,11 @@ public class FormEmployee extends DialogBox implements Initializable{
 
 
 	@FXML BorderPane bdCustomer;
-	
+
 	@FXML BorderPane bdLateFee;
-	
+
 	@FXML StackPane sp;
-	
+
 	private BillService billService = new BillImpl();
 
 	private OrderService orderService = new OrderImpl();
@@ -141,11 +147,11 @@ public class FormEmployee extends DialogBox implements Initializable{
 	@FXML RadioButton rdThree;
 
 
-//	@FXML JFXButton btnRefresh;
+	//	@FXML JFXButton btnRefresh;
 
 	List<LateFee> listFee=new ArrayList<>();
-	
-	
+
+
 	//title 
 	private TableView<Title> tbl_view_title;
 
@@ -170,6 +176,35 @@ public class FormEmployee extends DialogBox implements Initializable{
 
 	List<Title> listTitle=new ArrayList<>();
 
+	//manage order
+	private TableView<Order> tbl_viewOrder;
+
+	TableColumn<Order, String> colOrderId;
+	TableColumn<Order, String> colOrderDate;
+	TableColumn<Order, String> colCustomerIdOrder;
+	TableColumn<Order, String> colCustomerPhone;
+	TableColumn<Order, String> colCustomerName;
+	TableColumn<Order, String> colCustomrAddress;
+
+
+	@FXML BorderPane bdOrder;
+
+	public OrderService OrderService=new OrderImpl();
+
+	@FXML ComboBox<String> cbcOrder=new ComboBox<String>();
+	@FXML ComboBox<String> cbcPhoneKhOrder=new ComboBox<String>();
+	@FXML ComboBox<String> cbcIdKhOrder=new ComboBox<String>();
+
+	@FXML JFXButton btnRefresh;
+
+	List<Order> listOrder=new ArrayList<>();
+
+	@FXML JFXRadioButton rdIdOrder;
+
+	@FXML JFXRadioButton rdIdKhOrder;
+
+	@FXML JFXRadioButton rdIdPhoneOrder;
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		//set icon for button
@@ -178,8 +213,13 @@ public class FormEmployee extends DialogBox implements Initializable{
 
 		btnCustomer.setGraphic(getImageView("customers.png"));
 		btnDisks.setGraphic(getImageView("product.png"));
-		btnTitles.setGraphic(getImageView("product.png"));
+		btnTitles.setGraphic(getImageView("Mtitle.png"));
+		btnLateFees.setGraphic(getImageView("lateFee.png"));
+		btnOrders.setGraphic(getImageView("order.png"));
 		
+//		pnlDisks.toFront();
+		btnDisks.setStyle("-fx-background-color:red");
+
 
 		productService.listProduct().forEach(t->{
 
@@ -241,18 +281,18 @@ public class FormEmployee extends DialogBox implements Initializable{
 				}
 			}
 		});
-		
-		
+
+
 		initTableLateFee();
 		initTableTitle();
-		
+
 		//load titie
 		loadDataSearchTitle();
-		
+
 		cbcIdTitle.setEditable(true);
 
 		cbcNameTitle.setEditable(true);
-		
+
 		//load late fee
 		tbl_view_latefee.setOnMouseClicked(e->{
 			if(e.getClickCount()==2) {
@@ -269,33 +309,33 @@ public class FormEmployee extends DialogBox implements Initializable{
 					}
 
 					FormPay ctlMain=loader.getController();
-						
+
 					ctlMain.txtLateFee.setText(tbl_view_latefee.getItems().get(result).getLateFeetId());
-					
+
 					ctlMain.txtBillMa.setText(tbl_view_latefee.getItems().get(result).getBill().getBillId());
-					
+
 					ctlMain.txtBillDateOrder.setValue(tbl_view_latefee.getItems().get(result).getBill().getLocalDate());
-					
+
 					ctlMain.txtBillDatePay.setValue(tbl_view_latefee.getItems().get(result).getDatePay());
-					
+
 					ctlMain.rdBillDebtYes.setSelected(true);
-					
+
 					ctlMain.cbcCustomerId.setValue(tbl_view_latefee.getItems().get(result).getBill().getCustomer().getCustomerId());
-					
+
 					ctlMain.cbcCustomerPhone.setValue(tbl_view_latefee.getItems().get(result).getBill().getCustomer().getPhone());
-					
+
 					ctlMain.txtCustomerName.setText(tbl_view_latefee.getItems().get(result).getBill().getCustomer().getName());
-					
+
 					ctlMain.txtCustomerAddress.setText(tbl_view_latefee.getItems().get(result).getBill().getCustomer().getAddress());
-					
+
 					ctlMain.bill = tbl_view_latefee.getItems().get(result).getBill();
-					
+
 					ctlMain.lateFee = tbl_view_latefee.getItems().get(result);
-					
+
 					ctlMain.total = Math.round(tbl_view_latefee.getItems().get(result).getPrice());
-					
+
 					ctlMain.uploadDuLieuLenBang(tbl_view_latefee.getItems().get(result).getBill().getBillId());
-					
+
 					loadFXML(root,btnCustomer).setOnHidden(ev->{
 						handleRefersh(new ActionEvent());
 						if(ctlMain.total == 0) {
@@ -305,24 +345,40 @@ public class FormEmployee extends DialogBox implements Initializable{
 								// TODO Auto-generated catch block
 								e1.printStackTrace();
 							}
-							
+
 							return;
 						}
 					});;
 				}
 			}
 		});
-		
+
 		loadDataSearchManageLateFee();
-		
+
 		cbcLateFee.setEditable(false);
 		cbcIdKh.setEditable(false);
 		cbcPhoneKh.setEditable(true);
 
 		cbcIdKh.setDisable(true);
 		cbcLateFee.setDisable(true);
+
+
+		//manage order
+		initTableOrder();
+		
+		loadDataSearchKhOrder();
+		
+		loadDataSearchKhOrder();
+		
+		cbcOrder.setDisable(true);
+		cbcIdKhOrder.setDisable(true);
+		cbcPhoneKhOrder.setDisable(false);
+		
+		cbcPhoneKhOrder.setEditable(true);
+
+
 	}
-	
+
 	public void btnReturnDisk(ActionEvent e) throws IOException {
 		FXMLLoader loader= new FXMLLoader(getClass().getResource(loadFormReturnDisk));
 
@@ -335,7 +391,7 @@ public class FormEmployee extends DialogBox implements Initializable{
 		});;
 
 	}
-	
+
 	public void btnRentDisk(ActionEvent e) throws IOException {
 		FXMLLoader loader= new FXMLLoader(getClass().getResource(loadFormRentDisk));
 
@@ -595,12 +651,12 @@ public class FormEmployee extends DialogBox implements Initializable{
 	}
 
 	public void btnCLickDiscs(ActionEvent e) {
-//		ObservableList list = sp.getChildren();
-//	
-//		list.forEach(t->{
-//			System.out.println(t);
-//		});
-		
+		//		ObservableList list = sp.getChildren();
+		//	
+		//		list.forEach(t->{
+		//			System.out.println(t);
+		//		});
+
 		pnlDiscs.toFront();
 
 		resetColor();
@@ -608,7 +664,7 @@ public class FormEmployee extends DialogBox implements Initializable{
 		btnDisks.setStyle("-fx-background-color:red");
 
 	}
-	
+
 	public void btnCLickTitle(ActionEvent e) {
 		pnlTitles.toFront();
 
@@ -617,8 +673,8 @@ public class FormEmployee extends DialogBox implements Initializable{
 		btnTitles.setStyle("-fx-background-color:red");
 
 	}
-	
-	
+
+
 
 	public void btnClickCustomer(ActionEvent e) throws IOException {
 		pnlCustomers.toFront();
@@ -633,26 +689,26 @@ public class FormEmployee extends DialogBox implements Initializable{
 		//		bd.setCenter(root);
 
 	}
-	
+
 	public void btnClickLateFee(ActionEvent e) throws IOException {
 		pnlLateFees.toFront();
 
 		resetColor();
 
 		btnLateFees.setStyle("-fx-background-color:red");
-		
-//
-//		Parent root=(Parent) FXMLLoader.load(getClass().getResource(loadManageLateFee));
-//
-//		bdLateFee.setCenter(root);
-//		//		new BounceInDown(lblCustomer).play();
-//		//
-//		//		Parent root=(Parent) FXMLLoader.load(getClass().getResource("fxml/ManageCustomer.fxml"));
-//		//		
-//		//		bd.setCenter(root);
+
+		//
+		//		Parent root=(Parent) FXMLLoader.load(getClass().getResource(loadManageLateFee));
+		//
+		//		bdLateFee.setCenter(root);
+		//		//		new BounceInDown(lblCustomer).play();
+		//		//
+		//		//		Parent root=(Parent) FXMLLoader.load(getClass().getResource("fxml/ManageCustomer.fxml"));
+		//		//		
+		//		//		bd.setCenter(root);
 
 	}
-	
+
 	public void btnClickOrders(ActionEvent e) throws IOException {
 		pnlOrders.toFront();
 
@@ -666,8 +722,8 @@ public class FormEmployee extends DialogBox implements Initializable{
 		//		bd.setCenter(root);
 
 	}
-	
-	
+
+
 
 	public void resetColor() {
 		btnCustomer.setStyle("-fx-background-color:black");
@@ -773,9 +829,9 @@ public class FormEmployee extends DialogBox implements Initializable{
 
 				return;
 			}
-			
+
 			flowPane.getChildren().clear();
-			
+
 			BorderPane bd=new BorderPane();
 			ImageView imgV=new ImageView();
 			bd.setMaxHeight(154);
@@ -857,12 +913,12 @@ public class FormEmployee extends DialogBox implements Initializable{
 
 		}
 	}
-	
+
 	public void resetListProduct(ActionEvent e) {
 		flowPane.getChildren().clear();
-		
+
 		cbc.setValue(null);
-		
+
 		productService.listProduct().forEach(t->{
 
 			try {
@@ -875,7 +931,7 @@ public class FormEmployee extends DialogBox implements Initializable{
 			}
 		});
 	}
-	
+
 	//manage late fee
 	public void initTableLateFee() {
 		tbl_view_latefee=new TableView<LateFee>();
@@ -916,13 +972,13 @@ public class FormEmployee extends DialogBox implements Initializable{
 
 
 		colDatePay.setMinWidth(200);
-		
+
 		colContent.setMinWidth(200);
-		
+
 		colNameCustomer.setMinWidth(150);
-		
+
 		colPhoneCustomer.setMinWidth(120);
-		
+
 		uploadDuLieuLenBangLateFee();
 	}
 
@@ -933,7 +989,7 @@ public class FormEmployee extends DialogBox implements Initializable{
 			listFee.add(t);
 		});
 	}
-	
+
 	private void loadDataSearchTitle() {
 		ObservableList<String> items = FXCollections.observableArrayList();
 
@@ -963,7 +1019,7 @@ public class FormEmployee extends DialogBox implements Initializable{
 
 		cbcNameTitle.setEditable(true);
 	}
-	
+
 	public void findItemInTableTitleId(ActionEvent e) throws IOException {
 		String textFind=null;
 
@@ -1008,7 +1064,7 @@ public class FormEmployee extends DialogBox implements Initializable{
 		}
 
 	}
-	
+
 	public void findItemNameTitleInTable(ActionEvent e) throws IOException {
 		String textFind=null;
 
@@ -1035,7 +1091,7 @@ public class FormEmployee extends DialogBox implements Initializable{
 		}
 
 		tbl_view_title.getItems().clear();
-		
+
 		List<Title> TitleFind=titleService.findTitleByName(textFind);
 
 		if(TitleFind == null) {
@@ -1060,7 +1116,7 @@ public class FormEmployee extends DialogBox implements Initializable{
 		}
 
 	}
-	
+
 	public void handleRefershTitle(ActionEvent e) {
 		//		cbc.getItems().clear();
 		cbcIdTitle.setValue("");
@@ -1068,7 +1124,7 @@ public class FormEmployee extends DialogBox implements Initializable{
 		tbl_view_title.getItems().clear();
 		uploadDuLieuLenBangTitle();
 	}
-	
+
 	public void clickRdOne(ActionEvent e) {
 
 		cbcLateFee.setEditable(true);
@@ -1101,7 +1157,7 @@ public class FormEmployee extends DialogBox implements Initializable{
 		cbcIdKh.setDisable(false);
 		cbcPhoneKh.setDisable(true);
 	}
-	
+
 	private void loadDataSearchManageLateFee() {
 		ObservableList<String> items = FXCollections.observableArrayList();
 
@@ -1154,7 +1210,7 @@ public class FormEmployee extends DialogBox implements Initializable{
 
 
 	}
-	
+
 	public void findItemPhoneCustomerInTable(ActionEvent e) throws IOException {
 		String textFind=null;
 
@@ -1317,10 +1373,10 @@ public class FormEmployee extends DialogBox implements Initializable{
 
 
 	}
-	
+
 	public void handleRefershManageTitle(ActionEvent e) {
 		rdThree.setSelected(true);
-		
+
 		cbcLateFee.setEditable(false);
 		cbcIdKh.setEditable(false);
 		cbcPhoneKh.setEditable(true);
@@ -1328,7 +1384,7 @@ public class FormEmployee extends DialogBox implements Initializable{
 		cbcLateFee.setDisable(true);
 		cbcIdKh.setDisable(true);
 		cbcPhoneKh.setDisable(false);
-		
+
 		cbcIdKh.setValue("");
 		cbcPhoneKh.setValue("");
 		cbcLateFee.setValue("");
@@ -1336,7 +1392,7 @@ public class FormEmployee extends DialogBox implements Initializable{
 		uploadDuLieuLenBangLateFee();
 	}
 
-	
+
 	//manage title
 	public void initTableTitle() {
 		tbl_view_title=new TableView<Title>();
@@ -1371,6 +1427,339 @@ public class FormEmployee extends DialogBox implements Initializable{
 		});
 	}
 
+	//manage order 
+	public void initTableOrder() {
+		tbl_viewOrder=new TableView<Order>();
+
+		colOrderId=new TableColumn<Order, String>("mã");
+		colOrderDate=new TableColumn<Order, String>("Ngày đặt");
+
+		colCustomerIdOrder=new TableColumn<Order, String>("Mã khách hàng");
+
+		colCustomerName=new TableColumn<Order, String>("Tên khách hàng");
+		colCustomerPhone=new TableColumn<Order, String>("sdt");
+		colCustomrAddress=new TableColumn<Order, String>("Địa chỉ");
+
+		tbl_viewOrder.getColumns().addAll(colOrderId,colOrderDate,colCustomerIdOrder,colCustomerName,
+				colCustomerPhone,colCustomrAddress);
+
+		bdOrder.setCenter(tbl_view);
+
+		colOrderId.setCellValueFactory(new PropertyValueFactory<>("OrderId"));
+		colOrderDate.setCellValueFactory(new PropertyValueFactory<>("orderDate"));
+
+		colCustomerIdOrder.setCellValueFactory(cellData->new SimpleStringProperty(cellData.getValue().getOrderId()));
+		colCustomerPhone.setCellValueFactory(cellData->new SimpleStringProperty(cellData.getValue().getCustomer().getPhone()));
+		colCustomerName.setCellValueFactory(cellData->new SimpleStringProperty(cellData.getValue().getCustomer().getName()));
+		colCustomrAddress.setCellValueFactory(cellData->new SimpleStringProperty(cellData.getValue().getCustomer().getAddress()));
+
+		colOrderDate.setMinWidth(120);
+
+		colCustomerIdOrder.setMinWidth(120);
+
+		colCustomerName.setMinWidth(150);
+
+		colCustomerPhone.setMinWidth(120);
+
+		colCustomrAddress.setMinWidth(200);
+
+		uploadDuLieuLenBangOrder();
+	}
+
+	private void uploadDuLieuLenBangOrder() {
+		List<Order> cuss=OrderService.listOrder();
+		cuss.forEach(t->{
+			tbl_viewOrder.getItems().add(t);
+			listOrder.add(t);
+		});
+	}
+
+	public void clickRdOneOrder(ActionEvent e) {
+
+		cbcOrder.setEditable(true);
+		cbcIdKhOrder.setEditable(false);
+		cbcPhoneKhOrder.setEditable(false);
+
+		cbcOrder.setDisable(false);
+		cbcIdKhOrder.setDisable(true);
+		cbcPhoneKhOrder.setDisable(true);
+	}
+
+	public void clickRdTwoOrder(ActionEvent e) {
+
+		cbcOrder.setEditable(false);
+		cbcIdKhOrder.setEditable(true);
+		cbcPhoneKhOrder.setEditable(false);
+
+		cbcOrder.setDisable(true);
+		cbcIdKhOrder.setDisable(false);
+		cbcPhoneKhOrder.setDisable(true);
+	}
+
+	public void clickRdThreeOrder(ActionEvent e) {
+		cbcOrder.setEditable(false);
+		cbcIdKhOrder.setEditable(false);
+		cbcPhoneKhOrder.setEditable(true);
+
+		cbcOrder.setDisable(true);
+		cbcIdKhOrder.setDisable(true);
+		cbcPhoneKhOrder.setDisable(false);
+	}
+	
+	private void loadDataSearchOrder() {
+		ObservableList<String> items = FXCollections.observableArrayList();
+		List<Order> accs=OrderService.listOrder();
+
+		accs.forEach(t->{
+
+			items.add(t.getOrderId());
+
+		});
+
+		FilteredList<String> filteredItems = new FilteredList<String>(items);
+
+		cbcOrder.getEditor().textProperty().addListener(new InputFilter(cbcOrder, filteredItems, false));
+
+		cbcOrder.setItems(filteredItems);
+
+		cbcOrder.setEditable(true);
+	}
+	
+	private void loadDataSearchKhOrder() {
+		ObservableList<String> itemsId = FXCollections.observableArrayList();
+		ObservableList<String> itemsPhone = FXCollections.observableArrayList();
+		List<Customer> accs=customerService.listCustomer();
+
+		accs.forEach(t->{
+
+			itemsId.add(t.getCustomerId());
+			itemsPhone.add(t.getPhone());
+
+		});
+
+		FilteredList<String> filteredItems = new FilteredList<String>(itemsId);
+
+		cbcIdKhOrder.getEditor().textProperty().addListener(new InputFilter(cbcIdKhOrder, filteredItems, false));
+
+		cbcIdKhOrder.setItems(filteredItems);
+
+		cbcIdKhOrder.setEditable(true);
+		
+		FilteredList<String> filteredItemsPhone = new FilteredList<String>(itemsPhone);
+
+		cbcPhoneKhOrder.getEditor().textProperty().addListener(new InputFilter(cbcPhoneKhOrder, filteredItemsPhone, false));
+
+		cbcPhoneKhOrder.setItems(filteredItemsPhone);
+
+		cbcPhoneKhOrder.setEditable(true);
+		
+	}
+	
+	public void handleRefershOrder(ActionEvent e) {
+		
+		rdIdPhoneOrder.setSelected(true);
+		
+		cbcOrder.setEditable(false);
+		cbcIdKhOrder.setEditable(false);
+		cbcPhoneKhOrder.setEditable(true);
+
+		cbcOrder.setDisable(true);
+		cbcIdKhOrder.setDisable(true);
+		cbcPhoneKhOrder.setDisable(false);
+		
+		cbcOrder.setValue("");
+		cbcIdKhOrder.setValue("");
+		cbcPhoneKhOrder.setValue("");
+		tbl_viewOrder.getItems().clear();
+		uploadDuLieuLenBangOrder();
+	}
+	
+	public void findItemInTableOrder(ActionEvent e) throws IOException {
+		String textFind=null;
+
+		if(rdIdOrder.isSelected()) {
+			try {
+
+				textFind=cbcOrder.getSelectionModel().getSelectedItem().toString().trim();
+
+			} catch (Exception e2) {
+
+				Error("Bạn chưa nhập tìm kiếm", btnRefresh);
+
+				cbcOrder.requestFocus();
+
+			}
+
+			if(textFind.isEmpty()) {
+
+				Error("Bạn chưa nhập tìm kiếm", btnRefresh);
+
+				cbcOrder.requestFocus();
+
+				return;
+
+			}
+
+		}else if(rdIdKhOrder.isSelected()) {
+			try {
+
+				textFind=cbcIdKhOrder.getSelectionModel().getSelectedItem().toString().trim();
+
+			} catch (Exception e2) {
+
+				Error("Bạn chưa nhập tìm kiếm", btnRefresh);
+
+				cbcIdKhOrder.requestFocus();
+
+			}
+
+			if(textFind.isEmpty()) {
+
+				Error("Bạn chưa nhập tìm kiếm", btnRefresh);
+
+				cbcIdKhOrder.requestFocus();
+
+				return;
+
+			}
+			
+			
+		}else if(rdIdPhoneOrder.isSelected()){
+			
+			try {
+
+				textFind=cbcPhoneKhOrder.getSelectionModel().getSelectedItem().toString().trim();
+
+			} catch (Exception e2) {
+
+				Error("Bạn chưa nhập tìm kiếm", btnRefresh);
+
+				cbcPhoneKhOrder.requestFocus();
+
+			}
+
+			if(textFind.isEmpty()) {
+
+				Error("Bạn chưa nhập tìm kiếm", btnRefresh);
+
+				cbcPhoneKhOrder.requestFocus();
+
+				return;
+
+			}
+			
+		}
+		
+		tbl_viewOrder.getItems().clear();
+
+		if(rdIdOrder.isSelected()) {
+			
+			Order OrderFind=OrderService.findOrderById(textFind);
+
+			if(OrderFind==null) {
+
+				Error("Không tìm thấy", btnRefresh);
+
+				cbcOrder.requestFocus();
+
+				return;
+
+			}else {
+
+				tbl_viewOrder.getItems().add(OrderFind);
+
+			}
+		}else if(rdIdKhOrder.isSelected()) {
+			
+			List<Order> listOrders = OrderService.findAllOrderByIdCustomer(textFind);
+
+			if(listOrders==null) {
+
+				Error("Không tìm thấy", btnRefresh);
+
+				cbcIdKhOrder.requestFocus();
+
+				return;
+
+			}else {
+				listOrders.forEach(t->{
+					tbl_viewOrder.getItems().add(t);
+				});
+			}
+		}else if(rdIdPhoneOrder.isSelected()) {
+			List<Order> listOrders = OrderService.findAllOrderByPhoneCustomer(textFind);
+
+			if(listOrders==null) {
+
+				Error("Không tìm thấy", btnRefresh);
+
+				cbcPhoneKhOrder.requestFocus();
+
+				return;
+
+			}else {
+				listOrders.forEach(t->{
+					tbl_viewOrder.getItems().add(t);
+				});
+			}
+		}
+	
+
+	}
+	
+	public void btnHuyDonHangOrder(ActionEvent e) throws IOException{
+
+		int result=tbl_view.getSelectionModel().getSelectedIndex();
+
+		if(result!=-1) {
+
+			FXMLLoader loader= new FXMLLoader(getClass().getResource(loadAreYouSure));
+
+			Parent root=loader.load();
+
+			AreYouSure ctlMain=loader.getController();
+
+			new animatefx.animation.FadeIn(root).play();
+
+			Stage stage=new Stage();
+
+			stage.initOwner(btnRefresh.getScene().getWindow());
+
+			stage.setScene(new Scene(root));
+
+			stage.initStyle(StageStyle.UNDECORATED);
+
+			stage.initModality(Modality.APPLICATION_MODAL);
+
+			stage.show();
+
+			stage.setOnHidden(efg->{
+
+				if(ctlMain.result==true) {
+					List<OrderDetail> listOrderDetails = orderDetailService.findAllOrderDetailByOrderId(
+							tbl_viewOrder.getItems().get(result).getOrderId());
+					if(listOrderDetails!=null) {
+						listOrderDetails.forEach(t->{
+							orderDetailService.removeOrderDetail(t.getOrderDetailsId());
+						});
+					}
+					OrderService.removeOrder(tbl_viewOrder.getItems().get(result).getOrderId());
+
+					handleRefershOrder(e);
+
+				}else {
+
+				}
+			});
+
+		}else {
+
+			Error("bạn chưa chọn bảng cần xóa", btnRefresh);
+
+		}
+
+	}
+	
 
 
 
