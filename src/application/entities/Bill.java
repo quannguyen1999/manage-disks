@@ -40,6 +40,6 @@ public class Bill {
 	@JoinColumn(name = "customerId")
 	private Customer customer;
 	
-	@Column
+	@Column(columnDefinition = "nvarchar(500)")
 	private String debt;
 }
