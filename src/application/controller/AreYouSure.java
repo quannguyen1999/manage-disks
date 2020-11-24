@@ -10,11 +10,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 
+//form 'are you sure'
 public class AreYouSure extends DialogBox implements Initializable{
 	boolean result=true;
 	
+	//ánh xạ
 	@FXML JFXButton btnExit;
 	
+	//khởi tạo
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		
@@ -22,21 +25,19 @@ public class AreYouSure extends DialogBox implements Initializable{
 		
 	}
 	
+	//Xử lý button yes
 	public void btnYes(ActionEvent e) {
 		
 		result=true;
-		
-		System.out.println(result);
 		
 		((Node)(e.getSource())).getScene().getWindow().hide(); 
 		
 	}
 	
+	//Xử lý button no
 	public void btnNo(ActionEvent e) {
 		
 		result=false;
-		
-		System.out.println(result);
 		
 		((Node)(e.getSource())).getScene().getWindow().hide(); 
 		

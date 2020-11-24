@@ -40,6 +40,4 @@ public class Title {
 		super();
 		this.titleId = titleId;
 	}
-	
-	
 }

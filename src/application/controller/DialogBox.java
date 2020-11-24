@@ -33,6 +33,7 @@ import javafx.stage.StageStyle;
 import sun.misc.BASE64Decoder;
 
 public class DialogBox  implements Initializable{
+	//set status
 	static final String TRENKE = "Trên kệ";
 	static final String CHOTHUE = "Cho thuê";
 	static final String GIULAI = "Giữ lại";
@@ -60,7 +61,6 @@ public class DialogBox  implements Initializable{
 	
 	static final String loadFormAddBill="../fxml/FormAddBill.fxml";
 	
-	
 	static final String loadFormAddOrder="../fxml/FormAddOrder.fxml";
 	
 	static final String loadFormPay="../fxml/FormPay.fxml";
@@ -68,19 +68,26 @@ public class DialogBox  implements Initializable{
 	static final String loadFormReportCustomer="../fxml/FormReportCustomer.fxml";
 	
 	static final String loadManageReportTitle="../fxml/ManageReportTitle.fxml";
+	
 	static final String loadManageReportCustomer="../fxml/ManageReport.fxml";
 	
 	static final String loadWelcome="../fxml/Welcome.fxml";
+	
 	static final String loadManageCustomer="../fxml/ManageCustomer.fxml";
+	
 	static final String loadManageOrder="../fxml/ManageOrder.fxml";
+	
 	static final String loadManageProduct="../fxml/ManageProduct.fxml";
+	
 	static final String loadManageTitle="../fxml/ManageTitle.fxml";
+	
 	static final String loadManageLateFee="../fxml/ManageLateFee.fxml";
+	
 	static final String loadManageCategories="../fxml/ManageCategory.fxml";
+	
 	static final String loadManageBill="../fxml/ManageBill.fxml";
+	
 	static final String loadManageSupplier="../fxml/ManageSupplier.fxml";
-//	static final String loadManageOrder="../fxml/FormAddBill.fxml";
-//	static final String loadManageStatistical="../fxml/FormAddBill.fxml";
 	
 	static final String loadError="../fxml/Error.fxml";
 	

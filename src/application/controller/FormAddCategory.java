@@ -2,42 +2,44 @@ package application.controller;
 
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDate;
-import java.util.Date;
 import java.util.ResourceBundle;
-
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
-
 import application.controller.impl.CategoryImpl;
-import application.controller.impl.CustomerImpl;
 import application.controller.services.CategoryService;
-import application.controller.services.CustomerService;
 import application.entities.Category;
-import application.entities.Customer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.control.Label;
+
+//form add category
 public class FormAddCategory extends DialogBox implements Initializable{
+	//border
 	@FXML public BorderPane mainBd;
+	
+	
+	//label
 	@FXML Label lblTitle;
+	
+	//text field
 	@FXML JFXTextField txtMa;
 	@FXML JFXTextField txtName;
 	@FXML JFXTextField txtPrice;
 	@FXML JFXTextField txtDescription;
 	@FXML JFXTextField txtTimeRent;
 
+	//jfx button
 	@FXML JFXButton btn;
 
+	//service
 	public CategoryService categoryService=new CategoryImpl();
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-
+		//set don't allow edit in text field
 		txtMa.setEditable(false);
 
 	}
@@ -101,8 +103,6 @@ public class FormAddCategory extends DialogBox implements Initializable{
 		return true;
 	}
 	
-
-
 	public void CLickOK(ActionEvent e) throws IOException {
 		String ma=txtMa.getText().toString();
 		String tenMatHang=txtName.getText().toString();
@@ -172,7 +172,6 @@ public class FormAddCategory extends DialogBox implements Initializable{
 
 
 			}
-
 
 		}
 	}

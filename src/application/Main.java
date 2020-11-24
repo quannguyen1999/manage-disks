@@ -1,9 +1,6 @@
 package application;
-	
 import java.io.File;
-
 import animatefx.animation.FadeInUpBig;
-import application.controller.DAO.Connect;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
@@ -15,9 +12,9 @@ import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 
-
+//main để chạy chương trình
 public class Main extends Application {
-	//pull your mouse to your location x, y
+	//Kéo thả chương trình
 	private double xOffset=0;
 	
 	private double YOffset=0;
@@ -26,7 +23,7 @@ public class Main extends Application {
 	public void start(Stage primaryStage) {
 		try {
 			//load file fxml
-			Parent root=(Parent) FXMLLoader.load(getClass().getResource("fxml/FormEmployee.fxml"));
+			Parent root=(Parent) FXMLLoader.load(getClass().getResource("fxml/LoginV2.fxml"));
 			
 			//set move mouse
 			root.setOnMousePressed((MouseEvent event)->{

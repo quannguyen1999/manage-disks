@@ -8,13 +8,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXRadioButton;
-
-import animatefx.animation.BounceInDown;
-import animatefx.animation.BounceInLeft;
-import animatefx.animation.FadeInRight;
 import application.controller.impl.BillImpl;
 import application.controller.impl.CustomerImpl;
 import application.controller.impl.LateFeeImpl;
@@ -54,7 +49,6 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -68,69 +62,44 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+//form employee
 public class FormEmployee extends DialogBox implements Initializable{
-
+	//jfx button
 	@FXML JFXButton btnLogOut;
-
 	@FXML JFXButton btnHelp;
 
+	//pane
 	@FXML Pane pnlDiscs;
-
 	@FXML Pane pnlCustomers;
 	@FXML Pane pnlLateFees;
 	@FXML Pane pnlOrders;
 	@FXML Pane pnlDisks;
 	@FXML Pane pnlTitles;
 
+	//flow pane
 	@FXML FlowPane flowPane;
 
+	//jfx button
 	@FXML JFXButton btnCustomer;
-
 	@FXML JFXButton btnDisks;
-
 	@FXML JFXButton btnTitles;
 	@FXML JFXButton btnLateFees;
 	@FXML JFXButton btnOrders;
+	@FXML JFXButton btnRefreshTitle;
+	@FXML JFXButton btnRefresh;
 
+	//table view and value
+	//--customer
 	private TableView<Customer> tbl_view;
-
 	TableColumn<Customer, String> colCustomerId;
 	TableColumn<Customer, String> colName;
 	TableColumn<Customer, String> colAddress;
 	TableColumn<Customer, String> colPhone;
 	TableColumn<Customer, LocalDate> colDateOfBirth;
 
-	List<Customer> listCustomer=new ArrayList<>();
 
-	@FXML BorderPane bdCustomer;
-
-	@FXML BorderPane bdLateFee;
-
-	@FXML StackPane sp;
-
-	private BillService billService = new BillImpl();
-
-	private OrderService orderService = new OrderImpl();
-
-	private CustomerService customerService=new CustomerImpl();
-
-	@FXML JFXRadioButton rdCustomerId;
-
-	@FXML JFXRadioButton rdCustomerPhone;
-
-	@FXML ComboBox<String> cbcCustomerId = new ComboBox<String>();
-
-	@FXML ComboBox<String> cbcCustomerPhone = new ComboBox<String>();
-
-	@FXML ComboBox<String> cbc=new ComboBox<String>();
-
-	@FXML ComboBox<String> cbcPhone=new ComboBox<String>();
-
-
-	private ProductService productService=new ProductImpl();
-	//late fee
+	//--late fee
 	private TableView<LateFee> tbl_view_latefee;
-
 	TableColumn<LateFee, String> colLateFeeId;
 	TableColumn<LateFee, String> colPrice;
 	TableColumn<LateFee, String> colDatePay;
@@ -140,50 +109,8 @@ public class FormEmployee extends DialogBox implements Initializable{
 	TableColumn<LateFee, String> colNameCustomer;
 	TableColumn<LateFee, String> colPhoneCustomer;
 
-
-	public LateFeeService lateFeeService=new LateFeeImpl();
-
-	@FXML ComboBox<String> cbcLateFee=new ComboBox<String>();
-	@FXML ComboBox<String> cbcIdKh=new ComboBox<String>();
-	@FXML ComboBox<String> cbcPhoneKh=new ComboBox<String>();
-
-	@FXML RadioButton rdOne;
-	@FXML RadioButton rdTwo;
-	@FXML RadioButton rdThree;
-
-
-	//	@FXML JFXButton btnRefresh;
-
-	List<LateFee> listFee=new ArrayList<>();
-
-
-	//title 
-	private TableView<Title> tbl_view_title;
-
-	TableColumn<Title, String> colTitleId;
-	TableColumn<Title, String> colNameTitle;
-	TableColumn<Title, String> colStatus;
-	TableColumn<Title, String> colcategoryId;
-
-	DecimalFormat df = new DecimalFormat("#,###"); 
-
-	@FXML BorderPane bdTitle;
-
-	TitleService titleService=new TitleImpl();
-
-	OrderDetailService orderDetailService = new OrderDetailImpl();
-
-	@FXML ComboBox<String> cbcIdTitle=new ComboBox<String>();
-
-	@FXML ComboBox<String> cbcNameTitle=new ComboBox<String>();
-
-	@FXML JFXButton btnRefreshTitle;
-
-	List<Title> listTitle=new ArrayList<>();
-
-	//manage order
+	//--order
 	private TableView<Order> tbl_viewOrder;
-
 	TableColumn<Order, String> colOrderId;
 	TableColumn<Order, String> colOrderDate;
 	TableColumn<Order, String> colCustomerIdOrder;
@@ -191,27 +118,70 @@ public class FormEmployee extends DialogBox implements Initializable{
 	TableColumn<Order, String> colCustomerName;
 	TableColumn<Order, String> colCustomrAddress;
 
+	//--title 
+	private TableView<Title> tbl_view_title;
 
+	TableColumn<Title, String> colTitleId;
+	TableColumn<Title, String> colNameTitle;
+	TableColumn<Title, String> colStatus;
+	TableColumn<Title, String> colcategoryId;
+
+	//list
+	List<Customer> listCustomer=new ArrayList<>();
+	List<LateFee> listFee=new ArrayList<>();
+
+	//border
+	@FXML BorderPane bdCustomer;
+	@FXML BorderPane bdLateFee;
+	@FXML BorderPane bdTitle;
 	@FXML BorderPane bdOrder;
 
+	//stack pane
+	@FXML StackPane sp;
+
+	//service
+	private BillService billService = new BillImpl();
+	private CustomerService customerService=new CustomerImpl();
+	private ProductService productService=new ProductImpl();
+	private LateFeeService lateFeeService=new LateFeeImpl();
+	private TitleService titleService=new TitleImpl();
+	private OrderDetailService orderDetailService = new OrderDetailImpl();
 	public OrderService OrderService=new OrderImpl();
 
+	//radio button
+	@FXML JFXRadioButton rdCustomerId;
+	@FXML JFXRadioButton rdCustomerPhone;
+	@FXML JFXRadioButton rdIdOrder;
+	@FXML JFXRadioButton rdIdKhOrder;
+	@FXML JFXRadioButton rdIdPhoneOrder;
+	@FXML RadioButton rdOne;
+	@FXML RadioButton rdTwo;
+	@FXML RadioButton rdThree;
+
+	//combo box
+	@FXML ComboBox<String> cbcCustomerId = new ComboBox<String>();
+	@FXML ComboBox<String> cbcCustomerPhone = new ComboBox<String>();
+	@FXML ComboBox<String> cbc=new ComboBox<String>();
+	@FXML ComboBox<String> cbcPhone=new ComboBox<String>();
+	@FXML ComboBox<String> cbcLateFee=new ComboBox<String>();
+	@FXML ComboBox<String> cbcIdKh=new ComboBox<String>();
+	@FXML ComboBox<String> cbcPhoneKh=new ComboBox<String>();
+	@FXML ComboBox<String> cbcIdTitle=new ComboBox<String>();
+	@FXML ComboBox<String> cbcNameTitle=new ComboBox<String>();
 	@FXML ComboBox<String> cbcOrder=new ComboBox<String>();
 	@FXML ComboBox<String> cbcPhoneKhOrder=new ComboBox<String>();
 	@FXML ComboBox<String> cbcIdKhOrder=new ComboBox<String>();
 
-	@FXML JFXButton btnRefresh;
+	//format value 100000 -> 100.000
+	DecimalFormat df = new DecimalFormat("#,###"); 
 
+	//list
+	List<Title> listTitle=new ArrayList<>();
 	List<Order> listOrder=new ArrayList<>();
-
-	@FXML JFXRadioButton rdIdOrder;
-
-	@FXML JFXRadioButton rdIdKhOrder;
-
-	@FXML JFXRadioButton rdIdPhoneOrder;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		//set combobox and radio button
 		cbcCustomerId.setEditable(true);
 		cbcCustomerPhone.setEditable(true);
 		cbcCustomerId.setDisable(true);
@@ -222,30 +192,25 @@ public class FormEmployee extends DialogBox implements Initializable{
 		//set icon for button
 		btnLogOut.setGraphic(getImageView("Logout.png"));
 		btnHelp.setGraphic(getImageView("IconHelp.png"));
-
 		btnCustomer.setGraphic(getImageView("customers.png"));
 		btnDisks.setGraphic(getImageView("product.png"));
 		btnTitles.setGraphic(getImageView("Mtitle.png"));
 		btnLateFees.setGraphic(getImageView("lateFee.png"));
 		btnOrders.setGraphic(getImageView("order.png"));
 
-		//		pnlDisks.toFront();
+		//set color
 		btnDisks.setStyle("-fx-background-color:red");
 
 
 		productService.listProduct().forEach(t->{
-
 			try {
 				btnClickAdd(new ActionEvent(),
 						t);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			//			btnClickAdd(e, imageBig, name, quantity, status);
 
 		});
 
@@ -374,149 +339,78 @@ public class FormEmployee extends DialogBox implements Initializable{
 		cbcIdKh.setDisable(true);
 		cbcLateFee.setDisable(true);
 
-
 		//manage order
 		initTableOrder();
-		//		
-		//		loadDataSearchKhOrder();
-		//		
-		//		loadDataSearchKhOrder();
-		//		
-		//		cbcOrder.setDisable(true);
-		//		cbcIdKhOrder.setDisable(true);
-		//		cbcPhoneKhOrder.setDisable(false);
-		//		
-		//		cbcPhoneKhOrder.setEditable(true);
 	}
 
 	public void handleClickFindIdCustomer(ActionEvent e) {
-
-
 		rdCustomerId.setSelected(true);
-
 		cbcCustomerId.setDisable(false);
-
 		cbcCustomerPhone.setDisable(true);
-
 		cbcCustomerPhone.setValue(null);
-
-
 	}
 
 	public void handleClickFindPhoneCustomer(ActionEvent e) {
-
-
 		rdCustomerPhone.setSelected(true);
-
 		cbcCustomerPhone.setDisable(false);
-
 		cbcCustomerId.setDisable(true);
-
 		cbcCustomerId.setValue(null);
-
 	}
-	
+
 	public void handleRefereshManageCustomer(ActionEvent e) {
 		cbcCustomerPhone.setValue(null);
-		
 		cbcCustomerId.setValue(null);
-		
 		cbcCustomerPhone.setDisable(false);
-		
 		cbcCustomerId.setDisable(true);
-		
 		tbl_view.getItems().clear();
-		
 		uploadDuLieuLenBang();
 	}
-	
+
 	public void findItemManageCustomeInTable(ActionEvent e) throws IOException {
 		String textFind=null;
-
 		if(rdCustomerId.isSelected()) {
 			try {
-
 				textFind=cbcCustomerId.getSelectionModel().getSelectedItem().toString().trim();
-
 			} catch (Exception e2) {
-
 				Error("Bạn chưa nhập tìm kiếm", btnRefresh);
-
 				cbcCustomerId.requestFocus();
-
 			}
-
 			if(textFind.isEmpty()) {
-
 				Error("Bạn chưa nhập tìm kiếm", btnRefresh);
-
 				cbcCustomerId.requestFocus();
-
 				return;
-
 			}
-
 			tbl_view.getItems().clear();
-
 			Customer customerFind=customerService.findCustomerById(textFind);
-
 			if(customerFind==null) {
-
 				Error("Không tìm thấy", btnRefresh);
-
 				cbcCustomerId.requestFocus();
-
 				return;
-
 			}else {
-
 				tbl_view.getItems().add(customerFind);
-
 			}
 		}else {
 			try {
-
 				textFind=cbcCustomerPhone.getSelectionModel().getSelectedItem().toString().trim();
-
 			} catch (Exception e2) {
-
 				Error("Bạn chưa nhập tìm kiếm", btnRefresh);
-
 				cbcCustomerPhone.requestFocus();
-
 			}
-
 			if(textFind.isEmpty()) {
-
 				Error("Bạn chưa nhập tìm kiếm", btnRefresh);
-
 				cbcCustomerPhone.requestFocus();
-
 				return;
-
 			}
-
 			tbl_view.getItems().clear();
-
 			Customer customerFind=customerService.findCustomerByPhone(textFind);
-
 			if(customerFind==null) {
-
 				Error("Không tìm thấy", btnRefresh);
-
 				cbcCustomerPhone.requestFocus();
-
 				return;
-
 			}else {
-
 				tbl_view.getItems().add(customerFind);
-
 			}
 		}
-		
-	
-
 	}
 
 	public void btnReturnDisk(ActionEvent e) throws IOException {
@@ -627,25 +521,6 @@ public class FormEmployee extends DialogBox implements Initializable{
 			return;
 
 		}
-
-		//		tbl_view.getItems().clear();
-		//
-		//		Customer customerFind=customerService.findCustomerById(textFind);
-		//
-		//		if(customerFind==null) {
-		//
-		//			Error("Không tìm thấy", btnUser);
-		//
-		//			cbcPhone.requestFocus();
-		//
-		//			return;
-		//
-		//		}else {
-		//
-		//			tbl_view.getItems().add(customerFind);
-		//
-		//		}
-
 	}
 
 	private void loadDataManageSearchCustomer() {
@@ -853,11 +728,6 @@ public class FormEmployee extends DialogBox implements Initializable{
 		resetColor();
 
 		btnCustomer.setStyle("-fx-background-color:red");
-		//		new BounceInDown(lblCustomer).play();
-		//
-		//		Parent root=(Parent) FXMLLoader.load(getClass().getResource("fxml/ManageCustomer.fxml"));
-		//		
-		//		bd.setCenter(root);
 
 	}
 
@@ -867,17 +737,6 @@ public class FormEmployee extends DialogBox implements Initializable{
 		resetColor();
 
 		btnLateFees.setStyle("-fx-background-color:red");
-
-		//
-		//		Parent root=(Parent) FXMLLoader.load(getClass().getResource(loadManageLateFee));
-		//
-		//		bdLateFee.setCenter(root);
-		//		//		new BounceInDown(lblCustomer).play();
-		//		//
-		//		//		Parent root=(Parent) FXMLLoader.load(getClass().getResource("fxml/ManageCustomer.fxml"));
-		//		//		
-		//		//		bd.setCenter(root);
-
 	}
 
 	public void btnClickOrders(ActionEvent e) throws IOException {
@@ -886,12 +745,6 @@ public class FormEmployee extends DialogBox implements Initializable{
 		resetColor();
 
 		btnOrders.setStyle("-fx-background-color:red");
-		//		new BounceInDown(lblCustomer).play();
-		//
-		//		Parent root=(Parent) FXMLLoader.load(getClass().getResource("fxml/ManageCustomer.fxml"));
-		//		
-		//		bd.setCenter(root);
-
 	}
 
 
@@ -1538,11 +1391,7 @@ public class FormEmployee extends DialogBox implements Initializable{
 
 				});
 			}
-
-
 		}
-
-
 	}
 
 	public void handleRefershManageTitle(ActionEvent e) {
@@ -1562,7 +1411,6 @@ public class FormEmployee extends DialogBox implements Initializable{
 		tbl_view_latefee.getItems().clear();
 		uploadDuLieuLenBangLateFee();
 	}
-
 
 	//manage title
 	public void initTableTitle() {
@@ -1926,13 +1774,6 @@ public class FormEmployee extends DialogBox implements Initializable{
 		}else {
 
 			Error("bạn chưa chọn bảng cần xóa", btnRefresh);
-
 		}
-
 	}
-
-
-
-
-
 }
