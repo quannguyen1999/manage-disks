@@ -111,6 +111,8 @@ public class FormManageCustomer extends DialogBox implements Initializable{
 					loadFXML(root,btnRefresh).setOnHidden(ev->{
 
 						handleRefersh(new ActionEvent());
+						
+						loadDataSearch();
 
 					});;
 				}
@@ -253,12 +255,21 @@ public class FormManageCustomer extends DialogBox implements Initializable{
 			ctlMain.txtMa.setText(id);
 			
 			ctlMain.txtDiaChi.requestFocus();
+			
+			ctlMain.txtDienThoai.setText("0708821227");
+			
+			ctlMain.txtNgaySinh.setValue(LocalDate.of(1999, 11, 23));
+			
+			ctlMain.txtDiaChi.setText("qwe");
+			
 
 		} while (customerService.findCustomerById(id)!=null);
 
 		loadFXML(root,btnRefresh).setOnHidden(ev->{
 
 			handleRefersh(e);
+			
+			loadDataSearch();
 
 		});;
 
@@ -396,6 +407,7 @@ public class FormManageCustomer extends DialogBox implements Initializable{
 
 	private void loadDataSearch() {
 		ObservableList<String> items = FXCollections.observableArrayList();
+		
 		ObservableList<String> itemsPhone = FXCollections.observableArrayList();
 
 

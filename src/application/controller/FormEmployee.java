@@ -248,11 +248,17 @@ public class FormEmployee extends DialogBox implements Initializable{
 
 					ctlMain.txtDienThoai.setText(tbl_view.getItems().get(result).getPhone());
 
+					ctlMain.txtTenKH.setText(tbl_view.getItems().get(result).getName());
+					
 					ctlMain.txtNgaySinh.setValue(tbl_view.getItems().get(result).getDateOfBirth());
 
+					ctlMain.customer = tbl_view.getItems().get(result);
+					
 					loadFXML(root,btnHelp).setOnHidden(ev->{
 
 						handleRefersh(new ActionEvent());
+						
+						loadDataManageSearchCustomer();
 
 					});;
 				}
@@ -537,6 +543,8 @@ public class FormEmployee extends DialogBox implements Initializable{
 
 		FilteredList<String> filteredItemsId = new FilteredList<String>(itemsIdCustomer);
 
+		cbcCustomerId.getItems().clear();
+		
 		cbcCustomerId.getEditor().textProperty().addListener(new InputFilter(cbcCustomerId, filteredItemsId, false));
 
 		cbcCustomerId.setItems(itemsIdCustomer);
@@ -545,6 +553,8 @@ public class FormEmployee extends DialogBox implements Initializable{
 
 		FilteredList<String> filteredItemsPhone = new FilteredList<String>(itemsPhoneCustomer);
 
+		cbcCustomerPhone.getItems().clear();
+		
 		cbcCustomerPhone.getEditor().textProperty().addListener(new InputFilter(cbcCustomerPhone, filteredItemsPhone, false));
 
 		cbcCustomerPhone.setItems(filteredItemsPhone);
@@ -566,6 +576,8 @@ public class FormEmployee extends DialogBox implements Initializable{
 
 		FilteredList<String> filteredItems = new FilteredList<String>(items);
 
+//		cbc.getItems().clear();
+		
 		cbc.getEditor().textProperty().addListener(new InputFilter(cbc, filteredItems, false));
 
 		cbc.setItems(filteredItems);
@@ -574,17 +586,21 @@ public class FormEmployee extends DialogBox implements Initializable{
 	}
 
 	private void loadDataSearchPhone() {
+		
 		ObservableList<String> items = FXCollections.observableArrayList();
+		
 		List<Customer> accs=customerService.listCustomer();
 
 		accs.forEach(t->{
-
+			
 			items.add(t.getPhone());
 
 		});
 
 		FilteredList<String> filteredItems = new FilteredList<String>(items);
 
+//		cbcPhone.getItems().clear();
+		
 		cbcPhone.getEditor().textProperty().addListener(new InputFilter(cbcPhone, filteredItems, false));
 
 		cbcPhone.setItems(filteredItems);
@@ -595,9 +611,11 @@ public class FormEmployee extends DialogBox implements Initializable{
 
 	public void handleRefersh(ActionEvent e) {
 		cbc.setValue("");
+		
 		cbcPhone.setValue("");
 
 		tbl_view.getItems().clear();
+		
 		uploadDuLieuLenBang();
 	}
 
@@ -683,6 +701,8 @@ public class FormEmployee extends DialogBox implements Initializable{
 		loadFXML(root,btnHelp).setOnHidden(ev->{
 
 			handleRefersh(e);
+			
+			loadDataManageSearchCustomer();
 
 		});;
 

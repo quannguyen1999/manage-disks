@@ -114,10 +114,14 @@ public class FormAddProduct extends DialogBox implements Initializable{
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
+		
+		
 		txtImage.setEditable(false);
 
 		txtMa.setEditable(false);
 
+		txtDateAdded.setDisable(true);
+		
 		txtDateAdded.setEditable(false);
 
 		txtDateAdded.setValue(LocalDate.now());

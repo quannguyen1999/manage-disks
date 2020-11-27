@@ -89,7 +89,7 @@ public class FormManageCategories extends DialogBox implements Initializable{
 
 					ctlMain.txtName.setText(tbl_view.getItems().get(result).getName());
 
-					ctlMain.txtPrice.setText(String.valueOf(tbl_view.getItems().get(result).getPrice()));
+					ctlMain.txtPrice.setText(String.valueOf(Math.round(tbl_view.getItems().get(result).getPrice())));
 
 					ctlMain.txtTimeRent.setText(String.valueOf(tbl_view.getItems().get(result).getTimeRent()));
 

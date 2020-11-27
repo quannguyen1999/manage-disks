@@ -94,6 +94,8 @@ public class FormManageTitle extends DialogBox implements Initializable{
 
 					ctlMain.lblTitle.setText("Cập nhập title");
 
+					ctlMain.txtTimeRent.setText(String.valueOf(tbl_view.getItems().get(result).getCategory().getPrice()));
+					
 					ctlMain.txtMa.setText(tbl_view.getItems().get(result).getTitleId());
 
 					ctlMain.cbc.setValue(tbl_view.getItems().get(result).getCategory().getCategoryId());

@@ -166,13 +166,6 @@ public class FormRentDisk  extends DialogBox implements Initializable{
 		new SimpleStringProperty(String.valueOf(df.format(cellData.getValue().getTitle().getCategory().getPrice()))));
 
 	}
-	//	private void uploadDuLieuLenBang() {
-	//		List<Product> cuss=ProductService.listProduct();
-	//		cuss.forEach(t->{
-	//			tbl_view.getItems().add(t);
-	//			listProduct.add(t);
-	//		});
-	//	}
 
 	public void clickChooseFindByIdCustomer(ActionEvent e) {
 		rdIdCustomer.setSelected(true);
@@ -276,8 +269,11 @@ public class FormRentDisk  extends DialogBox implements Initializable{
 				}
 
 			}
+			
 			arrayOrderProduct.forEach(t->{
 
+				total=0;
+				
 				total+=(t.getQuantity()*t.getTitle().getCategory().getPrice());
 
 			});

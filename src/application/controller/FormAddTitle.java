@@ -70,6 +70,12 @@ public class FormAddTitle extends DialogBox implements Initializable{
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
+		txtNameCategory.setEditable(false);
+		
+		txtDescriptionCategory.setEditable(false);
+		
+		txtPriceCategory.setEditable(false);
+		
 		txtTimeRent.setEditable(false);
 		
 		txtMa.setEditable(false);
@@ -97,43 +103,6 @@ public class FormAddTitle extends DialogBox implements Initializable{
 		cbc.setItems(filteredItems);
 
 		cbc.setEditable(true);
-
-		//		try {
-		//			cbc.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() { 
-		//				public void changed(ObservableValue ov, Number value, Number new_value) 
-		//				{ 
-		//					Category listnv = null;
-		//					try {
-		//						for(int i=0;i<accs.size();i++) {
-		//							System.out.println(accs.get(i));
-		//							System.out.println(cbc.getSelectionModel().getSelectedItem().toString());
-		//							if(accs.get(i).getCategoryId().equals(cbc.getSelectionModel().getSelectedItem().toString())) {
-		//								listnv=accs.get(i);
-		//							}
-		//
-		//						}
-		//					} catch (Exception e) {
-		//						e.printStackTrace();
-		//					}
-		//					if(listnv!=null) {
-		//						Category cate=listnv;
-		//						if(cate!=null) {
-		//							
-		//							System.out.println(cate);
-		//
-		//						}else {
-		//							System.out.println("error cate null");
-		//						}
-		//
-		//					}else {
-		//						System.out.println("error");
-		//					}
-		//				}
-		//			});
-		//		} catch (Exception ev) {
-		//			// TODO: handle exception
-		//			System.out.println(ev.getMessage());
-		//		}
 
 	}
 
@@ -241,6 +210,7 @@ public class FormAddTitle extends DialogBox implements Initializable{
 		String timeRent = txtTimeRent.getText().toString();
 
 		boolean stillContunite=false;
+		
 		if(kiemTraMaCategory(e,maCategory)) {
 			stillContunite=true;
 		}else {
@@ -257,11 +227,11 @@ public class FormAddTitle extends DialogBox implements Initializable{
 		}
 		if(stillContunite==true) {
 
-			Category category=new Category(maCategory, nameCategory, descriptionCategory, Float.parseFloat(priceCategory),Integer.parseInt(timeRent));
+			Category category=categoryService.findCategoryById(maCategory);
 
 			Title title=null;
-
-			if(rdFalse.isPressed()) {
+			
+			if(rdFalse.isSelected()) {
 
 				title=new Title(ma, tenTitle, CHUADAT, category);
 
@@ -347,11 +317,13 @@ public class FormAddTitle extends DialogBox implements Initializable{
 			
 			txtPriceCategory.setText(String.valueOf(titleOld.getCategory().getPrice()));
 			
+			txtTimeRent.setText(String.valueOf(titleOld.getCategory().getTimeRent()));
 		}else {
 			txtNameTitle.setText("");
 			
 			rdTrue.setSelected(true);
 			
+			txtTimeRent.setText("");
 			
 			if(maCategoryRemember.isEmpty()==true) {
 				

@@ -28,9 +28,6 @@ public class BillImpl  extends Repository implements BillService{
 	public boolean removeBill(String id) {
 		return deleteById(id, new Bill());
 	}
-	
-	
-	
 
 	@Override
 	public Bill updateBill(Bill BillUpdate, String id) {

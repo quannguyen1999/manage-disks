@@ -107,6 +107,7 @@ public class FormAddCategory extends DialogBox implements Initializable{
 		String ma=txtMa.getText().toString();
 		String tenMatHang=txtName.getText().toString();
 		String gia=txtPrice.getText().toString();
+		System.out.println(gia);
 		String moTa=txtDescription.getText().toString();
 		String timeRent=txtTimeRent.getText().toString();
 		boolean stillContunite=false;

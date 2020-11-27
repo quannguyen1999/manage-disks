@@ -67,6 +67,7 @@ public class FormManageReportTitle extends DialogBox implements Initializable{
 	@FXML Label lblInStock;
 	@FXML Label lblCustomerKeep;
 	@FXML Label lblKeepTitle;
+	@FXML Label txtMaTTCT;
 
 	List<Title> listTitle=new ArrayList<>();
 
@@ -84,56 +85,38 @@ public class FormManageReportTitle extends DialogBox implements Initializable{
 			if(e.getClickCount()==2) {
 				int result=tbl_view.getSelectionModel().getSelectedIndex();
 				if(result!=-1) {
+					Title title = tbl_view.getItems().get(result);
+					
+					int countAllInstockProduct = titleService.countProductByTitleId(title.getTitleId());
+					
+					int countAllBillDebt = titleService.countDebtCustomerByTitleId(title.getTitleId());
+					
+					int countOrderTitle = titleService.countOrderByTitleId(title.getTitleId());
+					
+					int countBillTitleId = titleService.countBillByTitleId(title.getTitleId());
+					
+					int countAllProduct = countBillTitleId + countAllInstockProduct;
+					
+					lblAllFileCope.setText(String.valueOf("Tổng: "+
+							countAllInstockProduct));
+					
+					lblCopyDebt.setText(String.valueOf("Tổng: "+
+							countBillTitleId));
+					
+					lblInStock.setText(String.valueOf("Tổng: "+
+							countAllProduct));
+					
+					lblCustomerKeep.setText(String.valueOf("Tổng: "+
+							countAllBillDebt));
+					
+					lblKeepTitle.setText(String.valueOf("Tổng: "+
+							countOrderTitle));
+					
+					txtMaTTCT.setText(String.valueOf("Mã title:"+title.getTitleId()));
 				}
 			}
 		});
 	}
-	
-	public void watchDetail(ActionEvent e) throws IOException {
-		int result=tbl_view.getSelectionModel().getSelectedIndex();
-
-		if(result!=-1) {
-			
-			Title title = tbl_view.getItems().get(result);
-			
-			int countAllInstockProduct = titleService.countProductByTitleId(title.getTitleId());
-			
-			int countAllBillDebt = titleService.countDebtCustomerByTitleId(title.getTitleId());
-			
-			int countOrderTitle = titleService.countOrderByTitleId(title.getTitleId());
-			
-			int countBillTitleId = titleService.countBillByTitleId(title.getTitleId());
-			
-			int countAllProduct = countBillTitleId + countAllInstockProduct;
-			
-			System.out.println(countAllProduct);
-			
-			lblAllFileCope.setText(String.valueOf("Tổng: "+
-					countAllInstockProduct));
-			
-			lblCopyDebt.setText(String.valueOf("Tổng: "+
-					countBillTitleId));
-			
-			lblInStock.setText(String.valueOf("Tổng: "+
-					countAllProduct));
-			
-			lblCustomerKeep.setText(String.valueOf("Tổng: "+
-					countAllBillDebt));
-			
-			lblKeepTitle.setText(String.valueOf("Tổng: "+
-					countOrderTitle));
-			
-			
-		}else {
-
-			Error("bạn chưa chọn bảng cần xem chi tiết", btnRefresh);
-
-		}
-
-		
-	}
-
-
 	
 	public void initTable() {
 		tbl_view=new TableView<Title>();

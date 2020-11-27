@@ -32,7 +32,4 @@ public interface BillService {
 	public List<BillDetail> findAllBillDetailByProductId(String id);
 	
 	public List<BillDetail> listBillDetail();
-	
-	
-	
 }

@@ -21,6 +21,14 @@
                         <Font size="20.0" />
                      </font>
                   </Label>
+                  <Label fx:id="txtMaTTCT" text="..." textFill="WHITE">
+                     <font>
+                        <Font name="Calibri Light" size="15.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Label>
                   <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="26.0" prefWidth="239.0" style="-fx-background-color: #212022;" text="Tổng số bản sao đang có" textFill="WHITE">
                      <font>
                         <Font size="15.0" />
@@ -71,14 +79,6 @@
                   </Label>
                   <Label fx:id="lblKeepTitle" alignment="CENTER" contentDisplay="CENTER" prefHeight="34.0" prefWidth="239.0" text="...." textFill="WHITE" />
                   <JFXButton styleClass="btnLogin" stylesheets="@../css/application.css" text="Danh sách số lượng đặt trước tiêu đề" textFill="WHITE" />
-                  <JFXButton onAction="#watchDetail" styleClass="btnLogin" stylesheets="@../css/application.css" text="Xem chi tiết" textFill="WHITE">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets top="10.0" />
-                     </VBox.margin>
-                  </JFXButton>
                </children></VBox>
          </right>
          <bottom>
