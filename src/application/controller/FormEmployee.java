@@ -84,14 +84,15 @@ public class FormEmployee extends DialogBox implements Initializable{
 	@FXML FlowPane flowPane;
 
 	//jfx button
-	@FXML JFXButton btnCustomer;
+	@FXML JFXButton btnRefresh;
 	@FXML JFXButton btnDisks;
 	@FXML JFXButton btnTitles;
 	@FXML JFXButton btnLateFees;
 	@FXML JFXButton btnOrders;
-	@FXML JFXButton btnRefreshTitle;
-	@FXML JFXButton btnRefresh;
+	@FXML JFXButton btnCustomerTitle;
+	@FXML JFXButton btnCustomer;
 	@FXML JFXButton btnBill;
+	@FXML JFXButton btnHide;
 
 	//table view and value
 	//--customer
@@ -418,18 +419,18 @@ public class FormEmployee extends DialogBox implements Initializable{
 			try {
 				textFind=cbcCustomerId.getSelectionModel().getSelectedItem().toString().trim();
 			} catch (Exception e2) {
-				Error("Bạn chưa nhập tìm kiếm", btnRefresh);
+				Error("Bạn chưa nhập tìm kiếm", btnCustomer);
 				cbcCustomerId.requestFocus();
 			}
 			if(textFind.isEmpty()) {
-				Error("Bạn chưa nhập tìm kiếm", btnRefresh);
+				Error("Bạn chưa nhập tìm kiếm", btnCustomer);
 				cbcCustomerId.requestFocus();
 				return;
 			}
 			tbl_view.getItems().clear();
 			Customer customerFind=customerService.findCustomerById(textFind);
 			if(customerFind==null) {
-				Error("Không tìm thấy", btnRefresh);
+				Error("Không tìm thấy", btnCustomer);
 				cbcCustomerId.requestFocus();
 				return;
 			}else {
@@ -439,18 +440,18 @@ public class FormEmployee extends DialogBox implements Initializable{
 			try {
 				textFind=cbcCustomerPhone.getSelectionModel().getSelectedItem().toString().trim();
 			} catch (Exception e2) {
-				Error("Bạn chưa nhập tìm kiếm", btnRefresh);
+				Error("Bạn chưa nhập tìm kiếm", btnCustomer);
 				cbcCustomerPhone.requestFocus();
 			}
 			if(textFind.isEmpty()) {
-				Error("Bạn chưa nhập tìm kiếm", btnRefresh);
+				Error("Bạn chưa nhập tìm kiếm", btnCustomer);
 				cbcCustomerPhone.requestFocus();
 				return;
 			}
 			tbl_view.getItems().clear();
 			Customer customerFind=customerService.findCustomerByPhone(textFind);
 			if(customerFind==null) {
-				Error("Không tìm thấy", btnRefresh);
+				Error("Không tìm thấy", btnCustomer);
 				cbcCustomerPhone.requestFocus();
 				return;
 			}else {
@@ -595,7 +596,7 @@ public class FormEmployee extends DialogBox implements Initializable{
 
 		FilteredList<String> filteredItemsPhone = new FilteredList<String>(itemsPhoneCustomer);
 
-		cbcCustomerPhone.getItems().clear();
+//		cbcCustomerPhone.getItems().clear();
 
 		cbcCustomerPhone.getEditor().textProperty().addListener(new InputFilter(cbcCustomerPhone, filteredItemsPhone, false));
 
@@ -754,7 +755,13 @@ public class FormEmployee extends DialogBox implements Initializable{
 	@FXML
 	private void btnLogOut(ActionEvent e) throws MalformedURLException, IOException {
 
-		logOut(btnLogOut,e);
+		Parent root;
+
+		((Node)(e.getSource())).getScene().getWindow().hide(); 
+
+		root=(Parent) FXMLLoader.load(new URL(loadLogin));
+
+		loadFXML(root,btnHide);
 
 	}
 
@@ -846,7 +853,7 @@ public class FormEmployee extends DialogBox implements Initializable{
 
 			Stage stage=new Stage();
 
-			stage.initOwner(btnRefresh.getScene().getWindow());
+			stage.initOwner(btnCustomer.getScene().getWindow());
 
 			stage.setScene(new Scene(root));
 
@@ -877,7 +884,7 @@ public class FormEmployee extends DialogBox implements Initializable{
 
 		}else {
 
-			Error("bạn chưa chọn bảng cần xóa", btnRefresh);
+			Error("bạn chưa chọn bảng cần xóa", btnCustomer);
 
 		}
 
@@ -1958,7 +1965,7 @@ public class FormEmployee extends DialogBox implements Initializable{
 
 			} catch (Exception e2) {
 
-				Error("Bạn chưa nhập tìm kiếm", btnRefresh);
+				Error("Bạn chưa nhập tìm kiếm", btnCustomer);
 
 				cbcOrderBill.requestFocus();
 
@@ -1966,7 +1973,7 @@ public class FormEmployee extends DialogBox implements Initializable{
 
 			if(textFind.isEmpty()) {
 
-				Error("Bạn chưa nhập tìm kiếm", btnRefresh);
+				Error("Bạn chưa nhập tìm kiếm", btnCustomer);
 
 				cbcOrderBill.requestFocus();
 
@@ -1981,7 +1988,7 @@ public class FormEmployee extends DialogBox implements Initializable{
 
 			} catch (Exception e2) {
 
-				Error("Bạn chưa nhập tìm kiếm", btnRefresh);
+				Error("Bạn chưa nhập tìm kiếm", btnCustomer);
 
 				cbcIdKhOrderBIll.requestFocus();
 
@@ -1989,7 +1996,7 @@ public class FormEmployee extends DialogBox implements Initializable{
 
 			if(textFind.isEmpty()) {
 
-				Error("Bạn chưa nhập tìm kiếm", btnRefresh);
+				Error("Bạn chưa nhập tìm kiếm", btnCustomer);
 
 				cbcIdKhOrderBIll.requestFocus();
 
@@ -2006,7 +2013,7 @@ public class FormEmployee extends DialogBox implements Initializable{
 
 			} catch (Exception e2) {
 
-				Error("Bạn chưa nhập tìm kiếm", btnRefresh);
+				Error("Bạn chưa nhập tìm kiếm", btnCustomer);
 
 				cbcPhoneKhOrderBill.requestFocus();
 
@@ -2014,7 +2021,7 @@ public class FormEmployee extends DialogBox implements Initializable{
 
 			if(textFind.isEmpty()) {
 
-				Error("Bạn chưa nhập tìm kiếm", btnRefresh);
+				Error("Bạn chưa nhập tìm kiếm", btnCustomer);
 
 				cbcPhoneKhOrderBill.requestFocus();
 
@@ -2213,13 +2220,13 @@ public class FormEmployee extends DialogBox implements Initializable{
 
 			return;
 		}
-		
+
 		tbl_viewOrder.getItems().clear();
-		
+
 		tbl_viewOrder.getItems().add(order);
 
 	}
-	
+
 	public void findPhoneCustomerInManageOrder(ActionEvent e) throws IOException {
 		String textFind=cbcPhoneCustomerOrder.getSelectionModel().getSelectedItem().toString().trim();
 
@@ -2241,9 +2248,9 @@ public class FormEmployee extends DialogBox implements Initializable{
 
 			return;
 		}
-		
+
 		tbl_viewOrder.getItems().clear();
-		
+
 		listOrder.forEach(t->{
 			tbl_viewOrder.getItems().add(t);
 		});

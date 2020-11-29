@@ -36,7 +36,7 @@
                                     <Image url="@../image/MiniumWindows.png" />
                                  </image>
                               </ImageView>
-                              <JFXButton layoutX="-2.0" layoutY="1.0" onAction="#btnHideWindow" prefHeight="25.0" prefWidth="32.0" />
+                              <JFXButton fx:id="btnHide" layoutX="-2.0" layoutY="1.0" onAction="#btnHideWindow" prefHeight="25.0" prefWidth="32.0" />
                            </children>
                            <HBox.margin>
                               <Insets />
