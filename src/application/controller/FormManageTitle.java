@@ -360,8 +360,6 @@ public class FormManageTitle extends DialogBox implements Initializable{
 
 	}
 
-
-
 	private void loadDataSearch() {
 		ObservableList<String> items = FXCollections.observableArrayList();
 

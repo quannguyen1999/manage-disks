@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="mainBd" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="507.0" prefWidth="1276.0" stylesheets="@../css/application.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.FormAddOrder">
+<BorderPane fx:id="mainBd" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="507.0" prefWidth="1401.0" stylesheets="@../css/application.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.FormAddOrder">
    <left>
       <VBox prefHeight="423.0" prefWidth="277.0" BorderPane.alignment="CENTER">
          <children>
@@ -140,7 +140,7 @@
       </VBox>
    </center>
    <right>
-      <VBox prefHeight="368.0" prefWidth="714.0" BorderPane.alignment="CENTER">
+      <VBox prefHeight="368.0" prefWidth="789.0" BorderPane.alignment="CENTER">
          <children>
             <BorderPane fx:id="bdDS" prefHeight="368.0" prefWidth="530.0">
                <top>
@@ -165,7 +165,7 @@
                   </BorderPane>
                </center>
                <left>
-                  <BorderPane fx:id="bdRight" prefHeight="294.0" prefWidth="358.0" BorderPane.alignment="CENTER">
+                  <BorderPane fx:id="bdRight" prefHeight="330.0" prefWidth="402.0" BorderPane.alignment="CENTER">
                      <top>
                         <Label text="Danh sách title" BorderPane.alignment="CENTER" />
                      </top>

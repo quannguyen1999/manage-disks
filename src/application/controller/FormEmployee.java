@@ -24,6 +24,7 @@ import application.controller.services.OrderDetailService;
 import application.controller.services.OrderService;
 import application.controller.services.ProductService;
 import application.controller.services.TitleService;
+import application.entities.Bill;
 import application.entities.Customer;
 import application.entities.LateFee;
 import application.entities.Order;
@@ -76,6 +77,8 @@ public class FormEmployee extends DialogBox implements Initializable{
 	@FXML Pane pnlOrders;
 	@FXML Pane pnlDisks;
 	@FXML Pane pnlTitles;
+	@FXML Pane pnlOrder;
+	@FXML Pane pnlBill;
 
 	//flow pane
 	@FXML FlowPane flowPane;
@@ -88,6 +91,7 @@ public class FormEmployee extends DialogBox implements Initializable{
 	@FXML JFXButton btnOrders;
 	@FXML JFXButton btnRefreshTitle;
 	@FXML JFXButton btnRefresh;
+	@FXML JFXButton btnBill;
 
 	//table view and value
 	//--customer
@@ -127,6 +131,16 @@ public class FormEmployee extends DialogBox implements Initializable{
 	TableColumn<Title, String> colStatus;
 	TableColumn<Title, String> colcategoryId;
 
+	//--bill
+	private TableView<Bill> tbl_viewBill;
+
+	TableColumn<Bill, String> colBillId_Bill;
+	TableColumn<Bill, String> colLocalDate_Bill;
+	TableColumn<Bill, String> colBillPay_Bill;
+	TableColumn<Bill, String> colCustomerId_Bill;
+	TableColumn<Bill, String> colNameCustomer_Bill;
+	TableColumn<Bill,Boolean> colDebt_Bill;
+
 	//list
 	List<Customer> listCustomer=new ArrayList<>();
 	List<LateFee> listFee=new ArrayList<>();
@@ -136,6 +150,7 @@ public class FormEmployee extends DialogBox implements Initializable{
 	@FXML BorderPane bdLateFee;
 	@FXML BorderPane bdTitle;
 	@FXML BorderPane bdOrder;
+	@FXML BorderPane bdBill;
 
 	//stack pane
 	@FXML StackPane sp;
@@ -152,9 +167,9 @@ public class FormEmployee extends DialogBox implements Initializable{
 	//radio button
 	@FXML JFXRadioButton rdCustomerId;
 	@FXML JFXRadioButton rdCustomerPhone;
-	@FXML JFXRadioButton rdIdOrder;
-	@FXML JFXRadioButton rdIdKhOrder;
-	@FXML JFXRadioButton rdIdPhoneOrder;
+	@FXML JFXRadioButton rdIdOrderBill;
+	@FXML JFXRadioButton rdIdKhOrderBill;
+	@FXML JFXRadioButton rdIdPhoneOrderBill;
 	@FXML RadioButton rdOne;
 	@FXML RadioButton rdTwo;
 	@FXML RadioButton rdThree;
@@ -169,9 +184,12 @@ public class FormEmployee extends DialogBox implements Initializable{
 	@FXML ComboBox<String> cbcPhoneKh=new ComboBox<String>();
 	@FXML ComboBox<String> cbcIdTitle=new ComboBox<String>();
 	@FXML ComboBox<String> cbcNameTitle=new ComboBox<String>();
-	@FXML ComboBox<String> cbcOrder=new ComboBox<String>();
-	@FXML ComboBox<String> cbcPhoneKhOrder=new ComboBox<String>();
-	@FXML ComboBox<String> cbcIdKhOrder=new ComboBox<String>();
+	@FXML ComboBox<String> cbcOrderBill=new ComboBox<String>();
+	@FXML ComboBox<String> cbcPhoneKhOrderBill=new ComboBox<String>();
+	@FXML ComboBox<String> cbcIdKhOrderBIll=new ComboBox<String>();
+
+	@FXML ComboBox<String> cbcIdOrder=new ComboBox<String>();
+	@FXML ComboBox<String> cbcPhoneCustomerOrder=new ComboBox<String>();
 
 	//format value 100000 -> 100.000
 	DecimalFormat df = new DecimalFormat("#,###"); 
@@ -179,6 +197,7 @@ public class FormEmployee extends DialogBox implements Initializable{
 	//list
 	List<Title> listTitle=new ArrayList<>();
 	List<Order> listOrder=new ArrayList<>();
+	List<Bill> listBill = new ArrayList<>();
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -198,6 +217,7 @@ public class FormEmployee extends DialogBox implements Initializable{
 		btnTitles.setGraphic(getImageView("Mtitle.png"));
 		btnLateFees.setGraphic(getImageView("lateFee.png"));
 		btnOrders.setGraphic(getImageView("order.png"));
+		btnBill.setGraphic(getImageView("order.png"));
 
 		//set color
 		btnDisks.setStyle("-fx-background-color:red");
@@ -250,15 +270,15 @@ public class FormEmployee extends DialogBox implements Initializable{
 					ctlMain.txtDienThoai.setText(tbl_view.getItems().get(result).getPhone());
 
 					ctlMain.txtTenKH.setText(tbl_view.getItems().get(result).getName());
-					
+
 					ctlMain.txtNgaySinh.setValue(tbl_view.getItems().get(result).getDateOfBirth());
 
 					ctlMain.customer = tbl_view.getItems().get(result);
-					
+
 					loadFXML(root,btnHelp).setOnHidden(ev->{
 
 						handleRefersh(new ActionEvent());
-						
+
 						loadDataManageSearchCustomer();
 
 					});;
@@ -348,6 +368,25 @@ public class FormEmployee extends DialogBox implements Initializable{
 
 		//manage order
 		initTableOrder();
+
+		//manage bill
+		initTableBill();
+
+		cbcOrderBill.setEditable(true);
+		cbcOrderBill.setDisable(true);
+
+		cbcIdKhOrderBIll.setEditable(true);
+		cbcIdKhOrderBIll.setDisable(true);
+
+		cbcPhoneKhOrderBill.setEditable(true);
+		cbcPhoneKhOrderBill.setDisable(false);
+
+
+		loadDataSearchKhOrderBill();
+
+		loadDataSearchOrderBill();
+
+		loadDataSearchKhOrder();
 	}
 
 	public void handleClickFindIdCustomer(ActionEvent e) {
@@ -452,7 +491,9 @@ public class FormEmployee extends DialogBox implements Initializable{
 
 		loadFXML(root,btnCustomer).setOnHidden(ev->{
 
-			handleRefersh(e);
+			tbl_viewOrder.getItems().clear();
+
+			uploadDuLieuLenBangOrder();
 
 		});
 
@@ -545,7 +586,7 @@ public class FormEmployee extends DialogBox implements Initializable{
 		FilteredList<String> filteredItemsId = new FilteredList<String>(itemsIdCustomer);
 
 		cbcCustomerId.getItems().clear();
-		
+
 		cbcCustomerId.getEditor().textProperty().addListener(new InputFilter(cbcCustomerId, filteredItemsId, false));
 
 		cbcCustomerId.setItems(itemsIdCustomer);
@@ -555,7 +596,7 @@ public class FormEmployee extends DialogBox implements Initializable{
 		FilteredList<String> filteredItemsPhone = new FilteredList<String>(itemsPhoneCustomer);
 
 		cbcCustomerPhone.getItems().clear();
-		
+
 		cbcCustomerPhone.getEditor().textProperty().addListener(new InputFilter(cbcCustomerPhone, filteredItemsPhone, false));
 
 		cbcCustomerPhone.setItems(filteredItemsPhone);
@@ -577,8 +618,8 @@ public class FormEmployee extends DialogBox implements Initializable{
 
 		FilteredList<String> filteredItems = new FilteredList<String>(items);
 
-//		cbc.getItems().clear();
-		
+		//		cbc.getItems().clear();
+
 		cbc.getEditor().textProperty().addListener(new InputFilter(cbc, filteredItems, false));
 
 		cbc.setItems(filteredItems);
@@ -587,21 +628,21 @@ public class FormEmployee extends DialogBox implements Initializable{
 	}
 
 	private void loadDataSearchPhone() {
-		
+
 		ObservableList<String> items = FXCollections.observableArrayList();
-		
+
 		List<Customer> accs=customerService.listCustomer();
 
 		accs.forEach(t->{
-			
+
 			items.add(t.getPhone());
 
 		});
 
 		FilteredList<String> filteredItems = new FilteredList<String>(items);
 
-//		cbcPhone.getItems().clear();
-		
+		//		cbcPhone.getItems().clear();
+
 		cbcPhone.getEditor().textProperty().addListener(new InputFilter(cbcPhone, filteredItems, false));
 
 		cbcPhone.setItems(filteredItems);
@@ -612,11 +653,11 @@ public class FormEmployee extends DialogBox implements Initializable{
 
 	public void handleRefersh(ActionEvent e) {
 		cbc.setValue("");
-		
+
 		cbcPhone.setValue("");
 
 		tbl_view.getItems().clear();
-		
+
 		uploadDuLieuLenBang();
 	}
 
@@ -702,7 +743,7 @@ public class FormEmployee extends DialogBox implements Initializable{
 		loadFXML(root,btnHelp).setOnHidden(ev->{
 
 			handleRefersh(e);
-			
+
 			loadDataManageSearchCustomer();
 
 		});;
@@ -718,11 +759,6 @@ public class FormEmployee extends DialogBox implements Initializable{
 	}
 
 	public void btnCLickDiscs(ActionEvent e) {
-		//		ObservableList list = sp.getChildren();
-		//	
-		//		list.forEach(t->{
-		//			System.out.println(t);
-		//		});
 
 		pnlDiscs.toFront();
 
@@ -731,6 +767,18 @@ public class FormEmployee extends DialogBox implements Initializable{
 		btnDisks.setStyle("-fx-background-color:red");
 
 	}
+
+	public void btnClickBill(ActionEvent e) {
+
+		pnlBill.toFront();
+
+		resetColor();
+
+		btnBill.setStyle("-fx-background-color:red");
+
+	}
+
+
 
 	public void btnCLickTitle(ActionEvent e) {
 		pnlTitles.toFront();
@@ -760,6 +808,9 @@ public class FormEmployee extends DialogBox implements Initializable{
 		btnLateFees.setStyle("-fx-background-color:red");
 	}
 
+
+
+
 	public void btnClickOrders(ActionEvent e) throws IOException {
 		pnlOrders.toFront();
 
@@ -776,7 +827,87 @@ public class FormEmployee extends DialogBox implements Initializable{
 		btnTitles.setStyle("-fx-background-color:black");
 		btnLateFees.setStyle("-fx-background-color:black");
 		btnOrders.setStyle("-fx-background-color:black");
+		btnBill.setStyle("-fx-background-color:black");
 	}
+
+	public void btnHuyDatTruoc(ActionEvent e) throws IOException{
+
+		int result=tbl_view_title.getSelectionModel().getSelectedIndex();
+
+		if(result!=-1) {
+
+			FXMLLoader loader= new FXMLLoader(getClass().getResource(loadAreYouSure));
+
+			Parent root=loader.load();
+
+			AreYouSure ctlMain=loader.getController();
+
+			new animatefx.animation.FadeIn(root).play();
+
+			Stage stage=new Stage();
+
+			stage.initOwner(btnRefresh.getScene().getWindow());
+
+			stage.setScene(new Scene(root));
+
+			stage.initStyle(StageStyle.UNDECORATED);
+
+			stage.initModality(Modality.APPLICATION_MODAL);
+
+			stage.show();
+
+			stage.setOnHidden(efg->{
+
+				if(ctlMain.result==true) {
+					//					List<OrderDetail> listOrderDetails = orderDetailService.findAllOrderDetailByOrderId(
+					//							tbl_view_title.getItems().get(result).getOrderId());
+					//					if(listOrderDetails!=null) {
+					//						listOrderDetails.forEach(t->{
+					//							orderDetailService.removeOrderDetail(t.getOrderDetailsId());
+					//						});
+					//					}
+					//					OrderService.removeOrder(tbl_view.getItems().get(result).getOrderId());
+					//
+					//					handleRefersh(e);
+
+				}else {
+
+				}
+			});
+
+		}else {
+
+			Error("bạn chưa chọn bảng cần xóa", btnRefresh);
+
+		}
+
+	}
+
+	public void btnCLickDatTruoc(ActionEvent e) throws IOException {
+		FXMLLoader loader= new FXMLLoader(getClass().getResource(loadFormAddOrder));
+
+		Parent root=loader.load();
+
+		FormAddOrder ctlMain=loader.getController();
+
+		String id=null;
+
+		do {
+
+			id="C"+ranDomNumber();
+
+			ctlMain.txtOrderMa.setText(id);
+
+		} while (OrderService.findOrderById(id)!=null);
+
+		loadFXML(root,btnCustomer).setOnHidden(ev->{
+
+			handleRefershTitle(e);
+
+		});;
+	}
+
+
 
 	public void btnClickAdd(ActionEvent e,Product product) throws IOException, InterruptedException {
 		BorderPane bd=new BorderPane();
@@ -805,37 +936,37 @@ public class FormEmployee extends DialogBox implements Initializable{
 					"	-fx-border-color:#FFC300 ;");
 
 			btn1.setMinSize(250,25);
-			
+
 			btn1.setOnAction(new EventHandler<ActionEvent>() {
-				
+
 				@Override
 				public void handle(ActionEvent event) {
-					
+
 					FXMLLoader loader= new FXMLLoader(getClass().getResource(loadFormRentDisk));
 
 					Parent root = null;
 					try {
-						
+
 						root = loader.load();
 					} catch (IOException e1) {
-						
+
 						e1.printStackTrace();
 					}
 
 					FormRentDisk ctlMain=loader.getController();
 
 					ctlMain.cbcIdProduct.setValue(product.getProductId());
-					
+
 					ctlMain.txtNameProduct.setText(product.getName());
-					
+
 					ctlMain.txtQuantityProduct.setText(String.valueOf(product.getQuantity()));
-					
+
 					ctlMain.txtDescriptionProduct.setText(product.getDescription());
-					
+
 					ctlMain.txtStatusProduct.setText(product.getStatus());
-					
+
 					ctlMain.txtPriceProduct.setText(String.valueOf(product.getTitle().getCategory().getPrice()));
-					
+
 					String id=null;
 
 					do {
@@ -848,7 +979,7 @@ public class FormEmployee extends DialogBox implements Initializable{
 
 					loadFXML(root,btnCustomer).setOnHidden(ev->{
 
-//						handleRefersh(e);
+						//						handleRefersh(e);
 
 					});
 				}
@@ -871,7 +1002,7 @@ public class FormEmployee extends DialogBox implements Initializable{
 
 		btn2.setStyle("	-fx-background-color: black;\r\n" + 
 				"	-fx-border-color: #73797F;");
-		
+
 		btn2.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
@@ -891,21 +1022,21 @@ public class FormEmployee extends DialogBox implements Initializable{
 				ctlMain.lblTitle.setText("Chi tiết sản phẩm");
 
 				ctlMain.maProductRemember=product.getProductId();
-				
-//				ctlMain.ma
+
+				//				ctlMain.ma
 
 				ctlMain.txtMa.setText(product.getProductId());
 				ctlMain.txtMa.setDisable(true);
-				
+
 				ctlMain.txtName.setText(product.getName());
 				ctlMain.txtName.setDisable(true);
-				
+
 				ctlMain.txtQuantity.setText(String.valueOf(product.getQuantity()));
 				ctlMain.txtQuantity.setDisable(true);
-				
+
 				ctlMain.txtDescription.setText(product.getDescription());
 				ctlMain.txtDescription.setDisable(true);
-				
+
 
 				String status = product.getStatus();
 				if(status.equalsIgnoreCase(CHOTHUE)) {
@@ -915,14 +1046,14 @@ public class FormEmployee extends DialogBox implements Initializable{
 				}else {
 					ctlMain.rdGiuLai.setSelected(true);
 				}
-				
+
 				ctlMain.rdChoThue.setDisable(true);
 				ctlMain.rdTrenKe.setDisable(true);
 				ctlMain.rdGiuLai.setDisable(true);
 
 				ctlMain.txtDateAdded.setValue(product.getDateAdded());
 				ctlMain.txtDateAdded.setDisable(true);
-				
+
 				try {
 					ctlMain.img.setImage(getImage(product.getPicture()));
 				} catch (IOException e1) {
@@ -935,27 +1066,27 @@ public class FormEmployee extends DialogBox implements Initializable{
 
 				ctlMain.cbcSupplier.setValue(product.getSupplier().getSupplierId());
 				ctlMain.cbcSupplier.setDisable(true);
-				
+
 				ctlMain.txtPhoneSupplier.setText(product.getSupplier().getPhone());
 				ctlMain.txtPhoneSupplier.setDisable(true);
-				
+
 				ctlMain.txtCompanySupplier.setText(product.getSupplier().getCompanyName());
 				ctlMain.txtCompanySupplier.setDisable(true);
-				
+
 				ctlMain.cbcTitle.setValue(product.getTitle().getTitleId());
 				ctlMain.cbcTitle.setDisable(true);
-				
+
 				ctlMain.txtNameTitle.setText(product.getTitle().getName());
 				ctlMain.txtNameTitle.setDisable(true);
-				
+
 				if(product.getTitle().getStatus().equalsIgnoreCase(DAT)) {
 					ctlMain.txtStatusTitle.setText("Hết hàng");
 				}else {
 					ctlMain.txtStatusTitle.setText("Còn hàng");
 				}
-				
+
 				ctlMain.txtStatusTitle.setDisable(true);
-				
+
 				ctlMain.btnFindItemSupplier.setDisable(true);
 				ctlMain.btnFindItemTitle.setDisable(true);
 				ctlMain.btnChonHinh.setDisable(true);
@@ -964,19 +1095,19 @@ public class FormEmployee extends DialogBox implements Initializable{
 
 				loadFXML(root,btnCustomer).setOnHidden(ev->{
 
-//					handleRefersh(new ActionEvent());
+					//					handleRefersh(new ActionEvent());
 
 				});;
 
 			}
 		});
-		
+
 		btn2.setMinSize(250,25);
 
 		lbl.setTextFill(Color.web("white"));
-		
+
 		lbl1.setTextFill(Color.web("white"));
-		
+
 		lbl2.setTextFill(Color.web("white"));
 
 		lbl.setStyle("	-fx-background-color: black;\r\n" + 
@@ -1664,58 +1795,58 @@ public class FormEmployee extends DialogBox implements Initializable{
 		});
 	}
 
-	public void clickRdOneOrder(ActionEvent e) {
+	public void clickRdOneOrderBill(ActionEvent e) {
 
-		cbcOrder.setEditable(true);
-		cbcIdKhOrder.setEditable(false);
-		cbcPhoneKhOrder.setEditable(false);
+		cbcOrderBill.setEditable(true);
+		cbcIdKhOrderBIll.setEditable(false);
+		cbcPhoneKhOrderBill.setEditable(false);
 
-		cbcOrder.setDisable(false);
-		cbcIdKhOrder.setDisable(true);
-		cbcPhoneKhOrder.setDisable(true);
+		cbcOrderBill.setDisable(false);
+		cbcIdKhOrderBIll.setDisable(true);
+		cbcPhoneKhOrderBill.setDisable(true);
 	}
 
-	public void clickRdTwoOrder(ActionEvent e) {
+	public void clickRdTwoOrderBill(ActionEvent e) {
 
-		cbcOrder.setEditable(false);
-		cbcIdKhOrder.setEditable(true);
-		cbcPhoneKhOrder.setEditable(false);
+		cbcOrderBill.setEditable(false);
+		cbcIdKhOrderBIll.setEditable(true);
+		cbcPhoneKhOrderBill.setEditable(false);
 
-		cbcOrder.setDisable(true);
-		cbcIdKhOrder.setDisable(false);
-		cbcPhoneKhOrder.setDisable(true);
+		cbcOrderBill.setDisable(true);
+		cbcIdKhOrderBIll.setDisable(false);
+		cbcPhoneKhOrderBill.setDisable(true);
 	}
 
-	public void clickRdThreeOrder(ActionEvent e) {
-		cbcOrder.setEditable(false);
-		cbcIdKhOrder.setEditable(false);
-		cbcPhoneKhOrder.setEditable(true);
+	public void clickRdThreeOrderBill(ActionEvent e) {
+		cbcOrderBill.setEditable(false);
+		cbcIdKhOrderBIll.setEditable(false);
+		cbcPhoneKhOrderBill.setEditable(true);
 
-		cbcOrder.setDisable(true);
-		cbcIdKhOrder.setDisable(true);
-		cbcPhoneKhOrder.setDisable(false);
+		cbcOrderBill.setDisable(true);
+		cbcIdKhOrderBIll.setDisable(true);
+		cbcPhoneKhOrderBill.setDisable(false);
 	}
 
-	private void loadDataSearchOrder() {
+	private void loadDataSearchOrderBill() {
 		ObservableList<String> items = FXCollections.observableArrayList();
-		List<Order> accs=OrderService.listOrder();
+		List<Bill> accs=billService.listBill();//.listOrder();
 
 		accs.forEach(t->{
 
-			items.add(t.getOrderId());
+			items.add(t.getBillId());
 
 		});
 
 		FilteredList<String> filteredItems = new FilteredList<String>(items);
 
-		cbcOrder.getEditor().textProperty().addListener(new InputFilter(cbcOrder, filteredItems, false));
+		cbcOrderBill.getEditor().textProperty().addListener(new InputFilter(cbcOrderBill, filteredItems, false));
 
-		cbcOrder.setItems(filteredItems);
+		cbcOrderBill.setItems(filteredItems);
 
-		cbcOrder.setEditable(true);
+		cbcOrderBill.setEditable(true);
 	}
 
-	private void loadDataSearchKhOrder() {
+	private void loadDataSearchKhOrderBill() {
 		ObservableList<String> itemsId = FXCollections.observableArrayList();
 		ObservableList<String> itemsPhone = FXCollections.observableArrayList();
 		List<Customer> accs=customerService.listCustomer();
@@ -1729,54 +1860,107 @@ public class FormEmployee extends DialogBox implements Initializable{
 
 		FilteredList<String> filteredItems = new FilteredList<String>(itemsId);
 
-		cbcIdKhOrder.getEditor().textProperty().addListener(new InputFilter(cbcIdKhOrder, filteredItems, false));
+		cbcIdKhOrderBIll.getEditor().textProperty().addListener(new InputFilter(cbcIdKhOrderBIll, filteredItems, false));
 
-		cbcIdKhOrder.setItems(filteredItems);
+		cbcIdKhOrderBIll.setItems(filteredItems);
 
-		cbcIdKhOrder.setEditable(true);
+		cbcIdKhOrderBIll.setEditable(true);
 
 		FilteredList<String> filteredItemsPhone = new FilteredList<String>(itemsPhone);
 
-		cbcPhoneKhOrder.getEditor().textProperty().addListener(new InputFilter(cbcPhoneKhOrder, filteredItemsPhone, false));
+		cbcPhoneKhOrderBill.getEditor().textProperty().addListener(new InputFilter(cbcPhoneKhOrderBill, filteredItemsPhone, false));
 
-		cbcPhoneKhOrder.setItems(filteredItemsPhone);
+		cbcPhoneKhOrderBill.setItems(filteredItemsPhone);
 
-		cbcPhoneKhOrder.setEditable(true);
+		cbcPhoneKhOrderBill.setEditable(true);
+
+	}
+
+	private void loadDataSearchKhOrder() {
+		ObservableList<String> itemsId = FXCollections.observableArrayList();
+		ObservableList<String> itemsPhoneCustomer = FXCollections.observableArrayList();
+		List<Customer> accs=customerService.listCustomer();
+		List<Order> listOrder = OrderService.listOrder();
+		accs.forEach(t->{
+
+
+			itemsPhoneCustomer.add(t.getPhone());
+
+		});
+
+		listOrder.forEach(t->{
+			itemsId.add(t.getOrderId());
+		});
+
+		FilteredList<String> filteredItems = new FilteredList<String>(itemsId);
+
+		cbcIdOrder.getEditor().textProperty().addListener(new InputFilter(cbcIdOrder, filteredItems, false));
+
+		cbcIdOrder.setItems(filteredItems);
+
+		cbcIdOrder.setEditable(true);
+
+		FilteredList<String> filteredItemsPhone = new FilteredList<String>(itemsPhoneCustomer);
+
+		cbcPhoneCustomerOrder.getEditor().textProperty().addListener(new InputFilter(cbcPhoneCustomerOrder, filteredItemsPhone, false));
+
+		cbcPhoneCustomerOrder.setItems(filteredItemsPhone);
+
+		cbcPhoneCustomerOrder.setEditable(true);
 
 	}
 
 	public void handleRefershOrder(ActionEvent e) {
 
-		rdIdPhoneOrder.setSelected(true);
+		rdIdPhoneOrderBill.setSelected(true);
 
-		cbcOrder.setEditable(false);
-		cbcIdKhOrder.setEditable(false);
-		cbcPhoneKhOrder.setEditable(true);
+		cbcOrderBill.setEditable(false);
+		cbcIdKhOrderBIll.setEditable(false);
+		cbcPhoneKhOrderBill.setEditable(true);
 
-		cbcOrder.setDisable(true);
-		cbcIdKhOrder.setDisable(true);
-		cbcPhoneKhOrder.setDisable(false);
+		cbcOrderBill.setDisable(true);
+		cbcIdKhOrderBIll.setDisable(true);
+		cbcPhoneKhOrderBill.setDisable(false);
 
-		cbcOrder.setValue("");
-		cbcIdKhOrder.setValue("");
-		cbcPhoneKhOrder.setValue("");
+		cbcOrderBill.setValue("");
+		cbcIdKhOrderBIll.setValue("");
+		cbcPhoneKhOrderBill.setValue("");
 		tbl_viewOrder.getItems().clear();
 		uploadDuLieuLenBangOrder();
 	}
 
-	public void findItemInTableOrder(ActionEvent e) throws IOException {
+	public void handleRefershBill(ActionEvent e) {
+
+		rdIdPhoneOrderBill.setSelected(true);
+
+		cbcOrderBill.setEditable(false);
+		cbcIdKhOrderBIll.setEditable(false);
+		cbcPhoneKhOrderBill.setEditable(true);
+
+		cbcOrderBill.setDisable(true);
+		cbcIdKhOrderBIll.setDisable(true);
+		cbcPhoneKhOrderBill.setDisable(false);
+
+		cbcOrderBill.setValue("");
+		cbcIdKhOrderBIll.setValue("");
+		cbcPhoneKhOrderBill.setValue("");
+		tbl_viewBill.getItems().clear();
+		uploadDuLieuLenBangBill();
+	}
+
+	public void findItemInTableBill(ActionEvent e) throws IOException {
 		String textFind=null;
 
-		if(rdIdOrder.isSelected()) {
+		if(rdIdOrderBill.isSelected()) {
 			try {
 
-				textFind=cbcOrder.getSelectionModel().getSelectedItem().toString().trim();
+				textFind=cbcOrderBill.getSelectionModel().getSelectedItem().toString().trim();
 
 			} catch (Exception e2) {
 
 				Error("Bạn chưa nhập tìm kiếm", btnRefresh);
 
-				cbcOrder.requestFocus();
+				cbcOrderBill.requestFocus();
 
 			}
 
@@ -1784,22 +1968,22 @@ public class FormEmployee extends DialogBox implements Initializable{
 
 				Error("Bạn chưa nhập tìm kiếm", btnRefresh);
 
-				cbcOrder.requestFocus();
+				cbcOrderBill.requestFocus();
 
 				return;
 
 			}
 
-		}else if(rdIdKhOrder.isSelected()) {
+		}else if(rdIdKhOrderBill.isSelected()) {
 			try {
 
-				textFind=cbcIdKhOrder.getSelectionModel().getSelectedItem().toString().trim();
+				textFind=cbcIdKhOrderBIll.getSelectionModel().getSelectedItem().toString().trim();
 
 			} catch (Exception e2) {
 
 				Error("Bạn chưa nhập tìm kiếm", btnRefresh);
 
-				cbcIdKhOrder.requestFocus();
+				cbcIdKhOrderBIll.requestFocus();
 
 			}
 
@@ -1807,24 +1991,24 @@ public class FormEmployee extends DialogBox implements Initializable{
 
 				Error("Bạn chưa nhập tìm kiếm", btnRefresh);
 
-				cbcIdKhOrder.requestFocus();
+				cbcIdKhOrderBIll.requestFocus();
 
 				return;
 
 			}
 
 
-		}else if(rdIdPhoneOrder.isSelected()){
+		}else if(rdIdPhoneOrderBill.isSelected()){
 
 			try {
 
-				textFind=cbcPhoneKhOrder.getSelectionModel().getSelectedItem().toString().trim();
+				textFind=cbcPhoneKhOrderBill.getSelectionModel().getSelectedItem().toString().trim();
 
 			} catch (Exception e2) {
 
 				Error("Bạn chưa nhập tìm kiếm", btnRefresh);
 
-				cbcPhoneKhOrder.requestFocus();
+				cbcPhoneKhOrderBill.requestFocus();
 
 			}
 
@@ -1832,7 +2016,7 @@ public class FormEmployee extends DialogBox implements Initializable{
 
 				Error("Bạn chưa nhập tìm kiếm", btnRefresh);
 
-				cbcPhoneKhOrder.requestFocus();
+				cbcPhoneKhOrderBill.requestFocus();
 
 				return;
 
@@ -1840,66 +2024,68 @@ public class FormEmployee extends DialogBox implements Initializable{
 
 		}
 
-		tbl_viewOrder.getItems().clear();
+		tbl_viewBill.getItems().clear();
 
-		if(rdIdOrder.isSelected()) {
+		if(rdIdOrderBill.isSelected()) {
 
-			Order OrderFind=OrderService.findOrderById(textFind);
+			Bill BillFind=billService.findBillById(textFind);
 
-			if(OrderFind==null) {
+			if(BillFind==null) {
 
-				Error("Không tìm thấy", btnRefresh);
+				Error("Không tìm thấy", btnCustomer);
 
-				cbcOrder.requestFocus();
+				cbcOrderBill.requestFocus();
 
 				return;
 
 			}else {
 
-				tbl_viewOrder.getItems().add(OrderFind);
+				tbl_viewBill.getItems().add(BillFind);
 
 			}
-		}else if(rdIdKhOrder.isSelected()) {
+		}else if(rdIdKhOrderBill.isSelected()) {
 
 			List<Order> listOrders = OrderService.findAllOrderByIdCustomer(textFind);
 
 			if(listOrders==null) {
 
-				Error("Không tìm thấy", btnRefresh);
+				Error("Không tìm thấy", btnCustomer);
 
-				cbcIdKhOrder.requestFocus();
+				cbcIdKhOrderBIll.requestFocus();
 
 				return;
 
 			}else {
-				listOrders.forEach(t->{
-					tbl_viewOrder.getItems().add(t);
+				listBill.forEach(t->{
+					tbl_viewBill.getItems().add(t);
 				});
 			}
-		}else if(rdIdPhoneOrder.isSelected()) {
+		}else if(rdIdPhoneOrderBill.isSelected()) {
 			List<Order> listOrders = OrderService.findAllOrderByPhoneCustomer(textFind);
 
 			if(listOrders==null) {
 
-				Error("Không tìm thấy", btnRefresh);
+				Error("Không tìm thấy", btnCustomer);
 
-				cbcPhoneKhOrder.requestFocus();
+				cbcPhoneKhOrderBill.requestFocus();
 
 				return;
 
 			}else {
-				listOrders.forEach(t->{
-					tbl_viewOrder.getItems().add(t);
+				listBill.forEach(t->{
+					tbl_viewBill.getItems().add(t);
 				});
 			}
 		}
+
+
 
 
 	}
 
 	public void btnHuyDonHangOrder(ActionEvent e) throws IOException{
 
-		int result=tbl_view.getSelectionModel().getSelectedIndex();
+		int result=tbl_viewBill.getSelectionModel().getSelectedIndex();
 
 		if(result!=-1) {
 
@@ -1913,7 +2099,7 @@ public class FormEmployee extends DialogBox implements Initializable{
 
 			Stage stage=new Stage();
 
-			stage.initOwner(btnRefresh.getScene().getWindow());
+			stage.initOwner(btnCustomer.getScene().getWindow());
 
 			stage.setScene(new Scene(root));
 
@@ -1935,7 +2121,7 @@ public class FormEmployee extends DialogBox implements Initializable{
 					}
 					OrderService.removeOrder(tbl_viewOrder.getItems().get(result).getOrderId());
 
-					handleRefershOrder(e);
+					handleRefershBill(e);
 
 				}else {
 
@@ -1944,7 +2130,123 @@ public class FormEmployee extends DialogBox implements Initializable{
 
 		}else {
 
-			Error("bạn chưa chọn bảng cần xóa", btnRefresh);
+			Error("bạn chưa chọn bảng cần xóa", btnCustomer);
 		}
+	}
+
+	//manage bill
+	public void initTableBill() {
+		tbl_viewBill=new TableView<Bill>();
+
+		colBillId_Bill=new TableColumn<Bill, String>("mã");
+		colLocalDate_Bill=new TableColumn<Bill, String>("ngày đặt");
+		colBillPay_Bill=new TableColumn<Bill, String>("Phí thanh toán");
+		colCustomerId_Bill=new TableColumn<Bill, String>("mã customerId");
+		colNameCustomer_Bill=new TableColumn<Bill, String>("tên khách hàng");
+		colDebt_Bill=new TableColumn<Bill, Boolean>("Tình trạng");
+
+
+		tbl_viewBill.getColumns().addAll(colBillId_Bill,
+				colLocalDate_Bill,
+				colBillPay_Bill,
+				colCustomerId_Bill,
+				colNameCustomer_Bill,
+				colDebt_Bill);
+
+		bdBill.setCenter(tbl_viewBill);
+
+		colBillId_Bill.setCellValueFactory(new PropertyValueFactory<>("billId"));
+		colLocalDate_Bill.setCellValueFactory(new PropertyValueFactory<>("localDate"));
+		colBillPay_Bill.setCellValueFactory(new PropertyValueFactory<>("billPay"));
+		colCustomerId_Bill.setCellValueFactory(cellData->new SimpleStringProperty(cellData.getValue().getCustomer().getCustomerId()));
+		colNameCustomer_Bill.setCellValueFactory(cellData->new SimpleStringProperty(cellData.getValue().getCustomer().getName()));
+		colDebt_Bill.setCellValueFactory(new PropertyValueFactory<>("debt"));
+
+		colBillPay_Bill.setMinWidth(120);
+
+		colCustomerId_Bill.setMinWidth(120);
+
+		colNameCustomer_Bill.setMinWidth(200);
+
+		colLocalDate_Bill.setMinWidth(150);
+
+
+		uploadDuLieuLenBangBill();
+	}
+
+	private void uploadDuLieuLenBangBill() {
+		List<Bill> cuss=billService.listBill();
+		cuss.forEach(t->{
+			tbl_viewBill.getItems().add(t);
+			listBill.add(t);
+		});
+	}
+
+	public void resetManageOrder(ActionEvent e) {
+		tbl_viewOrder.getItems().clear();
+
+		cbcIdOrder.setValue(null);
+
+		cbcPhoneCustomerOrder.setValue(null);
+
+		uploadDuLieuLenBangOrder();
+	}
+
+	public void findIdOrder(ActionEvent e) throws IOException {
+		String textFind=cbcIdOrder.getSelectionModel().getSelectedItem().toString().trim();
+
+		if(textFind == null || textFind.isEmpty()) {
+			Error("Bạn chưa nhập order id", btnCustomer);
+
+			cbcIdOrder.requestFocus();
+
+			return;
+		}
+
+		Order order = OrderService.findOrderById(textFind);
+
+		if(order == null) {
+
+			Error("Không tìm thấy", btnCustomer);
+
+			cbcIdOrder.requestFocus();
+
+			return;
+		}
+		
+		tbl_viewOrder.getItems().clear();
+		
+		tbl_viewOrder.getItems().add(order);
+
+	}
+	
+	public void findPhoneCustomerInManageOrder(ActionEvent e) throws IOException {
+		String textFind=cbcPhoneCustomerOrder.getSelectionModel().getSelectedItem().toString().trim();
+
+		if(textFind == null || textFind.isEmpty()) {
+			Error("Bạn chưa nhập order id", btnCustomer);
+
+			cbcPhoneCustomerOrder.requestFocus();
+
+			return;
+		}
+
+		List<Order> ListOrder = OrderService.findAllOrderByPhoneCustomer(textFind);
+
+		if(ListOrder == null || listOrder.size() <= 0) {
+
+			Error("Không tìm thấy", btnCustomer);
+
+			cbcPhoneCustomerOrder.requestFocus();
+
+			return;
+		}
+		
+		tbl_viewOrder.getItems().clear();
+		
+		listOrder.forEach(t->{
+			tbl_viewOrder.getItems().add(t);
+		});
+
 	}
 }
