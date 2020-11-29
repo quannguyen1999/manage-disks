@@ -98,6 +98,12 @@ public class FormAddProduct extends DialogBox implements Initializable{
 	@FXML JFXTextField txtStatusTitle;
 
 	@FXML JFXButton btn;
+	
+	@FXML JFXButton btnFindItemSupplier;
+	@FXML JFXButton btnFindItemTitle;
+	@FXML JFXButton btnChonHinh;
+	@FXML JFXButton btnOK;
+	@FXML JFXButton btnXoa;
 
 	@FXML ImageView img;
 

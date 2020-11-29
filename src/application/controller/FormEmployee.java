@@ -35,6 +35,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -804,6 +805,54 @@ public class FormEmployee extends DialogBox implements Initializable{
 					"	-fx-border-color:#FFC300 ;");
 
 			btn1.setMinSize(250,25);
+			
+			btn1.setOnAction(new EventHandler<ActionEvent>() {
+				
+				@Override
+				public void handle(ActionEvent event) {
+					
+					FXMLLoader loader= new FXMLLoader(getClass().getResource(loadFormRentDisk));
+
+					Parent root = null;
+					try {
+						
+						root = loader.load();
+					} catch (IOException e1) {
+						
+						e1.printStackTrace();
+					}
+
+					FormRentDisk ctlMain=loader.getController();
+
+					ctlMain.cbcIdProduct.setValue(product.getProductId());
+					
+					ctlMain.txtNameProduct.setText(product.getName());
+					
+					ctlMain.txtQuantityProduct.setText(String.valueOf(product.getQuantity()));
+					
+					ctlMain.txtDescriptionProduct.setText(product.getDescription());
+					
+					ctlMain.txtStatusProduct.setText(product.getStatus());
+					
+					ctlMain.txtPriceProduct.setText(String.valueOf(product.getTitle().getCategory().getPrice()));
+					
+					String id=null;
+
+					do {
+
+						id="B"+ranDomNumber();
+
+						ctlMain.txtIdBill.setText(id);
+
+					} while (billService.findBillById(id)!=null);
+
+					loadFXML(root,btnCustomer).setOnHidden(ev->{
+
+//						handleRefersh(e);
+
+					});
+				}
+			});
 		}else {
 			btn1=new JFXButton(GIULAI);
 
@@ -822,10 +871,112 @@ public class FormEmployee extends DialogBox implements Initializable{
 
 		btn2.setStyle("	-fx-background-color: black;\r\n" + 
 				"	-fx-border-color: #73797F;");
+		
+		btn2.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				FXMLLoader loader= new FXMLLoader(getClass().getResource(loadFormAddProduct));
+
+				Parent root=null;
+				try {
+					root = loader.load();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+
+				FormAddProduct ctlMain=loader.getController();
+
+				ctlMain.product = product;
+
+				ctlMain.lblTitle.setText("Chi tiết sản phẩm");
+
+				ctlMain.maProductRemember=product.getProductId();
+				
+//				ctlMain.ma
+
+				ctlMain.txtMa.setText(product.getProductId());
+				ctlMain.txtMa.setDisable(true);
+				
+				ctlMain.txtName.setText(product.getName());
+				ctlMain.txtName.setDisable(true);
+				
+				ctlMain.txtQuantity.setText(String.valueOf(product.getQuantity()));
+				ctlMain.txtQuantity.setDisable(true);
+				
+				ctlMain.txtDescription.setText(product.getDescription());
+				ctlMain.txtDescription.setDisable(true);
+				
+
+				String status = product.getStatus();
+				if(status.equalsIgnoreCase(CHOTHUE)) {
+					ctlMain.rdChoThue.setSelected(true);
+				}else if(status.equalsIgnoreCase(TRENKE)) {
+					ctlMain.rdTrenKe.setSelected(true);
+				}else {
+					ctlMain.rdGiuLai.setSelected(true);
+				}
+				
+				ctlMain.rdChoThue.setDisable(true);
+				ctlMain.rdTrenKe.setDisable(true);
+				ctlMain.rdGiuLai.setDisable(true);
+
+				ctlMain.txtDateAdded.setValue(product.getDateAdded());
+				ctlMain.txtDateAdded.setDisable(true);
+				
+				try {
+					ctlMain.img.setImage(getImage(product.getPicture()));
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+
+				ctlMain.txtImage.setText("...");
+				ctlMain.txtImage.setDisable(true);
+
+				ctlMain.cbcSupplier.setValue(product.getSupplier().getSupplierId());
+				ctlMain.cbcSupplier.setDisable(true);
+				
+				ctlMain.txtPhoneSupplier.setText(product.getSupplier().getPhone());
+				ctlMain.txtPhoneSupplier.setDisable(true);
+				
+				ctlMain.txtCompanySupplier.setText(product.getSupplier().getCompanyName());
+				ctlMain.txtCompanySupplier.setDisable(true);
+				
+				ctlMain.cbcTitle.setValue(product.getTitle().getTitleId());
+				ctlMain.cbcTitle.setDisable(true);
+				
+				ctlMain.txtNameTitle.setText(product.getTitle().getName());
+				ctlMain.txtNameTitle.setDisable(true);
+				
+				if(product.getTitle().getStatus().equalsIgnoreCase(DAT)) {
+					ctlMain.txtStatusTitle.setText("Hết hàng");
+				}else {
+					ctlMain.txtStatusTitle.setText("Còn hàng");
+				}
+				
+				ctlMain.txtStatusTitle.setDisable(true);
+				
+				ctlMain.btnFindItemSupplier.setDisable(true);
+				ctlMain.btnFindItemTitle.setDisable(true);
+				ctlMain.btnChonHinh.setDisable(true);
+				ctlMain.btnOK.setDisable(true);
+				ctlMain.btnXoa.setDisable(true);
+
+				loadFXML(root,btnCustomer).setOnHidden(ev->{
+
+//					handleRefersh(new ActionEvent());
+
+				});;
+
+			}
+		});
+		
 		btn2.setMinSize(250,25);
 
 		lbl.setTextFill(Color.web("white"));
+		
 		lbl1.setTextFill(Color.web("white"));
+		
 		lbl2.setTextFill(Color.web("white"));
 
 		lbl.setStyle("	-fx-background-color: black;\r\n" + 
