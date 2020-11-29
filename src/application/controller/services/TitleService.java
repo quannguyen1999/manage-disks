@@ -27,4 +27,6 @@ public interface TitleService {
 	public int countDebtCustomerByTitleId(String id);
 	
 	public int countOrderByTitleId(String id);
+	
+	public List<Title> listAllTitleByCategoryId(String id);
 }

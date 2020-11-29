@@ -88,23 +88,23 @@ public class FormManageReport extends DialogBox implements Initializable{
 					}
 
 					FormReportCustomer ctlMain=loader.getController();
-					
+
 					ctlMain.cbcCustomerId.setValue(tbl_view.getItems().get(result).getCustomerId());
-					
-					
+
+
 					ctlMain.cbcCustomerPhone.setValue(tbl_view.getItems().get(result).getPhone());
-					
-					
+
+
 					ctlMain.txtCustomerName.setText(tbl_view.getItems().get(result).getName());
-					
+
 					ctlMain.txtCustomerAddress.setText(tbl_view.getItems().get(result).getAddress());
-						
+
 					ctlMain.customer = tbl_view.getItems().get(result);
-					
+
 					ctlMain.upload();
-					
+
 					ctlMain.loadDataSearchBillId();
-					
+
 					loadFXML(root,btnRefresh).setOnHidden(ev->{
 
 						handleRefersh(new ActionEvent());
@@ -150,7 +150,7 @@ public class FormManageReport extends DialogBox implements Initializable{
 			listCustomer.add(t);
 		});
 	}
-	
+
 	public void handleRefersh(ActionEvent e) {
 		cbc.setValue("");
 		tbl_view.getItems().clear();
@@ -158,44 +158,76 @@ public class FormManageReport extends DialogBox implements Initializable{
 
 		cbcPhone.setValue("");
 	}
-	
-	public void allCustomer(ActionEvent e) {
+
+	int choose = 0;
+
+	public void allCustomer(ActionEvent e) throws IOException {
 		tbl_view.getItems().clear();
 		List<Customer> cuss=customerService.listCustomer();
 		cuss.forEach(t->{
 			tbl_view.getItems().add(t);
 		});
-		
+
+		if(choose == 0) {
+
+			Success("Đã show tất cả khách hàng", btnRefresh);
+
+			return;
+
+		}else {
+			choose = 0;
+		}
 	}	
 
-	
+
 	public void allCustomerDebt() throws IOException {
 		tbl_view.getItems().clear();
 		List<Customer> cuss=customerService.listAllCustomerByDebt();
 		if(cuss == null) {
 			Error("Không có khách hàng nợ tiền nào", btnRefresh);
-			
+
 			return;
 		}
 		cuss.forEach(t->{
 			tbl_view.getItems().add(t);
 		});
+
+
+		if(choose == 1) {
+
+			Success("Đã show tất cả khách hàng có nợ", btnRefresh);
+
+			return;
+
+		}else {
+			choose = 1;
+		}
 	}
-	
+
 	public void allCustomerNotReturnDisk() throws IOException {
 		tbl_view.getItems().clear();
 		List<Customer> cuss=customerService.listAllCustomerByNotReturnDisk();
 		if(cuss == null) {
 			Error("Không có khách hàng nợ đĩa nào", btnRefresh);
-			
+
 			return;
 		}
 		cuss.forEach(t->{
 			tbl_view.getItems().add(t);
 		});
+
+		if(choose == 2) {
+
+			Success("Đã show tất cả khách hàng chưa trả đĩa", btnRefresh);
+
+			return;
+
+		}else {
+			choose = 2;
+		}
 	}
 
-	
+
 
 
 

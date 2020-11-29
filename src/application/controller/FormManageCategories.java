@@ -12,10 +12,13 @@ import java.util.ResourceBundle;
 import com.jfoenix.controls.JFXButton;
 
 import application.controller.impl.CategoryImpl;
+import application.controller.impl.TitleImpl;
 import application.controller.impl.CategoryImpl;
 import application.controller.services.CategoryService;
+import application.controller.services.TitleService;
 import application.controller.services.CategoryService;
 import application.entities.Category;
+import application.entities.Title;
 import application.entities.Category;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
@@ -52,6 +55,8 @@ public class FormManageCategories extends DialogBox implements Initializable{
 	@FXML BorderPane bd;
 
 	public CategoryService categoryService=new CategoryImpl();
+
+	public TitleService titleService = new TitleImpl();
 
 	@FXML ComboBox<String> cbc=new ComboBox<String>();
 
@@ -136,16 +141,36 @@ public class FormManageCategories extends DialogBox implements Initializable{
 
 				if(ctlMain.result==true) {
 
-					//					CategoryService.removeCategory(tbl_view.getItems().get(result).getCategoryId());
-
 					try {
-						Success("Chưa code :v", btnRefresh);
+						String categoryId = tbl_view.getItems().get(result).getCategoryId();
+
+						List<Title> listTitle = titleService.listAllTitleByCategoryId(categoryId);
+
+						System.out.println(listTitle);
+						
+						if(listTitle==null) {
+
+							categoryService.removeCategory(categoryId);
+
+							Success("Xóa thành công", btnRefresh);
+
+							handleRefersh(e);
+
+							return;
+						}else {
+
+							Error("Mặt hàng có tồn tại trong title, không thể xóa", btnRefresh);
+
+							return;
+						}
+
+
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
 
-					handleRefersh(e);
+
 
 				}else {
 
@@ -185,8 +210,8 @@ public class FormManageCategories extends DialogBox implements Initializable{
 		colDescription.setMinWidth(120);//.setCellValueFactory(new PropertyValueFactory<>("CMND"));
 		colPrice.setMinWidth(150);//.setCellValueFactory(new PropertyValueFactory<>("tenKH"));
 		colTimeRent.setMinWidth(150);
-		
-		
+
+
 		uploadDuLieuLenBang();
 	}
 

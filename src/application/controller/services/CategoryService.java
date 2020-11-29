@@ -15,4 +15,6 @@ public interface CategoryService {
 	public Category findCategoryById(String id);
 
 	public List<Category> listCategory();
+	
+	
 }

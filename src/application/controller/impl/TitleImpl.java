@@ -178,6 +178,19 @@ public class TitleImpl extends Repository implements TitleService{
 		return count;
 	}
 
+	@Override
+	public List<Title> listAllTitleByCategoryId(String id) {
+		List<Title> findListTitle = new ArrayList<>();
+		List<Title> listTitle = listTitle();
+		for(int i=0;i<listTitle.size();i++) {
+//			System.out.println(listTitle.get(i).getCategory().getCategoryId());
+			if(listTitle.get(i).getCategory().getCategoryId().equalsIgnoreCase(id)) {
+				findListTitle.add(listTitle.get(i));
+			}
+		}
+		return findListTitle.size() >=1 ? findListTitle : null;
+	}
+
 
 
 }

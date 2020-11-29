@@ -88,11 +88,9 @@ public class  CustomerImpl extends Repository implements CustomerService{
 		}
 		ArrayList<Customer> listCustomer = new ArrayList<>();
 		for(int i=0;i<listBill.size();i++) {
-			if(listCustomer.contains(listBill.get(i).getCustomer().getCustomerId())==false) {
 				listCustomer.add(listBill.get(i).getCustomer());
-			}
 		}
-		return listCustomer.size()==0?null:listCustomer();
+		return listCustomer.size()==0?null:listCustomer;
 	}
 
 	@Override
@@ -101,13 +99,11 @@ public class  CustomerImpl extends Repository implements CustomerService{
 		if(listLateFee==null) {
 			return null;
 		}
-		ArrayList<Customer> listCustomer = new ArrayList<>();
+		List<Customer> listCustomer = new ArrayList<>();// listCustomer();
 		for(int i=0;i<listLateFee.size();i++) {
-			if(listCustomer.contains(listLateFee.get(i).getBill().getCustomer().getCustomerId())==false) {
 				listCustomer.add(listLateFee.get(i).getBill().getCustomer());
-			}
 		}
-		return listCustomer.size()==0?null:listCustomer();
+		return listCustomer.size()==0?null:listCustomer;
 	}
 	
 }

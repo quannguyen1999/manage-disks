@@ -5,6 +5,7 @@ import java.net.URL;
 import java.text.spi.CollatorProvider;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -12,12 +13,16 @@ import com.jfoenix.controls.JFXButton;
 
 import application.controller.impl.BillImpl;
 import application.controller.impl.CustomerImpl;
+import application.controller.impl.ProductImpl;
 import application.controller.impl.BillImpl;
 import application.controller.services.BillService;
 import application.controller.services.CustomerService;
+import application.controller.services.ProductService;
 import application.controller.services.BillService;
 import application.entities.Bill;
+import application.entities.BillDetail;
 import application.entities.Customer;
+import application.entities.Product;
 import application.entities.Bill;
 import application.entities.Bill;
 import javafx.beans.binding.Bindings;
@@ -57,6 +62,7 @@ public class FormManageBill extends DialogBox implements Initializable{
 
 	public BillService BillService=new BillImpl();
 	public CustomerService customerService=new CustomerImpl();
+	public ProductService productService = new ProductImpl();
 
 	@FXML ComboBox<String> cbc=new ComboBox<String>();
 	@FXML ComboBox<String> cbcPhoneKH=new ComboBox<String>();
@@ -78,7 +84,7 @@ public class FormManageBill extends DialogBox implements Initializable{
 		cbcPhoneKH.setEditable(true);
 		cbcIdKH.setEditable(false);
 		cbc.setEditable(false);
-		
+
 		cbc.setDisable(true);
 		cbcIdKH.setDisable(true);
 
@@ -86,74 +92,113 @@ public class FormManageBill extends DialogBox implements Initializable{
 			if(e.getClickCount()==2) {
 				int result=tbl_view.getSelectionModel().getSelectedIndex();
 				if(result!=-1) {
-					//
-					//					FXMLLoader loader= new FXMLLoader(getClass().getResource(loadFormAddBill));
-					//
-					//					Parent root=null;
-					//					try {
-					//						root = loader.load();
-					//					} catch (IOException e1) {
-					//						e1.printStackTrace();
-					//					}
-					//
-					//					FormAddBill ctlMain=loader.getController();
-					//
-					//					ctlMain.lblTitle.setText("Cập nhập mặt hàng");
-					//
-					//					ctlMain.txtMa.setText(tbl_view.getItems().get(result).getBillId());
-					//
-					//					ctlMain.txtName.setText(tbl_view.getItems().get(result).getName());
-					//
-					//					ctlMain.txtPrice.setText(String.valueOf(tbl_view.getItems().get(result).getPrice()));
-					//
-					//					ctlMain.txtDescription.setText(tbl_view.getItems().get(result).getDescription());
-					//
-					//					loadFXML(root,btnRefresh).setOnHidden(ev->{
-					//
-					//						handleRefersh(new ActionEvent());
 
-					//					});;
+					FXMLLoader loader= new FXMLLoader(getClass().getResource(loadFormDetailBill));
+
+					Parent root=null;
+					try {
+						root = loader.load();
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
+
+					FormDetailBill ctlMain=loader.getController();
+
+					ctlMain.txtBillMa.setText(tbl_view.getItems().get(result).getBillId());
+
+					ctlMain.txtBillDateOrder.setText(tbl_view.getItems().get(result).getLocalDate().toString());
+					
+					ctlMain.txtBillDatePay.setValue(tbl_view.getItems().get(result).getBillPay());
+					
+					ctlMain.txtBillDatePay.setDisable(true);
+					
+					if(tbl_view.getItems().get(result).getDebt().equalsIgnoreCase(NO)) {
+						ctlMain.rdBillDebtYes.setSelected(true);
+					}else {
+						ctlMain.rdBillDebtNo.setSelected(true);
+					}
+					
+					ctlMain.cbcCustomerId.setValue(tbl_view.getItems().get(result).getCustomer().getCustomerId());
+					
+					ctlMain.cbcCustomerPhone.setValue(tbl_view.getItems().get(result).getCustomer().getPhone());
+					
+					ctlMain.txtCustomerName.setText(tbl_view.getItems().get(result).getCustomer().getName());
+					
+					ctlMain.txtCustomerAddress.setText(tbl_view.getItems().get(result).getCustomer().getAddress());
+					
+					ctlMain.initTableInOrder();
+			
+					Bill bill = BillService.findBillById(tbl_view.getItems().get(result).getBillId());
+					
+					ArrayList<Bill> listBill = new ArrayList<>();
+					
+					listBill.add(bill);
+					
+					List<BillDetail> findListBill = BillService.findAllBillDetailByIdBill(listBill);
+					
+					ArrayList<Product> listProductFind = new ArrayList<>();
+					if(findListBill!=null) {
+						for(int i=0;i<findListBill.size();i++) {
+							listProductFind.add(findListBill.get(i).getProduct());
+						}
+						
+						ctlMain.listProductOrder = listProductFind;
+						
+						ctlMain.uploadDuLieuOrderLenBang();
+					}
+					
+					ctlMain.countTotal();
+					
+					loadFXML(root,btnRefresh).setOnHidden(ev->{
+						
+//						handleRefersh(e);
+						
+//						tbl_view
+						
+//						uploadDuLieuLenBang();
+						
+					});;
 				}
 			}
 		});
 	}
-	
+
 	public void clickRdOne(ActionEvent e) {
-		
+
 		cbc.setEditable(true);
 		cbcIdKH.setEditable(false);
 		cbcPhoneKH.setEditable(false);
-		
+
 		cbc.setDisable(false);
 		cbcIdKH.setDisable(true);
 		cbcPhoneKH.setDisable(true);
 	}
-	
+
 	public void clickRdTwo(ActionEvent e) {
-		
+
 		cbc.setEditable(false);
 		cbcIdKH.setEditable(false);
 		cbcPhoneKH.setEditable(true);
-		
+
 		cbc.setDisable(true);
 		cbcIdKH.setDisable(true);
 		cbcPhoneKH.setDisable(false);
 	}
-	
+
 	public void clickRdThree(ActionEvent e) {
-		
+
 		cbc.setEditable(false);
 		cbcIdKH.setEditable(true);
 		cbcPhoneKH.setEditable(false);
-		
+
 		cbc.setDisable(true);
 		cbcIdKH.setDisable(false);
 		cbcPhoneKH.setDisable(true);
 	}
-	
-	
-	
-	
+
+
+
+
 
 
 	public void btnXoaBill(ActionEvent e) throws IOException{
@@ -234,13 +279,13 @@ public class FormManageBill extends DialogBox implements Initializable{
 		colDebt.setCellValueFactory(new PropertyValueFactory<>("debt"));
 
 		colBillPay.setMinWidth(120);
-		
+
 		colCustomerId.setMinWidth(120);
-		
+
 		colNameCustomer.setMinWidth(200);
-		
+
 		colLocalDate.setMinWidth(150);
-		
+
 
 		uploadDuLieuLenBang();
 	}
@@ -282,12 +327,12 @@ public class FormManageBill extends DialogBox implements Initializable{
 			ctlMain.txtBillMa.setText(id);
 
 			LocalDate dateNow = LocalDate.now();
-			
+
 			ctlMain.txtBillDateOrder.setText(String.valueOf(dateNow));
-			
-			
-//			dateNow.plusDays()
-//			ctlMain.txtBillDatePay.setValue();
+
+
+			//			dateNow.plusDays()
+			//			ctlMain.txtBillDatePay.setValue();
 
 		} while (BillService.findBillById(id)!=null);
 
@@ -482,12 +527,9 @@ public class FormManageBill extends DialogBox implements Initializable{
 
 		cbcIdKH.setEditable(true);
 
-
-
-
 	}
-	
+
 	public void loadDataCustomer() {
-		
+
 	}
 }

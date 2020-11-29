@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="93.0" prefWidth="330.0" style="-fx-background-color: #212022; -fx-border-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.Success">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="93.0" prefWidth="505.0" style="-fx-background-color: #212022; -fx-border-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.Success">
    <left>
       <HBox prefHeight="93.0" prefWidth="24.0" style="-fx-background-color: #4B932B;" BorderPane.alignment="CENTER" />
    </left>
@@ -25,11 +25,11 @@
       </ImageView>
    </center>
    <right>
-      <VBox prefHeight="93.0" prefWidth="204.0" BorderPane.alignment="CENTER">
+      <VBox prefHeight="91.0" prefWidth="367.0" BorderPane.alignment="CENTER">
          <children>
             <HBox prefHeight="53.0" prefWidth="204.0">
                <children>
-                  <Label text="Success" textFill="WHITE">
+                  <Label prefHeight="22.0" prefWidth="218.0" text="Thành công" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
