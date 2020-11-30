@@ -16,5 +16,7 @@ public interface CategoryService {
 
 	public List<Category> listCategory();
 	
+	public Category findCategoryByName(String name);
+	
 	
 }

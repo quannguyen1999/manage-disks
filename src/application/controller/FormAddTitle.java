@@ -49,38 +49,38 @@ public class FormAddTitle extends DialogBox implements Initializable{
 
 	@FXML JFXRadioButton rdFalse;
 
-	@FXML JFXTextField txtNameCategory;
+	//	@FXML JFXTextField txtNameCategory;
 
-	@FXML JFXTextField txtDescriptionCategory;
+	//	@FXML JFXTextField txtDescriptionCategory;
 
-	@FXML JFXTextField txtPriceCategory;
-	
-	@FXML JFXTextField txtTimeRent;
+	//	@FXML JFXTextField txtPriceCategory;
+
+	//	@FXML JFXTextField txtTimeRent;
 
 	@FXML JFXButton btn;
 
 	public TitleService TitleService=new TitleImpl();
 
 	public CategoryService categoryService=new CategoryImpl();
-	
+
 	public String maCategoryRemember="";
-	
+
 	public Title titleOld;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
-		txtNameCategory.setEditable(false);
-		
-		txtDescriptionCategory.setEditable(false);
-		
-		txtPriceCategory.setEditable(false);
-		
-		txtTimeRent.setEditable(false);
-		
-		txtMa.setEditable(false);
+		//		txtNameCategory.setEditable(false);
 
-		cbc.setEditable(true);
+		//		txtDescriptionCategory.setEditable(false);
+
+		//		txtPriceCategory.setEditable(false);
+
+		//		txtTimeRent.setEditable(false);
+
+		//		txtMa.setEditable(false);
+
+		//		cbc.setEditable(true);
 
 		loadDataSearch();
 	}
@@ -92,7 +92,7 @@ public class FormAddTitle extends DialogBox implements Initializable{
 
 		accs.forEach(t->{
 
-			items.add(t.getCategoryId());
+			items.add(t.getName());
 
 		});
 
@@ -102,7 +102,7 @@ public class FormAddTitle extends DialogBox implements Initializable{
 
 		cbc.setItems(filteredItems);
 
-		cbc.setEditable(true);
+		//		cbc.setEditable(true);
 
 	}
 
@@ -144,14 +144,7 @@ public class FormAddTitle extends DialogBox implements Initializable{
 		if(listnv!=null) {
 			Category cate=listnv;
 			if(cate!=null) {
-
-				txtNameCategory.setText(cate.getName());
-
-				txtDescriptionCategory.setText(cate.getDescription());
-
-				txtPriceCategory.setText(String.valueOf(cate.getPrice()));
-
-				txtTimeRent.setText(String.valueOf(cate.getTimeRent()));
+				//				txtMaMH.setText(cate.getCategoryId());
 			}
 		}else {
 
@@ -174,63 +167,46 @@ public class FormAddTitle extends DialogBox implements Initializable{
 		}
 	}
 
-	public boolean kiemTraMaCategory(ActionEvent e,String ma) throws IOException {
+	public boolean kiemTraTenCategory(ActionEvent e,String ma) throws IOException {
 		String MaKT=ma.trim();
 		if(MaKT.isEmpty()==false) {
+			Category categoryFind = categoryService.findCategoryByName(MaKT);
+
+			if(categoryFind==null) {
+				Error("tên category không được tồn tại",btn);
+				return false;
+			}
+
 			return true;
+
 		}else {
-			Error("mã category không được để trống",btn);
+			Error("tên category không được để trống",btn);
 			return false;
 		}
+
+
 	}
 
 
 	public void CLickOK(ActionEvent e) throws IOException {
-		String ma=txtMa.getText().toString();
+		String ma=txtMa.getText().toString();//.getText().toString();
 
-		String maCategory=null;
-
-		try {
-
-			maCategory=cbc.getSelectionModel().getSelectedItem().toString();
-
-		} catch (Exception e2) {
-			Error("Lỗi thêm không thành công", btn);
-			return;
-		}
+		Category category = categoryService.findCategoryByName(cbc.getSelectionModel().getSelectedItem());
 
 		String tenTitle=txtNameTitle.getText().toString();
 
-		String nameCategory=txtNameCategory.getText().toString();
-
-		String descriptionCategory=txtDescriptionCategory.getText().toString();
-
-		String priceCategory=txtPriceCategory.getText().toString();
-		
-		String timeRent = txtTimeRent.getText().toString();
-
 		boolean stillContunite=false;
-		
-		if(kiemTraMaCategory(e,maCategory)) {
+
+		if(kiemTraNameTitle(e,tenTitle)) {
 			stillContunite=true;
 		}else {
-			cbc.requestFocus();
+			txtNameTitle.requestFocus();
 			stillContunite=false;
 		}
 		if(stillContunite==true) {
-			if(kiemTraNameTitle(e,tenTitle)) {
-				stillContunite=true;
-			}else {
-				txtNameTitle.requestFocus();
-				stillContunite=false;
-			}
-		}
-		if(stillContunite==true) {
-
-			Category category=categoryService.findCategoryById(maCategory);
 
 			Title title=null;
-			
+
 			if(rdFalse.isSelected()) {
 
 				title=new Title(ma, tenTitle, CHUADAT, category);
@@ -242,21 +218,21 @@ public class FormAddTitle extends DialogBox implements Initializable{
 			}
 
 			if(lblTitle.getText().equals("Cập nhập title")==false) {
-				
+
 				List<Title> listTitleFind = TitleService.findTitleByName(tenTitle);
-				
+
 				if(listTitleFind != null) {
-					
+
 					Error("Lỗi trùng title", btn);
-					
+
 					return;
-					
+
 				}
-				
+
 				if(TitleService.addTitle(title)==false) {
 
 					Error("Lỗi thêm không thành công", btn);
-					
+
 					return;
 
 				}else{
@@ -266,21 +242,21 @@ public class FormAddTitle extends DialogBox implements Initializable{
 				};
 
 			}else {
-				
+
 				if(tenTitle.equalsIgnoreCase(titleOld.getName()) == false) {
-					
+
 					List<Title> listTitleFind = TitleService.findTitleByName(tenTitle);
-					
+
 					if(listTitleFind != null) {
-						
+
 						Error("Lỗi trùng title", btn);
-						
+
 						return;
-						
+
 					}
-					
+
 				}
-				
+
 				if(TitleService.updateTitle(title,ma)==null) {
 
 					Error("Lỗi cập nhập không thành công", btn);
@@ -296,66 +272,54 @@ public class FormAddTitle extends DialogBox implements Initializable{
 		}
 	}
 	public void btnXoaRong(ActionEvent e) {
-		
+
 		if(lblTitle.getText().toString().equalsIgnoreCase("Cập nhập title")) {
-			
+
 			txtMa.setText(titleOld.getTitleId());
-			
+
 			cbc.setValue(titleOld.getCategory().getCategoryId());
-			
+
 			txtNameTitle.setText(titleOld.getName());
-			
+
 			if(titleOld.getStatus().equalsIgnoreCase(DAT)) {
-				
+
 				rdTrue.setSelected(true);
-				
+
 			}
-			
-			txtNameCategory.setText(titleOld.getCategory().getName());
-			
-			txtDescriptionCategory.setText(titleOld.getCategory().getDescription());
-			
-			txtPriceCategory.setText(String.valueOf(titleOld.getCategory().getPrice()));
-			
-			txtTimeRent.setText(String.valueOf(titleOld.getCategory().getTimeRent()));
+
 		}else {
 			txtNameTitle.setText("");
-			
+
 			rdTrue.setSelected(true);
-			
-			txtTimeRent.setText("");
-			
+
+			//			txtTimeRent.setText("");
+
 			if(maCategoryRemember.isEmpty()==true) {
-				
+
 				cbc.setValue("");
-				
+
 				xoaRongCategory();
-				
+
 			}else {
+
 				
-				cbc.setValue(maCategoryRemember);
-				
+
 				Category category=categoryService.findCategoryById(maCategoryRemember);
-				
-				txtDescriptionCategory.setText(category.getDescription());
-				
-				txtNameCategory.setText(category.getName());
-				
-				txtPriceCategory.setText(String.valueOf(category.getPrice()));
-				
+				cbc.setValue(category.getName());
+
 			}
 		}
-		
-		
-		
-		
+
+
+
+
 	}
 
 	public void xoaRongCategory() {
 
-		txtNameCategory.setText("");
-		txtPriceCategory.setText("");
-		txtDescriptionCategory.setText("");
+		//		txtNameCategory.setText("");
+		//		txtPriceCategory.setText("");
+		//		txtDescriptionCategory.setText("");
 
 	}
 	public void btnCLoseWindow(ActionEvent e) throws IOException {

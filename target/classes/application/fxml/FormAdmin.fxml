@@ -40,7 +40,7 @@
                         <Insets left="50.0" />
                      </padding>
                   </JFXButton>
-                  <JFXButton fx:id="btnBill" alignment="BASELINE_LEFT" onAction="#btnCLickManageBill" prefHeight="85.0" prefWidth="300.0" style="-fx-background-color: black;" styleClass="sidebar-btn" stylesheets="@..\css\application.css" text="Quản lý bill" textFill="WHITE">
+                  <JFXButton fx:id="btnBill" alignment="BASELINE_LEFT" onAction="#btnCLickManageBill" prefHeight="85.0" prefWidth="300.0" style="-fx-background-color: black;" styleClass="sidebar-btn" stylesheets="@..\css\application.css" text="Quản lý đơn hàng" textFill="WHITE">
                      <font>
                         <Font name="Calibri Light" size="20.0" />
                      </font>
@@ -72,7 +72,7 @@
                         <Insets left="50.0" />
                      </padding>
                   </JFXButton>
-                  <JFXButton fx:id="btnOrder" alignment="BASELINE_LEFT" onAction="#btnCLickManageOrder" prefHeight="85.0" prefWidth="300.0" style="-fx-background-color: black;" styleClass="sidebar-btn" stylesheets="@..\css\application.css" text="Quản lý hàng order" textFill="WHITE">
+                  <JFXButton fx:id="btnOrder" alignment="BASELINE_LEFT" onAction="#btnCLickManageOrder" prefHeight="85.0" prefWidth="300.0" style="-fx-background-color: black;" styleClass="sidebar-btn" stylesheets="@..\css\application.css" text="Quản lý hàng đặt" textFill="WHITE">
                      <font>
                         <Font name="Calibri Light" size="20.0" />
                      </font>

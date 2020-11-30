@@ -101,11 +101,11 @@ public class FormReportTitle extends DialogBox implements Initializable{
 					
 					String status=tbl_view.getItems().get(result).getStatus();
 					
-					ctlMain.txtNameCategory.setText(tbl_view.getItems().get(result).getCategory().getName());
-					
-					ctlMain.txtDescriptionCategory.setText(tbl_view.getItems().get(result).getCategory().getDescription());
-					
-					ctlMain.txtPriceCategory.setText(String.valueOf(tbl_view.getItems().get(result).getCategory().getPrice()));
+//					ctlMain.txtNameCategory.setText(tbl_view.getItems().get(result).getCategory().getName());
+//					
+//					ctlMain.txtDescriptionCategory.setText(tbl_view.getItems().get(result).getCategory().getDescription());
+//					
+//					ctlMain.txtPriceCategory.setText(String.valueOf(tbl_view.getItems().get(result).getCategory().getPrice()));
 					
 					ctlMain.titleOld=tbl_view.getItems().get(result);
 					

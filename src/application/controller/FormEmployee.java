@@ -923,9 +923,9 @@ public class FormEmployee extends DialogBox implements Initializable{
 		imgV.setImage(getImage(product.getPicture()));
 		imgV.setFitHeight(230);
 		imgV.setFitWidth(230);
-		Label lbl=new Label(product.getProductId());
-		Label lbl1=new Label(product.getName());
-		Label lbl2=new Label("SL:"+product.getQuantity());
+		Label lbl=new Label("mã: "+product.getProductId());
+		Label lbl1=new Label("tên: "+product.getName());
+		Label lbl2=new Label("Số lượng: "+product.getQuantity());
 		lbl.setAlignment(Pos.CENTER);
 
 		JFXButton btn1=null;

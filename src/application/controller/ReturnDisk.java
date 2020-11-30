@@ -329,6 +329,23 @@ public class ReturnDisk extends DialogBox implements Initializable{
 			txtNameCustomer.setText(customerFind.getName());
 			txtAddressCustomer.setText(customerFind.getAddress());
 			txtDatePickerCustomer.setValue(customerFind.getDateOfBirth());
+			
+			ArrayList<Bill> listBill=(ArrayList<Bill>) 
+					billService.findAllBillByIdCustomer(customerFind.getCustomerId());
+
+			List<BillDetail> listBillDetail=billService.findAllBillDetailByIdBill(listBill);
+
+			listAllBillDetail.clear();
+
+			tbl_viewLeft.getItems().clear();
+
+			if(listBillDetail!=null) {
+				listBillDetail.forEach(t->{
+					tbl_viewLeft.getItems().add(t);
+					listAllBillDetail.add(t);
+				});
+			}
+			
 		}
 
 	}
@@ -514,6 +531,14 @@ public class ReturnDisk extends DialogBox implements Initializable{
 			billService.removeBillDetail(listAllBillDetailWantReturn.get(i).getBillDetailId());
 
 		}
+		
+		listAllBillDetailWantReturn.forEach(t->{
+			Product product = t.getProduct();
+			product.setQuantityOnShelf(product.getQuantityOnShelf()+t.getQuantity());
+			product.setQuantityRentDisk(product.getQuantityRentDisk()-t.getQuantity());
+			product.setStatus(TRENKE);
+			productService.updateProduct(product, product.getProductId());
+		});
 
 		tbl_view.getItems().clear();
 

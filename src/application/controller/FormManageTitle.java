@@ -49,6 +49,7 @@ public class FormManageTitle extends DialogBox implements Initializable{
 	TableColumn<Title, String> colName;
 	TableColumn<Title, String> colStatus;
 	TableColumn<Title, String> colcategoryId;
+	TableColumn<Title, String> colcategoryName;
 
 	DecimalFormat df = new DecimalFormat("#,###"); 
 
@@ -94,11 +95,11 @@ public class FormManageTitle extends DialogBox implements Initializable{
 
 					ctlMain.lblTitle.setText("Cập nhập title");
 
-					ctlMain.txtTimeRent.setText(String.valueOf(tbl_view.getItems().get(result).getCategory().getPrice()));
+//					ctlMain.txtTimeRent.setText(String.valueOf(tbl_view.getItems().get(result).getCategory().getPrice()));
 					
 					ctlMain.txtMa.setText(tbl_view.getItems().get(result).getTitleId());
 
-					ctlMain.cbc.setValue(tbl_view.getItems().get(result).getCategory().getCategoryId());
+					ctlMain.cbc.setValue(tbl_view.getItems().get(result).getCategory().getName());
 
 					ctlMain.maCategoryRemember=tbl_view.getItems().get(result).getCategory().getCategoryId();
 
@@ -106,11 +107,11 @@ public class FormManageTitle extends DialogBox implements Initializable{
 
 					String status=tbl_view.getItems().get(result).getStatus();
 
-					ctlMain.txtNameCategory.setText(tbl_view.getItems().get(result).getCategory().getName());
-
-					ctlMain.txtDescriptionCategory.setText(tbl_view.getItems().get(result).getCategory().getDescription());
-
-					ctlMain.txtPriceCategory.setText(String.valueOf(tbl_view.getItems().get(result).getCategory().getPrice()));
+//					ctlMain.txtNameCategory.setText(tbl_view.getItems().get(result).getCategory().getName());
+//
+//					ctlMain.txtDescriptionCategory.setText(tbl_view.getItems().get(result).getCategory().getDescription());
+//
+//					ctlMain.txtPriceCategory.setText(String.valueOf(tbl_view.getItems().get(result).getCategory().getPrice()));
 
 					ctlMain.titleOld=tbl_view.getItems().get(result);
 
@@ -202,8 +203,9 @@ public class FormManageTitle extends DialogBox implements Initializable{
 		colName=new TableColumn<Title, String>("Tên");
 		colStatus=new TableColumn<Title, String>("status");
 		colcategoryId=new TableColumn<Title, String>("mã mặt hàng");
+		colcategoryName=new TableColumn<Title, String>("tên mặt hàng");
 
-		tbl_view.getColumns().addAll(colTitleId,colName,colStatus,colcategoryId);
+		tbl_view.getColumns().addAll(colTitleId,colName,colStatus,colcategoryId,colcategoryName);
 
 		bd.setCenter(tbl_view);
 
@@ -211,11 +213,13 @@ public class FormManageTitle extends DialogBox implements Initializable{
 		colName.setCellValueFactory(new PropertyValueFactory<>("name"));
 		colStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
 		colcategoryId.setCellValueFactory(cellData->new SimpleStringProperty(cellData.getValue().getCategory().getCategoryId()));
+		colcategoryName.setCellValueFactory(cellData->new SimpleStringProperty(cellData.getValue().getCategory().getName()));
 
 		colTitleId.setMinWidth(100);// .setCellValueFactory(new PropertyValueFactory<>("maKH"));
 		colName.setMinWidth(180);//.setCellValueFactory(new PropertyValueFactory<>("diaChi"));
 		colStatus.setMinWidth(120);//.setCellValueFactory(new PropertyValueFactory<>("CMND"));
 		colcategoryId.setMinWidth(150);//.setCellValueFactory(new PropertyValueFactory<>("tenKH"));
+		colcategoryName.setMinWidth(150);//.setCellValueFactory(new PropertyValueFactory<>("tenKH"));
 
 		uploadDuLieuLenBang();
 	}

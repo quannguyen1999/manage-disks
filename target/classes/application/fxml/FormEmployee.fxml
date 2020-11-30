@@ -787,7 +787,7 @@
                                     <Image url="@../images/icons8_circled_menu_100px.png" />
                                  </image>
                               </ImageView>
-                              <JFXButton fx:id="btnTitles" layoutX="35.0" layoutY="24.0" onAction="#btnCLickTitle" prefHeight="60.0" prefWidth="239.0" styleClass="btnLogin" stylesheets="@..\css\application.css" text="Danh sách title" textFill="WHITE">
+                              <JFXButton fx:id="btnTitles" layoutX="35.0" layoutY="24.0" onAction="#btnCLickTitle" prefHeight="60.0" prefWidth="239.0" styleClass="btnLogin" stylesheets="@..\css\application.css" text="Danh sách tiêu đề" textFill="WHITE">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
@@ -838,7 +838,7 @@
                                     <Image url="@../images/icons8_circled_menu_100px.png" />
                                  </image>
                               </ImageView>
-                              <JFXButton fx:id="btnOrders" layoutX="35.0" layoutY="24.0" onAction="#btnClickOrders" prefHeight="63.0" prefWidth="208.0" styleClass="btnLogin" stylesheets="@..\css\application.css" text="Danh sách order" textFill="WHITE">
+                              <JFXButton fx:id="btnOrders" layoutX="35.0" layoutY="24.0" onAction="#btnClickOrders" prefHeight="63.0" prefWidth="208.0" styleClass="btnLogin" stylesheets="@..\css\application.css" text="Danh sách hàng đặt" textFill="WHITE">
                                  <font>
                                     <Font size="15.0" />
                                  </font>

@@ -56,4 +56,15 @@ public class CategoryImpl extends Repository implements CategoryService{
 		return listCategory;
 	}
 
+	@Override
+	public Category findCategoryByName(String name) {
+		List<Category> listCategorh = listCategory();
+		for(int i=0;i<listCategorh.size();i++) {
+			if(listCategorh.get(i).getName().equalsIgnoreCase(name)) {
+				return listCategorh.get(i);
+			}
+		}
+		return null;
+	}
+
 }
