@@ -510,7 +510,8 @@ public class FormAddBill extends DialogBox implements Initializable{
 			Product product2=new Product(product.getProductId(),
 					product.getName(),
 					product.getPicture(),1,product.getDescription(), product.getStatus(), product.getDateAdded()
-					, product.getTitle(), product.getSupplier());
+					, product.getTitle(), product.getSupplier(),product.getQuantityRentDisk(),
+					product.getQuantityOnShelf(),product.getQuantityOnHold());
 
 			listProductOrder.add(product2);
 

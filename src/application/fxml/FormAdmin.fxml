@@ -98,7 +98,13 @@
                   </JFXButton>
                   <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <JFXButton fx:id="btnLogOut" onAction="#btnLogOut" prefHeight="98.0" prefWidth="294.0" />
+                        <JFXButton fx:id="btnLogOut" onAction="#btnLogOut" prefHeight="98.0" prefWidth="294.0" text="Đăng xuất" textFill="WHITE">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </HBox.margin></JFXButton>
                      </children></HBox>
                </children>
             </VBox>

@@ -195,7 +195,7 @@
    <top>
       <AnchorPane prefHeight="33.0" prefWidth="811.0" style="-fx-background-color: rgb(23,35,51);" BorderPane.alignment="CENTER">
          <children>
-            <Label fx:id="lblTitle" layoutX="701.0" layoutY="8.0" text="Thuê đĩa" textFill="WHITE">
+            <Label fx:id="lblTitle" layoutX="701.0" layoutY="8.0" text="Thuê Đĩa" textFill="WHITE">
                <font>
                   <Font size="24.0" />
                </font>
@@ -249,7 +249,7 @@
                <children>
                   <HBox prefHeight="15.0" prefWidth="232.0">
                      <children>
-                        <Label alignment="CENTER" text="Mã sản phẩm">
+                        <Label alignment="CENTER" text="Mã Đĩa">
                            <font>
                               <Font size="18.0" />
                            </font>

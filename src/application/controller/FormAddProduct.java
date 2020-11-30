@@ -516,7 +516,7 @@ public class FormAddProduct extends DialogBox implements Initializable{
 			
 			Product product2=new Product(ma, nameProduct,base64String,
 					Integer.parseInt(quantityProduct)	, descriptionProduct, statusProduct,
-					dateAddedProduct, new Title(idTitle), new Supplier(idSupplier));
+					dateAddedProduct, new Title(idTitle), new Supplier(idSupplier),0,Integer.parseInt(quantityProduct),0);
 
 			if(lblTitle.getText().equals("Cập nhập sản phẩm")==false) {
 

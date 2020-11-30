@@ -35,8 +35,9 @@ import sun.misc.BASE64Decoder;
 public class DialogBox  implements Initializable{
 	//set status
 	static final String TRENKE = "Trên kệ";
-	static final String CHOTHUE = "Cho thuê";
+	static final String CHOTHUE = "Đã Cho thuê";
 	static final String GIULAI = "Giữ lại";
+	
 	static final String DAT = "Đặt";
 	static final String CHUADAT = "Chưa đặt";
 	static final String NO = "Nợ";

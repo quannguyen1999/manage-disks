@@ -307,12 +307,12 @@
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <JFXRadioButton fx:id="rdTrenKe" text="Trên kệ">
+                  <JFXRadioButton fx:id="rdTrenKe" selected="true" text="Trên kệ">
                      <toggleGroup>
                         <ToggleGroup fx:id="TT" />
                      </toggleGroup>
                   </JFXRadioButton>
-                  <JFXRadioButton fx:id="rdChoThue" selected="true" text="Cho thuê" toggleGroup="$TT" />
+                  <JFXRadioButton fx:id="rdChoThue" text="Cho thuê" toggleGroup="$TT" />
                   <JFXRadioButton fx:id="rdGiuLai" text="Giữ lại" toggleGroup="$TT" />
                </children>
             </HBox>

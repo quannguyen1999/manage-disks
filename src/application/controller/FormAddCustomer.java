@@ -58,12 +58,7 @@ public class FormAddCustomer extends DialogBox implements Initializable{
 	public boolean kiemTraDiaChi(String ma) throws IOException {
 		String MaKT=ma.trim();
 		if(MaKT.isEmpty()==false) {
-			//			if(MaKT.matches("^[A-Za-z\\sÀ�?ÂÃÈÉÊÌ�?ÒÓÔÕÙÚ�?àáâãèéêìíòóôõùúýĂă�?đĨĩŨũƠơƯưẠ-ỹ]+$")==true) {
 			return true;
-			//			}else {
-			//				Error("địa chỉ không được nhập ký tự đặc biệt",btn);
-			//				return false;
-			//			}
 		}else {
 			Error("địa chỉ không được để trống",btn);
 			return false;
@@ -105,13 +100,7 @@ public class FormAddCustomer extends DialogBox implements Initializable{
 		}
 	}
 	
-	public void handleKeyEvents(KeyEvent e) throws IOException {
-		if(e.getCode()==KeyCode.ENTER) {
-			
-			loadForm(null,e);
-			
-		}
-	}
+	
 	
 	
 	public void loadForm(ActionEvent e, KeyEvent eKey) throws IOException {
@@ -241,6 +230,13 @@ public class FormAddCustomer extends DialogBox implements Initializable{
 		}
 	}
 	
+	public void handleKeyEvents(KeyEvent e) throws IOException {
+		if(e.getCode()==KeyCode.ENTER) {
+			
+			loadForm(null,e);
+			
+		}
+	}
 	
 	public void CLickOK(ActionEvent e) throws IOException {
 		loadInterface(btn,e);

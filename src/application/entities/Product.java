@@ -53,5 +53,14 @@ public class Product {
 	@ManyToOne//(fetch = FetchType.LAZY)
 	@JoinColumn(name = "supplierId")
 	private Supplier supplier;
+	
+	@Column//(columnDefinition = "nvarchar(1000)")
+	private int quantityRentDisk;
+	
+	@Column//(columnDefinition = "nvarchar(1000)")
+	private int quantityOnShelf;
+	
+	@Column//(columnDefinition = "nvarchar(1000)")
+	private int quantityOnHold;
 
 }

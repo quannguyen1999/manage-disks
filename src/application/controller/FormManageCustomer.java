@@ -215,7 +215,7 @@ public class FormManageCustomer extends DialogBox implements Initializable{
 
 		colCustomerId.setMinWidth(100);// .setCellValueFactory(new PropertyValueFactory<>("maKH"));
 		colName.setMinWidth(180);//.setCellValueFactory(new PropertyValueFactory<>("diaChi"));
-		colAddress.setMinWidth(120);//.setCellValueFactory(new PropertyValueFactory<>("CMND"));
+		colAddress.setMinWidth(250);//.setCellValueFactory(new PropertyValueFactory<>("CMND"));
 		colPhone.setMinWidth(100);//.setCellValueFactory(new PropertyValueFactory<>("soDT"));
 		colDateOfBirth.setMinWidth(150);//.setCellValueFactory(new PropertyValueFactory<>("tenKH"));
 
@@ -256,12 +256,7 @@ public class FormManageCustomer extends DialogBox implements Initializable{
 			
 			ctlMain.txtDiaChi.requestFocus();
 			
-			ctlMain.txtDienThoai.setText("0708821227");
-			
 			ctlMain.txtNgaySinh.setValue(LocalDate.of(1999, 11, 23));
-			
-			ctlMain.txtDiaChi.setText("qwe");
-			
 
 		} while (customerService.findCustomerById(id)!=null);
 

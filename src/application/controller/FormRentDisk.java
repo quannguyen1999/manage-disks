@@ -17,13 +17,16 @@ import com.jfoenix.controls.JFXTextField;
 
 import application.controller.impl.BillImpl;
 import application.controller.impl.CustomerImpl;
+import application.controller.impl.LateFeeImpl;
 import application.controller.impl.ProductImpl;
 import application.controller.services.BillService;
 import application.controller.services.CustomerService;
+import application.controller.services.LateFeeService;
 import application.controller.services.ProductService;
 import application.entities.Bill;
 import application.entities.BillDetail;
 import application.entities.Customer;
+import application.entities.LateFee;
 import application.entities.Product;
 import application.entities.Supplier;
 import javafx.beans.binding.Bindings;
@@ -83,6 +86,7 @@ public class FormRentDisk  extends DialogBox implements Initializable{
 
 	ProductService productService = new ProductImpl();
 	CustomerService customerService = new CustomerImpl();
+	LateFeeService lateFeeService = new LateFeeImpl();
 
 
 	//table 
@@ -103,7 +107,7 @@ public class FormRentDisk  extends DialogBox implements Initializable{
 	List<Product> listProduct=new ArrayList<>();
 
 	List<Product> arrayOrderProduct=new ArrayList<>();
-	
+
 	DecimalFormat df = new DecimalFormat("#,###"); 
 
 	@Override
@@ -119,7 +123,7 @@ public class FormRentDisk  extends DialogBox implements Initializable{
 
 		//init product
 		txtNameProduct.setEditable(false);
-		txtQuantityProduct.setEditable(false);
+		txtQuantityProduct.setEditable(true);
 		txtDescriptionProduct.setEditable(false);
 		txtStatusProduct.setEditable(false);
 
@@ -138,6 +142,22 @@ public class FormRentDisk  extends DialogBox implements Initializable{
 
 		txtPriceProduct.setEditable(false);
 		txtIdBill.setEditable(false);
+		
+		tbl_view.setOnMouseClicked(e->{
+			if(e.getClickCount()==2) {
+				int result=tbl_view.getSelectionModel().getSelectedIndex();
+				if(result!=-1) {
+					
+					cbcIdProduct.setValue(tbl_view.getItems().get(result).getProductId());
+					txtNameProduct.setText(tbl_view.getItems().get(result).getName());
+					txtQuantityProduct.setText(String.valueOf(tbl_view.getItems().get(result).getQuantity()));
+					txtDescriptionProduct.setText(tbl_view.getItems().get(result).getDescription());
+					txtStatusProduct.setText(tbl_view.getItems().get(result).getStatus());
+					txtPriceProduct.setText(String.valueOf(df.format(tbl_view.getItems().get(result).getTitle().getCategory().getPrice()))+" $");
+				}
+			}
+		});
+
 	}
 
 	public void initTable() {
@@ -168,6 +188,10 @@ public class FormRentDisk  extends DialogBox implements Initializable{
 	}
 
 	public void clickChooseFindByIdCustomer(ActionEvent e) {
+		cbcPhoneCustomer.setValue("");
+		cbcIdCustomer.setValue("");
+		txtNameCustomer.setText("");
+		txtAddressCustomer.setText("");
 		rdIdCustomer.setSelected(true);
 		cbcIdCustomer.setEditable(true);
 		cbcIdCustomer.setDisable(false);
@@ -177,14 +201,19 @@ public class FormRentDisk  extends DialogBox implements Initializable{
 		cbcPhoneCustomer.setDisable(true);
 		btnFindPhoneCustomer.setDisable(true);
 
+
+
+
+		txtDatePickerCustomer.setValue(null);
+
+		loadDataSearchCustomer();
+	}
+
+	public void clickChooseFindByPhoneCustomer(ActionEvent e) {
 		cbcPhoneCustomer.setValue("");
 		cbcIdCustomer.setValue("");
 		txtNameCustomer.setText("");
 		txtAddressCustomer.setText("");
-		txtDatePickerCustomer.setValue(null);
-	}
-
-	public void clickChooseFindByPhoneCustomer(ActionEvent e) {
 		rdPhoneCustomer.setSelected(true);
 		cbcPhoneCustomer.setEditable(true);
 		cbcPhoneCustomer.setDisable(false);
@@ -194,16 +223,39 @@ public class FormRentDisk  extends DialogBox implements Initializable{
 		cbcIdCustomer.setDisable(true);
 		btnFindIdCustomer.setDisable(true);
 
-		cbcPhoneCustomer.setValue("");
-		cbcIdCustomer.setValue("");
-		txtNameCustomer.setText("");
-		txtAddressCustomer.setText("");
+
 		txtDatePickerCustomer.setValue(null);
+
+		loadDataSearchCustomer();
 	}
 
 	boolean result = false;
 	int total = 0;
+	int quantity = 0 ;
 	public void clickChooseProduct(ActionEvent e) throws IOException {
+		if(txtQuantityProduct.getText().toString().isEmpty()==true) {
+			Error("Vui lòng nhập số lượng", btnExit);
+
+			txtQuantityProduct.requestFocus();
+
+			return;
+		}
+		try {
+			quantity = Integer.parseInt(txtQuantityProduct.getText().toString());
+		} catch (Exception e2) {
+			Error("Số lượng không hợp lệ", btnExit);
+
+			txtQuantityProduct.requestFocus();
+			return;
+		}
+		
+		if(quantity<=0) {
+			Error("Số lượng không hợp lệ", btnExit);
+			
+			return;
+		}
+
+
 		String textFind=null;
 
 		try {
@@ -242,38 +294,64 @@ public class FormRentDisk  extends DialogBox implements Initializable{
 		}else {
 			result = false;
 			arrayOrderProduct.forEach(t->{
-				if(t.getProductId().equals(product.getProductId()) 
-						&& t.getQuantity()>=product.getQuantity() && t.getQuantity()>0) {
-					try {
-						Error("Không đủ hàng chỉ còn "+product.getQuantity(), btnExit);
-						result=true;
-					} catch (IOException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
+				if(t.getProductId().equalsIgnoreCase(product.getProductId())){ 
+					//						&& t.getQuantity()<product.getQuantity() && t.getQuantity()>0) {
+					System.out.println(t.getQuantity());
+					System.out.println(product.getQuantityOnShelf());
+					if(t.getQuantity()>product.getQuantityOnShelf()) {
+						try {
+							Error("Không đủ hàng chỉ còn 3 "+product.getQuantityOnShelf(), btnExit);
+							result=true;
+							return;
+						} catch (IOException e1) {
+							e1.printStackTrace();
+						}
+						return;
 					}
-					return;
 				}else if(t.getProductId().equals(product.getProductId())){
-					t.setQuantity(t.getQuantity()+1);
+					t.setQuantity(quantity);
 					result=true;
 					return;
 				}
 			});
 			if(result == false) {
-				if(product.getQuantity()<=0) {
-					Error("Không đủ hàng chỉ còn "+product.getQuantity(), btnExit);
+				if(product.getQuantityOnShelf()<=0) {
+					Error("Không đủ hàng chỉ còn 1"+product.getQuantityOnShelf(), btnExit);
+
+					return;
 				}else {
-					arrayOrderProduct.add(new Product(product.getProductId(), product.getName(),
-							product.getPicture(), 1,
-							product.getDescription(), product.getStatus(), 
-							product.getDateAdded(), product.getTitle(), product.getSupplier()));
+					if(quantity>product.getQuantityOnShelf()) {
+						Error("Không đủ hàng chỉ còn 2:"+product.getQuantityOnShelf(), btnExit);
+
+						return;
+					}
+
+					boolean checkExistst = false;
+
+					for(int i=0;i<arrayOrderProduct.size();i++) {
+						if(arrayOrderProduct.get(i).getProductId().equalsIgnoreCase(product.getProductId())) {
+							arrayOrderProduct.get(i).setQuantity(quantity);
+							checkExistst = true;
+						}
+					}
+					if(checkExistst == false) {
+						arrayOrderProduct.add(new Product(product.getProductId(), product.getName(),
+								product.getPicture(), quantity,
+								product.getDescription(), product.getStatus(), 
+								product.getDateAdded(), product.getTitle(), product.getSupplier(),
+								product.getQuantityRentDisk(),
+								product.getQuantityOnShelf(),
+								product.getQuantityOnHold()));
+					}
+
 				}
 
 			}
-			
+
 			arrayOrderProduct.forEach(t->{
 
 				total=0;
-				
+
 				total+=(t.getQuantity()*t.getTitle().getCategory().getPrice());
 
 			});
@@ -283,7 +361,6 @@ public class FormRentDisk  extends DialogBox implements Initializable{
 				lblTotal.setText(String.valueOf(df.format(total))+" $");
 
 			}
-
 
 			tbl_view.getItems().clear();
 
@@ -409,6 +486,10 @@ public class FormRentDisk  extends DialogBox implements Initializable{
 			return;
 
 		}else {
+			List<LateFee> lateFee = lateFeeService.findAllLteFeeByIdCustomer(customerFind.getCustomerId());
+			if(lateFee!=null && lateFee.size()>=1) {
+				Error("Khách hàng có phí trễ hạn", btnExit);
+			}
 			cbcPhoneCustomer.setValue(customerFind.getPhone());
 			txtNameCustomer.setText(customerFind.getName());
 			txtAddressCustomer.setText(customerFind.getAddress());
@@ -454,6 +535,10 @@ public class FormRentDisk  extends DialogBox implements Initializable{
 			return;
 
 		}else {
+			List<LateFee> lateFee = lateFeeService.findAllLteFeeByIdCustomer(customerFind.getCustomerId());
+			if(lateFee!=null && lateFee.size()>=1) {
+				Error("Khách hàng có phí trễ hạn", btnExit);
+			}
 			cbcIdCustomer.setValue(customerFind.getCustomerId());
 			txtNameCustomer.setText(customerFind.getName());
 			txtAddressCustomer.setText(customerFind.getAddress());
@@ -503,7 +588,7 @@ public class FormRentDisk  extends DialogBox implements Initializable{
 		}else {
 			cbcIdProduct.setValue(product.getProductId());
 			txtNameProduct.setText(product.getName());
-			txtQuantityProduct.setText(String.valueOf(product.getQuantity()));
+			//			txtQuantityProduct.setText(String.valueOf(product.getQuantity()));
 			txtDescriptionProduct.setText(product.getDescription());
 			txtStatusProduct.setText(product.getStatus());
 
@@ -643,7 +728,7 @@ public class FormRentDisk  extends DialogBox implements Initializable{
 			return;
 
 		}
-		
+
 		Customer customerFind = customerService.findCustomerById(cbcIdCustomer.getSelectionModel()
 				.getSelectedItem().toString().trim());
 
@@ -662,7 +747,22 @@ public class FormRentDisk  extends DialogBox implements Initializable{
 				billService.addBillDetail(billDetail);
 
 			}
-
+			
+			arrayOrderProduct.forEach(t->{
+				
+				Product product = productService.findProductById(t.getProductId());
+				product.setQuantityRentDisk(product.getQuantityRentDisk() + t.getQuantity());
+				//product.getQuantityOnShelf() = 0
+				//
+				product.setQuantityOnShelf(product.getQuantityOnShelf()-t.getQuantity());
+				
+				if(product.getQuantityOnShelf()==0) {
+					product.setStatus(CHOTHUE);
+				}
+				
+				productService.updateProduct(product, t.getProductId());//
+			});
+			
 			Success("Thuê đĩa thành công", btnExit);
 
 			resetAllField(e);
@@ -680,5 +780,34 @@ public class FormRentDisk  extends DialogBox implements Initializable{
 		System.out.println("Random value in int from "+min+" to "+max+ ":");
 		int random_int = (int)(Math.random() * (max - min + 1) + min);
 		return random_int;
+	}
+
+	public void btnClickAdd(ActionEvent e) throws IOException {
+		FXMLLoader loader= new FXMLLoader(getClass().getResource(loadFormAddCustomer));
+
+		Parent root=loader.load();
+
+		FormAddCustomer ctlMain=loader.getController();
+
+		String id=null;
+
+		do {
+
+			id="C"+ranDomNumber();
+
+			ctlMain.txtMa.setText(id);
+
+			ctlMain.txtDiaChi.requestFocus();
+
+			ctlMain.txtNgaySinh.setValue(LocalDate.of(1999, 11, 23));
+
+		} while (customerService.findCustomerById(id)!=null);
+
+		loadFXML(root,btnExit).setOnHidden(ev->{
+
+
+
+		});;
+
 	}
 }

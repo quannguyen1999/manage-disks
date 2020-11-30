@@ -95,7 +95,7 @@
                         <Font name="Angsana New Bold Italic" size="40.0" />
                      </font>
                   </Label>
-                  <Label layoutX="138.0" layoutY="147.0" prefHeight="17.0" prefWidth="61.0" text="employee" textFill="WHITE" />
+                  <Label layoutX="138.0" layoutY="147.0" prefHeight="20.0" prefWidth="79.0" text="employee" textFill="WHITE" />
                   <ImageView fitHeight="233.0" fitWidth="289.0" layoutX="18.0" layoutY="383.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../image/Login-1.jpg" />

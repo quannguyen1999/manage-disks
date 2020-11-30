@@ -78,8 +78,33 @@ public class FormAdmin extends DialogBox implements Initializable{
 		customerService.listCustomer();
 
 		//set icon for button
-		btnLogOut.setGraphic(getImageView("Logout.png"));
-		//		btnUser.setGraphic(getImageView("IconUser.png"));
+		File currentDirFile = new File("");
+
+		String helper = currentDirFile.getAbsolutePath();
+
+		URL url=null;
+		try {
+
+			url = new URL("file:////"+helper+"/src/application/image/"+"Logout.png");
+
+		} catch (MalformedURLException e) {
+
+			e.printStackTrace();
+
+		}
+
+		Image imgUser = new Image("file:"+url.getFile());
+
+		ImageView imaViewUser=new ImageView(imgUser);
+
+		imaViewUser.setFitHeight(50);
+
+		imaViewUser.setFitWidth(50);
+		
+		btnLogOut.setGraphic(imaViewUser);
+
+
+
 		btnHelp.setGraphic(getImageView("IconHelp.png"));
 		btnChangePass.setGraphic(getImageView("IconPassworReset.png"));
 		btnCustomer.setGraphic(getImageView("customers.png"));
@@ -205,15 +230,15 @@ public class FormAdmin extends DialogBox implements Initializable{
 
 	public void handleKeyPress(KeyEvent e) throws IOException {
 		if(e.getCode()==KeyCode.F1) {
-			
+
 			changeCssManage(btnCustomer);
 
 			Parent root=(Parent) FXMLLoader.load(getClass().getResource(loadManageCustomer));
 
 			bd.setCenter(root);
-			
+
 			root.setFocusTraversable(true);
-			
+
 		}else if(e.getCode()==KeyCode.F2) {
 			changeCssManage(btnProduct);
 

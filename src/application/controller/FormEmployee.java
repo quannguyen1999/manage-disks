@@ -221,7 +221,7 @@ public class FormEmployee extends DialogBox implements Initializable{
 		btnBill.setGraphic(getImageView("order.png"));
 
 		//set color
-		btnDisks.setStyle("-fx-background-color:red");
+		btnCustomer.setStyle("-fx-background-color:red");
 
 
 		productService.listProduct().forEach(t->{
