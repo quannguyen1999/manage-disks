@@ -108,6 +108,8 @@ public class FormManageReport extends DialogBox implements Initializable{
 					loadFXML(root,btnRefresh).setOnHidden(ev->{
 
 						handleRefersh(new ActionEvent());
+						
+						loadDataSearch();
 
 					});;
 				}

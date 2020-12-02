@@ -182,7 +182,7 @@
                                     <Insets right="10.0" />
                                  </HBox.margin>
                               </JFXButton>
-                              <JFXButton onAction="#btnChonProduct" styleClass="btnLogin" stylesheets="@../css/application.css" text="Chọn">
+                              <JFXButton onAction="#btnChonProduct" styleClass="btnLogin" stylesheets="@../css/application.css" text="Đặt">
                                  <HBox.margin>
                                     <Insets right="10.0" />
                                  </HBox.margin>

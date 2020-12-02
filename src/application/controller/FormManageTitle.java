@@ -181,6 +181,8 @@ public class FormManageTitle extends DialogBox implements Initializable{
 					titleService.removeTitle(tbl_view.getItems().get(result).getTitleId());
 
 					handleRefersh(e);
+					
+					loadDataSearch();
 
 				}else {
 
@@ -262,6 +264,7 @@ public class FormManageTitle extends DialogBox implements Initializable{
 
 			handleRefersh(e);
 
+			loadDataSearch();
 		});;
 
 

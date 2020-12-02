@@ -29,4 +29,8 @@ public interface TitleService {
 	public int countOrderByTitleId(String id);
 	
 	public List<Title> listAllTitleByCategoryId(String id);
+	
+	public List<Title> listAllTitleStillNotOrder();
+	
+	public List<Title> lisdtAllTitleHadOrder();
 }

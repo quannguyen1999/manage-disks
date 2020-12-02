@@ -44,6 +44,7 @@ public class DialogBox  implements Initializable{
 	static final String KHONGCONO = "Không có nợ";
 	
 	static File currentDirFile = new File("");
+	
 	static String helper = currentDirFile.getAbsolutePath();
 	
 	static final String loadFormAddCustomer="../fxml/FormAddCustomer.fxml";

@@ -103,6 +103,8 @@ public class FormManageCategories extends DialogBox implements Initializable{
 					loadFXML(root,btnRefresh).setOnHidden(ev->{
 
 						handleRefersh(new ActionEvent());
+						
+						loadDataSearch();
 
 					});;
 				}
@@ -250,6 +252,8 @@ public class FormManageCategories extends DialogBox implements Initializable{
 		loadFXML(root,btnRefresh).setOnHidden(ev->{
 
 			handleRefersh(e);
+			
+			loadDataSearch();
 
 		});;
 

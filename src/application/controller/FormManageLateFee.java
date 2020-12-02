@@ -134,6 +134,8 @@ public class FormManageLateFee extends DialogBox implements Initializable{
 					
 					loadFXML(root,btnRefresh).setOnHidden(ev->{
 						handleRefersh(new ActionEvent());
+						
+						loadDataSearch();
 						if(ctlMain.total == 0) {
 							try {
 								Success("Thanh toán thành công", btnRefresh);
@@ -191,6 +193,8 @@ public class FormManageLateFee extends DialogBox implements Initializable{
 					}
 
 					handleRefersh(e);
+					
+					loadDataSearch();
 
 				}else {
 

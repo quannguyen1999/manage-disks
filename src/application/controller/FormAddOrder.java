@@ -120,6 +120,12 @@ public class FormAddOrder extends DialogBox implements Initializable{
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
+		txtOrderDate.setValue(LocalDate.now());
+		
+		txtOrderDate.setDisable(true);
+		
+		txtOrderDate.setEditable(false);
+		
 		txtOrderMa.setEditable(false);
 
 		cbcTitleId.setEditable(true);
@@ -178,17 +184,23 @@ public class FormAddOrder extends DialogBox implements Initializable{
 				if(ctlMain.result==true) {
 
 					for(int i=0;i<listTitle.size();i++) {
+						
 						if(listTitleWantOrder.get(i).getTitleId().equals(tbl_view.getItems().get(result).getTitleId())){
 
-							listTitle.add(listTitleWantOrder.get(i));
-							
 							listTitleWantOrder.remove(i);
 							
 							tbl_view.getItems().clear();
 							
+							tbl_viewOrderV.getItems().clear();
+							
 							uploadDuLieuOrderLenBang();
 							
-							uploadDuLieuLenBang();
+							List<Title> listTitleX = titlService.listTitle();
+							if(listTitleX!=null) {
+								listTitleX.forEach(t->{
+									tbl_viewOrderV.getItems().add(t);
+								});
+							}
 
 							break;
 						}
@@ -233,7 +245,6 @@ public class FormAddOrder extends DialogBox implements Initializable{
 
 		colStatus.setCellValueFactory(cellData -> new SimpleStringProperty(
 				String.valueOf(cellData.getValue().getStatus())));
-		//		colNameOrder.setMinWidth(180);//.setCellValueFactory(new PropertyValueFactory<>("diaChi"));
 	}
 
 
@@ -470,7 +481,7 @@ public class FormAddOrder extends DialogBox implements Initializable{
 
 			listTitleWantOrder.add(title);
 
-			tbl_viewOrderV.getItems().clear();
+			tbl_view.getItems().clear();
 
 			listTitleWantOrder.forEach(t->{
 
@@ -516,7 +527,7 @@ public class FormAddOrder extends DialogBox implements Initializable{
 	public void uploadDuLieuOrderLenBang() {
 		if(listTitleWantOrder!=null && listTitleWantOrder.size()>=1) {
 			listTitleWantOrder.forEach(t->{
-				tbl_viewOrderV.getItems().add(t);
+				tbl_view.getItems().add(t);
 			});
 		}
 	}

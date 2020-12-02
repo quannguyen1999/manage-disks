@@ -93,40 +93,6 @@ public class FormManageOrder extends DialogBox implements Initializable{
 		
 		cbcPhoneKh.setEditable(true);
 
-		//		tbl_view.setOnMouseClicked(e->{
-		//			if(e.getClickCount()==2) {
-		//				int result=tbl_view.getSelectionModel().getSelectedIndex();
-		//				if(result!=-1) {
-		//
-		//					FXMLLoader loader= new FXMLLoader(getClass().getResource(loadFormAddOrder));
-		//
-		//					Parent root=null;
-		//					try {
-		//						root = loader.load();
-		//					} catch (IOException e1) {
-		//						e1.printStackTrace();
-		//					}
-		//
-		//					FormAddOrder ctlMain=loader.getController();
-		//
-		//					ctlMain.lblTitle.setText("Cập nhập mặt hàng");
-		//
-		//					ctlMain.txtMa.setText(tbl_view.getItems().get(result).getOrderId());
-		//
-		//					ctlMain.txtName.setText(tbl_view.getItems().get(result).getName());
-		//
-		//					ctlMain.txtPrice.setText(String.valueOf(tbl_view.getItems().get(result).getPrice()));
-		//
-		//					ctlMain.txtDescription.setText(tbl_view.getItems().get(result).getDescription());
-		//
-		//					loadFXML(root,btnRefresh).setOnHidden(ev->{
-		//
-		//						handleRefersh(new ActionEvent());
-		//
-		//					});;
-		//				}
-		//			}
-		//		});
 	}
 
 	public void clickRdOne(ActionEvent e) {

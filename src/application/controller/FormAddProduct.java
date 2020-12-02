@@ -119,9 +119,6 @@ public class FormAddProduct extends DialogBox implements Initializable{
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-
-		
-		
 		txtImage.setEditable(false);
 
 		txtMa.setEditable(false);
@@ -131,7 +128,6 @@ public class FormAddProduct extends DialogBox implements Initializable{
 		txtDateAdded.setEditable(false);
 
 		txtDateAdded.setValue(LocalDate.now());
-
 
 		txtPhoneSupplier.setEditable(false);
 
@@ -168,7 +164,7 @@ public class FormAddProduct extends DialogBox implements Initializable{
 
 		accs.forEach(t->{
 
-			items.add(t.getSupplierId());
+			items.add(t.getPhone());
 
 		});
 
@@ -188,7 +184,7 @@ public class FormAddProduct extends DialogBox implements Initializable{
 
 		accs.forEach(t->{
 
-			items.add(t.getTitleId());
+			items.add(t.getName());
 
 		});
 
@@ -223,13 +219,15 @@ public class FormAddProduct extends DialogBox implements Initializable{
 			Error("Vui lòng không để trống", btn);
 
 			cbcSupplier.requestFocus();
+			
 			xoaRongSUpplier();
+			
 			return;
 
 		}
 		try {
 			for(int i=0;i<accs.size();i++) {
-				if(accs.get(i).getSupplierId().equals(cbcTextFind)) {
+				if(accs.get(i).getPhone().equals(cbcTextFind)) {
 					listnv=accs.get(i);
 				}
 			}
@@ -239,15 +237,14 @@ public class FormAddProduct extends DialogBox implements Initializable{
 		if(listnv!=null) {
 			Supplier cate=listnv;
 			if(cate!=null) {
-
-				txtPhoneSupplier.setText(cate.getPhone());
+				txtPhoneSupplier.setText(cate.getSupplierId());
 
 				txtCompanySupplier.setText(cate.getCompanyName());
 
 			}
 		}else {
 
-			Error("Không tìm thấy mã này", btn);
+			Error("Không tìm thấy phone này", btn);
 
 			cbcSupplier.requestFocus();
 
@@ -295,7 +292,7 @@ public class FormAddProduct extends DialogBox implements Initializable{
 		}
 		try {
 			for(int i=0;i<accs.size();i++) {
-				if(accs.get(i).getTitleId().equals(cbcTextFind)) {
+				if(accs.get(i).getName().equals(cbcTextFind)) {
 					listnv=accs.get(i);
 				}
 			}
@@ -306,7 +303,7 @@ public class FormAddProduct extends DialogBox implements Initializable{
 			Title cate=listnv;
 			if(cate!=null) {
 
-				txtNameTitle.setText(cate.getName());
+				txtNameTitle.setText(cate.getTitleId());
 
 				if(cate.getStatus()==DAT) {
 
@@ -322,7 +319,7 @@ public class FormAddProduct extends DialogBox implements Initializable{
 			}
 		}else {
 
-			Error("Không tìm thấy mã này", btn);
+			Error("Không tìm thấy tên này", btn);
 
 			cbcSupplier.requestFocus();
 
@@ -438,9 +435,9 @@ public class FormAddProduct extends DialogBox implements Initializable{
 		LocalDate dateAddedProduct=txtDateAdded.getValue();
 		String imageProduct=txtImage.getText().toString();
 
-		String idSupplier=cbcSupplier.getSelectionModel().getSelectedItem().toString();
+		String idSupplier=txtPhoneSupplier.getText().toString();
 
-		String idTitle=cbcTitle.getSelectionModel().getSelectedItem().toString();
+		String idTitle=txtNameTitle.getText().toString();
 
 		boolean stillContunite=false;
 		if(checkNameProduct(e,nameProduct)) {
@@ -465,14 +462,6 @@ public class FormAddProduct extends DialogBox implements Initializable{
 				stillContunite=false;
 			}
 		}
-//		if(stillContunite==true) {
-//			if(checkStatusProduct(e,statusProduct)) {
-//				stillContunite=true;
-//			}else {
-//				txtStatus.requestFocus();
-//				stillContunite=false;
-//			}
-//		}
 
 		if(stillContunite==true) {
 			if(checkImage(e,imageProduct)) {
@@ -563,7 +552,7 @@ public class FormAddProduct extends DialogBox implements Initializable{
 	}
 
 
-	public void btnXoaRong(ActionEvent e) {
+	public void btnXoaRong(ActionEvent e) throws IOException {
 		if(maProductRemember.isEmpty()==false) {
 			Product product=productService.findProductById(maProductRemember);
 			txtMa.setText(product.getProductId());
@@ -572,19 +561,15 @@ public class FormAddProduct extends DialogBox implements Initializable{
 			txtDescription.setText(product.getDescription());
 			rdChoThue.setSelected(true);
 			txtDateAdded.setValue(product.getDateAdded());
-
-			Image image = new Image("file:///"+product.getPicture());
-			img.setImage(image);
-
-
-			txtImage.setText(product.getPicture());
-			cbcSupplier.setValue(product.getSupplier().getSupplierId());
-			cbcTitle.setValue(product.getTitle().getTitleId());
+			img.setImage(getImage(product.getPicture()));
+			txtImage.setText("");
+			cbcSupplier.setValue(product.getSupplier().getPhone());
+			cbcTitle.setValue(product.getTitle().getName());
 
 			txtCompanySupplier.setText(product.getSupplier().getCompanyName());
-			txtPhoneSupplier.setText(product.getSupplier().getPhone());
+			txtPhoneSupplier.setText(product.getSupplier().getSupplierId());
 
-			txtNameTitle.setText(product.getTitle().getName());
+			txtNameTitle.setText(product.getTitle().getTitleId());
 			if(product.getTitle().getStatus().equalsIgnoreCase(DAT)) {
 				txtStatusTitle.setText("Còn hàng");
 			}else {
@@ -601,6 +586,14 @@ public class FormAddProduct extends DialogBox implements Initializable{
 			txtImage.setText("");
 			cbcSupplier.setValue("");
 			cbcTitle.setValue("");
+			
+			txtPhoneSupplier.setText("");
+			
+			txtNameTitle.setText("");
+			
+			txtCompanySupplier.setText("");
+			
+			txtStatusTitle.setText("");
 
 		}
 

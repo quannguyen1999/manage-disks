@@ -121,8 +121,6 @@ public class FormManageProduct extends DialogBox implements Initializable{
 
 					ctlMain.txtDescription.setText(tbl_view.getItems().get(result).getDescription());
 
-					//					ctlMain.txtStatus.setText(tbl_view.getItems().get(result).getStatus());
-
 					String status = tbl_view.getItems().get(result).getStatus();
 					if(status.equalsIgnoreCase(CHOTHUE)) {
 						ctlMain.rdChoThue.setSelected(true);
@@ -143,15 +141,15 @@ public class FormManageProduct extends DialogBox implements Initializable{
 
 					ctlMain.txtImage.setText("...");
 
-					ctlMain.cbcSupplier.setValue(tbl_view.getItems().get(result).getSupplier().getSupplierId());
+					ctlMain.cbcSupplier.setValue(tbl_view.getItems().get(result).getSupplier().getPhone());
 
-					ctlMain.txtPhoneSupplier.setText(tbl_view.getItems().get(result).getSupplier().getPhone());
+					ctlMain.txtPhoneSupplier.setText(tbl_view.getItems().get(result).getSupplier().getSupplierId());
 
 					ctlMain.txtCompanySupplier.setText(tbl_view.getItems().get(result).getSupplier().getCompanyName());
 
-					ctlMain.cbcTitle.setValue(tbl_view.getItems().get(result).getTitle().getTitleId());
+					ctlMain.cbcTitle.setValue(tbl_view.getItems().get(result).getTitle().getName());
 
-					ctlMain.txtNameTitle.setText(tbl_view.getItems().get(result).getTitle().getName());
+					ctlMain.txtNameTitle.setText(tbl_view.getItems().get(result).getTitle().getTitleId());
 
 					if(tbl_view.getItems().get(result).getTitle().getStatus().equalsIgnoreCase(DAT)) {
 						ctlMain.txtStatusTitle.setText("Hết hàng");
@@ -235,6 +233,8 @@ public class FormManageProduct extends DialogBox implements Initializable{
 					img.setImage(null);
 
 					handleRefersh(e);
+					
+					loadDataSearch();
 
 				}else {
 
@@ -333,6 +333,10 @@ public class FormManageProduct extends DialogBox implements Initializable{
 		loadFXML(root,btnRefresh).setOnHidden(ev->{
 
 			handleRefersh(e);
+			
+//			cbc.getItems().clear();
+			
+			loadDataSearch();
 
 		});;
 

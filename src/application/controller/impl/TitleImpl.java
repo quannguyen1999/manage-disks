@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.persistence.EntityTransaction;
 
+import application.controller.DialogBox;
 import application.controller.DAO.Connect;
 import application.controller.DAO.Repository;
 import application.controller.services.BillService;
@@ -22,6 +23,9 @@ import application.entities.Product;
 import application.entities.Title;
 
 public class TitleImpl extends Repository implements TitleService{
+	
+	static final String DAT = "Đặt";
+	static final String CHUADAT = "Chưa đặt";
 
 	static Connection conn;
 
@@ -183,12 +187,37 @@ public class TitleImpl extends Repository implements TitleService{
 		List<Title> findListTitle = new ArrayList<>();
 		List<Title> listTitle = listTitle();
 		for(int i=0;i<listTitle.size();i++) {
-//			System.out.println(listTitle.get(i).getCategory().getCategoryId());
 			if(listTitle.get(i).getCategory().getCategoryId().equalsIgnoreCase(id)) {
 				findListTitle.add(listTitle.get(i));
 			}
 		}
 		return findListTitle.size() >=1 ? findListTitle : null;
+	}
+
+	@Override
+	public List<Title> listAllTitleStillNotOrder() {
+		List<Title> findListTitle = new ArrayList<>();
+		List<Title> listTitle = listTitle();
+		for(int i=0;i<listTitle.size();i++) {
+			if(listTitle.get(i).getStatus().equals(CHUADAT)) 
+			{
+				findListTitle.add(listTitle.get(i));
+			}
+		}
+		return findListTitle;
+	}
+
+	@Override
+	public List<Title> lisdtAllTitleHadOrder() {
+		List<Title> findListTitle = new ArrayList<>();
+		List<Title> listTitle = listTitle();
+		for(int i=0;i<listTitle.size();i++) {
+			if(listTitle.get(i).getStatus().equals(DAT)) 
+			{
+				findListTitle.add(listTitle.get(i));
+			}
+		}
+		return findListTitle;
 	}
 
 

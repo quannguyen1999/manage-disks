@@ -151,11 +151,9 @@ public class FormManageBill extends DialogBox implements Initializable{
 					
 					loadFXML(root,btnRefresh).setOnHidden(ev->{
 						
-//						handleRefersh(e);
+						loadDataCustomer();
 						
-//						tbl_view
-						
-//						uploadDuLieuLenBang();
+						loadDataSearch();
 						
 					});;
 				}
@@ -241,6 +239,10 @@ public class FormManageBill extends DialogBox implements Initializable{
 					}
 
 					handleRefersh(e);
+					
+					loadDataCustomer();
+					
+					loadDataSearch();
 
 				}else {
 
@@ -339,6 +341,10 @@ public class FormManageBill extends DialogBox implements Initializable{
 		loadFXML(root,btnRefresh).setOnHidden(ev->{
 
 			handleRefersh(e);
+			
+			loadDataCustomer();
+			
+			loadDataSearch();
 
 		});;
 

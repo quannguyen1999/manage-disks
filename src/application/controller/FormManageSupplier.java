@@ -93,6 +93,7 @@ public class FormManageSupplier extends DialogBox implements Initializable{
 
 						handleRefersh(new ActionEvent());
 
+						loadDataSearch();
 					});;
 				}
 			}
@@ -140,6 +141,8 @@ public class FormManageSupplier extends DialogBox implements Initializable{
 					}
 					
 					handleRefersh(e);
+					
+					loadDataSearch();
 				
 				}else {
 
@@ -215,6 +218,8 @@ public class FormManageSupplier extends DialogBox implements Initializable{
 		loadFXML(root,btnRefresh).setOnHidden(ev->{
 
 			handleRefersh(e);
+			
+			loadDataSearch();
 
 		});;
 

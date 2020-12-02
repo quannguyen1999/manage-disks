@@ -110,12 +110,12 @@
          <children>
             <HBox prefHeight="42.0" prefWidth="217.0">
                <children>
-                  <Label alignment="CENTER" text="Mã nhà cung cấp" textFill="#190404">
+                  <Label alignment="CENTER" text="Điện thoại nhà cung cấp" textFill="#190404">
                      <font>
                         <Font size="18.0" />
                      </font>
                      <HBox.margin>
-                        <Insets left="10.0" top="10.0" />
+                        <Insets top="10.0" />
                      </HBox.margin>
                   </Label>
                </children>
@@ -134,7 +134,7 @@
             </HBox>
             <HBox prefHeight="42.0" prefWidth="242.0">
                <children>
-                  <Label alignment="CENTER" text="Điện thoại" textFill="#190404">
+                  <Label alignment="CENTER" text="Mã nhà cung cấp" textFill="#190404">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -174,7 +174,7 @@
             </JFXTextField>
             <HBox prefHeight="22.0" prefWidth="215.0">
                <children>
-                  <Label alignment="CENTER" text="Mã title" textFill="#190404">
+                  <Label alignment="CENTER" text="Tên" textFill="#190404">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -198,7 +198,7 @@
             </HBox>
             <HBox prefHeight="23.0" prefWidth="215.0">
                <children>
-                  <Label alignment="CENTER" text="Tên" textFill="#190404">
+                  <Label alignment="CENTER" text="Mã title" textFill="#190404">
                      <font>
                         <Font size="18.0" />
                      </font>
