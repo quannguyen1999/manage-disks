@@ -30,6 +30,7 @@ public class FormAddCategory extends DialogBox implements Initializable{
 	@FXML JFXTextField txtPrice;
 	@FXML JFXTextField txtDescription;
 	@FXML JFXTextField txtTimeRent;
+	@FXML JFXTextField txtPriceLateFee;
 
 	//jfx button
 	@FXML JFXButton btn;
@@ -103,6 +104,29 @@ public class FormAddCategory extends DialogBox implements Initializable{
 		return true;
 	}
 	
+	public boolean kiemTraGiaThue(ActionEvent e,String ma) throws IOException {
+		int tgThue = 0;
+		String MaKT = ma.trim();
+		if(MaKT.isEmpty()==true) {
+			Error("giá thuê không được để trống",btn);
+			return false;
+		}
+		
+		try {
+			tgThue = Integer.parseInt(ma);
+		} catch (Exception e2) {
+			Error("gián thuê không hợp lệ",btn);
+			return false;
+		}
+		
+		if(tgThue<=0) {
+			Error("giá thuê không hợp lệ", btn);
+			return false;
+		}
+		
+		return true;
+	}
+	
 	public void CLickOK(ActionEvent e) throws IOException {
 		String ma=txtMa.getText().toString();
 		String tenMatHang=txtName.getText().toString();
@@ -110,6 +134,7 @@ public class FormAddCategory extends DialogBox implements Initializable{
 		System.out.println(gia);
 		String moTa=txtDescription.getText().toString();
 		String timeRent=txtTimeRent.getText().toString();
+		String priveLateFee=txtPriceLateFee.getText().toString();
 		boolean stillContunite=false;
 		if(kiemTraTenMatHang(e,tenMatHang)) {
 			stillContunite=true;
@@ -142,10 +167,20 @@ public class FormAddCategory extends DialogBox implements Initializable{
 				stillContunite=false;
 			}
 		}
+		
+
+		if(stillContunite==true) {
+			if(kiemTraGiaThue(e, priveLateFee)) {
+				stillContunite=true;
+			}else {
+				txtPriceLateFee.requestFocus();
+				stillContunite=false;
+			}
+		}
 
 		if(stillContunite==true) {
 
-			Category category=new Category(ma, tenMatHang, moTa, Float.parseFloat(gia),Integer.parseInt(timeRent));
+			Category category=new Category(ma, tenMatHang, moTa, Float.parseFloat(gia),Integer.parseInt(timeRent),Integer.parseInt(priveLateFee));
 
 			if(lblTitle.getText().equals("Cập nhập mặt hàng")==false) {
 

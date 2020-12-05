@@ -34,5 +34,8 @@ public class Category {
 	private float price;
 	
 	@Column
+	private float priceLateFee;
+	
+	@Column
 	private int timeRent;
 }

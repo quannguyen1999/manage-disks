@@ -68,7 +68,7 @@ public class ReturnDiskV2  extends DialogBox implements Initializable{
 	@FXML JFXButton btnExit;
 
 	//Bill
-//	@FXML JFXDatePicker txtDatePayBill;
+	//	@FXML JFXDatePicker txtDatePayBill;
 
 	//customer
 	@FXML ComboBox<String>  cbcIdCustomer=new ComboBox<String>();;
@@ -117,11 +117,11 @@ public class ReturnDiskV2  extends DialogBox implements Initializable{
 	List<Product> arrayOrderProduct=new ArrayList<>();
 
 	List<Bill> listBill =new ArrayList<>();
-	
+
 	List<BillDetail> listBillDetailWantReturn = new ArrayList<>();
-	
+
 	DecimalFormat df = new DecimalFormat("#,###"); 
-	
+
 	Customer customer;
 
 	@Override
@@ -155,18 +155,18 @@ public class ReturnDiskV2  extends DialogBox implements Initializable{
 		btnFindIdCustomer.setDisable(true);
 
 		txtPriceProduct.setEditable(false);
-		
+
 		tbl_view.setOnMouseClicked(e->{
 			if(e.getClickCount()==2) {
 				int result=tbl_view.getSelectionModel().getSelectedIndex();
 				if(result!=-1) {
-					
-//					cbcIdProduct.setValue(tbl_view.getItems().get(result).getProductId());
-//					txtNameProduct.setText(tbl_view.getItems().get(result).getName());
-//					txtQuantityProduct.setText(String.valueOf(tbl_view.getItems().get(result).getQuantity()));
-//					txtDescriptionProduct.setText(tbl_view.getItems().get(result).getDescription());
-//					txtStatusProduct.setText(tbl_view.getItems().get(result).getStatus());
-//					txtPriceProduct.setText(String.valueOf(df.format(tbl_view.getItems().get(result).getTitle().getCategory().getPrice()))+" $");
+
+					//					cbcIdProduct.setValue(tbl_view.getItems().get(result).getProductId());
+					//					txtNameProduct.setText(tbl_view.getItems().get(result).getName());
+					//					txtQuantityProduct.setText(String.valueOf(tbl_view.getItems().get(result).getQuantity()));
+					//					txtDescriptionProduct.setText(tbl_view.getItems().get(result).getDescription());
+					//					txtStatusProduct.setText(tbl_view.getItems().get(result).getStatus());
+					//					txtPriceProduct.setText(String.valueOf(df.format(tbl_view.getItems().get(result).getTitle().getCategory().getPrice()))+" $");
 				}
 			}
 		});
@@ -178,16 +178,16 @@ public class ReturnDiskV2  extends DialogBox implements Initializable{
 
 		colBIllDetailId=new TableColumn<BillDetail, String>("mã bill detail");
 		colQuantity=new TableColumn<BillDetail, String>("Số lượng");
-		 colTotalAmmount=new TableColumn<BillDetail, String>("Tổng");
+		colTotalAmmount=new TableColumn<BillDetail, String>("Tổng");
 		colIdProduct=new TableColumn<BillDetail, String>("mã product");
 		colNameProduct=new TableColumn<BillDetail, String>("tên product");
-		
+
 
 		tbl_view.getColumns().addAll(colBIllDetailId,colQuantity
 				,colTotalAmmount,colIdProduct,colNameProduct);
 
 		bd.setCenter(tbl_view);
-		
+
 		colBIllDetailId.setCellValueFactory(new PropertyValueFactory<>("billDetailId"));
 		colQuantity.setCellValueFactory(  cellData->new SimpleStringProperty(String.valueOf(cellData.getValue().getQuantity())));
 		colTotalAmmount.setCellValueFactory( cellData->new SimpleStringProperty(String.valueOf(cellData.getValue().getTotalAmmount())));
@@ -195,8 +195,8 @@ public class ReturnDiskV2  extends DialogBox implements Initializable{
 		colNameProduct.setCellValueFactory( cellData->new SimpleStringProperty(String.valueOf(cellData.getValue().getProduct().getName())));
 		//		colPrice.setCellValueFactory( cellData->new SimpleStringProperty(String.valueOf(cellData.getValue().getTitle().getCategory().getPrice())));
 
-//		colPrice.setCellValueFactory( cellData->
-//		new SimpleStringProperty(String.valueOf(df.format(cellData.getValue().getTitle().getCategory().getPrice()))));
+		//		colPrice.setCellValueFactory( cellData->
+		//		new SimpleStringProperty(String.valueOf(df.format(cellData.getValue().getTitle().getCategory().getPrice()))));
 
 	}
 
@@ -246,15 +246,15 @@ public class ReturnDiskV2  extends DialogBox implements Initializable{
 	int total = 0;
 	int quantity = 0 ;
 	public void clickChooseProduct(ActionEvent e) throws IOException {
-		
+
 		if(rdPhoneCustomer.isSelected()) {
 			String phone = cbcPhoneCustomer.getValue();
-			
+
 			if(phone.isEmpty()) {
 				Error("Vui lòng chọn khách hàng", btnExit);
 				return;
 			}
-			
+
 			Customer customerFind=customerService.findCustomerByPhone(phone);
 
 			if(customerFind==null) {
@@ -268,12 +268,12 @@ public class ReturnDiskV2  extends DialogBox implements Initializable{
 			}
 		}else {
 			String phone = cbcIdCustomer.getValue();
-			
+
 			if(phone.isEmpty()) {
 				Error("Vui lòng chọn khách hàng", btnExit);
 				return;
 			}
-			
+
 			Customer customerFind=customerService.findCustomerById(phone);
 
 			if(customerFind==null) {
@@ -286,12 +286,12 @@ public class ReturnDiskV2  extends DialogBox implements Initializable{
 
 			}
 		}
-		
-		
-		
-		
-		
-		
+
+
+
+
+
+
 		if(txtQuantityProduct.getText().toString().isEmpty()==true) {
 			Error("Vui lòng nhập số lượng", btnExit);
 
@@ -307,10 +307,10 @@ public class ReturnDiskV2  extends DialogBox implements Initializable{
 			txtQuantityProduct.requestFocus();
 			return;
 		}
-		
+
 		if(quantity<=0) {
 			Error("Số lượng không hợp lệ", btnExit);
-			
+
 			return;
 		}
 
@@ -352,12 +352,12 @@ public class ReturnDiskV2  extends DialogBox implements Initializable{
 
 		}else {
 			result = false;
-			
-			
-			
+
+
+
 			List<BillDetail> listBillDetail = billService.findAllBillDetailByIdBill((ArrayList<Bill>) listBill);
-			
-			
+
+
 			listBillDetail.forEach(t->{
 				if(t.getProduct().getProductId().equalsIgnoreCase(product.getProductId())) {
 					if(t.getQuantity()<=quantity) {
@@ -365,18 +365,29 @@ public class ReturnDiskV2  extends DialogBox implements Initializable{
 					return;
 				}
 			});
-			
+
+			int countX =0;
 			int number =-1;
-			
 			for(int i=0;i<listBillDetail.size();i++) {
+
+				if(listBillDetail.get(i).getProduct().getProductId().equalsIgnoreCase(product.getProductId())){
+					countX+=1;
+				}
 				
+			}
+			for(int i=0;i<listBillDetail.size();i++) {
+
 				if(listBillDetail.get(i).getProduct().getProductId().equalsIgnoreCase(product.getProductId())){
 					if(listBillDetail.get(i).getQuantity()<quantity) {
-						Error("Số lượng thuê product "+product.getProductId()+" có "+listBillDetail.get(i).getQuantity(), btnExit);
-						break;
+						if(countX==1) {
+							Error("Số lượng thuê product "+product.getProductId()+" có "+listBillDetail.get(i).getQuantity(), btnExit);
+							break;
+						}
+						countX-=1;
+						
 					}else {
-//						listBillDetail.get(i).setQuantity(quantity);
-//						listBillDetail.get(i).setTotalAmmount(quantity*Math.round(product.getTitle().getCategory().getPrice()));
+						//						listBillDetail.get(i).setQuantity(quantity);
+						//						listBillDetail.get(i).setTotalAmmount(quantity*Math.round(product.getTitle().getCategory().getPrice()));
 						BillDetail billDetail = new BillDetail();
 						billDetail.setBill(listBillDetail.get(i).getBill());
 						billDetail.setBillDetailId(listBillDetail.get(i).getBillDetailId());
@@ -389,20 +400,20 @@ public class ReturnDiskV2  extends DialogBox implements Initializable{
 					}
 				}
 			}
-			
-			
+
+
 			tbl_view.getItems().clear();
-	
+
 			int count =0;
-			
+
 			for(int i=0;i<listBillDetailWantReturn.size();i++) {
 				count+=(listBillDetailWantReturn.get(i).getQuantity()*product.getTitle().getCategory().getPrice());
 				tbl_view.getItems().add(listBillDetailWantReturn.get(i));
 			}
-			
+
 			lblTotal.setText(String.valueOf(count));
-			
-			
+
+
 		}
 	}
 
@@ -510,7 +521,7 @@ public class ReturnDiskV2  extends DialogBox implements Initializable{
 		Customer customerFind=customerService.findCustomerById(textFind);
 
 		customer = customerFind;
-		
+
 		if(customerFind==null) {
 
 			Error("Không tìm thấy", btnExit);
@@ -562,7 +573,7 @@ public class ReturnDiskV2  extends DialogBox implements Initializable{
 		Customer customerFind=customerService.findCustomerByPhone(textFind);
 
 		customer =customerFind;
-		
+
 		if(customerFind==null) {
 
 			Error("Không tìm thấy", btnExit);
@@ -572,9 +583,9 @@ public class ReturnDiskV2  extends DialogBox implements Initializable{
 			return;
 
 		}else {
-			
+
 			resetListBill(customerFind.getCustomerId());
-			
+
 			List<LateFee> lateFee = lateFeeService.findAllLteFeeByIdCustomer(customerFind.getCustomerId());
 			if(lateFee!=null && lateFee.size()>=1) {
 				Error("Khách hàng có phí trễ hạn", btnExit);
@@ -586,7 +597,7 @@ public class ReturnDiskV2  extends DialogBox implements Initializable{
 		}
 
 	}
-	
+
 	public void resetListBill(String customerId) {
 		listBill.clear();
 		listBill=billService.findAllBillByIdCustomer(customerId);
@@ -699,6 +710,7 @@ public class ReturnDiskV2  extends DialogBox implements Initializable{
 
 	public void btnOKRenDisk(ActionEvent e) throws IOException {
 
+		
 		String textFind=null;
 
 		if(rdIdCustomer.isSelected()) {
@@ -759,13 +771,24 @@ public class ReturnDiskV2  extends DialogBox implements Initializable{
 
 		Customer customerFind = customer;
 
-		
+		for(int i=0;i<listBillDetailWantReturn.size();i++) {
+			
+			Bill bill = listBillDetailWantReturn.get(i).getBill();
+			
+			if(bill.getBillPay().isBefore(LocalDate.now())) {
+				LateFee lateFee = new LateFee("LF"+ranDomNumber(), listBillDetailWantReturn.get(i).getProduct().getTitle().getCategory().getPriceLateFee()*listBillDetailWantReturn.get(i).getQuantity(), LocalDate.now(), bill, "");
+				lateFeeService.addLateFee(lateFee);
+			}
+			
+		}
+
 		for(int i=0;i<listBillDetailWantReturn.size();i++) {
 			BillDetail billDetail = billService.findBillDetailById(listBillDetailWantReturn.get(i).getBillDetailId());
 			if(listBillDetailWantReturn.get(i).getQuantity() == billDetail.getQuantity()) {
 				billService.removeBillDetail(listBillDetailWantReturn.get(i).getBillDetailId());
 			}else if(listBillDetailWantReturn.get(i).getQuantity()<billDetail.getQuantity()) {
 				billDetail.setQuantity(billDetail.getQuantity()-listBillDetailWantReturn.get(i).getQuantity());
+				billDetail.setTotalAmmount(billDetail.getTotalAmmount()-listBillDetailWantReturn.get(i).getTotalAmmount());
 				billService.updateBillDetail(billDetail, billDetail.getBillDetailId());
 			}
 			Product product = listBillDetailWantReturn.get(i).getProduct();
@@ -773,31 +796,33 @@ public class ReturnDiskV2  extends DialogBox implements Initializable{
 			product.setQuantityOnShelf(product.getQuantityOnShelf()+listBillDetailWantReturn.get(i).getQuantity());
 			productService.updateProduct(product, product.getProductId());
 		}
-		
+
 		cbcIdProduct.setValue(null);
-		
+
 		txtNameProduct.setText("");
-		
+
 		txtQuantityProduct.setText("");
-		
+
 		txtDescriptionProduct.setText("");
-		
+
 		txtStatusProduct.setText("");
-		
+
 		txtPriceProduct.setText("");
-		
+
 		tbl_view.getItems().clear();
-		
+
 		listBillDetailWantReturn.clear();
-		
+
 		listBill.clear();
-		
+
 		resetListBill(customerFind.getCustomerId());
-		
+
 		cbcIdCustomer.setValue(customerFind.getCustomerId());
 		txtNameCustomer.setText(customerFind.getName());
 		txtAddressCustomer.setText(customerFind.getAddress());
 		txtDatePickerCustomer.setValue(customerFind.getDateOfBirth());
+
+		lblTotal.setText("");
 		
 		Success("Trả đĩa thành công", btnExit);
 
@@ -805,7 +830,7 @@ public class ReturnDiskV2  extends DialogBox implements Initializable{
 
 	public int ranDomNumber() {
 		int min = 0;
-		int max = 1000000;
+		int max = 1000000000;
 		System.out.println("Random value in int from "+min+" to "+max+ ":");
 		int random_int = (int)(Math.random() * (max - min + 1) + min);
 		return random_int;

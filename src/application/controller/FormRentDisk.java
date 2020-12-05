@@ -295,12 +295,9 @@ public class FormRentDisk  extends DialogBox implements Initializable{
 			result = false;
 			arrayOrderProduct.forEach(t->{
 				if(t.getProductId().equalsIgnoreCase(product.getProductId())){ 
-					//						&& t.getQuantity()<product.getQuantity() && t.getQuantity()>0) {
-					System.out.println(t.getQuantity());
-					System.out.println(product.getQuantityOnShelf());
 					if(t.getQuantity()>product.getQuantityOnShelf()) {
 						try {
-							Error("Không đủ hàng chỉ còn 3 "+product.getQuantityOnShelf(), btnExit);
+							Error("Không đủ hàng chỉ còn "+product.getQuantityOnShelf(), btnExit);
 							result=true;
 							return;
 						} catch (IOException e1) {
@@ -316,12 +313,12 @@ public class FormRentDisk  extends DialogBox implements Initializable{
 			});
 			if(result == false) {
 				if(product.getQuantityOnShelf()<=0) {
-					Error("Không đủ hàng chỉ còn 1"+product.getQuantityOnShelf(), btnExit);
+					Error("Không đủ hàng chỉ còn "+product.getQuantityOnShelf(), btnExit);
 
 					return;
 				}else {
 					if(quantity>product.getQuantityOnShelf()) {
-						Error("Không đủ hàng chỉ còn 2:"+product.getQuantityOnShelf(), btnExit);
+						Error("Không đủ hàng chỉ còn :"+product.getQuantityOnShelf(), btnExit);
 
 						return;
 					}
@@ -711,7 +708,7 @@ public class FormRentDisk  extends DialogBox implements Initializable{
 			return;
 
 		}
-
+//
 //		if(txtDatePayBill.getValue() == null) {
 //
 //			Error("Chưa nhập ngày trả", btnExit);
@@ -739,7 +736,7 @@ public class FormRentDisk  extends DialogBox implements Initializable{
 
 				BillDetail billDetail = new BillDetail("BD"+ranDomNumber(),
 						arrayOrderProduct.get(i).getQuantity(), 
-						Math.round(arrayOrderProduct.get(i).getTitle().getCategory().getPrice())
+						Math.round(arrayOrderProduct.get(i).getTitle().getCategory().getPrice())*arrayOrderProduct.get(i).getQuantity()
 						, arrayOrderProduct.get(i),
 						bil);
 
