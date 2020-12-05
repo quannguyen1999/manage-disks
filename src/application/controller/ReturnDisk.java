@@ -87,6 +87,8 @@ public class ReturnDisk extends DialogBox implements Initializable{
 
 	ArrayList<BillDetail> listAllBillDetail = new ArrayList<>();
 	ArrayList<BillDetail> listAllBillDetailWantReturn = new ArrayList<>();
+	
+	Bill bill;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -525,9 +527,13 @@ public class ReturnDisk extends DialogBox implements Initializable{
 			return;
 
 		}
+		
+		
 
 		for(int i=0;i<listAllBillDetailWantReturn.size();i++) {
 
+			
+			
 			billService.removeBillDetail(listAllBillDetailWantReturn.get(i).getBillDetailId());
 
 		}
@@ -539,6 +545,9 @@ public class ReturnDisk extends DialogBox implements Initializable{
 			product.setStatus(TRENKE);
 			productService.updateProduct(product, product.getProductId());
 		});
+		
+		
+		
 
 		tbl_view.getItems().clear();
 

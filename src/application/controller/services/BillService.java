@@ -16,6 +16,8 @@ public interface BillService {
 	public boolean removeBillDetail(String id);
 
 	public Bill updateBill(Bill BillUpdate,String id);
+	
+	public BillDetail updateBillDetail(BillDetail billDetailUpdate, String id);
 
 	public Bill findBillById(String id);
 	

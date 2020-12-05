@@ -161,6 +161,11 @@ public class BillImpl  extends Repository implements BillService{
 	public BillDetail findBillDetailById(String id) {
 		return (BillDetail) findById(id,new BillDetail());
 	}
+
+	@Override
+	public BillDetail updateBillDetail(BillDetail billDetailUpdate, String id) {
+		return (BillDetail) update(billDetailUpdate);
+	}
 	
 	
 

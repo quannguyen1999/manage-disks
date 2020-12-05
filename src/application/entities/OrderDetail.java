@@ -1,6 +1,7 @@
 package application.entities;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -37,8 +38,9 @@ public class OrderDetail {
 	@JoinColumn(name = "orderId", foreignKey = @ForeignKey)
 	private Order order;
 	
-	
 	@ManyToOne
 	@JoinColumn(name = "titleId", foreignKey = @ForeignKey)
 	private Title title;
+	
+	private LocalTime priority;
 }

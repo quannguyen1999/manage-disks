@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -588,7 +589,7 @@ public class FormAddOrder extends DialogBox implements Initializable{
 
 				listTitleWantOrder.forEach(t->{
 					OrderDetail orderDetail = new 
-							OrderDetail(checkIdBIllDetail(),0, 0, order, t);
+							OrderDetail(checkIdBIllDetail(),0, 0, order, t,LocalTime.now());
 					
 					orderDetailService.addOrderDetail(orderDetail);
 
