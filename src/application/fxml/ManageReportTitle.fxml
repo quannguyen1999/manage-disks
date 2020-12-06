@@ -38,7 +38,7 @@
                      </VBox.margin>
                   </Label>
                   <Label fx:id="lblAllFileCope" alignment="CENTER" contentDisplay="CENTER" prefHeight="34.0" prefWidth="239.0" text="...." textFill="WHITE" />
-                  <JFXButton styleClass="btnLogin" stylesheets="@../css/application.css" text="Danh sách bản sao" textFill="WHITE" />
+                  <JFXButton styleClass="btnLogin" stylesheets="@../css/application.css" text="Chi tiết" textFill="WHITE" />
                   <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="26.0" prefWidth="239.0" style="-fx-background-color: #212022;" text="Số lượng bản sao đang cho thuê" textFill="WHITE">
                      <font>
                         <Font size="15.0" />
@@ -48,7 +48,7 @@
                      </VBox.margin>
                   </Label>
                   <Label fx:id="lblCopyDebt" alignment="CENTER" contentDisplay="CENTER" prefHeight="34.0" prefWidth="239.0" text="...." textFill="WHITE" />
-                  <JFXButton styleClass="btnLogin" stylesheets="@../css/application.css" text="Danh sách bản sao chi thuê" textFill="WHITE" />
+                  <JFXButton styleClass="btnLogin" stylesheets="@../css/application.css" text="Chi tiết" textFill="WHITE" />
                   <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="26.0" prefWidth="239.0" style="-fx-background-color: #212022;" text="Số lượng có sẵn trong kho" textFill="WHITE">
                      <font>
                         <Font size="15.0" />
@@ -58,7 +58,7 @@
                      </VBox.margin>
                   </Label>
                   <Label fx:id="lblInStock" alignment="CENTER" contentDisplay="CENTER" prefHeight="34.0" prefWidth="239.0" text="...." textFill="WHITE" />
-                  <JFXButton styleClass="btnLogin" stylesheets="@../css/application.css" text="Danh sách số lượng có sẵn" textFill="WHITE" />
+                  <JFXButton styleClass="btnLogin" stylesheets="@../css/application.css" text="Chi tiết" textFill="WHITE" />
                   <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="26.0" prefWidth="239.0" style="-fx-background-color: #212022;" text="Số bản sao khách hàng giữ quá hạn" textFill="WHITE">
                      <font>
                         <Font size="15.0" />
@@ -68,7 +68,7 @@
                      </VBox.margin>
                   </Label>
                   <Label fx:id="lblCustomerKeep" alignment="CENTER" contentDisplay="CENTER" prefHeight="34.0" prefWidth="239.0" text="...." textFill="WHITE" />
-                  <JFXButton styleClass="btnLogin" stylesheets="@../css/application.css" text="Danh sách khách hàng giữ quá hạn" textFill="WHITE" />
+                  <JFXButton styleClass="btnLogin" stylesheets="@../css/application.css" text="Chi tiết" textFill="WHITE" />
                   <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="26.0" prefWidth="239.0" style="-fx-background-color: #212022;" text="Số lượng đặt trước của mỗi tiêu đề" textFill="WHITE">
                      <font>
                         <Font size="15.0" />
@@ -78,7 +78,7 @@
                      </VBox.margin>
                   </Label>
                   <Label fx:id="lblKeepTitle" alignment="CENTER" contentDisplay="CENTER" prefHeight="34.0" prefWidth="239.0" text="...." textFill="WHITE" />
-                  <JFXButton styleClass="btnLogin" stylesheets="@../css/application.css" text="Danh sách số lượng đặt trước tiêu đề" textFill="WHITE" />
+                  <JFXButton styleClass="btnLogin" stylesheets="@../css/application.css" text="Chi tiết" textFill="WHITE" />
                </children></VBox>
          </right>
          <bottom>

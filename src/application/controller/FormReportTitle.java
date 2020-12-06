@@ -63,6 +63,7 @@ public class FormReportTitle extends DialogBox implements Initializable{
 
 	List<Title> listTitle=new ArrayList<>();
 
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		initTable();

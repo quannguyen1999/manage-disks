@@ -37,77 +37,81 @@ public class DialogBox  implements Initializable{
 	static final String TRENKE = "Trên kệ";
 	static final String CHOTHUE = "Đã Cho thuê";
 	static final String GIULAI = "Giữ lại";
-	
+
 	static final String DAT = "Đặt";
 	static final String CHUADAT = "Chưa đặt";
 	static final String NO = "Nợ";
 	static final String KHONGCONO = "Không có nợ";
-	
+
 	static File currentDirFile = new File("");
-	
+
 	static String helper = currentDirFile.getAbsolutePath();
-	
+
 	static final String loadFormAddCustomer="../fxml/FormAddCustomer.fxml";
-	
-	
+
+
 	static final String loadFormRentDisk="../fxml/FormRentDisk.fxml";
-	
+
 	static final String loadFormReturnDisk="../fxml/ReturnDIskV2.fxml";
-	
+
 	static final String loadFormAddCategory="../fxml/FormAddCategory.fxml";
-	
+
 	static final String loadFormAddSupplier="../fxml/FormAddSupplier.fxml";
-	
+
 	static final String loadFormAddTitle="../fxml/FormAddTitle.fxml";
-	
+
+	static final String loadFormListCustomerOrder="../fxml/FormListCustomerOrder.fxml";
+
+
+
 	static final String loadFormAddProduct="../fxml/FormAddProduct.fxml";
-	
+
 	static final String loadFormAddBill="../fxml/FormAddBill.fxml";
-	
+
 	static final String loadFormDetailBill="../fxml/FormDetailBill.fxml";
-	
+
 	static final String loadFormAddOrder="../fxml/FormAddOrder.fxml";
-	
+
 	static final String loadFormPay="../fxml/FormPay.fxml";
-	
+
 	static final String loadFormReportCustomer="../fxml/FormReportCustomer.fxml";
-	
+
 	static final String loadManageReportTitle="../fxml/ManageReportTitle.fxml";
-	
+
 	static final String loadManageReportCustomer="../fxml/ManageReport.fxml";
-	
+
 	static final String loadWelcome="../fxml/Welcome.fxml";
-	
+
 	static final String loadManageCustomer="../fxml/ManageCustomer.fxml";
-	
+
 	static final String loadManageOrder="../fxml/ManageOrder.fxml";
-	
+
 	static final String loadManageProduct="../fxml/ManageProduct.fxml";
-	
+
 	static final String loadManageTitle="../fxml/ManageTitle.fxml";
-	
+
 	static final String loadManageLateFee="../fxml/ManageLateFee.fxml";
-	
+
 	static final String loadManageCategories="../fxml/ManageCategory.fxml";
-	
+
 	static final String loadManageBill="../fxml/ManageBill.fxml";
-	
+
 	static final String loadManageSupplier="../fxml/ManageSupplier.fxml";
-	
+
 	static final String loadError="../fxml/Error.fxml";
-	
+
 	static final String loadSuccess="../fxml/Success.fxml";
-	
+
 	static final String loadHelp="../fxml/Help.fxml";
-	
+
 	static final String loadChangePassword="../fxml/FormChangePassword.fxml";
-	
+
 	static final String loadAreYouSure="../fxml/AreYouSure.fxml";
-	
+
 	static final String loadLogin="file:////"+helper+"/src/application/fxml/LoginV2.fxml";
-	
+
 	static final String loadTitlePng="file:////"+helper+"/src/application/image/title.png";
-	
+
 	private double xOffset=0;
 
 	private double YOffset=0;
@@ -116,7 +120,7 @@ public class DialogBox  implements Initializable{
 	public void initialize(URL location, ResourceBundle resources) {
 
 	}
-	
+
 	public WritableImage getImage(String base64String) throws IOException {
 		BASE64Decoder decoder = new BASE64Decoder();
 
@@ -131,13 +135,13 @@ public class DialogBox  implements Initializable{
 		// write the image
 		return SwingFXUtils.toFXImage(image, null);
 	}
-	
+
 	public int ranDomNumber() {
-		  int min = 0;
-	      int max = 10000;
-	      System.out.println("Random value in int from "+min+" to "+max+ ":");
-	      int random_int = (int)(Math.random() * (max - min + 1) + min);
-	      return random_int;
+		int min = 0;
+		int max = 1000000;
+		System.out.println("Random value in int from "+min+" to "+max+ ":");
+		int random_int = (int)(Math.random() * (max - min + 1) + min);
+		return random_int;
 	}
 
 	//text to set for label, btn to declined user click windows first
@@ -153,6 +157,20 @@ public class DialogBox  implements Initializable{
 		loadFXML(root,btnLogin);
 	}
 
+	public void ErrorNoButton(String text) throws IOException {
+		FXMLLoader loader= new FXMLLoader(getClass().getResource(loadError));
+
+		Parent root=loader.load();
+
+		Error ctlMain=loader.getController();
+
+		ctlMain.lblError.setText(text);
+
+		loadFXMLNoButton(root);
+	}
+
+
+
 	//text to set for label
 	public void Success(String text,JFXButton btnLogin) throws IOException {
 		FXMLLoader loader= new FXMLLoader(getClass().getResource(loadSuccess));
@@ -164,6 +182,18 @@ public class DialogBox  implements Initializable{
 		ctlMain.lblSuccess.setText(text);
 
 		loadFXML(root,btnLogin);
+	}
+	
+	public void SuccessNoButton(String text) throws IOException {
+		FXMLLoader loader= new FXMLLoader(getClass().getResource(loadSuccess));
+
+		Parent root=loader.load();
+
+		Success ctlMain=loader.getController();
+
+		ctlMain.lblSuccess.setText(text);
+
+		loadFXMLNoButton(root);
 	}
 
 	public void Help(JFXButton btnLogin) throws IOException {
@@ -185,41 +215,41 @@ public class DialogBox  implements Initializable{
 		loadFXML(root,btn);
 
 	}
-	
+
 
 	public void areYouSure(JFXButton btn) throws IOException{
 		FXMLLoader loader= new FXMLLoader(getClass().getResource(loadAreYouSure));
-		
+
 		Parent root=loader.load();
-		
+
 		AreYouSure ctlMain=loader.getController();
-		
+
 		new animatefx.animation.FadeIn(root).play();
-		
+
 		Stage stage=new Stage();
-		
+
 		stage.initOwner(btn.getScene().getWindow());
-		
+
 		stage.setScene(new Scene(root));
-		
+
 		stage.initStyle(StageStyle.UNDECORATED);
-		
+
 		stage.initModality(Modality.APPLICATION_MODAL);
-		
+
 		stage.show();
-		
+
 		stage.setOnHidden(efg->{
-		
+
 			if(ctlMain.result==true) {
-			
+
 				System.exit(0);
-			
+
 			}else {
 
 			}
 		});
 	}
-	
+
 
 	//load file FXML
 	public Stage loadFXML(Parent root,JFXButton btn) {
@@ -241,15 +271,47 @@ public class DialogBox  implements Initializable{
 		stage.setScene(new Scene(root));
 
 		stage.initStyle(StageStyle.UNDECORATED);
-		
+
 		stage.getIcons().add(new Image(loadTitlePng));
 
 		stage.initModality(Modality.APPLICATION_MODAL);
 
 		stage.show();
-		
+
 		return stage;
 	}
+
+	//load file FXML
+	public Stage loadFXMLNoButton(Parent root) {
+		Stage stage=new Stage();
+
+		root.setOnMousePressed((MouseEvent event)->{
+			xOffset=event.getSceneX();
+			YOffset=event.getSceneY();
+		});
+		root.setOnMouseDragged((MouseEvent event)->{
+			stage.setX(event.getScreenX()-xOffset);
+			stage.setY(event.getScreenY()-YOffset);
+		});
+
+//		stage.initOwner(btn.getScene().getWindow());
+
+		new animatefx.animation.FadeIn(root).play();
+
+		stage.setScene(new Scene(root));
+
+		stage.initStyle(StageStyle.UNDECORATED);
+
+		stage.getIcons().add(new Image(loadTitlePng));
+
+		stage.initModality(Modality.APPLICATION_MODAL);
+
+		stage.show();
+
+		return stage;
+	}
+
+
 
 	//load image
 	public ImageView getImageView(String nameIcon){
@@ -281,15 +343,15 @@ public class DialogBox  implements Initializable{
 	}
 
 	public void logOut(JFXButton btn,ActionEvent e) throws MalformedURLException, IOException {
-		
+
 		Parent root;
-		
+
 		((Node)(e.getSource())).getScene().getWindow().hide(); 
-		
+
 		root=(Parent) FXMLLoader.load(new URL(loadLogin));
-		
+
 		loadFXML(root,btn);
-		
+
 	}
 
 }

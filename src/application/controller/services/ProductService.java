@@ -15,4 +15,6 @@ public interface ProductService {
 	
 	public List<Product> listProduct();
 	
+	public List<Product> listAllProductByTitleIdInStock(String titleId);
+	
 }

@@ -11,9 +11,15 @@ import application.controller.DAO.Repository;
 import application.controller.services.BillService;
 import application.controller.services.CustomerService;
 import application.controller.services.LateFeeService;
+import application.controller.services.OrderDetailService;
+import application.controller.services.OrderService;
+import application.controller.services.TitleService;
 import application.entities.Bill;
 import application.entities.Customer;
 import application.entities.LateFee;
+import application.entities.Order;
+import application.entities.OrderDetail;
+import application.entities.Title;
 
 public class  CustomerImpl extends Repository implements CustomerService{
 	static Connection conn;
@@ -23,6 +29,12 @@ public class  CustomerImpl extends Repository implements CustomerService{
 	static BillService billService = new BillImpl();
 	
 	static LateFeeService lateFeeService = new LateFeeImpl();
+	
+	static OrderService orderService = new OrderImpl();
+	
+	static TitleService titleService = new TitleImpl();
+	
+	static OrderDetailService orderDetailService = new OrderDetailImpl();
 	
 	@Override
 	public boolean removeCustomer(String id) {
@@ -104,6 +116,20 @@ public class  CustomerImpl extends Repository implements CustomerService{
 				listCustomer.add(listLateFee.get(i).getBill().getCustomer());
 		}
 		return listCustomer.size()==0?null:listCustomer;
+	}
+
+	@Override
+	public List<Customer> listALlCustomerByTitleId(String idTitle) {
+		List<OrderDetail> listOrderDetail = orderDetailService.findAllOrderDetailByTitleId(idTitle);
+		List<Customer> listCustustomerFind = new ArrayList<>();
+		if(listOrderDetail!=null && listOrderDetail.size()>=1) {
+			for(int i=0;i<listOrderDetail.size();i++) {
+				if(listCustustomerFind.contains(listOrderDetail.get(i).getOrder().getCustomer())==false) {
+					listCustustomerFind.add(listOrderDetail.get(i).getOrder().getCustomer());
+				}
+			}
+		}
+		return listCustustomerFind.size()<=0?null:listCustustomerFind;
 	}
 	
 }

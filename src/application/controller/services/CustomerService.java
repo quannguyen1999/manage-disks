@@ -20,4 +20,6 @@ public interface CustomerService {
 	public List<Customer> listAllCustomerByNotReturnDisk();
 	
 	public List<Customer> listAllCustomerByDebt();
+	
+	public List<Customer> listALlCustomerByTitleId(String idTitle);
 }

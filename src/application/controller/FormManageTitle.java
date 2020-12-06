@@ -11,10 +11,14 @@ import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
 
+import application.controller.impl.CustomerImpl;
 import application.controller.impl.OrderDetailImpl;
+import application.controller.impl.OrderImpl;
 import application.controller.impl.TitleImpl;
 import application.controller.impl.TitleImpl;
+import application.controller.services.CustomerService;
 import application.controller.services.OrderDetailService;
+import application.controller.services.OrderService;
 import application.controller.services.TitleService;
 import application.controller.services.TitleService;
 import application.entities.Category;
@@ -58,6 +62,10 @@ public class FormManageTitle extends DialogBox implements Initializable{
 	TitleService titleService=new TitleImpl();
 
 	OrderDetailService orderDetailService = new OrderDetailImpl();
+	
+	OrderService orderService = new OrderImpl();
+	
+	CustomerService customerService = new CustomerImpl();
 
 	@FXML ComboBox<String> cbc=new ComboBox<String>();
 
@@ -95,8 +103,8 @@ public class FormManageTitle extends DialogBox implements Initializable{
 
 					ctlMain.lblTitle.setText("Cập nhập title");
 
-//					ctlMain.txtTimeRent.setText(String.valueOf(tbl_view.getItems().get(result).getCategory().getPrice()));
-					
+					//					ctlMain.txtTimeRent.setText(String.valueOf(tbl_view.getItems().get(result).getCategory().getPrice()));
+
 					ctlMain.txtMa.setText(tbl_view.getItems().get(result).getTitleId());
 
 					ctlMain.cbc.setValue(tbl_view.getItems().get(result).getCategory().getName());
@@ -107,11 +115,11 @@ public class FormManageTitle extends DialogBox implements Initializable{
 
 					String status=tbl_view.getItems().get(result).getStatus();
 
-//					ctlMain.txtNameCategory.setText(tbl_view.getItems().get(result).getCategory().getName());
-//
-//					ctlMain.txtDescriptionCategory.setText(tbl_view.getItems().get(result).getCategory().getDescription());
-//
-//					ctlMain.txtPriceCategory.setText(String.valueOf(tbl_view.getItems().get(result).getCategory().getPrice()));
+					//					ctlMain.txtNameCategory.setText(tbl_view.getItems().get(result).getCategory().getName());
+					//
+					//					ctlMain.txtDescriptionCategory.setText(tbl_view.getItems().get(result).getCategory().getDescription());
+					//
+					//					ctlMain.txtPriceCategory.setText(String.valueOf(tbl_view.getItems().get(result).getCategory().getPrice()));
 
 					ctlMain.titleOld=tbl_view.getItems().get(result);
 
@@ -181,7 +189,7 @@ public class FormManageTitle extends DialogBox implements Initializable{
 					titleService.removeTitle(tbl_view.getItems().get(result).getTitleId());
 
 					handleRefersh(e);
-					
+
 					loadDataSearch();
 
 				}else {
@@ -395,5 +403,42 @@ public class FormManageTitle extends DialogBox implements Initializable{
 		cbcNameTitle.setItems(filteredNameItems);
 
 		cbcNameTitle.setEditable(true);
+	}
+
+	public void danhSachKhachHangDat(ActionEvent e) throws IOException {
+		int result=tbl_view.getSelectionModel().getSelectedIndex();
+		if(result!=-1) {
+
+			FXMLLoader loader= new FXMLLoader(getClass().getResource(loadFormListCustomerOrder));
+
+			Parent root=null;
+			try {
+				root = loader.load();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+
+			FormListCustomerOrder ctlMain=loader.getController();
+
+			if(tbl_view.getItems().get(result).getStatus().equalsIgnoreCase(CHUADAT)) {
+				Error("Chưa có khách hàng nào đặt", btnRefresh);
+				return;
+			}
+			
+			ctlMain.loadCustomer(customerService.listALlCustomerByTitleId(tbl_view.getItems().get(result).getTitleId()));
+
+			ctlMain.loadTitleAndListProduct(tbl_view.getItems().get(result).getTitleId());
+			
+			
+			
+			loadFXML(root,btnRefresh).setOnHidden(ev->{
+
+				handleRefersh(new ActionEvent());
+
+			});;
+		}else {
+			Error("Bạn chưa chọn bảng", btnRefresh);
+			return;
+		}
 	}
 }

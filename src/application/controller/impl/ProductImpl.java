@@ -101,4 +101,16 @@ public class ProductImpl extends Repository implements ProductService{
 		return listProduct;
 	}
 
+	@Override
+	public List<Product> listAllProductByTitleIdInStock(String titleId) {
+		List<Product> listProductFind = new ArrayList<>();
+		List<Product> listProductCurrent= listProduct();
+		for(int i=0;i<listProductCurrent.size();i++) {
+			if(listProductCurrent.get(i).getTitle().getTitleId().equalsIgnoreCase(titleId) && listProductCurrent.get(i).getQuantityOnShelf()>=1) {
+				listProductFind.add(listProductCurrent.get(i));
+			}
+		}
+		return listProductFind.size()<=0?null:listProductFind;
+	}
+
 }

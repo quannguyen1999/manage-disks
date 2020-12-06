@@ -8,6 +8,8 @@ public interface OrderDetailService {
 	public boolean addOrderDetail(OrderDetail OrderDetail);
 
 	public boolean removeOrderDetail(String id);
+	
+	public boolean removeOrderDetailByCustomerId(String customerId, String titleId);
 
 	public OrderDetail updateOrderDetail(OrderDetail OrderDetailUpdate,String id);
 

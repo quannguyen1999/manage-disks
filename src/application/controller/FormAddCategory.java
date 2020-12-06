@@ -3,6 +3,9 @@ package application.controller;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import javax.persistence.Column;
+
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import application.controller.impl.CategoryImpl;
@@ -179,8 +182,25 @@ public class FormAddCategory extends DialogBox implements Initializable{
 		}
 
 		if(stillContunite==true) {
+			
+//			private String categoryId;
+//			
+//			@Column(columnDefinition = "nvarchar(500)")
+//			private String name;
+//			
+//			@Column(columnDefinition = "nvarchar(1000)")
+//			private String description;
+//			
+//			@Column
+//			private float price;
+//			
+//			@Column
+//			private float priceLateFee;
+//			
+//			@Column
+//			private int timeRent;
 
-			Category category=new Category(ma, tenMatHang, moTa, Float.parseFloat(gia),Integer.parseInt(timeRent),Integer.parseInt(priveLateFee));
+			Category category=new Category(ma, tenMatHang, moTa, Float.parseFloat(gia),Integer.parseInt(priveLateFee),Integer.parseInt(timeRent));
 
 			if(lblTitle.getText().equals("Cập nhập mặt hàng")==false) {
 

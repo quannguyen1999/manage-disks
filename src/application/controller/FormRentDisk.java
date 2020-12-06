@@ -708,23 +708,23 @@ public class FormRentDisk  extends DialogBox implements Initializable{
 			return;
 
 		}
-//
-//		if(txtDatePayBill.getValue() == null) {
-//
-//			Error("Chưa nhập ngày trả", btnExit);
-//
-//			txtDatePayBill.requestFocus();
-//
-//			return;
-//		}else if(txtDatePayBill.getValue().isBefore(LocalDate.now())) {
-//
-//			Error("Ngày không hợp lệ", btnExit);
-//
-//			txtDatePayBill.requestFocus();
-//
-//			return;
-//
-//		}
+
+		if(txtDatePayBill.getValue() == null) {
+
+			Error("Chưa nhập ngày trả", btnExit);
+
+			txtDatePayBill.requestFocus();
+
+			return;
+		}else if(txtDatePayBill.getValue().isBefore(LocalDate.now())) {
+
+			Error("Ngày không hợp lệ", btnExit);
+
+			txtDatePayBill.requestFocus();
+
+			return;
+
+		}
 
 		Customer customerFind = customerService.findCustomerById(cbcIdCustomer.getSelectionModel()
 				.getSelectedItem().toString().trim());

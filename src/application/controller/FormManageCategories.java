@@ -100,6 +100,8 @@ public class FormManageCategories extends DialogBox implements Initializable{
 
 					ctlMain.txtDescription.setText(tbl_view.getItems().get(result).getDescription());
 
+					ctlMain.txtPriceLateFee.setText(String.valueOf(Math.round(tbl_view.getItems().get(result).getPriceLateFee())));
+					
 					loadFXML(root,btnRefresh).setOnHidden(ev->{
 
 						handleRefersh(new ActionEvent());

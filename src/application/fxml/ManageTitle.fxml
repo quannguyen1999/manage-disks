@@ -32,6 +32,14 @@
                         <Insets bottom="10.0" top="10.0" />
                      </VBox.margin>
                   </JFXButton>
+                  <JFXButton onAction="#danhSachKhachHangDat" prefHeight="35.0" prefWidth="239.0" style="-fx-border-color: white;" stylesheets="@..\css\application.css" text="Danh sách khách hàng đặt" textFill="WHITE">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </JFXButton>
                </children>
             </VBox>
          </right>
