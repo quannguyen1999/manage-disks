@@ -13,15 +13,18 @@ import com.jfoenix.controls.JFXButton;
 
 import application.controller.impl.BillImpl;
 import application.controller.impl.CustomerImpl;
+import application.controller.impl.LateFeeImpl;
 import application.controller.impl.ProductImpl;
 import application.controller.impl.BillImpl;
 import application.controller.services.BillService;
 import application.controller.services.CustomerService;
+import application.controller.services.LateFeeService;
 import application.controller.services.ProductService;
 import application.controller.services.BillService;
 import application.entities.Bill;
 import application.entities.BillDetail;
 import application.entities.Customer;
+import application.entities.LateFee;
 import application.entities.Product;
 import application.entities.Bill;
 import application.entities.Bill;
@@ -63,6 +66,7 @@ public class FormManageBill extends DialogBox implements Initializable{
 	public BillService BillService=new BillImpl();
 	public CustomerService customerService=new CustomerImpl();
 	public ProductService productService = new ProductImpl();
+	public LateFeeService lateFeeService = new LateFeeImpl();
 
 	@FXML ComboBox<String> cbc=new ComboBox<String>();
 	@FXML ComboBox<String> cbcPhoneKH=new ComboBox<String>();
@@ -107,54 +111,54 @@ public class FormManageBill extends DialogBox implements Initializable{
 					ctlMain.txtBillMa.setText(tbl_view.getItems().get(result).getBillId());
 
 					ctlMain.txtBillDateOrder.setText(tbl_view.getItems().get(result).getLocalDate().toString());
-					
+
 					ctlMain.txtBillDatePay.setValue(tbl_view.getItems().get(result).getBillPay());
-					
+
 					ctlMain.txtBillDatePay.setDisable(true);
-					
+
 					if(tbl_view.getItems().get(result).getDebt().equalsIgnoreCase(NO)) {
 						ctlMain.rdBillDebtYes.setSelected(true);
 					}else {
 						ctlMain.rdBillDebtNo.setSelected(true);
 					}
-					
+
 					ctlMain.cbcCustomerId.setValue(tbl_view.getItems().get(result).getCustomer().getCustomerId());
-					
+
 					ctlMain.cbcCustomerPhone.setValue(tbl_view.getItems().get(result).getCustomer().getPhone());
-					
+
 					ctlMain.txtCustomerName.setText(tbl_view.getItems().get(result).getCustomer().getName());
-					
+
 					ctlMain.txtCustomerAddress.setText(tbl_view.getItems().get(result).getCustomer().getAddress());
-					
+
 					ctlMain.initTableInOrder();
-			
+
 					Bill bill = BillService.findBillById(tbl_view.getItems().get(result).getBillId());
-					
+
 					ArrayList<Bill> listBill = new ArrayList<>();
-					
+
 					listBill.add(bill);
-					
+
 					List<BillDetail> findListBill = BillService.findAllBillDetailByIdBill(listBill);
-					
+
 					ArrayList<Product> listProductFind = new ArrayList<>();
 					if(findListBill!=null) {
 						for(int i=0;i<findListBill.size();i++) {
 							listProductFind.add(findListBill.get(i).getProduct());
 						}
-						
+
 						ctlMain.listProductOrder = listProductFind;
-						
+
 						ctlMain.uploadDuLieuOrderLenBang();
 					}
-					
+
 					ctlMain.countTotal();
-					
+
 					loadFXML(root,btnRefresh).setOnHidden(ev->{
-						
+
 						loadDataCustomer();
-						
+
 						loadDataSearch();
-						
+
 					});;
 				}
 			}
@@ -229,19 +233,40 @@ public class FormManageBill extends DialogBox implements Initializable{
 
 				if(ctlMain.result==true) {
 
-					//					BillService.removeBill(tbl_view.getItems().get(result).getBillId());
-
 					try {
-						Success("Chưa code :v", btnRefresh);
+
+						ArrayList<Bill> listBill = new ArrayList<>();
+						listBill.add(tbl_view.getItems().get(result));
+						List<BillDetail> listBillDetail = BillService.findAllBillDetailByIdBill(listBill);
+						List<LateFee> listLateFee = lateFeeService.findAllLateFeeByBillId(tbl_view.getItems().get(result).getBillId());
+
+						if(listLateFee!=null && listLateFee.size()>=1) {
+							Error("Bill đang có phí trễ", btnRefresh);
+							return;
+						}
+						
+						if(listBillDetail!=null && listBillDetail.size()>=1) {
+							
+							listBillDetail.forEach(t->{
+								BillService.removeBillDetail(t.getBillDetailId());
+							});
+							
+						}
+						
+						BillService.removeBill(tbl_view.getItems().get(result).getBillId());
+						
+						Success("Xóa thành công", btnRefresh);
+
+
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
 
 					handleRefersh(e);
-					
+
 					loadDataCustomer();
-					
+
 					loadDataSearch();
 
 				}else {
@@ -341,9 +366,9 @@ public class FormManageBill extends DialogBox implements Initializable{
 		loadFXML(root,btnRefresh).setOnHidden(ev->{
 
 			handleRefersh(e);
-			
+
 			loadDataCustomer();
-			
+
 			loadDataSearch();
 
 		});;

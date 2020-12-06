@@ -713,27 +713,28 @@ public class FormRentDisk  extends DialogBox implements Initializable{
 
 		}
 
-//		if(txtDatePayBill.getValue() == null) {
-//
-//			Error("Chưa nhập ngày trả", btnExit);
-//
-//			txtDatePayBill.requestFocus();
-//
-//			return;
-//		}else if(txtDatePayBill.getValue().isBefore(LocalDate.now())) {
-//
-//			Error("Ngày không hợp lệ", btnExit);
-//
-//			txtDatePayBill.requestFocus();
-//
-//			return;
-//
-//		}
+		if(txtDatePayBill.getValue() == null) {
+
+			Error("Chưa nhập ngày trả", btnExit);
+
+			txtDatePayBill.requestFocus();
+
+			return;
+		}else if(txtDatePayBill.getValue().isBefore(LocalDate.now())) {
+
+			Error("Ngày không hợp lệ", btnExit);
+
+			txtDatePayBill.requestFocus();
+
+			return;
+
+		}
 
 		Customer customerFind = customerService.findCustomerById(cbcIdCustomer.getSelectionModel()
 				.getSelectedItem().toString().trim());
 
-		Bill bil = new Bill(txtIdBill.getText().toString(), LocalDate.now(), txtDatePayBill.getValue(), customerFind, NO);
+		
+		Bill bil = new Bill(txtIdBill.getText().toString(), LocalDate.now(), txtDatePayBill.getValue(), customerFind,KHONGCONO);
 
 		if(billService.addBill(bil)==true) {
 			for(int i=0;i<arrayOrderProduct.size();i++) {

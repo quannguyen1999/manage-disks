@@ -741,7 +741,7 @@ public class ReturnDiskV2  extends DialogBox implements Initializable{
 
 			tbl_view_billdetailDebt.getItems().clear();
 
-			if(listBill.size()>=1) {
+			if(listBill!=null && listBill.size()>=1) {
 				listBill.forEach(t->{
 					ArrayList<Bill> listBill = new ArrayList<>();
 					listBill.add(t);
@@ -787,7 +787,9 @@ public class ReturnDiskV2  extends DialogBox implements Initializable{
 	}
 
 	public void resetListBill(String customerId) {
-		listBill.clear();
+		if(listBill!=null) {
+			listBill.clear();
+		}
 		listBill=billService.findAllBillByIdCustomer(customerId);
 	}
 
@@ -942,114 +944,162 @@ public class ReturnDiskV2  extends DialogBox implements Initializable{
 			}
 		}
 
-		if(tbl_view.getItems().size()<=0) {
-
-			Error("Chưa có đĩa nào", btnThanhToan);
-
-			txtProductId.requestFocus();
-
-			return;
-
-		}
-
-		Customer customerFind = customer;
-
-		for(int i=0;i<listBillDetailWantReturn.size();i++) {
-
-			Bill bill = listBillDetailWantReturn.get(i).getBill();
-
-			if(bill.getBillPay().isBefore(LocalDate.now())) {
-				LateFee lateFee = new LateFee("LF"+ranDomNumber(), listBillDetailWantReturn.get(i).getProduct().getTitle().getCategory().getPriceLateFee()*listBillDetailWantReturn.get(i).getQuantity(), LocalDate.now(), bill, "");
-				lateFeeService.addLateFee(lateFee);
-			}
-
-		}
-
-		for(int i=0;i<listBillDetailWantReturn.size();i++) {
-			BillDetail billDetail = billService.findBillDetailById(listBillDetailWantReturn.get(i).getBillDetailId());
-			if(listBillDetailWantReturn.get(i).getQuantity() == billDetail.getQuantity()) {
-				billService.removeBillDetail(listBillDetailWantReturn.get(i).getBillDetailId());
-			}else if(listBillDetailWantReturn.get(i).getQuantity()<billDetail.getQuantity()) {
-				billDetail.setQuantity(billDetail.getQuantity()-listBillDetailWantReturn.get(i).getQuantity());
-				billDetail.setTotalAmmount(billDetail.getTotalAmmount()-listBillDetailWantReturn.get(i).getTotalAmmount());
-				billService.updateBillDetail(billDetail, billDetail.getBillDetailId());
-			}
-			Product product = listBillDetailWantReturn.get(i).getProduct();
-			product.setQuantityRentDisk(product.getQuantityRentDisk()-listBillDetailWantReturn.get(i).getQuantity());
-			product.setQuantityOnShelf(product.getQuantityOnShelf()+listBillDetailWantReturn.get(i).getQuantity());
-			productService.updateProduct(product, product.getProductId());
-		}
-
-		txtProductId.setText("");//.setValue(null);
-
-		txtNameProduct.setText("");
-
-		txtQuantityProduct.setText("");
-
-		txtDescriptionProduct.setText("");
-
-		txtStatusProduct.setText("");
-
-		txtPriceProduct.setText("");
-
-		tbl_view.getItems().clear();
-
-		listBillDetailWantReturn.clear();
-
-		listBill.clear();
-
-		resetListBill(customerFind.getCustomerId());
-
-		cbcIdCustomer.setValue(customerFind.getCustomerId());
-		txtNameCustomer.setText(customerFind.getName());
-		txtAddressCustomer.setText(customerFind.getAddress());
-		txtDatePickerCustomer.setValue(customerFind.getDateOfBirth());
-
-		lblTotal.setText("");
-
-		tbl_view_billdetailDebt.getItems().clear();
-
-		if(listBill.size()>=1) {
-			listBill.forEach(t->{
-				ArrayList<Bill> listBill = new ArrayList<>();
-				listBill.add(t);
-				ArrayList<BillDetail> listBillDetail=(ArrayList<BillDetail>) billService.findAllBillDetailByIdBill(listBill);
-				if(listBillDetail!=null && listBillDetail.size()>=1) {
-					for(int i=0;i<listBillDetail.size();i++) {
-						tbl_view_billdetailDebt.getItems().add(listBillDetail.get(i));
-					}
-				}
-			});
-		}
-		
-		if(rdThanhToanLuon.isSelected()) {
+		if(rdThanhToanLuon.isDisable()==false && tbl_view.getItems().size()<=0) {
 			
-			List<LateFee> lateFee = lateFeeService.findAllLteFeeByIdCustomer(customerFind.getCustomerId());
+			List<LateFee> lateFee = lateFeeService.findAllLteFeeByIdCustomer(customer.getCustomerId());
 			if(lateFee!=null && lateFee.size()>=1) {
 				lateFee.forEach(t->{
 					lateFeeService.removeLateFee(t.getLateFeetId());
 				});
 			}
 			
+			lateFee.forEach(t->{
+				ArrayList<Bill> listBill = new ArrayList<>();
+				listBill.add(t.getBill());
+				List<BillDetail> listBillDetail = billService.findAllBillDetailByIdBill(listBill);
+				if(listBillDetail!=null && listBillDetail.size()>=1) {
+					
+				}else {
+					billService.removeBill(t.getBill().getBillId());
+				}
+				
+			});
+			
 			txtPriceLateFee.setText("");
 			rdBuaSauTT.setDisable(true);
 			rdThanhToanLuon.setDisable(true);
 			
+			lblTotal.setText("....");
+			
+			
+			
+			Success("Thanh toán thành công", btnExit);
+			
+			return;
+			
 		}else {
-			int countPriceFee = 0 ;
-			List<LateFee> lateFee = lateFeeService.findAllLteFeeByIdCustomer(customerFind.getCustomerId());
-			if(lateFee!=null && lateFee.size()>=1) {
-				for(int i=0;i<lateFee.size();i++) {
-					countPriceFee+=lateFee.get(i).getPrice();
-				}
-				txtPriceLateFee.setText(df.format(countPriceFee));
-				rdBuaSauTT.setSelected(true);
+			if(tbl_view.getItems().size()<=0) {
+
+				Error("Chưa có đĩa nào", btnThanhToan);
+
+				txtProductId.requestFocus();
+
+				return;
+
 			}
+
+			Customer customerFind = customer;
+
+			for(int i=0;i<listBillDetailWantReturn.size();i++) {
+
+				Bill bill = listBillDetailWantReturn.get(i).getBill();
+
+				if(bill.getBillPay().isBefore(LocalDate.now())) {
+					LateFee lateFee = new LateFee("LF"+ranDomNumber(), listBillDetailWantReturn.get(i).getProduct().getTitle().getCategory().getPriceLateFee()*listBillDetailWantReturn.get(i).getQuantity(), LocalDate.now(), bill, "");
+					lateFeeService.addLateFee(lateFee);
+				}
+
+			}
+
+			for(int i=0;i<listBillDetailWantReturn.size();i++) {
+				BillDetail billDetail = billService.findBillDetailById(listBillDetailWantReturn.get(i).getBillDetailId());
+				if(listBillDetailWantReturn.get(i).getQuantity() == billDetail.getQuantity()) {
+					billService.removeBillDetail(listBillDetailWantReturn.get(i).getBillDetailId());
+				}else if(listBillDetailWantReturn.get(i).getQuantity()<billDetail.getQuantity()) {
+					billDetail.setQuantity(billDetail.getQuantity()-listBillDetailWantReturn.get(i).getQuantity());
+					billDetail.setTotalAmmount(billDetail.getTotalAmmount()-listBillDetailWantReturn.get(i).getTotalAmmount());
+					billService.updateBillDetail(billDetail, billDetail.getBillDetailId());
+				}
+				Product product = listBillDetailWantReturn.get(i).getProduct();
+				product.setQuantityRentDisk(product.getQuantityRentDisk()-listBillDetailWantReturn.get(i).getQuantity());
+				product.setQuantityOnShelf(product.getQuantityOnShelf()+listBillDetailWantReturn.get(i).getQuantity());
+				productService.updateProduct(product, product.getProductId());
+			}
+
+			txtProductId.setText("");//.setValue(null);
+
+			txtNameProduct.setText("");
+
+			txtQuantityProduct.setText("");
+
+			txtDescriptionProduct.setText("");
+
+			txtStatusProduct.setText("");
+
+			txtPriceProduct.setText("");
+
+			tbl_view.getItems().clear();
+
+			listBillDetailWantReturn.clear();
+
+			listBill.clear();
+
+			resetListBill(customerFind.getCustomerId());
+
+			cbcIdCustomer.setValue(customerFind.getCustomerId());
+			txtNameCustomer.setText(customerFind.getName());
+			txtAddressCustomer.setText(customerFind.getAddress());
+			txtDatePickerCustomer.setValue(customerFind.getDateOfBirth());
+
+			lblTotal.setText("");
+
+			tbl_view_billdetailDebt.getItems().clear();
+
+			if(listBill.size()>=1) {
+				listBill.forEach(t->{
+					ArrayList<Bill> listBill = new ArrayList<>();
+					listBill.add(t);
+					ArrayList<BillDetail> listBillDetail=(ArrayList<BillDetail>) billService.findAllBillDetailByIdBill(listBill);
+					if(listBillDetail!=null && listBillDetail.size()>=1) {
+						for(int i=0;i<listBillDetail.size();i++) {
+							tbl_view_billdetailDebt.getItems().add(listBillDetail.get(i));
+						}
+					}
+				});
+			}
+			
+			if(rdThanhToanLuon.isSelected()) {
+				
+				List<LateFee> lateFee = lateFeeService.findAllLteFeeByIdCustomer(customerFind.getCustomerId());
+				if(lateFee!=null && lateFee.size()>=1) {
+					lateFee.forEach(t->{
+						lateFeeService.removeLateFee(t.getLateFeetId());
+					});
+					
+					lateFee.forEach(t->{
+						ArrayList<Bill> listBill = new ArrayList<>();
+						listBill.add(t.getBill());
+						List<BillDetail> listBillDetail = billService.findAllBillDetailByIdBill(listBill);
+						if(listBillDetail!=null && listBillDetail.size()>=1) {
+							
+						}else {
+							
+							billService.removeBill(t.getBill().getBillId());
+						}
+						
+					});
+				}
+				
+				txtPriceLateFee.setText("");
+				rdBuaSauTT.setDisable(true);
+				rdThanhToanLuon.setDisable(true);
+				
+			}else {
+				int countPriceFee = 0 ;
+				List<LateFee> lateFee = lateFeeService.findAllLteFeeByIdCustomer(customerFind.getCustomerId());
+				if(lateFee!=null && lateFee.size()>=1) {
+					for(int i=0;i<lateFee.size();i++) {
+						countPriceFee+=lateFee.get(i).getPrice();
+					}
+					txtPriceLateFee.setText(df.format(countPriceFee));
+					rdBuaSauTT.setSelected(true);
+				}
+			}
+			
+			Success("Trả đĩa thành công", btnExit);
 		}
 		
 		
-
-		Success("Trả đĩa thành công", btnExit);
 
 	}
 

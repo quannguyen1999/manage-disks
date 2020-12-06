@@ -25,6 +25,7 @@ import application.controller.services.OrderService;
 import application.controller.services.ProductService;
 import application.controller.services.TitleService;
 import application.entities.Bill;
+import application.entities.BillDetail;
 import application.entities.Customer;
 import application.entities.LateFee;
 import application.entities.Order;
@@ -200,6 +201,8 @@ public class FormEmployee extends DialogBox implements Initializable{
 	List<Order> listOrder=new ArrayList<>();
 	List<Bill> listBill = new ArrayList<>();
 
+	
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		//set combobox and radio button
@@ -281,6 +284,15 @@ public class FormEmployee extends DialogBox implements Initializable{
 						handleRefersh(new ActionEvent());
 
 						loadDataManageSearchCustomer();
+						
+						try {
+							resetAllFormEmployee(new ActionEvent());
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+						
+						
 
 					});;
 				}
@@ -343,6 +355,15 @@ public class FormEmployee extends DialogBox implements Initializable{
 
 					loadFXML(root,btnCustomer).setOnHidden(ev->{
 						handleRefersh(new ActionEvent());
+						
+						
+						try {
+							resetAllFormEmployee(new ActionEvent());
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+						
 						if(ctlMain.total == 0) {
 							try {
 								Success("Thanh toán thành công", btnCustomer);
@@ -466,7 +487,14 @@ public class FormEmployee extends DialogBox implements Initializable{
 		Parent root=loader.load();
 
 		loadFXML(root,btnCustomer).setOnHidden(ev->{
-
+			
+			try {
+				resetAllFormEmployee(new ActionEvent());
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
 			handleRefersh(e);
 
 		});;
@@ -491,15 +519,49 @@ public class FormEmployee extends DialogBox implements Initializable{
 		} while (billService.findBillById(id)!=null);
 
 		loadFXML(root,btnCustomer).setOnHidden(ev->{
-
-			tbl_viewOrder.getItems().clear();
-
-			uploadDuLieuLenBangOrder();
+			
+			try {
+				resetAllFormEmployee(new ActionEvent());
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
 
 		});
 
 	}
+	public void btnClickOrder(ActionEvent e) throws IOException {
+		FXMLLoader loader= new FXMLLoader(getClass().getResource(loadFormAddOrder));
 
+		Parent root=loader.load();
+
+		FormAddOrder ctlMain=loader.getController();
+
+		String id=null;
+
+		do {
+
+			id="C"+ranDomNumber();
+
+			ctlMain.txtOrderMa.setText(id);
+
+		} while (OrderService.findOrderById(id)!=null);
+
+		loadFXML(root,btnCustomer).setOnHidden(ev->{
+
+			handleRefersh(e);
+			
+			try {
+				resetAllFormEmployee(new ActionEvent());
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+
+		});;
+	}	
+	
 
 	public void findItemInTable(ActionEvent e) throws IOException {
 		String textFind=null;
@@ -743,9 +805,14 @@ public class FormEmployee extends DialogBox implements Initializable{
 
 		loadFXML(root,btnHelp).setOnHidden(ev->{
 
-			handleRefersh(e);
-
-			loadDataManageSearchCustomer();
+			
+			try {
+				resetAllFormEmployee(new ActionEvent());
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
 
 		});;
 
@@ -866,16 +933,14 @@ public class FormEmployee extends DialogBox implements Initializable{
 			stage.setOnHidden(efg->{
 
 				if(ctlMain.result==true) {
-					//					List<OrderDetail> listOrderDetails = orderDetailService.findAllOrderDetailByOrderId(
-					//							tbl_view_title.getItems().get(result).getOrderId());
-					//					if(listOrderDetails!=null) {
-					//						listOrderDetails.forEach(t->{
-					//							orderDetailService.removeOrderDetail(t.getOrderDetailsId());
-					//						});
-					//					}
-					//					OrderService.removeOrder(tbl_view.getItems().get(result).getOrderId());
-					//
-					//					handleRefersh(e);
+					
+					try {
+						resetAllFormEmployee(new ActionEvent());
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					
 
 				}else {
 
@@ -908,8 +973,14 @@ public class FormEmployee extends DialogBox implements Initializable{
 		} while (OrderService.findOrderById(id)!=null);
 
 		loadFXML(root,btnCustomer).setOnHidden(ev->{
-
-			handleRefershTitle(e);
+			
+			try {
+				resetAllFormEmployee(new ActionEvent());
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
 
 		});;
 	}
@@ -925,7 +996,7 @@ public class FormEmployee extends DialogBox implements Initializable{
 		imgV.setFitWidth(230);
 		Label lbl=new Label("mã: "+product.getProductId());
 		Label lbl1=new Label("tên: "+product.getName());
-		Label lbl2=new Label("Số lượng: "+product.getQuantity());
+		Label lbl2=new Label("Số lượng: "+product.getQuantityOnShelf());
 		lbl.setAlignment(Pos.CENTER);
 
 		JFXButton btn1=null;
@@ -986,8 +1057,14 @@ public class FormEmployee extends DialogBox implements Initializable{
 
 					loadFXML(root,btnCustomer).setOnHidden(ev->{
 
-						//						handleRefersh(e);
-
+						
+						try {
+							resetAllFormEmployee(new ActionEvent());
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+						
 					});
 				}
 			});
@@ -1101,8 +1178,14 @@ public class FormEmployee extends DialogBox implements Initializable{
 				ctlMain.btnXoa.setDisable(true);
 
 				loadFXML(root,btnCustomer).setOnHidden(ev->{
-
-					//					handleRefersh(new ActionEvent());
+					
+					try {
+						resetAllFormEmployee(new ActionEvent());
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					
 
 				});;
 
@@ -2119,16 +2202,44 @@ public class FormEmployee extends DialogBox implements Initializable{
 			stage.setOnHidden(efg->{
 
 				if(ctlMain.result==true) {
-					List<OrderDetail> listOrderDetails = orderDetailService.findAllOrderDetailByOrderId(
-							tbl_viewOrder.getItems().get(result).getOrderId());
-					if(listOrderDetails!=null) {
-						listOrderDetails.forEach(t->{
-							orderDetailService.removeOrderDetail(t.getOrderDetailsId());
-						});
-					}
-					OrderService.removeOrder(tbl_viewOrder.getItems().get(result).getOrderId());
 
-					handleRefershBill(e);
+					try {
+
+						ArrayList<Bill> listBill = new ArrayList<>();
+						listBill.add(tbl_viewBill.getItems().get(result));
+						List<BillDetail> listBillDetail = billService.findAllBillDetailByIdBill(listBill);
+						List<LateFee> listLateFee = lateFeeService.findAllLateFeeByBillId(tbl_viewBill.getItems().get(result).getBillId());
+
+						if(listLateFee!=null && listLateFee.size()>=1) {
+							Error("Bill đang có phí trễ", btnCustomer);
+							return;
+						}
+						
+						if(listBillDetail!=null && listBillDetail.size()>=1) {
+							
+							listBillDetail.forEach(t->{
+								billService.removeBillDetail(t.getBillDetailId());
+							});
+							
+						}
+						
+						billService.removeBill(tbl_viewBill.getItems().get(result).getBillId());
+						
+						Success("Xóa thành công", btnCustomer);
+
+
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+
+					try {
+						resetAllFormEmployee(new ActionEvent());
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+
 
 				}else {
 
@@ -2138,7 +2249,110 @@ public class FormEmployee extends DialogBox implements Initializable{
 		}else {
 
 			Error("bạn chưa chọn bảng cần xóa", btnCustomer);
+
 		}
+	}
+	
+	public void danhSachKhachHangDat(ActionEvent e) throws IOException {
+		int result=tbl_view_title.getSelectionModel().getSelectedIndex();
+		if(result!=-1) {
+
+			FXMLLoader loader= new FXMLLoader(getClass().getResource(loadFormListCustomerOrder));
+
+			Parent root=null;
+			try {
+				root = loader.load();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+
+			FormListCustomerOrder ctlMain=loader.getController();
+
+			if(tbl_view_title.getItems().get(result).getStatus().equalsIgnoreCase(CHUADAT)) {
+				Error("Chưa có khách hàng nào đặt", btnCustomer);
+				return;
+			}
+			
+			ctlMain.loadCustomer(customerService.listALlCustomerByTitleId(tbl_view_title.getItems().get(result).getTitleId()));
+
+			ctlMain.loadTitleAndListProduct(tbl_view_title.getItems().get(result).getTitleId());
+			
+			
+			
+			loadFXML(root,btnCustomer).setOnHidden(ev->{
+
+				handleRefersh(new ActionEvent());
+				
+				try {
+					resetAllFormEmployee(new ActionEvent());
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+
+			});;
+		}else {
+			Error("Bạn chưa chọn bảng", btnCustomer);
+			return;
+		}
+	}
+	
+	public void btnXoaOrder(ActionEvent e) throws IOException{
+
+		int result=tbl_viewOrder.getSelectionModel().getSelectedIndex();
+
+		if(result!=-1) {
+
+			FXMLLoader loader= new FXMLLoader(getClass().getResource(loadAreYouSure));
+
+			Parent root=loader.load();
+
+			AreYouSure ctlMain=loader.getController();
+
+			new animatefx.animation.FadeIn(root).play();
+
+			Stage stage=new Stage();
+
+			stage.initOwner(btnCustomer.getScene().getWindow());
+
+			stage.setScene(new Scene(root));
+
+			stage.initStyle(StageStyle.UNDECORATED);
+
+			stage.initModality(Modality.APPLICATION_MODAL);
+
+			stage.show();
+
+			stage.setOnHidden(efg->{
+
+				if(ctlMain.result==true) {
+					List<OrderDetail> listOrderDetails = orderDetailService.findAllOrderDetailByOrderId(
+							tbl_viewOrder.getItems().get(result).getOrderId());
+					if(listOrderDetails!=null) {
+						listOrderDetails.forEach(t->{
+							orderDetailService.removeOrderDetail(t.getOrderDetailsId());
+						});
+					}
+					OrderService.removeOrder(tbl_viewOrder.getItems().get(result).getOrderId());
+
+					try {
+						resetAllFormEmployee(new ActionEvent());
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+
+				}else {
+
+				}
+			});
+
+		}else {
+
+			Error("bạn chưa chọn bảng cần xóa", btnCustomer);
+
+		}
+
 	}
 
 	//manage bill
@@ -2256,4 +2470,61 @@ public class FormEmployee extends DialogBox implements Initializable{
 		});
 
 	}
+	
+	public void resetAllFormEmployee(ActionEvent e) throws IOException {
+		tbl_view.getItems().clear();
+		tbl_view_latefee.getItems().clear();
+		tbl_viewOrder.getItems().clear();
+		tbl_view_title.getItems().clear();
+		tbl_viewBill.getItems().clear();
+		
+		customerService.listCustomer().forEach(t->{
+			tbl_view.getItems().add(t);
+		});
+		
+		lateFeeService.listLateFee().forEach(t->{
+			tbl_view_latefee.getItems().add(t);
+		});
+		
+		OrderService.listOrder().forEach(t->{
+			tbl_viewOrder.getItems().add(t);
+		});
+		
+		titleService.listTitle().forEach(t->{
+			tbl_view_title.getItems().add(t);
+		});
+		
+		billService.listBill().forEach(t->{
+			tbl_viewBill.getItems().add(t);
+		});
+		
+		flowPane.getChildren().clear();
+		
+		productService.listProduct().forEach(t->{
+			try {
+				btnClickAdd(e, t);
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (InterruptedException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		});
+		
+		loadDataManageSearchCustomer();
+		loadDataSearch();
+		loadDataSearchKhOrder();
+		loadDataSearchKhOrderBill();
+		loadDataSearchManageLateFee();
+		loadDataSearchOrderBill();
+		loadDataSearchPhone();
+		loadDataSearchTitle();
+		
+		
+		
+		
+		
+	}
+
 }
