@@ -276,7 +276,6 @@
                               <Insets left="20.0" right="20.0" />
                            </HBox.margin>
                         </JFXTextField>
-                        <JFXButton onAction="#findItemInTableIdProduct" prefHeight="25.0" prefWidth="47.0" styleClass="btnLogin" stylesheets="@../css/application.css" text="Tìm" />
                         <JFXButton onAction="#clickChooseProduct" styleClass="btnExit" stylesheets="@../css/application.css" text="Chọn">
                            <HBox.margin>
                               <Insets left="10.0" />
