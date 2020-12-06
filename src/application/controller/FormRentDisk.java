@@ -83,6 +83,7 @@ public class FormRentDisk  extends DialogBox implements Initializable{
 
 	//
 	@FXML Label lblTotal;
+	@FXML Label txtProductCurrentInShelf;
 
 	ProductService productService = new ProductImpl();
 	CustomerService customerService = new CustomerImpl();
@@ -435,6 +436,7 @@ public class FormRentDisk  extends DialogBox implements Initializable{
 		txtDescriptionProduct.setText("");
 		txtStatusProduct.setText("");
 		txtPriceProduct.setText("");
+		txtProductCurrentInShelf.setText("(Hiện có : ....)");
 
 		tbl_view.getItems().clear();
 
@@ -590,6 +592,8 @@ public class FormRentDisk  extends DialogBox implements Initializable{
 			txtStatusProduct.setText(product.getStatus());
 
 			txtPriceProduct.setText(String.valueOf(df.format(product.getTitle().getCategory().getPrice()))+" $");
+			
+			txtProductCurrentInShelf.setText("( Hiện có trên kệ:"+String.valueOf(product.getQuantityOnShelf())+")");
 		}
 
 	}
@@ -709,22 +713,22 @@ public class FormRentDisk  extends DialogBox implements Initializable{
 
 		}
 
-		if(txtDatePayBill.getValue() == null) {
-
-			Error("Chưa nhập ngày trả", btnExit);
-
-			txtDatePayBill.requestFocus();
-
-			return;
-		}else if(txtDatePayBill.getValue().isBefore(LocalDate.now())) {
-
-			Error("Ngày không hợp lệ", btnExit);
-
-			txtDatePayBill.requestFocus();
-
-			return;
-
-		}
+//		if(txtDatePayBill.getValue() == null) {
+//
+//			Error("Chưa nhập ngày trả", btnExit);
+//
+//			txtDatePayBill.requestFocus();
+//
+//			return;
+//		}else if(txtDatePayBill.getValue().isBefore(LocalDate.now())) {
+//
+//			Error("Ngày không hợp lệ", btnExit);
+//
+//			txtDatePayBill.requestFocus();
+//
+//			return;
+//
+//		}
 
 		Customer customerFind = customerService.findCustomerById(cbcIdCustomer.getSelectionModel()
 				.getSelectedItem().toString().trim());
@@ -760,9 +764,18 @@ public class FormRentDisk  extends DialogBox implements Initializable{
 				productService.updateProduct(product, t.getProductId());//
 			});
 			
-			Success("Thuê đĩa thành công", btnExit);
-
-			resetAllField(e);
+			List<LateFee> lateFees =lateFeeService.findAllLteFeeByIdCustomer(customerFind.getCustomerId());
+			
+			if(lateFees!=null && lateFees.size()>=1) {
+				Error("Khách hàng đang có phí trễ hạn (mã:"+customerFind.getCustomerId()+")", btnExit);
+				resetAllField(e);
+				return;
+			}else {
+				Success("Thuê đĩa thành công", btnExit);
+				resetAllField(e);
+				return;
+			}
+		
 		}else{
 
 			Error("Lỗi thêm không thành công", btnExit);

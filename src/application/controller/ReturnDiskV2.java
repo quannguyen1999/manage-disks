@@ -18,10 +18,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import org.hibernate.criterion.CountProjection;
 import org.hibernate.query.criteria.internal.expression.function.AggregationFunction.COUNT;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
+import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.controls.JFXTextField;
 
 import application.controller.impl.BillImpl;
@@ -63,6 +65,13 @@ import javafx.stage.StageStyle;
 
 public class ReturnDiskV2  extends DialogBox implements Initializable{
 
+	//Label 
+	@FXML Label txtPriceLateFee;
+
+	//radio button
+	@FXML JFXRadioButton rdBuaSauTT;
+	@FXML JFXRadioButton rdThanhToanLuon;
+
 	@FXML JFXButton btnThanhToan;
 	@FXML JFXButton btnXoaRong;
 	@FXML JFXButton btnExit;
@@ -78,7 +87,8 @@ public class ReturnDiskV2  extends DialogBox implements Initializable{
 	@FXML JFXDatePicker txtDatePickerCustomer;
 
 	//product
-	@FXML ComboBox<String> cbcIdProduct=new ComboBox<String>();;
+	//	@FXML ComboBox<String> cbcIdProduct=new ComboBox<String>();;
+	@FXML JFXTextField txtProductId;
 	@FXML JFXTextField txtNameProduct;
 	@FXML JFXTextField txtQuantityProduct;
 	@FXML JFXTextField txtDescriptionProduct;
@@ -99,6 +109,7 @@ public class ReturnDiskV2  extends DialogBox implements Initializable{
 
 	//table 
 	@FXML BorderPane bd;
+	@FXML BorderPane bdBillDetailDebt;
 
 	private TableView<BillDetail> tbl_view;
 
@@ -107,6 +118,14 @@ public class ReturnDiskV2  extends DialogBox implements Initializable{
 	TableColumn<BillDetail, String> colTotalAmmount;
 	TableColumn<BillDetail, String> colIdProduct;
 	TableColumn<BillDetail, String> colNameProduct;
+
+	private TableView<BillDetail> tbl_view_billdetailDebt;
+
+	TableColumn<BillDetail, String> colBIllDetailId_billdetailDebt;
+	TableColumn<BillDetail, String> colQuantity_billdetailDebt;
+	TableColumn<BillDetail, String> colTotalAmmount_billdetailDebt;
+	TableColumn<BillDetail, String> colIdProduct_billdetailDebt;
+	TableColumn<BillDetail, String> colNameProduct_billdetailDebt;
 
 	ProductService ProductService=new ProductImpl();
 
@@ -126,6 +145,10 @@ public class ReturnDiskV2  extends DialogBox implements Initializable{
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+
+		rdBuaSauTT.setDisable(true);
+		rdThanhToanLuon.setDisable(true);
+
 		//load data 
 		loadDataSearchIdProduct();
 		loadDataSearchCustomer();
@@ -136,6 +159,7 @@ public class ReturnDiskV2  extends DialogBox implements Initializable{
 		txtDatePickerCustomer.setEditable(false);
 
 		//init product
+		txtProductId.setEditable(false);
 		txtNameProduct.setEditable(false);
 		txtQuantityProduct.setEditable(true);
 		txtDescriptionProduct.setEditable(false);
@@ -143,6 +167,7 @@ public class ReturnDiskV2  extends DialogBox implements Initializable{
 
 		//init table 
 		initTable();
+		initTableBillDetailDebt();
 
 		//init form customer 
 		rdPhoneCustomer.setSelected(true);
@@ -171,6 +196,8 @@ public class ReturnDiskV2  extends DialogBox implements Initializable{
 			}
 		});
 
+		setActionForProductInDebt();
+
 	}
 
 	public void initTable() {
@@ -193,11 +220,28 @@ public class ReturnDiskV2  extends DialogBox implements Initializable{
 		colTotalAmmount.setCellValueFactory( cellData->new SimpleStringProperty(String.valueOf(cellData.getValue().getTotalAmmount())));
 		colIdProduct.setCellValueFactory( cellData->new SimpleStringProperty(String.valueOf(cellData.getValue().getProduct().getProductId())));
 		colNameProduct.setCellValueFactory( cellData->new SimpleStringProperty(String.valueOf(cellData.getValue().getProduct().getName())));
-		//		colPrice.setCellValueFactory( cellData->new SimpleStringProperty(String.valueOf(cellData.getValue().getTitle().getCategory().getPrice())));
+	}
 
-		//		colPrice.setCellValueFactory( cellData->
-		//		new SimpleStringProperty(String.valueOf(df.format(cellData.getValue().getTitle().getCategory().getPrice()))));
+	public void initTableBillDetailDebt() {
+		tbl_view_billdetailDebt=new TableView<BillDetail>();
 
+		colBIllDetailId_billdetailDebt=new TableColumn<BillDetail, String>("mã bill detail");
+		colQuantity_billdetailDebt=new TableColumn<BillDetail, String>("Số lượng");
+		colTotalAmmount_billdetailDebt=new TableColumn<BillDetail, String>("Tổng");
+		colIdProduct_billdetailDebt=new TableColumn<BillDetail, String>("mã product");
+		colNameProduct_billdetailDebt=new TableColumn<BillDetail, String>("tên product");
+
+
+		tbl_view_billdetailDebt.getColumns().addAll(colBIllDetailId_billdetailDebt,colQuantity_billdetailDebt
+				,colTotalAmmount_billdetailDebt,colIdProduct_billdetailDebt,colNameProduct_billdetailDebt);
+
+		bdBillDetailDebt.setCenter(tbl_view_billdetailDebt);
+
+		colBIllDetailId_billdetailDebt.setCellValueFactory(new PropertyValueFactory<>("billDetailId"));
+		colQuantity_billdetailDebt.setCellValueFactory(  cellData->new SimpleStringProperty(String.valueOf(cellData.getValue().getQuantity())));
+		colTotalAmmount_billdetailDebt.setCellValueFactory( cellData->new SimpleStringProperty(String.valueOf(cellData.getValue().getTotalAmmount())));
+		colIdProduct_billdetailDebt.setCellValueFactory( cellData->new SimpleStringProperty(String.valueOf(cellData.getValue().getProduct().getProductId())));
+		colNameProduct_billdetailDebt.setCellValueFactory( cellData->new SimpleStringProperty(String.valueOf(cellData.getValue().getProduct().getName())));
 	}
 
 	public void clickChooseFindByIdCustomer(ActionEvent e) {
@@ -246,16 +290,16 @@ public class ReturnDiskV2  extends DialogBox implements Initializable{
 	int total = 0;
 	int quantity = 0 ;
 	public void clickChooseProduct(ActionEvent e) throws IOException {
-
+		Customer customerFind= null;
 		if(rdPhoneCustomer.isSelected()) {
 			String phone = cbcPhoneCustomer.getValue();
 
-			if(phone.isEmpty()) {
+			if(phone==null || phone.isEmpty()) {
 				Error("Vui lòng chọn khách hàng", btnExit);
 				return;
 			}
 
-			Customer customerFind=customerService.findCustomerByPhone(phone);
+			customerFind=customerService.findCustomerByPhone(phone);
 
 			if(customerFind==null) {
 
@@ -274,7 +318,7 @@ public class ReturnDiskV2  extends DialogBox implements Initializable{
 				return;
 			}
 
-			Customer customerFind=customerService.findCustomerById(phone);
+			customerService.findCustomerById(phone);
 
 			if(customerFind==null) {
 
@@ -319,13 +363,13 @@ public class ReturnDiskV2  extends DialogBox implements Initializable{
 
 		try {
 
-			textFind=cbcIdProduct.getSelectionModel().getSelectedItem().toString().trim();
+			textFind=txtProductId.getText().toString();//.getSelectionModel().getSelectedItem().toString().trim();
 
 		} catch (Exception e2) {
 
 			Error("Bạn chưa nhập tìm kiếm", btnThanhToan);
 
-			cbcIdProduct.requestFocus();
+			txtProductId.requestFocus();
 
 		}
 
@@ -333,7 +377,7 @@ public class ReturnDiskV2  extends DialogBox implements Initializable{
 
 			Error("Bạn chưa nhập tìm kiếm", btnExit);
 
-			cbcIdProduct.requestFocus();
+			txtProductId.requestFocus();
 
 			return;
 
@@ -346,61 +390,69 @@ public class ReturnDiskV2  extends DialogBox implements Initializable{
 
 			Error("Không tìm thấy", btnExit);
 
-			cbcIdProduct.requestFocus();
+			txtProductId.requestFocus();
 
 			return;
 
 		}else {
 			result = false;
 
-
-
 			List<BillDetail> listBillDetail = billService.findAllBillDetailByIdBill((ArrayList<Bill>) listBill);
 
+			if(listBillDetail!=null && listBillDetail.size()>=1) {
+				listBillDetail.forEach(t->{
+					if(t.getProduct().getProductId().equalsIgnoreCase(product.getProductId())) {
+						if(t.getQuantity()<=quantity) {
 
-			listBillDetail.forEach(t->{
-				if(t.getProduct().getProductId().equalsIgnoreCase(product.getProductId())) {
-					if(t.getQuantity()<=quantity) {
+						}
+						return;
 					}
-					return;
+				});
+
+				int countX =0;
+				int number =-1;
+				for(int i=0;i<listBillDetail.size();i++) {
+
+					if(listBillDetail.get(i).getProduct().getProductId().equalsIgnoreCase(product.getProductId())){
+						countX+=1;
+					}
+
 				}
-			});
+				for(int i=0;i<listBillDetail.size();i++) {
 
-			int countX =0;
-			int number =-1;
-			for(int i=0;i<listBillDetail.size();i++) {
+					if(listBillDetail.get(i).getProduct().getProductId().equalsIgnoreCase(product.getProductId())){
+						if(listBillDetail.get(i).getQuantity()<quantity) {
+							if(countX==1) {
+								Error("Số lượng thuê product "+product.getProductId()+" có "+listBillDetail.get(i).getQuantity(), btnExit);
+								break;
+							}
+							countX-=1;
 
-				if(listBillDetail.get(i).getProduct().getProductId().equalsIgnoreCase(product.getProductId())){
-					countX+=1;
-				}
-				
-			}
-			for(int i=0;i<listBillDetail.size();i++) {
-
-				if(listBillDetail.get(i).getProduct().getProductId().equalsIgnoreCase(product.getProductId())){
-					if(listBillDetail.get(i).getQuantity()<quantity) {
-						if(countX==1) {
-							Error("Số lượng thuê product "+product.getProductId()+" có "+listBillDetail.get(i).getQuantity(), btnExit);
+						}else {
+							BillDetail billDetail = new BillDetail();
+							billDetail.setBill(listBillDetail.get(i).getBill());
+							billDetail.setBillDetailId(listBillDetail.get(i).getBillDetailId());
+							billDetail.setProduct(listBillDetail.get(i).getProduct());
+							billDetail.setQuantity(quantity);
+							billDetail.setTotalAmmount(quantity*Math.round(product.getTitle().getCategory().getPrice()));
+							boolean result = false;
+							for(int j=0; j<listBillDetailWantReturn.size();j++) {
+								if(listBillDetailWantReturn.get(j).getProduct().getProductId().equalsIgnoreCase(billDetail.getProduct().getProductId())) {
+									listBillDetailWantReturn.get(j).setQuantity(quantity);
+									listBillDetailWantReturn.get(j).setTotalAmmount(billDetail.getTotalAmmount());
+									result=true;
+									break;
+								}
+							}
+							if(result==false) {
+								listBillDetailWantReturn.add(billDetail);
+							}
+							number = i;
 							break;
 						}
-						countX-=1;
-						
-					}else {
-						//						listBillDetail.get(i).setQuantity(quantity);
-						//						listBillDetail.get(i).setTotalAmmount(quantity*Math.round(product.getTitle().getCategory().getPrice()));
-						BillDetail billDetail = new BillDetail();
-						billDetail.setBill(listBillDetail.get(i).getBill());
-						billDetail.setBillDetailId(listBillDetail.get(i).getBillDetailId());
-						billDetail.setProduct(listBillDetail.get(i).getProduct());
-						billDetail.setQuantity(quantity);
-						billDetail.setTotalAmmount(quantity*Math.round(product.getTitle().getCategory().getPrice()));
-						listBillDetailWantReturn.add(billDetail);
-						number = i;
-						break;
 					}
 				}
 			}
-
 
 			tbl_view.getItems().clear();
 
@@ -410,11 +462,76 @@ public class ReturnDiskV2  extends DialogBox implements Initializable{
 				count+=(listBillDetailWantReturn.get(i).getQuantity()*product.getTitle().getCategory().getPrice());
 				tbl_view.getItems().add(listBillDetailWantReturn.get(i));
 			}
+			
+//			Error(String.valueOf(count), btnExit);
 
-			lblTotal.setText(String.valueOf(count));
+			if(rdThanhToanLuon.isSelected()) {
 
+				List<LateFee> lateFee = lateFeeService.findAllLteFeeByIdCustomer(customerFind.getCustomerId());
+				if(lateFee!=null && lateFee.size()>=1) {
 
+					rdBuaSauTT.setDisable(false);
+					
+					rdThanhToanLuon.setDisable(false);
+
+					rdThanhToanLuon.setSelected(true);
+
+					int countPriceFee = 0;
+
+					for(int i=0;i<lateFee.size();i++) {
+						countPriceFee+=lateFee.get(i).getPrice();
+					}
+					
+					count=count+countPriceFee;
+
+					return;
+				}
+
+			}
+
+			lblTotal.setText(String.valueOf(df.format(count))+" $");
 		}
+	}
+	
+	public void actionBuaSauThanhToan(ActionEvent e) {
+		
+		int total = 0 ;
+		for(int i=0;i<listBillDetailWantReturn.size();i++) {
+			total+=(listBillDetailWantReturn.get(i).getQuantity()*listBillDetailWantReturn.get(i).getProduct().getTitle().getCategory().getPrice());
+		}
+		
+		lblTotal.setText(df.format(total));
+		
+	
+	}
+	
+	public void actionThanhToanLuon(ActionEvent e) {
+		int total = 0 ;
+		for(int i=0;i<listBillDetailWantReturn.size();i++) {
+			total+=(listBillDetailWantReturn.get(i).getQuantity()*listBillDetailWantReturn.get(i).getProduct().getTitle().getCategory().getPrice());
+		}
+		if(cbcIdCustomer.getValue()!=null) {
+			List<LateFee> lateFee = lateFeeService.findAllLteFeeByIdCustomer(cbcIdCustomer.getValue());
+			if(lateFee!=null && lateFee.size()>=1) {
+
+				rdBuaSauTT.setDisable(false);
+				rdThanhToanLuon.setDisable(false);
+
+				rdThanhToanLuon.setSelected(true);
+
+				int countPriceFee = 0;
+
+				for(int i=0;i<lateFee.size();i++) {
+					countPriceFee+=lateFee.get(i).getPrice();
+				}
+				
+				total+=countPriceFee;
+
+			}
+		}
+		
+		
+		lblTotal.setText(df.format(total));
 	}
 
 	public void clickDeleteOrderInTable(ActionEvent e) throws IOException {
@@ -459,7 +576,7 @@ public class ReturnDiskV2  extends DialogBox implements Initializable{
 	}
 
 	public void removefieldInProduct(ActionEvent e) throws IOException {
-		cbcIdProduct.setValue("");
+		txtProductId.setText("");
 		txtNameProduct.setText("");
 		txtQuantityProduct.setText("");
 		txtDescriptionProduct.setText("");
@@ -475,7 +592,7 @@ public class ReturnDiskV2  extends DialogBox implements Initializable{
 
 		lblTotal.setText("0 $");
 
-		cbcIdProduct.setValue("");
+		txtProductId.setText("");
 		txtNameProduct.setText("");
 		txtQuantityProduct.setText("");
 		txtDescriptionProduct.setText("");
@@ -489,7 +606,27 @@ public class ReturnDiskV2  extends DialogBox implements Initializable{
 		txtNameCustomer.setText("");
 		txtAddressCustomer.setText("");
 		txtDatePickerCustomer.setValue(null);
+		
+		rdBuaSauTT.setDisable(true);
+		rdThanhToanLuon.setDisable(true);
+		lblTotal.setText("....");
+		txtPriceLateFee.setText("....");
 
+		setActionForProductInDebt();
+
+	}
+
+	public void setActionForProductInDebt() {
+		tbl_view_billdetailDebt.setOnMouseClicked(e->{
+			if(e.getClickCount()==2) {
+				int result=tbl_view_billdetailDebt.getSelectionModel().getSelectedIndex();
+				txtProductId.setText(tbl_view_billdetailDebt.getItems().get(result).getProduct().getProductId());
+				txtNameProduct.setText(tbl_view_billdetailDebt.getItems().get(result).getProduct().getName());
+				txtPriceProduct.setText(String.valueOf(Math.round(tbl_view_billdetailDebt.getItems().get(result).getProduct().getTitle().getCategory().getPrice())));
+				txtDescriptionProduct.setText(tbl_view_billdetailDebt.getItems().get(result).getProduct().getDescription());
+				txtStatusProduct.setText(tbl_view_billdetailDebt.getItems().get(result).getProduct().getStatus());
+			}
+		});
 	}
 
 	public void findItemInTableIdCustomer(ActionEvent e) throws IOException {
@@ -532,6 +669,22 @@ public class ReturnDiskV2  extends DialogBox implements Initializable{
 
 		}else {
 			resetListBill(customerFind.getCustomerId());
+
+			tbl_view_billdetailDebt.getItems().clear();
+
+			if(listBill.size()>=1) {
+				listBill.forEach(t->{
+					ArrayList<Bill> listBill = new ArrayList<>();
+					listBill.add(t);
+					ArrayList<BillDetail> listBillDetail=(ArrayList<BillDetail>) billService.findAllBillDetailByIdBill(listBill);
+					if(listBillDetail!=null && listBillDetail.size()>=1) {
+						for(int i=0;i<listBillDetail.size();i++) {
+							tbl_view_billdetailDebt.getItems().add(listBillDetail.get(i));
+						}
+					}
+				});
+			}
+
 			List<LateFee> lateFee = lateFeeService.findAllLteFeeByIdCustomer(customerFind.getCustomerId());
 			if(lateFee!=null && lateFee.size()>=1) {
 				Error("Khách hàng có phí trễ hạn", btnExit);
@@ -586,14 +739,49 @@ public class ReturnDiskV2  extends DialogBox implements Initializable{
 
 			resetListBill(customerFind.getCustomerId());
 
-			List<LateFee> lateFee = lateFeeService.findAllLteFeeByIdCustomer(customerFind.getCustomerId());
-			if(lateFee!=null && lateFee.size()>=1) {
-				Error("Khách hàng có phí trễ hạn", btnExit);
+			tbl_view_billdetailDebt.getItems().clear();
+
+			if(listBill.size()>=1) {
+				listBill.forEach(t->{
+					ArrayList<Bill> listBill = new ArrayList<>();
+					listBill.add(t);
+					ArrayList<BillDetail> listBillDetail=(ArrayList<BillDetail>) billService.findAllBillDetailByIdBill(listBill);
+					if(listBillDetail!=null && listBillDetail.size()>=1) {
+						for(int i=0;i<listBillDetail.size();i++) {
+							tbl_view_billdetailDebt.getItems().add(listBillDetail.get(i));
+						}
+					}
+				});
 			}
+
+
 			cbcIdCustomer.setValue(customerFind.getCustomerId());
 			txtNameCustomer.setText(customerFind.getName());
 			txtAddressCustomer.setText(customerFind.getAddress());
 			txtDatePickerCustomer.setValue(customerFind.getDateOfBirth());
+
+
+			List<LateFee> lateFee = lateFeeService.findAllLteFeeByIdCustomer(customerFind.getCustomerId());
+			if(lateFee!=null && lateFee.size()>=1) {
+
+				rdBuaSauTT.setDisable(false);
+				rdThanhToanLuon.setDisable(false);
+
+				rdThanhToanLuon.setSelected(true);
+
+				int countPriceFee = 0;
+
+				for(int i=0;i<lateFee.size();i++) {
+					countPriceFee+=lateFee.get(i).getPrice();
+				}
+
+				lblTotal.setText(df.format(countPriceFee)+" $");
+				
+				txtPriceLateFee.setText(df.format(countPriceFee)+" $");
+
+				return;
+			}
+
 		}
 
 	}
@@ -608,13 +796,13 @@ public class ReturnDiskV2  extends DialogBox implements Initializable{
 
 		try {
 
-			textFind=cbcIdProduct.getSelectionModel().getSelectedItem().toString().trim();
+			textFind=txtProductId.getText().toString();//.getSelectionModel().getSelectedItem().toString().trim();
 
 		} catch (Exception e2) {
 
 			Error("Bạn chưa nhập tìm kiếm", btnThanhToan);
 
-			cbcIdProduct.requestFocus();
+			txtProductId.requestFocus();
 
 		}
 
@@ -622,14 +810,12 @@ public class ReturnDiskV2  extends DialogBox implements Initializable{
 
 			Error("Bạn chưa nhập tìm kiếm", btnExit);
 
-			cbcIdProduct.requestFocus();
+			txtProductId.requestFocus();
 
 			return;
 
 		}
 
-
-		//		Customer customerFind=customerService.findCustomerById(textFind);
 
 		Product product = productService.findProductById(textFind);
 
@@ -637,14 +823,13 @@ public class ReturnDiskV2  extends DialogBox implements Initializable{
 
 			Error("Không tìm thấy", btnExit);
 
-			cbcIdProduct.requestFocus();
+			txtProductId.requestFocus();
 
 			return;
 
 		}else {
-			cbcIdProduct.setValue(product.getProductId());
+			txtProductId.setText(product.getProductId());
 			txtNameProduct.setText(product.getName());
-			//			txtQuantityProduct.setText(String.valueOf(product.getQuantity()));
 			txtDescriptionProduct.setText(product.getDescription());
 			txtStatusProduct.setText(product.getStatus());
 
@@ -654,23 +839,23 @@ public class ReturnDiskV2  extends DialogBox implements Initializable{
 	}
 
 	private void loadDataSearchIdProduct() {
-		ObservableList<String> items = FXCollections.observableArrayList();
-
-		List<Product> accs=productService.listProduct();
-
-		accs.forEach(t->{
-
-			items.add(t.getProductId());
-
-		});
-
-		FilteredList<String> filteredItems = new FilteredList<String>(items);
-
-		cbcIdProduct.getEditor().textProperty().addListener(new InputFilter(cbcIdProduct, filteredItems, false));
-
-		cbcIdProduct.setItems(filteredItems);
-
-		cbcIdProduct.setEditable(true);
+		//		ObservableList<String> items = FXCollections.observableArrayList();
+		//
+		//		List<Product> accs=productService.listProduct();
+		//
+		//		accs.forEach(t->{
+		//
+		//			items.add(t.getProductId());
+		//
+		//		});
+		//
+		//		FilteredList<String> filteredItems = new FilteredList<String>(items);
+		//
+		//		txtProductId.getEditor().textProperty().addListener(new InputFilter(cbcIdProduct, filteredItems, false));
+		//
+		//		txtProductId.setItems(filteredItems);
+		//
+		//		txtProductId.setEditable(true);
 	}
 
 	private void loadDataSearchCustomer() {
@@ -709,8 +894,6 @@ public class ReturnDiskV2  extends DialogBox implements Initializable{
 	}
 
 	public void btnOKRenDisk(ActionEvent e) throws IOException {
-
-		
 		String textFind=null;
 
 		if(rdIdCustomer.isSelected()) {
@@ -763,7 +946,7 @@ public class ReturnDiskV2  extends DialogBox implements Initializable{
 
 			Error("Chưa có đĩa nào", btnThanhToan);
 
-			cbcIdProduct.requestFocus();
+			txtProductId.requestFocus();
 
 			return;
 
@@ -772,14 +955,14 @@ public class ReturnDiskV2  extends DialogBox implements Initializable{
 		Customer customerFind = customer;
 
 		for(int i=0;i<listBillDetailWantReturn.size();i++) {
-			
+
 			Bill bill = listBillDetailWantReturn.get(i).getBill();
-			
+
 			if(bill.getBillPay().isBefore(LocalDate.now())) {
 				LateFee lateFee = new LateFee("LF"+ranDomNumber(), listBillDetailWantReturn.get(i).getProduct().getTitle().getCategory().getPriceLateFee()*listBillDetailWantReturn.get(i).getQuantity(), LocalDate.now(), bill, "");
 				lateFeeService.addLateFee(lateFee);
 			}
-			
+
 		}
 
 		for(int i=0;i<listBillDetailWantReturn.size();i++) {
@@ -797,7 +980,7 @@ public class ReturnDiskV2  extends DialogBox implements Initializable{
 			productService.updateProduct(product, product.getProductId());
 		}
 
-		cbcIdProduct.setValue(null);
+		txtProductId.setText("");//.setValue(null);
 
 		txtNameProduct.setText("");
 
@@ -823,7 +1006,49 @@ public class ReturnDiskV2  extends DialogBox implements Initializable{
 		txtDatePickerCustomer.setValue(customerFind.getDateOfBirth());
 
 		lblTotal.setText("");
+
+		tbl_view_billdetailDebt.getItems().clear();
+
+		if(listBill.size()>=1) {
+			listBill.forEach(t->{
+				ArrayList<Bill> listBill = new ArrayList<>();
+				listBill.add(t);
+				ArrayList<BillDetail> listBillDetail=(ArrayList<BillDetail>) billService.findAllBillDetailByIdBill(listBill);
+				if(listBillDetail!=null && listBillDetail.size()>=1) {
+					for(int i=0;i<listBillDetail.size();i++) {
+						tbl_view_billdetailDebt.getItems().add(listBillDetail.get(i));
+					}
+				}
+			});
+		}
 		
+		if(rdThanhToanLuon.isSelected()) {
+			
+			List<LateFee> lateFee = lateFeeService.findAllLteFeeByIdCustomer(customerFind.getCustomerId());
+			if(lateFee!=null && lateFee.size()>=1) {
+				lateFee.forEach(t->{
+					lateFeeService.removeLateFee(t.getLateFeetId());
+				});
+			}
+			
+			txtPriceLateFee.setText("");
+			rdBuaSauTT.setDisable(true);
+			rdThanhToanLuon.setDisable(true);
+			
+		}else {
+			int countPriceFee = 0 ;
+			List<LateFee> lateFee = lateFeeService.findAllLteFeeByIdCustomer(customerFind.getCustomerId());
+			if(lateFee!=null && lateFee.size()>=1) {
+				for(int i=0;i<lateFee.size();i++) {
+					countPriceFee+=lateFee.get(i).getPrice();
+				}
+				txtPriceLateFee.setText(df.format(countPriceFee));
+				rdBuaSauTT.setSelected(true);
+			}
+		}
+		
+		
+
 		Success("Trả đĩa thành công", btnExit);
 
 	}

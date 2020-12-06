@@ -2,6 +2,7 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXRadioButton?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ComboBox?>
@@ -162,6 +163,36 @@
                         <Insets top="10.0" />
                      </VBox.margin>
                   </HBox>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Label text="Phí trễ đang nợ :" textFill="RED">
+                           <HBox.margin>
+                              <Insets left="20.0" top="20.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="txtPriceLateFee" contentDisplay="CENTER" text="0" textFill="#e50000">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="20.0" top="20.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <JFXRadioButton fx:id="rdBuaSauTT" onAction="#actionBuaSauThanhToan" selected="true" text="Bữa sau thanh toán">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="ThanhToan" />
+                           </toggleGroup>
+                        </JFXRadioButton>
+                        <JFXRadioButton fx:id="rdThanhToanLuon" onAction="#actionThanhToanLuon" text="Thanh toán luôn" toggleGroup="$ThanhToan" />
+                     </children>
+                  </HBox>
                </children>
             </VBox>
             <HBox prefHeight="100.0" prefWidth="200.0" />
@@ -240,11 +271,11 @@
                   </HBox>
                   <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <ComboBox fx:id="cbcIdProduct" prefHeight="25.0" prefWidth="195.0">
+                        <JFXTextField fx:id="txtProductId" prefHeight="26.0" prefWidth="158.0">
                            <HBox.margin>
                               <Insets left="20.0" right="20.0" />
                            </HBox.margin>
-                        </ComboBox>
+                        </JFXTextField>
                         <JFXButton onAction="#findItemInTableIdProduct" prefHeight="25.0" prefWidth="47.0" styleClass="btnLogin" stylesheets="@../css/application.css" text="Tìm" />
                         <JFXButton onAction="#clickChooseProduct" styleClass="btnExit" stylesheets="@../css/application.css" text="Chọn">
                            <HBox.margin>
@@ -384,7 +415,7 @@
       </VBox>
    </center>
    <right>
-      <BorderPane fx:id="bd" prefHeight="364.0" prefWidth="622.0" BorderPane.alignment="CENTER">
+      <BorderPane fx:id="bd" prefHeight="588.0" prefWidth="670.0" BorderPane.alignment="CENTER">
          <bottom>
             <HBox prefHeight="43.0" prefWidth="735.0" BorderPane.alignment="CENTER">
                <children>
@@ -395,7 +426,11 @@
                         <HBox prefHeight="39.0" prefWidth="735.0" />
                         <HBox prefHeight="99.0" prefWidth="622.0">
                            <children>
-                              <Label alignment="CENTER" prefHeight="37.0" prefWidth="573.0" text="Tổng tiền" />
+                              <Label prefHeight="38.0" prefWidth="353.0" text="Danh sách đĩa đang mượn" />
+                              <Label alignment="CENTER_RIGHT" prefHeight="38.0" prefWidth="215.0" text="Tổng tiền">
+                                 <padding>
+                                    <Insets right="20.0" />
+                                 </padding></Label>
                               <Label fx:id="lblTotal" prefHeight="44.0" prefWidth="318.0" text="................................................................$" />
                            </children>
                         </HBox>
@@ -406,12 +441,15 @@
             </HBox>
          </bottom>
          <right>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
+            <VBox alignment="CENTER" prefHeight="545.0" prefWidth="72.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
                <children>
                   <JFXButton onAction="#clickDeleteOrderInTable" styleClass="btnExit" stylesheets="@../css/application.css" text="Xóa" textFill="WHITE" />
                </children>
             </VBox>
          </right>
+         <left>
+            <BorderPane fx:id="bdBillDetailDebt" prefHeight="545.0" prefWidth="287.0" BorderPane.alignment="CENTER" />
+         </left>
       </BorderPane>
    </right>
 </BorderPane>
