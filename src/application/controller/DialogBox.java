@@ -49,6 +49,7 @@ public class DialogBox  implements Initializable{
 
 	static final String loadFormAddCustomer="../fxml/FormAddCustomer.fxml";
 
+	static final String loadFormDetailOrder = "../fxml/FormDetailOrder.fxml";
 
 	static final String loadFormRentDisk="../fxml/FormRentDisk.fxml";
 

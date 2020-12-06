@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="mainBd" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="507.0" prefWidth="1105.0" stylesheets="@../css/application.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.FormDetailOrder">
+   <left>
+      <VBox prefHeight="423.0" prefWidth="277.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label text="Order">
+               <VBox.margin>
+                  <Insets left="20.0" top="20.0" />
+               </VBox.margin></Label>
+            <Label prefHeight="53.0" prefWidth="277.0" text="Mã order">
+               <font>
+                  <Font name="Calibri Light" size="18.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="20.0" right="20.0" top="10.0" />
+               </VBox.margin>
+            </Label>
+            <JFXTextField fx:id="txtOrderMa">
+               <VBox.margin>
+                  <Insets left="20.0" right="20.0" />
+               </VBox.margin></JFXTextField>
+            <Label prefHeight="53.0" prefWidth="277.0" text="Ngày đặt">
+               <font>
+                  <Font name="Calibri Light" size="18.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="20.0" right="20.0" />
+               </VBox.margin>
+            </Label>
+            <JFXDatePicker fx:id="txtOrderDate" prefHeight="28.0" prefWidth="327.0">
+               <VBox.margin>
+                  <Insets left="20.0" right="20.0" />
+               </VBox.margin>
+            </JFXDatePicker>
+         </children>
+      </VBox>
+   </left>
+   <center>
+      <VBox prefHeight="423.0" prefWidth="302.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label text="Khách hàng">
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin></Label>
+            <HBox prefHeight="15.0" prefWidth="299.0">
+               <children>
+                  <Label prefHeight="22.0" prefWidth="122.0" text="Mã khách hàng">
+                     <font>
+                        <Font name="Calibri Light" size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets top="20.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox prefHeight="29.0" prefWidth="299.0">
+               <children>
+                  <JFXTextField fx:id="txtCustomerId" prefHeight="26.0" prefWidth="310.0">
+                     <HBox.margin>
+                        <Insets top="18.0" />
+                     </HBox.margin>
+                  </JFXTextField>
+               </children>
+            </HBox>
+            <HBox prefHeight="15.0" prefWidth="299.0">
+               <children>
+                  <Label prefHeight="22.0" prefWidth="124.0" text="Điện thoại">
+                     <font>
+                        <Font name="Calibri Light" size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets top="10.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox prefHeight="29.0" prefWidth="299.0">
+               <children>
+                  <JFXTextField fx:id="txtCustomerPhone" prefHeight="26.0" prefWidth="312.0" />
+               </children>
+            </HBox>
+            <Label prefHeight="40.0" prefWidth="277.0" text="Tên">
+               <font>
+                  <Font name="Calibri Light" size="18.0" />
+               </font>
+            </Label>
+            <JFXTextField fx:id="txtCustomerName">
+               <VBox.margin>
+                  <Insets right="20.0" top="2.0" />
+               </VBox.margin></JFXTextField>
+            <Label prefHeight="40.0" prefWidth="277.0" text="Địa chỉ">
+               <font>
+                  <Font name="Calibri Light" size="18.0" />
+               </font>
+            </Label>
+            <JFXTextField fx:id="txtCustomerAddress">
+               <VBox.margin>
+                  <Insets right="20.0" />
+               </VBox.margin></JFXTextField>
+         </children>
+      </VBox>
+   </center>
+   <right>
+      <VBox prefHeight="368.0" prefWidth="493.0" BorderPane.alignment="CENTER">
+         <children>
+            <BorderPane fx:id="bdDS" prefHeight="368.0" prefWidth="530.0">
+               <top>
+                  <Label text="Title" BorderPane.alignment="CENTER">
+                     <BorderPane.margin>
+                        <Insets top="20.0" />
+                     </BorderPane.margin>
+                  </Label>
+               </top>
+               <center>
+                  <BorderPane fx:id="bdRight" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                     <top>
+                        <Label text="title đơn đặt" BorderPane.alignment="CENTER" />
+                     </top>
+                     <bottom>
+                        <HBox alignment="CENTER" prefHeight="38.0" prefWidth="356.0" BorderPane.alignment="CENTER" />
+                     </bottom>
+                  </BorderPane>
+               </center>
+            </BorderPane>
+         </children></VBox>
+   </right>
+   <top>
+      <HBox alignment="CENTER_RIGHT" prefHeight="39.0" prefWidth="600.0" style="-fx-background-color: rgb(23,35,51);" BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="lblTitle" alignment="CENTER" contentDisplay="CENTER" prefHeight="39.0" prefWidth="1228.0" text="Chi tiết đơn hàng" textFill="WHITE">
+               <font>
+                  <Font name="Calibri Light" size="18.0" />
+               </font>
+            </Label>
+            <JFXButton alignment="TOP_RIGHT" contentDisplay="RIGHT" onAction="#btnCLoseWindow" prefHeight="25.0" prefWidth="28.0" text="X" textFill="WHITE">
+               <font>
+                  <Font name="Calibri Light" size="17.0" />
+               </font>
+            </JFXButton>
+         </children>
+      </HBox>
+   </top>
+   <bottom>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <JFXButton fx:id="btn" onAction="#btnCLoseWindow" prefHeight="37.0" prefWidth="129.0" styleClass="btnLogin" stylesheets="@../css/application.css" text="Thoát">
+               <HBox.margin>
+                  <Insets right="20.0" />
+               </HBox.margin>
+            </JFXButton>
+            <JFXButton onAction="#CLickOK" prefHeight="39.0" prefWidth="121.0" styleClass="btnLogin" stylesheets="@../css/application.css" text="Xác nhận">
+               <HBox.margin>
+                  <Insets right="20.0" />
+               </HBox.margin>
+            </JFXButton>
+         </children>
+      </HBox>
+   </bottom>
+</BorderPane>

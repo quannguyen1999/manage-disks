@@ -86,6 +86,8 @@ public class FormManageOrder extends DialogBox implements Initializable{
 		loadDataSearch();
 		
 		loadDataSearchKh();
+		
+		setActionForTable();
 
 		cbc.setDisable(true);
 		cbcIdKh.setDisable(true);
@@ -93,6 +95,43 @@ public class FormManageOrder extends DialogBox implements Initializable{
 		
 		cbcPhoneKh.setEditable(true);
 
+	}
+	
+	public void setActionForTable() {
+		tbl_view.setOnMouseClicked(e->{
+			if(e.getClickCount()==2) {
+				int result=tbl_view.getSelectionModel().getSelectedIndex();
+				FXMLLoader loader= new FXMLLoader(getClass().getResource(loadFormDetailOrder));
+
+				Parent root=null;
+				try {
+					root = loader.load();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+
+				FormDetailOrder ctlMain=loader.getController();
+				
+				ctlMain.txtCustomerId.setText(tbl_view.getItems().get(result).getCustomer().getCustomerId());
+				
+				ctlMain.txtCustomerName.setText(tbl_view.getItems().get(result).getCustomer().getName());
+				
+				ctlMain.txtCustomerPhone.setText(tbl_view.getItems().get(result).getCustomer().getPhone());
+				
+				ctlMain.txtCustomerAddress.setText(tbl_view.getItems().get(result).getCustomer().getAddress());
+				
+				ctlMain.txtOrderDate.setValue(tbl_view.getItems().get(result).getOrderDate());
+				
+				ctlMain.txtOrderMa.setText(tbl_view.getItems().get(result).getOrderId());
+				
+				ctlMain.loadListTitle(tbl_view.getItems().get(result).getOrderId());
+
+				loadFXML(root,btnRefresh).setOnHidden(ev->{
+
+
+				});;
+			}
+		});
 	}
 
 	public void clickRdOne(ActionEvent e) {
