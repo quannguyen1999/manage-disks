@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-02-27T08:55:13.099Z" agent="5.0 (X11)" etag="MWfBTKTTU7FEORenTFcX" version="13.7.5" type="github">
+<mxfile host="app.diagrams.net" modified="2021-02-27T08:56:42.358Z" agent="5.0 (X11)" etag="90_voQuuSrrWmmAE6kMF" version="13.7.5" type="github">
   <diagram id="V_59LSjMR8o1_XHd9Hdq" name="Page-1">
     <mxGraphModel dx="2272" dy="1860" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -158,9 +158,11 @@
         <mxCell id="hu1bkPcSUCPwq1X6XEAL-12" value="userType: UserType" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="hu1bkPcSUCPwq1X6XEAL-8">
           <mxGeometry y="78" width="140" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="hu1bkPcSUCPwq1X6XEAL-13" value="email: String" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="hu1bkPcSUCPwq1X6XEAL-8">
-          <mxGeometry y="104" width="140" height="26" as="geometry" />
-        </mxCell>
+        <object label="email: String" id="hu1bkPcSUCPwq1X6XEAL-13">
+          <mxCell style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="hu1bkPcSUCPwq1X6XEAL-8">
+            <mxGeometry y="104" width="140" height="26" as="geometry" />
+          </mxCell>
+        </object>
         <mxCell id="hu1bkPcSUCPwq1X6XEAL-14" value="fullname: String" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="hu1bkPcSUCPwq1X6XEAL-8">
           <mxGeometry y="130" width="140" height="26" as="geometry" />
         </mxCell>
@@ -173,9 +175,11 @@
         <mxCell id="hu1bkPcSUCPwq1X6XEAL-71" value="gender: Boolean" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="hu1bkPcSUCPwq1X6XEAL-8">
           <mxGeometry y="208" width="140" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="hu1bkPcSUCPwq1X6XEAL-59" value="Active: Boolean" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="hu1bkPcSUCPwq1X6XEAL-8">
-          <mxGeometry y="234" width="140" height="26" as="geometry" />
-        </mxCell>
+        <object label="Active: Boolean" placeholders="1" id="hu1bkPcSUCPwq1X6XEAL-59">
+          <mxCell style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="hu1bkPcSUCPwq1X6XEAL-8">
+            <mxGeometry y="234" width="140" height="26" as="geometry" />
+          </mxCell>
+        </object>
         <mxCell id="hu1bkPcSUCPwq1X6XEAL-3" value="UserType" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" vertex="1" parent="1">
           <mxGeometry x="-390" y="69" width="80" height="78" as="geometry" />
         </mxCell>
