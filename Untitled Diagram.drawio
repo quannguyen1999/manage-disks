@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-02-28T08:32:59.212Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.182 Safari/537.36 Edg/88.0.705.81" etag="O-LUWg2paJuYnvNkfi_R" version="14.4.3" type="github">
+<mxfile host="app.diagrams.net" modified="2021-02-28T08:43:45.621Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.182 Safari/537.36 Edg/88.0.705.81" etag="w8_x_g_E36_Cod2zu3Ch" version="14.4.3" type="github">
   <diagram id="V_59LSjMR8o1_XHd9Hdq" name="Page-1">
     <mxGraphModel dx="1831" dy="1924" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -40,11 +40,6 @@
         <mxCell id="hu1bkPcSUCPwq1X6XEAL-81" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="hu1bkPcSUCPwq1X6XEAL-77" target="hu1bkPcSUCPwq1X6XEAL-36" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="hu1bkPcSUCPwq1X6XEAL-86" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" target="hu1bkPcSUCPwq1X6XEAL-25" edge="1">
-          <mxGeometry relative="1" as="geometry">
-            <mxPoint x="235" y="-320" as="sourcePoint" />
-          </mxGeometry>
-        </mxCell>
         <mxCell id="hu1bkPcSUCPwq1X6XEAL-96" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.45;entryY=-0.023;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="hu1bkPcSUCPwq1X6XEAL-65" target="hu1bkPcSUCPwq1X6XEAL-16" edge="1">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
@@ -55,9 +50,6 @@
         </mxCell>
         <mxCell id="hu1bkPcSUCPwq1X6XEAL-97" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="hu1bkPcSUCPwq1X6XEAL-65" target="hu1bkPcSUCPwq1X6XEAL-77" edge="1">
           <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="hu1bkPcSUCPwq1X6XEAL-99" value="embed" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;" parent="1" vertex="1">
-          <mxGeometry x="240" y="-320" width="50" height="20" as="geometry" />
         </mxCell>
         <mxCell id="hu1bkPcSUCPwq1X6XEAL-65" value="Province" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" parent="1" vertex="1">
           <mxGeometry x="430" y="-320" width="140" height="78" as="geometry" />
@@ -228,7 +220,7 @@
         <mxCell id="g0eFvDpEAOizdeeZ9maA-8" value="_id: UUID" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="g0eFvDpEAOizdeeZ9maA-7">
           <mxGeometry y="26" width="140" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="g0eFvDpEAOizdeeZ9maA-9" value="timeBegin: LocalTime" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="g0eFvDpEAOizdeeZ9maA-7">
+        <mxCell id="g0eFvDpEAOizdeeZ9maA-9" value="timeFinish: LocalTime" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="g0eFvDpEAOizdeeZ9maA-7">
           <mxGeometry y="52" width="140" height="26" as="geometry" />
         </mxCell>
         <mxCell id="g0eFvDpEAOizdeeZ9maA-10" value="_id_trip: Trip" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="g0eFvDpEAOizdeeZ9maA-7">
