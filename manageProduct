@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-05-21T19:54:14.543Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36 Edg/90.0.818.66" etag="r7YflJW8NjOYJcN7sMke" version="14.6.13" type="github">
+<mxfile host="app.diagrams.net" modified="2021-05-21T19:55:10.741Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36 Edg/90.0.818.66" etag="LJkbOuW0xHN5JDN2FVyK" version="14.6.13" type="github">
   <diagram id="9FlCs76WVv1fmLiFxVyX" name="Page-1">
     <mxGraphModel dx="981" dy="824" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -146,7 +146,7 @@
         <mxCell id="PbQOaYavvSsLqdC94ouY-68" value="Quantity: int" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="PbQOaYavvSsLqdC94ouY-51">
           <mxGeometry y="78" width="135" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="PbQOaYavvSsLqdC94ouY-69" value="TotalAmmount: int" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="PbQOaYavvSsLqdC94ouY-51">
+        <mxCell id="PbQOaYavvSsLqdC94ouY-69" value="TotalAmount: int" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="PbQOaYavvSsLqdC94ouY-51">
           <mxGeometry y="104" width="135" height="26" as="geometry" />
         </mxCell>
         <mxCell id="PbQOaYavvSsLqdC94ouY-70" value="TypeAccount" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" vertex="1" parent="1">
